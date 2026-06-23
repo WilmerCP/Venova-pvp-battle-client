@@ -1,0 +1,36 @@
+{
+  "name": "battles",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"vite\" \"wait-on http://localhost:5173 && nodemon --watch main.js --watch preload.js --exec electron .\"",
+    "build:renderer": "vite build",
+    "build": "npm run build:renderer && electron-builder"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.1",
+    "pokemon-showdown": "^0.11.7",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-icons": "^5.6.0",
+    "react-router-dom": "^7.18.0",
+    "tailwindcss": "^4.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.2",
+    "concurrently": "^10.0.3",
+    "electron": "^42.4.1",
+    "nodemon": "^3.1.14",
+    "vite": "^8.0.16",
+    "wait-on": "^9.0.10"
+  },
+  "overrides": {
+    "yauzl": "^3.3.1"
+  }
+}

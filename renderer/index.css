@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+.status {
+  background-image: url('./assets/icons/battleStatuses.png');
+  width: 44px;
+  height: 16px;
+  background-repeat: no-repeat;
+}
+
+.status-asleep { background-position: 0px 0px; }   /* DOR */
+.status-poisoned { background-position: 0px -16px; }  /* ENV */
+.status-burned { background-position: 0px -32px; }  /* QUE */
+.status-paralyzed { background-position: 0px -48px; }  /* PAR */
+.status-frozen { background-position: 0px -64px; }  /* COM */
+
+.female { color: rgb(211, 94, 133);}
+.male { color: rgb(0, 162, 255);}

@@ -25,88 +25,88 @@ const POKEMON_TYPES = {
     color: "#919AA2",
     image: normal
   },
-  Fuego: {
-    name: "Fuego",
+  Fire: {
+    name: "Fire",
     color: "#FF9741",
     image: fuego
   },
-  Agua: {
-    name: "Agua",
+  Water: {
+    name: "Water",
     color: "#4C92DF",
     image: agua
   },
-  Planta: {
-    name: "Planta",
+  Grass: {
+    name: "Grass",
     color: "#63BC5A",
     image: planta
   },
-  Electrico: {
-    name: "Eléctrico",
+  Electric: {
+    name: "Electric",
     color: "#F6D030",
     image: electrico
   },
-  Hielo: {
-    name: "Hielo",
+  Ice: {
+    name: "Ice",
     color: "#65CCBD",
     image: hielo
   },
-  Lucha: {
-    name: "Lucha",
+  Fighting: {
+    name: "Fighting",
     color: "#CE4069",
     image: lucha
   },
-  Veneno: {
-    name: "Veneno",
+  Poison: {
+    name: "Poison",
     color: "#AA66CC",
     image: veneno
   },
-  Tierra: {
-    name: "Tierra",
+  Ground: {
+    name: "Ground",
     color: "#D97746",
     image: tierra
   },
-  Volador: {
-    name: "Volador",
+  Flying: {
+    name: "Flying",
     color: "#89AAE3",
     image: volador
   },
-  Psiquico: {
-    name: "Psíquico",
+  Psychic: {
+    name: "Psychic",
     color: "#FA6C76",
     image: psiquico
   },
-  Bicho: {
-    name: "Bicho",
+  Bug: {
+    name: "Bug",
     color: "#91C12F",
     image: bicho
   },
-  Roca: {
-    name: "Roca",
+  Rock: {
+    name: "Rock",
     color: "#C5B679",
     image: roca
   },
-  Fantasma: {
-    name: "Fantasma",
+  Ghost: {
+    name: "Ghost",
     color: "#5269AC",
     image: fantasma
   },
   Dragon: {
-    name: "Dragón",
+    name: "Dragon",
     color: "#4C63B6",
     image: dragon
   },
-  Siniestro: {
-    name: "Siniestro",
+  Dark: {
+    name: "Dark",
     color: "#5A5366",
     image: siniestro
   },
-  Acero: {
-    name: "Acero",
+  Steel: {
+    name: "Steel",
     color: "#5A8EA1",
     image: acero
   },
-  Hada: {
-    name: "Hada",
+  Fairy: {
+    name: "Fairy",
     color: "#EC8FE6",
     image: hada
   }

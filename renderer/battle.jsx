@@ -3,43 +3,106 @@ import bg from './assets/fondos/battlebgChampion.png'
 
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { useLoaderData } from 'react-router-dom'
 import BattleControlBox from './components/BattleControlBox.jsx'
 import PokeStatusBar from './components/PokeStatusBar.jsx'
 
 let p1 = {
 
-    name: 'Iguasauro',
+    playerName: 'Jugador 1',
+    pkmName: 'Iguasauro',
     shiny: false,
     maxHP: 100,
     currentHP: 100,
     level: 50,
     gender: 'male',
-    status: 'paralyzed',
-    number: 20
+    status: 'none',
+    number: 80
 
 
 }
 
 let p2 = {
 
-    name: 'Zacarth',
+    playerName: 'Jugador 2',
+    pkmName: 'Zacarth',
     shiny: false,
     maxHP: 100,
-    currentHP: 50,
+    currentHP: 100,
     level: 50,
     gender: 'female',
-    status: 'poisoned',
+    status: 'none',
     number: 150
 
 }
 
-let battleLog = `¡Un ${p2.name} salvaje apareció!`
+const movesTemplate = [
+    { move: 'Mordisco', pp: 15, maxpp: 15, type: 'Dark', disabled: false, target: 'normal' },
+    { move: 'Garra Dragon', pp: 10, maxpp: 10, type: 'Dragon', disabled: false, target: 'self' },
+    { move: 'Lanzallamas', pp: 5, maxpp: 8, type: 'Fire', disabled: false, target: 'normal' },
+    { move: 'Velocidad Extrema', pp: 5, maxpp: 5, type: 'Normal', disabled: false, target: 'normal' },
+]
+
+
+
 
 export default function Battle() {
 
     const [battlerSrcs, setBattlerSrcs] = useState({});
 
+    const [player1, setPlayer1] = useState(p1);
+    const [player2, setPlayer2] = useState(p2);
+
+    const [battleLog, setBattleLog] = useState('');
+
+    const [availableMoves, setAvailableMoves] = useState(movesTemplate);
+
+    const battleData = useLoaderData();
+
+    //console.log(battleData)
+
     const navigate = useNavigate()
+
+    useEffect(() => {
+        window.electronAPI.onPlayer((data) => {
+
+            if (data.id === 'p1') {
+                setPlayer1((prev) => ({ ...prev, playerName: data.name }))
+            }
+
+            if (data.id === 'p2') {
+                setPlayer2((prev) => ({ ...prev, playerName: data.name }))
+            }
+
+        })
+
+        return () => {
+            window.electronAPI.offPlayer()
+        }
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onSwitch((data) => {
+            if (data.player === 'p1') {
+                setPlayer1((prev) => ({ ...prev, pkmName: data.name, number: data.num }))
+            }
+
+            if (data.player === 'p2') {
+                setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num }))
+                setBattleLog(`¡Un ${data.name} salvaje apareció!`)
+            }
+        })
+        return () => window.electronAPI.offSwitch()
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onTeam((data) => {
+            setAvailableMoves(data.active[0].moves)
+            console.log('Available moves updated:', data.active[0].moves)
+        })
+        return () => window.electronAPI.offTeam()
+    }, [])
+
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -64,20 +127,19 @@ export default function Battle() {
     }
 
     async function getBattlerSrc(number, { back = false, shiny = false } = {}) {
-        const suffix = `${back ? 'b' : ''}${shiny ? 's' : ''}`;
-        const key = `./assets/battlers/${String(number).padStart(3, '0')}${suffix}.png`;
-        const module = await import(key);
-        return module.default;
+        const suffix = `${shiny ? 's' : ''}${back ? 'b' : ''}`;
+        const key = `${String(number).padStart(3, '0')}${suffix}.png`;
+        return `/battlers/${key}`;
     }
 
     useEffect(() => {
         async function load() {
-            const src1 = await getBattlerSrc(p1.number, { back: true, shiny: p1.shiny });
-            const src2 = await getBattlerSrc(p2.number, { back: false, shiny: p2.shiny });
+            const src1 = await getBattlerSrc(player1.number, { back: true, shiny: player1.shiny });
+            const src2 = await getBattlerSrc(player2.number, { back: false, shiny: player2.shiny });
             setBattlerSrcs({ src1, src2 });
         }
         load();
-    }, []);
+    }, [player1.number, player2.number]);
 
 
     return (
@@ -92,23 +154,25 @@ export default function Battle() {
             {/* Sprite enemigo - arriba derecha */}
             <img
                 src={battlerSrcs.src2}
+                onError={(e) => e.target.src = '/battlers/000.png'}
                 className="absolute top-12 right-12 w-48"
             />
 
             {/* HP del enemigo - flotando junto a su sprite */}
 
-            <PokeStatusBar pkm={p2} positionClasses={'absolute top-24 left-8'} />
+            <PokeStatusBar pkm={player2} positionClasses={'absolute top-24 left-8'} />
 
             {/* Sprite jugador - abajo izquierda */}
             <img
                 src={battlerSrcs.src1}
+                onError={(e) => e.target.src = '/battlers/000.png'}
                 className="absolute bottom-32 left-12 w-64"
             />
 
             {/* HP del jugador - flotando junto a su sprite */}
-            <PokeStatusBar pkm={p1} positionClasses={'absolute bottom-48 right-12'} />
+            <PokeStatusBar pkm={player1} positionClasses={'absolute bottom-48 right-12'} />
 
-            <BattleControlBox battleLog={battleLog} handlers={handlers} />
+            <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} handlers={handlers} />
 
 
         </div>

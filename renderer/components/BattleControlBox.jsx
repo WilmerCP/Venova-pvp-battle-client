@@ -4,7 +4,7 @@ import MoveMenu from './MovesMenu.jsx'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-export default function BattleControlBox({ battleLog, handlers }) {
+export default function BattleControlBox({ battleLog, handlers, availableMoves }) {
 
 const [menuState, setMenuState] = useState('main') // 'main' | 'moves'
 
@@ -31,6 +31,7 @@ const [menuState, setMenuState] = useState('main') // 'main' | 'moves'
           <MoveMenu
             onSelectMove={handlers.onSelectMove}
             onBack={() => setMenuState('main')}
+            availableMoves={availableMoves}
           />
         )}
       </div>

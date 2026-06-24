@@ -4,15 +4,7 @@ import { PiShootingStarFill } from "react-icons/pi";
 import { TiArrowBack } from "react-icons/ti";
 import MoveButton from './MoveButton.jsx';
 
-let moves = [
-    { name: 'Mordisco', pp: 15, maxPp: 15, tipo: 'Siniestro' },
-    { name: 'Garra Dragon', pp: 10, maxPp: 10, tipo: 'Dragon' },
-    { name: 'Lanzallamas', pp: 5, maxPp: 8, tipo: 'Fuego' },
-    { name: 'Velocidad Extrema', pp: 5, maxPp: 5, tipo: 'Normal' }
-]
-
-
-export default function MoveMenu({ onSelectMove, onBack }) {
+export default function MoveMenu({ onSelectMove, onBack, availableMoves }) {
     return (
 
         <div className="flex flex-row justify-between gap-2 p-2">
@@ -43,9 +35,9 @@ export default function MoveMenu({ onSelectMove, onBack }) {
             </div>
             <div className="grid grid-cols-2 gap-3">
 
-                {moves.map((move) => (
+                {availableMoves.map((move) => (
 
-                    <MoveButton key={move.name} name={move.name} type={move.tipo} ppCurrent={move.pp} ppMax={move.maxPp} onSelectMove={onSelectMove}/>
+                    <MoveButton key={move.move} name={move.move} type={move.type} ppCurrent={move.pp} ppMax={move.maxpp} onSelectMove={onSelectMove}/>
 
                 ))}
 

@@ -1,5 +1,16 @@
 const { Dex } = require('pokemon-showdown')
 
+function parsePokemonId(id) {
+    if (!id) return null // handles blank target on multi/no-target moves
+
+    const [position, name] = id.split(': ')
+    // position is like "p1a" — player is first 2 chars, slot letter is the rest
+    const player = position.slice(0, 2)   // 'p1' or 'p2'
+    const slot = position.slice(2)        // 'a', 'b', 'c'... blank in some contexts
+
+    return { player, slot, name }
+}
+
 function parseUpdate(content, win) {
     const lines = content.split('\n')
 
@@ -18,9 +29,23 @@ function parseUpdate(content, win) {
 
                 break
 
-            case 'move':
-                // |move|p1a: Pikachu|Thunderbolt|p2a: Squirtle
-                console.log(`${parts[2]} used ${parts[3]}`)
+            case 'move': {
+                const source = parsePokemonId(parts[2])
+                const target = parsePokemonId(parts[4])
+                const move = parts[3]
+
+                const tags = parts.slice(5)
+                const missed = tags.includes('[miss]')
+
+                console.log(`${source.player} ${source.name} used ${move}`)
+
+                win.webContents.send('move', { source, target, move, missed })
+                break
+            }
+
+            case 'split':
+                // |split|p2
+                console.log(`Next message have secret and public version`)
                 break
 
             case 'switch':
@@ -35,6 +60,14 @@ function parseUpdate(content, win) {
 
                 const species = Dex.species.get(speciesName)
                 const num = species.num // 25
+
+                const hp = parts[4];
+
+                if (hp.endsWith('/100')) {
+
+                    break
+
+                }
 
                 win.webContents.send('switch', {
                     player: playerId,   // 'p1'
@@ -56,6 +89,17 @@ function parseUpdate(content, win) {
 
             case 'faint':
                 console.log(`${parts[2]} fainted`)
+
+                const pos = parts[2].split(': ')[0] // 'p1a'
+                const pId = pos.slice(0, 2)     // 'p1'
+
+                const specName = parts[2].split(': ')[1] // 'Pikachu'
+
+                win.webContents.send('faint', {
+                    player: pId,   // 'p1'
+                    name: specName,  // 'Pikachu'
+                })
+
                 break
 
             case 'win':
@@ -68,15 +112,35 @@ function parseUpdate(content, win) {
 
             case 'request':
                 // parts[2] is a JSON string with available moves/switches
+
+                //console.log('Request received:', line)
                 const request = JSON.parse(parts[2])
 
-                for (const move of request.active[0].moves) {
-                    const moveInfo = Dex.moves.get(move.move)
-                    move.type = moveInfo.type
-                    move.description = moveInfo.desc  
+                if (request.wait) {
+                    console.log('Waiting on opponent')
+                    win.webContents.send('wait', request)
+                    break
                 }
-                
-                win.webContents.send('team', request)
+
+                if (request.forceSwitch !== undefined) {
+                    console.log('Force switch required')
+                    win.webContents.send('forceSwitch', request)
+
+                    break
+                }
+
+                if (request.side.id === 'p1') {
+
+                    console.log('player 1 choice: ', request)
+
+                    for (const move of request.active[0].moves) {
+                        const moveInfo = Dex.moves.get(move.move)
+                        move.type = moveInfo.type
+                        move.description = moveInfo.desc
+                    }
+
+                    win.webContents.send('team', request)
+                }
 
                 break
         }

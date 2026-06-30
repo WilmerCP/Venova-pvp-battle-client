@@ -53,15 +53,23 @@ export default function Battle() {
     const [player1, setPlayer1] = useState(p1);
     const [player2, setPlayer2] = useState(p2);
 
-    const [battleLog, setBattleLog] = useState('');
+    const [battleLog, setBattleLog] = useState([]);
 
     const [availableMoves, setAvailableMoves] = useState(movesTemplate);
+
+    const [waiting, setWaiting] = useState(false); //Waiting for opponent
 
     const battleData = useLoaderData();
 
     //console.log(battleData)
 
     const navigate = useNavigate()
+
+    function addBattleLog(log){
+
+        setBattleLog((prev) => [...prev, log])
+
+    }
 
     useEffect(() => {
         window.electronAPI.onPlayer((data) => {
@@ -89,10 +97,34 @@ export default function Battle() {
 
             if (data.player === 'p2') {
                 setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num }))
-                setBattleLog(`¡Un ${data.name} salvaje apareció!`)
+                addBattleLog(`¡Un ${data.name} salvaje apareció!`)
             }
         })
         return () => window.electronAPI.offSwitch()
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onMove((data) => {
+            const pkm = data.source.player === 'p1' ? player1.pkmName : player2.pkmName;
+            addBattleLog(`${pkm} usó ${data.move}`)
+            setWaiting(false);
+        })
+        return () => window.electronAPI.offMove()
+    }, [player1.pkmName, player2.pkmName])
+
+    useEffect(() => {
+        window.electronAPI.onFaint((data) => {
+            if (data.player === 'p1') {
+                setPlayer1((prev) => ({ ...prev, pkmName: null, number: null }))
+                addBattleLog(`¡${data.name} se debilitó!`)
+            }
+
+            if (data.player === 'p2') {
+                setPlayer2((prev) => ({ ...prev, pkmName: null, number: null }))
+                addBattleLog(`¡El ${data.name} salvaje se debilitó!`)
+            }
+        })
+        return () => window.electronAPI.offFaint()
     }, [])
 
     useEffect(() => {
@@ -101,6 +133,31 @@ export default function Battle() {
             console.log('Available moves updated:', data.active[0].moves)
         })
         return () => window.electronAPI.offTeam()
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onForceSwitch((data) => {
+            if (data.side.id === 'p2') {
+                setPlayer2((prev) => ({ ...prev, pkmName: null, number: null }))
+                setWaiting(false);
+            }
+
+            if (data.side.id === 'p1') {
+                //addBattleLog(`¡${player1.pkmName} se ha debilitado!`)
+                setPlayer1((prev) => ({ ...prev, pkmName: null, number: null }))
+
+            }
+        })
+        return () => window.electronAPI.offForceSwitch()
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onWait((data) => {
+
+            setWaiting(true);
+            
+        })
+        return () => window.electronAPI.offWait()
     }, [])
 
 
@@ -122,6 +179,11 @@ export default function Battle() {
 
         onRun: () => {
             navigate('/')
+        },
+
+        onMakeMove: (move) => {
+
+            window.electronAPI.makeMove(move)
         }
 
     }
@@ -152,28 +214,44 @@ export default function Battle() {
                 height: '100vh'
             }}>
             {/* Sprite enemigo - arriba derecha */}
-            <img
-                src={battlerSrcs.src2}
-                onError={(e) => e.target.src = '/battlers/000.png'}
-                className="absolute top-12 right-12 w-48"
-            />
+            {
+                player2.number &&
+                <img
+                    src={battlerSrcs.src2}
+                    onError={(e) => e.target.src = '/battlers/000.png'}
+                    className="absolute top-12 right-12 w-48" />
+            }
 
             {/* HP del enemigo - flotando junto a su sprite */}
 
-            <PokeStatusBar pkm={player2} positionClasses={'absolute top-24 left-8'} />
+            {
+                player2.number &&
+                <PokeStatusBar pkm={player2} positionClasses={'absolute top-24 left-8'} />
+            }
 
             {/* Sprite jugador - abajo izquierda */}
-            <img
-                src={battlerSrcs.src1}
-                onError={(e) => e.target.src = '/battlers/000.png'}
-                className="absolute bottom-32 left-12 w-64"
-            />
+            {player1.number &&
+                <img
+                    src={battlerSrcs.src1}
+                    onError={(e) => e.target.src = '/battlers/000.png'}
+                    className="absolute bottom-32 left-12 w-64"
+                />
+            }
 
             {/* HP del jugador - flotando junto a su sprite */}
-            <PokeStatusBar pkm={player1} positionClasses={'absolute bottom-48 right-12'} />
+            {
+                player1.number &&
+                <PokeStatusBar pkm={player1} positionClasses={'absolute bottom-48 right-12'} />
+
+            }
 
             <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} handlers={handlers} />
 
+            {waiting && (
+                <div className="bg-white p-6 rounded-lg shadow-lg text-center absolute bottom-1/2 left-1/2 transform -translate-x-1/2">
+                        <p>Esperando a que el rival tome una accion...</p>
+                </div>
+            )}
 
         </div>
     )

@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"vite\" \"wait-on http://localhost:5173 && nodemon --watch main.js --watch preload.js --exec electron .\"",
+    "dev": "concurrently \"vite\" \"wait-on http://localhost:5173 && nodemon --watch main.js --watch preload.js --watch utils.js --exec electron .\"",
     "build:renderer": "vite build",
     "build": "npm run build:renderer && electron-builder"
   },

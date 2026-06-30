@@ -5,7 +5,7 @@ export default function MoveButton({ name, type, ppCurrent, ppMax, onSelectMove 
 
   return (
     <button
-      onClick={() => onSelectMove({ name, type, ppCurrent, ppMax })}
+      onClick={() => onSelectMove(name)}
       // 'relative' y 'overflow-hidden' para que la marca de agua se quede dentro del botón
       className="relative overflow-hidden hover:brightness-110 active:translate-y-1 active:border-b-2
                  text-white font-bold py-3 px-4 rounded-xl

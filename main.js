@@ -23,7 +23,7 @@ const createWindow = () => {
       : `file://${path.join(__dirname, '../dist/index.html')}`
   )
 
-  //win.webContents.openDevTools()
+  win.webContents.openDevTools()
 
   return win
 }
@@ -58,7 +58,12 @@ app.whenReady().then(() => {
       console.log('Battle end:', data)
     })
 
+    return { success: true, message: 'Done' }
+  })
 
+  ipcMain.handle('make-move', async (event, move) => {
+    console.log('Making move:', move)
+    socket.emit('make-move', move)
     return { success: true, message: 'Done' }
   })
 

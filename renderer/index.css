@@ -7,11 +7,12 @@
   background-repeat: no-repeat;
 }
 
-.status-asleep { background-position: 0px 0px; }   /* DOR */
-.status-poisoned { background-position: 0px -16px; }  /* ENV */
-.status-burned { background-position: 0px -32px; }  /* QUE */
-.status-paralyzed { background-position: 0px -48px; }  /* PAR */
-.status-frozen { background-position: 0px -64px; }  /* COM */
+.status-slp  { background-position: 0px 0px; }   /* Dormido */
+.status-psn { background-position: 0px -16px; }  /* Envenenado */
+.status-tox  { background-position: 0px -16px; }  /* Gravemente envenenado */
+.status-brn { background-position: 0px -32px; }  /* Quemado */
+.status-par  { background-position: 0px -48px; }  /* Paralizado */
+.status-frz  { background-position: 0px -64px; }  /* Congelado */
 .status-none { background-image: none; }  /* NONE */
 
 .female { color: rgb(211, 94, 133);}

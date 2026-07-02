@@ -16,6 +16,8 @@ export default function BattleControlBox({ battleLog, handlers, availableMoves }
     }
   }, [battleLog])
 
+  const effectiveMenuState = availableMoves.length === 0 ? 'main' : menuState;
+
   return (
     <div className="absolute bottom-0 left-0 right-0 h-40 bg-white border-t-4 border-gray-800
                      grid grid-cols-5">
@@ -31,7 +33,7 @@ export default function BattleControlBox({ battleLog, handlers, availableMoves }
 
       {/* Columna derecha: menú de acciones */}
       <div className="flex items-center justify-center col-span-3">
-        {menuState === 'main' && (
+        {effectiveMenuState === 'main' && (
           <ActionMenu
             onFight={() => setMenuState('moves')}
             onSwitch={handlers.onSwitch}
@@ -39,7 +41,7 @@ export default function BattleControlBox({ battleLog, handlers, availableMoves }
           />
         )}
 
-        {menuState === 'moves' && (
+        {effectiveMenuState === 'moves' && (
           <MoveMenu
             onSelectMove={handlers.onMakeMove}
             onBack={() => setMenuState('main')}

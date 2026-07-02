@@ -1,18 +1,23 @@
 import POKEMON_TYPES from '../lib/tipos.js';
 
-export default function MoveButton({ name, type, ppCurrent, ppMax, onSelectMove }) {
+export default function MoveButton({ name, type, ppCurrent, ppMax, disabled, onSelectMove }) {
   const config = POKEMON_TYPES[type] || POKEMON_TYPES.Normal;
 
   return (
     <button
-      onClick={() => onSelectMove(name)}
+      onClick={() => {
+
+        onSelectMove(name,disabled)
+        
+      }}
+
       // 'relative' y 'overflow-hidden' para que la marca de agua se quede dentro del botón
       className="relative overflow-hidden hover:brightness-110 active:translate-y-1 active:border-b-2
                  text-white font-bold py-3 px-4 rounded-xl
                  transition-all duration-100
                  flex flex-col items-start justify-center w-full h-[64px]"
       style={{
-        backgroundColor: config.color,
+        backgroundColor: disabled ? '#cccccc' : config.color,
         borderBottom: `6px solid rgba(0, 0, 0, 0.4)`,
         boxShadow: 'inset 1px 1px 0px rgba(255,255,255,0.2)',
       }}

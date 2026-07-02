@@ -18,7 +18,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
     offFaint: () => ipcRenderer.removeAllListeners('faint'),
     onMove: (cb) => ipcRenderer.on('move',(event,data)=>cb(data)),
     offMove: () => ipcRenderer.removeAllListeners('move'),
-
+    onDamage: (cb) => ipcRenderer.on('damage',(event,data)=>cb(data)),
+    offDamage: () => ipcRenderer.removeAllListeners('damage'),
+    onStatus: (cb) => ipcRenderer.on('status',(event,data)=>cb(data)),
+    offStatus: () => ipcRenderer.removeAllListeners('status'),
+    onHeal: (cb) => ipcRenderer.on('heal',(event,data)=>cb(data)),
+    offHeal: () => ipcRenderer.removeAllListeners('heal'),
 
 
 });

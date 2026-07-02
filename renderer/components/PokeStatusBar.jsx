@@ -29,7 +29,7 @@ export default function PokeStatusBar({ pkm, positionClasses }) {
                     <div
                         className={`h-2 rounded-full ${pkm.currentHP < 25 ? 'bg-red-500' : pkm.currentHP < 50 ? 'bg-yellow-400' : 'bg-green-500'
                             }`}
-                        style={{ width: `${pkm.currentHP}%` }}
+                        style={{ width: `${pkm.currentHPPercentage}%` }}
                     />
                 </div>
             </div>

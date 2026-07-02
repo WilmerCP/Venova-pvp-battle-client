@@ -21,13 +21,14 @@ function parseUpdate(content, win) {
         const type = parts[1]
 
         switch (type) {
-            case 'player':
+            case 'player': {
                 // |player|p1|Anonycat|60|1200
                 console.log(`Player: ${parts[3]}`)
 
                 win.webContents.send('player', { id: parts[2], name: parts[3] })
 
                 break
+            }
 
             case 'move': {
                 const source = parsePokemonId(parts[2])
@@ -48,7 +49,8 @@ function parseUpdate(content, win) {
                 console.log(`Next message have secret and public version`)
                 break
 
-            case 'switch':
+            case 'drag':
+            case 'switch': {
                 // |switch|p1a: Pikachu|Pikachu, L59, F|100/100
                 console.log(`${parts[2]} switched in`)
 
@@ -77,17 +79,79 @@ function parseUpdate(content, win) {
                 })
 
                 break
+            }
 
-            case '-damage':
-                // |-damage|p2a: Squirtle|80/100
+            case '-damage': {
+                // |-damage|p2a: Squirtle|80/100 brn
                 console.log(`${parts[2]} took damage, now at ${parts[3]}`)
-                break
 
-            case '-heal':
+                const position = parts[2].split(': ')[0] // 'p1a'
+                const pId = position.slice(0, 2)     // 'p1'
+
+                let health, total, status;
+
+                if (parts[3] === '0 fnt') {
+                    health = 0;
+                    total = null; // unknown, Showdown doesn't send max HP on faint
+                    status = 'fnt';
+                } else {
+                    const data = parts[3].split('/');
+                    health = data[0];
+                    [total, status] = data[1].split(' ');
+                }
+
+                console.log(`Health: ${health}, Total: ${total}`)
+
+                win.webContents.send('damage', {
+                    player: pId,   // 'p1'
+                    hp: Number(health),  // 'hp amount or percentage'
+                    maxHp: Number(total)     // 100 or total hp
+                })
+
+                break
+            }
+
+            case '-heal': {
+                // |-heal|p1a: Pikachu|100/100 brn
                 console.log(`${parts[2]} healed to ${parts[3]}`)
-                break
 
-            case 'faint':
+                const position = parts[2].split(': ')[0] // 'p1a'
+                const pId = position.slice(0, 2)     // 'p1'
+
+                const data = parts[3].split('/');
+                const health = data[0];
+                const [total, status] = data[1].split(' ');
+                
+
+                console.log(`Health: ${health}, Total: ${total}`)
+
+                win.webContents.send('heal', {
+                    player: pId,   // 'p1'
+                    hp: Number(health),  // 'hp amount or percentage'
+                    maxHp: Number(total)     // 100 or total hp
+                })
+                break
+            }
+
+            case '-status': {
+                // |-status|p2a: Clefable|brn
+                console.log(`${parts[2]} status changed to ${parts[3]}`)
+
+                const identifier = parts[2].split(': ')
+                const position = identifier[0] // 'p1a'
+                const pId = position.slice(0, 2)     // 'p1'
+                const name = identifier[1] // 'Clefable'
+
+                win.webContents.send('status', {
+                    player: pId,   // 'p1'
+                    status: parts[3],  // 'brn'
+                    pkmName: name
+                })
+
+                break
+            }
+
+            case 'faint': {
                 console.log(`${parts[2]} fainted`)
 
                 const pos = parts[2].split(': ')[0] // 'p1a'
@@ -101,6 +165,7 @@ function parseUpdate(content, win) {
                 })
 
                 break
+            }
 
             case 'win':
                 console.log(`Winner: ${parts[2]}`)
@@ -110,7 +175,7 @@ function parseUpdate(content, win) {
                 console.log(`Turn ${parts[2]}`)
                 break
 
-            case 'request':
+            case 'request': {
                 // parts[2] is a JSON string with available moves/switches
 
                 //console.log('Request received:', line)
@@ -142,6 +207,12 @@ function parseUpdate(content, win) {
                     win.webContents.send('team', request)
                 }
 
+                break
+            }
+
+            default:
+                console.log(`Unhandled update type: ${type}`)
+                console.log(`Line: ${line}`)
                 break
         }
     }

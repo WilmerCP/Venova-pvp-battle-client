@@ -7,13 +7,16 @@ import { useLoaderData } from 'react-router-dom'
 import BattleControlBox from './components/BattleControlBox.jsx'
 import PokeStatusBar from './components/PokeStatusBar.jsx'
 
+import MENSAJES from './lib/mensajes.js'
+
 let p1 = {
 
     playerName: 'Jugador 1',
     pkmName: 'Iguasauro',
     shiny: false,
-    maxHP: 100,
-    currentHP: 100,
+    maxHP: 250,
+    currentHP: 250,
+    currentHPPercentage: 100,
     level: 50,
     gender: 'male',
     status: 'none',
@@ -55,7 +58,7 @@ export default function Battle() {
 
     const [battleLog, setBattleLog] = useState([]);
 
-    const [availableMoves, setAvailableMoves] = useState(movesTemplate);
+    const [availableMoves, setAvailableMoves] = useState([]);
 
     const [waiting, setWaiting] = useState(false); //Waiting for opponent
 
@@ -65,7 +68,7 @@ export default function Battle() {
 
     const navigate = useNavigate()
 
-    function addBattleLog(log){
+    function addBattleLog(log) {
 
         setBattleLog((prev) => [...prev, log])
 
@@ -117,6 +120,7 @@ export default function Battle() {
             if (data.player === 'p1') {
                 setPlayer1((prev) => ({ ...prev, pkmName: null, number: null }))
                 addBattleLog(`¡${data.name} se debilitó!`)
+                setAvailableMoves([])
             }
 
             if (data.player === 'p2') {
@@ -125,6 +129,71 @@ export default function Battle() {
             }
         })
         return () => window.electronAPI.offFaint()
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onDamage((data) => {
+
+            //Data.maxHp might be 0 in case of fainted pokemon
+            if (data.player === 'p1') {
+
+                if (data.maxHp === 0) {
+                    setPlayer1((prev) => ({ ...prev, currentHP: 0, currentHPPercentage: 0 }))
+
+
+                } else {
+                    setPlayer1((prev) => ({
+                        ...prev,
+                        currentHP: data.maxHp !== 100 ? data.hp : prev.currentHP,
+                        currentHPPercentage: data.maxHp == 100 ? data.hp : prev.currentHP,
+                    }))
+                }
+
+            }
+
+            if (data.player === 'p2') {
+                if (data.maxHp === 0) {
+                    setPlayer2((prev) => ({ ...prev, currentHP: 0, currentHPPercentage: 0 }))
+
+
+                } else {
+                    setPlayer2((prev) => ({
+                        ...prev,
+                        currentHP: data.maxHp !== 100 ? data.hp : prev.currentHP,
+                        currentHPPercentage: data.maxHp == 100 ? data.hp : prev.currentHP,
+                    }))
+                }
+            }
+        })
+        return () => window.electronAPI.offDamage()
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onHeal((data) => {
+
+            if (data.player === 'p1') {
+
+
+                setPlayer1((prev) => ({
+                    ...prev,
+                    currentHP: data.maxHp !== 100 ? data.hp : prev.currentHP,
+                    currentHPPercentage: data.maxHp == 100 ? data.hp : prev.currentHP,
+                }))
+
+
+            }
+
+            if (data.player === 'p2') {
+
+                setPlayer2((prev) => ({
+                    ...prev,
+                    currentHP: data.maxHp !== 100 ? data.hp : prev.currentHP,
+                    currentHPPercentage: data.maxHp == 100 ? data.hp : prev.currentHP,
+                }))
+
+            }
+        })
+        return () => window.electronAPI.offHeal()
     }, [])
 
     useEffect(() => {
@@ -152,10 +221,28 @@ export default function Battle() {
     }, [])
 
     useEffect(() => {
+        window.electronAPI.onStatus((data) => {
+            if (data.player === 'p2') {
+                setPlayer2((prev) => ({ ...prev, status: data.status }))
+
+                addBattleLog(`¡${data.pkmName} ${MENSAJES[data.status]}!`)
+
+            }
+
+            if (data.player === 'p1') {
+                setPlayer1((prev) => ({ ...prev, status: data.status }))
+                addBattleLog(`¡${data.pkmName} ${MENSAJES[data.status]}!`)
+
+            }
+        })
+        return () => window.electronAPI.offStatus()
+    }, [])
+
+    useEffect(() => {
         window.electronAPI.onWait((data) => {
 
             setWaiting(true);
-            
+
         })
         return () => window.electronAPI.offWait()
     }, [])
@@ -181,9 +268,16 @@ export default function Battle() {
             navigate('/')
         },
 
-        onMakeMove: (move) => {
+        onMakeMove: (move, disabled) => {
 
-            window.electronAPI.makeMove(move)
+            if (disabled) {
+
+                addBattleLog(`${player1.pkmName} no puede usar ${move}!`);
+
+                return
+            } else {
+                window.electronAPI.makeMove(move)
+            }
         }
 
     }
@@ -249,7 +343,7 @@ export default function Battle() {
 
             {waiting && (
                 <div className="bg-white p-6 rounded-lg shadow-lg text-center absolute bottom-1/2 left-1/2 transform -translate-x-1/2">
-                        <p>Esperando a que el rival tome una accion...</p>
+                    <p>Esperando a que el rival tome una accion...</p>
                 </div>
             )}
 

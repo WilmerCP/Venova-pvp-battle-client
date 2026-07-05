@@ -17,3 +17,28 @@
 
 .female { color: rgb(211, 94, 133);}
 .male { color: rgb(0, 162, 255);}
+
+.mini-icon {
+    --scale: 0.6667;
+
+    width: calc(64px * var(--scale));
+    height: calc(54px * var(--scale));
+
+    background-repeat: no-repeat;
+    background-size: calc(128px * var(--scale))
+                     calc(54px * var(--scale));
+
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    animation: walk 1s steps(2) infinite;
+}
+
+@keyframes walk {
+    from {
+        background-position: 0 calc(-10px * var(--scale));
+    }
+    to {
+        background-position: calc(-128px * var(--scale))
+                             calc(-10px * var(--scale));
+    }
+}

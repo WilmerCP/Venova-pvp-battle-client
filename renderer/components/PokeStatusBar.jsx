@@ -19,7 +19,7 @@ export default function PokeStatusBar({ pkm, positionClasses }) {
                 </p>
                 <p className="flex flex-row">
                     <GenderSymbol className={`${pkm.gender} text-lg`} />
-                    <span className="text-sm font-bold">Lv. {pkm.level}</span>
+                    <span className="text-sm font-bold">Nv. {pkm.level}</span>
                 </p>
 
             </div>

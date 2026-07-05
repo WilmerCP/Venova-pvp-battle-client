@@ -59,6 +59,7 @@ export default function Battle() {
     const [battleLog, setBattleLog] = useState([]);
 
     const [availableMoves, setAvailableMoves] = useState([]);
+    const [availablePokemon, setAvailablePokemon] = useState([]);
 
     const [waiting, setWaiting] = useState(false); //Waiting for opponent
 
@@ -94,12 +95,13 @@ export default function Battle() {
 
     useEffect(() => {
         window.electronAPI.onSwitch((data) => {
+
             if (data.player === 'p1') {
-                setPlayer1((prev) => ({ ...prev, pkmName: data.name, number: data.num }))
+                setPlayer1((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level }))
             }
 
             if (data.player === 'p2') {
-                setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num }))
+                setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level }))
                 addBattleLog(`¡Un ${data.name} salvaje apareció!`)
             }
         })
@@ -196,10 +198,24 @@ export default function Battle() {
         return () => window.electronAPI.offHeal()
     }, [])
 
+    function getMiniSrc(number) {
+        const key = `icon${String(number).padStart(3, '0')}.png`;
+        return `/minis/${key}`;
+    }
+
     useEffect(() => {
         window.electronAPI.onTeam((data) => {
             setAvailableMoves(data.active[0].moves)
             console.log('Available moves updated:', data.active[0].moves)
+            console.log(data.side.pokemon)
+
+            data.side.pokemon.forEach((poke) => {
+
+                poke.icon = getMiniSrc(poke.num)
+
+            })
+
+            setAvailablePokemon(data.side.pokemon)
         })
         return () => window.electronAPI.offTeam()
     }, [])
@@ -282,7 +298,7 @@ export default function Battle() {
 
     }
 
-    async function getBattlerSrc(number, { back = false, shiny = false } = {}) {
+    function getBattlerSrc(number, { back = false, shiny = false } = {}) {
         const suffix = `${shiny ? 's' : ''}${back ? 'b' : ''}`;
         const key = `${String(number).padStart(3, '0')}${suffix}.png`;
         return `/battlers/${key}`;
@@ -290,8 +306,8 @@ export default function Battle() {
 
     useEffect(() => {
         async function load() {
-            const src1 = await getBattlerSrc(player1.number, { back: true, shiny: player1.shiny });
-            const src2 = await getBattlerSrc(player2.number, { back: false, shiny: player2.shiny });
+            const src1 = getBattlerSrc(player1.number, { back: true, shiny: player1.shiny });
+            const src2 = getBattlerSrc(player2.number, { back: false, shiny: player2.shiny });
             setBattlerSrcs({ src1, src2 });
         }
         load();
@@ -339,7 +355,7 @@ export default function Battle() {
 
             }
 
-            <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} handlers={handlers} />
+            <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} availablePokemon={availablePokemon} handlers={handlers} />
 
             {waiting && (
                 <div className="bg-white p-6 rounded-lg shadow-lg text-center absolute bottom-1/2 left-1/2 transform -translate-x-1/2">

@@ -56,6 +56,7 @@ function parseUpdate(content, win) {
 
                 const details = parts[3]
                 const speciesName = details.split(',')[0].trim() // 'Pikachu'
+                const level = details.split(',')[1].trim().slice(1) // '59'
 
                 const position = parts[2].split(': ')[0] // 'p1a'
                 const playerId = position.slice(0, 2)     // 'p1'
@@ -65,7 +66,7 @@ function parseUpdate(content, win) {
 
                 const hp = parts[4];
 
-                if (hp.endsWith('/100')) {
+                if (hp.endsWith('/100')) { 
 
                     break
 
@@ -75,7 +76,8 @@ function parseUpdate(content, win) {
                     player: playerId,   // 'p1'
                     name: speciesName,  // 'Pikachu'
                     num,                // 25
-                    hp: parts[4]        // '100/100'
+                    hp: parts[4],        // '100/100'
+                    level: level
                 })
 
                 break
@@ -202,6 +204,20 @@ function parseUpdate(content, win) {
                         const moveInfo = Dex.moves.get(move.move)
                         move.type = moveInfo.type
                         move.description = moveInfo.desc
+                    }
+
+                    for (const pokemon of request.side.pokemon) {
+
+                        const details = pokemon.details.split(',') // "Ampharos, L84, F"
+                        const level = details[1].trim().slice(1); 
+                        const speciesInfo = Dex.species.get(details[0].trim())
+                        pokemon.num = speciesInfo.num
+                        pokemon.name = speciesInfo.name
+                        pokemon.level = Number(level)
+
+                        const hpValues = pokemon.condition.split('/');
+                        pokemon.currentHp = Number(hpValues[0])
+                        pokemon.maxHp = Number(hpValues[1])
                     }
 
                     win.webContents.send('team', request)

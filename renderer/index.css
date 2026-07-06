@@ -1,7 +1,12 @@
 @import "tailwindcss";
 
+:root {
+    --status-scale: 0.75;
+    --pkm-icon-scale: 0.6667;
+}
+
 .status {
-  background-image: url('./assets/icons/battleStatuses.png');
+  background-image: url('./assets/icons/statuses.PNG');
   width: 44px;
   height: 16px;
   background-repeat: no-repeat;
@@ -13,20 +18,39 @@
 .status-brn { background-position: 0px -32px; }  /* Quemado */
 .status-par  { background-position: 0px -48px; }  /* Paralizado */
 .status-frz  { background-position: 0px -64px; }  /* Congelado */
+.status-fnt  { background-position: 0px -80px; }  /* Debilitado */
 .status-none { background-image: none; }  /* NONE */
+
+
+.status-selection {   
+
+  background-image: url('./assets/icons/statuses.PNG');
+  width: calc(44px * var(--status-scale));
+  height: calc(16px * var(--status-scale));
+  background-repeat: no-repeat;
+  background-size: calc(44px * var(--status-scale)) calc(112px * var(--status-scale));
+}
+
+.status-slp-selection  { background-position: 0px 0px; }   /* Dormido */
+.status-psn-selection { background-position: 0px calc(-16px * var(--status-scale)); }  /* Envenenado */
+.status-tox-selection  { background-position: 0px calc(-16px * var(--status-scale)); }  /* Gravemente envenenado */
+.status-brn-selection { background-position: 0px calc(-32px * var(--status-scale)); }  /* Quemado */
+.status-par-selection  { background-position: 0px calc(-48px * var(--status-scale)); }  /* Paralizado */
+.status-frz-selection  { background-position: 0px calc(-64px * var(--status-scale)); }  /* Congelado */
+.status-fnt-selection  { background-position: 0px calc(-80px * var(--status-scale)); }  /* Debilitado */
+.status-none-selection { background-image: none; }  /* NONE */
 
 .female { color: rgb(211, 94, 133);}
 .male { color: rgb(0, 162, 255);}
 
 .mini-icon {
-    --scale: 0.6667;
 
-    width: calc(64px * var(--scale));
-    height: calc(54px * var(--scale));
+    width: calc(64px * var(--pkm-icon-scale));
+    height: calc(54px * var(--pkm-icon-scale));
 
     background-repeat: no-repeat;
-    background-size: calc(128px * var(--scale))
-                     calc(54px * var(--scale));
+    background-size: calc(128px * var(--pkm-icon-scale))
+                     calc(54px * var(--pkm-icon-scale));
 
     image-rendering: pixelated;
     image-rendering: crisp-edges;
@@ -35,10 +59,10 @@
 
 @keyframes walk {
     from {
-        background-position: 0 calc(-10px * var(--scale));
+        background-position: 0 calc(-10px * var(--pkm-icon-scale));
     }
     to {
-        background-position: calc(-128px * var(--scale))
-                             calc(-10px * var(--scale));
+        background-position: calc(-128px * var(--pkm-icon-scale))
+                             calc(-10px * var(--pkm-icon-scale));
     }
 }

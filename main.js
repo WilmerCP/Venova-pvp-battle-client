@@ -55,7 +55,8 @@ app.whenReady().then(() => {
     })
 
     socket.on('battle-end', (data) => {
-      console.log('Battle end:', data)
+      console.log('Battle end:')
+      //console.log('Battle end:', data)
     })
 
     return { success: true, message: 'Done' }
@@ -64,6 +65,12 @@ app.whenReady().then(() => {
   ipcMain.handle('make-move', async (event, move) => {
     console.log('Making move:', move)
     socket.emit('make-move', move)
+    return { success: true, message: 'Done' }
+  })
+
+  ipcMain.handle('select-pokemon', async (event, pokemonName) => {
+    console.log('Selecting pokemon:', pokemonName)
+    socket.emit('select-pokemon', pokemonName)
     return { success: true, message: 'Done' }
   })
 

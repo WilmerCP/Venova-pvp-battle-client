@@ -1,15 +1,96 @@
 const { Dex } = require('pokemon-showdown')
 
 function parsePokemonId(id) {
-    if (!id) return null // handles blank target on multi/no-target moves
+    if (!id) return null 
 
     const [position, name] = id.split(': ')
     // position is like "p1a" — player is first 2 chars, slot letter is the rest
     const player = position.slice(0, 2)   // 'p1' or 'p2'
-    const slot = position.slice(2)        // 'a', 'b', 'c'... blank in some contexts
+    const slot = position.slice(2)        // 'a', 'b', 'c'... empty string if not in active position
 
     return { player, slot, name }
 }
+
+//Parces strings with format Sawsbuck, L50, F, shiny
+//no L# means level 100, no F/M means genderless, no shiny means not shiny
+function parsePokemonDetails(details) {
+
+    const parts = details.split(',').map(part => part.trim());
+    const items = parts.length;
+
+    let speciesName = parts[0];
+    let gender = 'none';
+    let level = 100;
+    let shiny = false;
+
+    for (let i = 1; i < items; i++) {
+
+        let first = parts[i].charAt(0);
+
+        switch (first) {
+
+            case 'L':
+                let levelString = parts[i].slice(1);
+                level = Number(levelString)
+                break
+
+            case 'M':
+                gender = 'male';
+                break
+
+            case 'F':
+                gender = 'female';
+                break
+
+            case 's':
+                if (parts[i] === 'shiny') {
+                    shiny = true;
+                }
+                break
+
+            default:
+                console.warn(`Unrecognized part in details: ${parts[i]}`);
+                break
+
+        }
+
+    }
+
+    return { speciesName, gender, level, shiny }
+}
+
+//Parces a health string like  156/320 brn or 0 fnt
+function parseHealth(healthStr) {
+
+    let health, total, status;
+
+    if (healthStr === '0 fnt') {
+        health = 0;
+        total = null; // unknown, Showdown doesn't send max HP on faint
+        status = 'fnt';
+    } else {
+        const data = healthStr.split('/');
+        health = data[0];
+        [total, status] = data[1].split(' ');
+    }
+
+
+    //console.log(`Health: ${health}, Total: ${total}, Status: ${status}`)
+
+    return { current: Number(health), total: Number(total), status: status == undefined ? 'none' : status }
+
+}
+//Parces pokemon ID strings like p1a: Pikachu into an object with player and name properties
+function parsePokemonID(pkmString) {
+
+    let playerId, name;
+
+    const [position, speciesName] = pkmString.split(': ')
+    playerId = position.slice(0, 2)
+
+    return { playerId, speciesName }
+}
+
 
 function parseUpdate(content, win) {
     const lines = content.split('\n')
@@ -52,32 +133,28 @@ function parseUpdate(content, win) {
             case 'drag':
             case 'switch': {
                 // |switch|p1a: Pikachu|Pikachu, L59, F|100/100
-                console.log(`${parts[2]} switched in`)
+                console.log(parts)
 
-                const details = parts[3]
-                const speciesName = details.split(',')[0].trim() // 'Pikachu'
-                const level = details.split(',')[1].trim().slice(1) // '59'
+                const { speciesName, gender, level, shiny } = parsePokemonDetails(parts[3]);
 
-                const position = parts[2].split(': ')[0] // 'p1a'
-                const playerId = position.slice(0, 2)     // 'p1'
+                const { playerId } = parsePokemonID(parts[2]); // 'p1'
 
                 const species = Dex.species.get(speciesName)
                 const num = species.num // 25
 
-                const hp = parts[4];
-
-                if (hp.endsWith('/100')) { 
-
-                    break
-
-                }
+                const { current, total, status } = parseHealth(parts[4])
 
                 win.webContents.send('switch', {
                     player: playerId,   // 'p1'
                     name: speciesName,  // 'Pikachu'
                     num,                // 25
-                    hp: parts[4],        // '100/100'
-                    level: level
+                    hp: current,             // '100/100'
+                    maxHp: total,      // 100
+                    level: level,
+                    status: status,  // brn, par
+                    shiny: shiny,
+                    gender: gender,
+                    reason: parts[1] // drag o switch
                 })
 
                 break
@@ -87,27 +164,17 @@ function parseUpdate(content, win) {
                 // |-damage|p2a: Squirtle|80/100 brn
                 console.log(`${parts[2]} took damage, now at ${parts[3]}`)
 
-                const position = parts[2].split(': ')[0] // 'p1a'
-                const pId = position.slice(0, 2)     // 'p1'
+                const { player, slot, name } = parsePokemonId(parts[2]);
 
-                let health, total, status;
-
-                if (parts[3] === '0 fnt') {
-                    health = 0;
-                    total = null; // unknown, Showdown doesn't send max HP on faint
-                    status = 'fnt';
-                } else {
-                    const data = parts[3].split('/');
-                    health = data[0];
-                    [total, status] = data[1].split(' ');
-                }
-
-                console.log(`Health: ${health}, Total: ${total}`)
+                const { current, total, status } = parseHealth(parts[3]);
+                console.log(`Health: ${current}, Total: ${total}, Status: ${status}`)
 
                 win.webContents.send('damage', {
-                    player: pId,   // 'p1'
-                    hp: Number(health),  // 'hp amount or percentage'
-                    maxHp: Number(total)     // 100 or total hp
+                    player: player,   // 'p1'
+                    hp: current,  // 'hp amount or percentage'
+                    maxHp: total,     // 100 or total hp
+                    status: status,
+                    name: name
                 })
 
                 break
@@ -117,20 +184,19 @@ function parseUpdate(content, win) {
                 // |-heal|p1a: Pikachu|100/100 brn
                 console.log(`${parts[2]} healed to ${parts[3]}`)
 
-                const position = parts[2].split(': ')[0] // 'p1a'
-                const pId = position.slice(0, 2)     // 'p1'
+                const { player, slot, name } = parsePokemonId(parts[2]);
 
-                const data = parts[3].split('/');
-                const health = data[0];
-                const [total, status] = data[1].split(' ');
-                
+                const { current, total, status } = parseHealth(parts[3]);
 
-                console.log(`Health: ${health}, Total: ${total}`)
+
+                //console.log(`Health: ${current}, Total: ${total}`)
 
                 win.webContents.send('heal', {
-                    player: pId,   // 'p1'
-                    hp: Number(health),  // 'hp amount or percentage'
-                    maxHp: Number(total)     // 100 or total hp
+                    player: player,   // 'p1'
+                    hp: current,  // 'hp amount or percentage'
+                    maxHp: total,     // 100 or total hp
+                    status: status,
+                    name: name
                 })
                 break
             }
@@ -139,13 +205,25 @@ function parseUpdate(content, win) {
                 // |-status|p2a: Clefable|brn
                 console.log(`${parts[2]} status changed to ${parts[3]}`)
 
-                const identifier = parts[2].split(': ')
-                const position = identifier[0] // 'p1a'
-                const pId = position.slice(0, 2)     // 'p1'
-                const name = identifier[1] // 'Clefable'
+                const { player, slot, name } = parsePokemonId(parts[2]);
 
                 win.webContents.send('status', {
-                    player: pId,   // 'p1'
+                    player: player,   // 'p1'
+                    status: parts[3],  // 'brn'
+                    pkmName: name
+                })
+
+                break
+            }
+
+            case '-curestatus': {
+                // |-curestatus|p2a: Clefable|brn
+                console.log(`${parts[2]} recovered from ${parts[3]}`)
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+
+                win.webContents.send('statusRecover', {
+                    player: player,   // 'p1'
                     status: parts[3],  // 'brn'
                     pkmName: name
                 })
@@ -164,6 +242,48 @@ function parseUpdate(content, win) {
                 win.webContents.send('faint', {
                     player: pId,   // 'p1'
                     name: specName,  // 'Pikachu'
+                })
+
+                break
+            }
+
+            case '-crit':{
+                //|-crit|p1a: Zeraora
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+
+                win.webContents.send('faint', {
+                    player: player,   // 'p1'
+                    name: name,  // 'Pikachu'
+                })
+
+                break
+
+            }
+
+            case '-supereffective':{
+                //|-crit|p1a: Zeraora
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+
+                win.webContents.send('supereffective', {
+                    player: player,   // 'p1'
+                    name: name,  // 'Pikachu'
+                })
+
+                break
+
+            }
+
+            case '-miss':{
+                //|-miss|p1a: Bronzong|p2a: Sceptile
+                //|-miss|SOURCE|TARGET
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+
+                win.webContents.send('miss', {
+                    player: player,   // 'p1'
+                    name: name,  // 'Pikachu'
                 })
 
                 break
@@ -208,16 +328,18 @@ function parseUpdate(content, win) {
 
                     for (const pokemon of request.side.pokemon) {
 
-                        const details = pokemon.details.split(',') // "Ampharos, L84, F"
-                        const level = details[1].trim().slice(1); 
-                        const speciesInfo = Dex.species.get(details[0].trim())
+                        const { speciesName, level, gender, shiny } = parsePokemonDetails(pokemon.details);
+                        const speciesInfo = Dex.species.get(speciesName)
                         pokemon.num = speciesInfo.num
                         pokemon.name = speciesInfo.name
                         pokemon.level = Number(level)
+                        pokemon.gender = gender
+                        pokemon.shiny = shiny
 
-                        const hpValues = pokemon.condition.split('/');
-                        pokemon.currentHp = Number(hpValues[0])
-                        pokemon.maxHp = Number(hpValues[1])
+                        const { current, total, status } = parseHealth(pokemon.condition)
+                        pokemon.currentHp = current
+                        pokemon.maxHp = total
+                        pokemon.status = status
                     }
 
                     win.webContents.send('team', request)
@@ -225,6 +347,48 @@ function parseUpdate(content, win) {
 
                 break
             }
+
+            case '-ability': {
+                // |-ability|p1a: Pikachu|Static
+                console.log(`${parts[2]} ability changed to ${parts[3]}`)
+
+                console.log(Dex.abilities.get(parts[3])) // Validate ability exists
+
+                break
+            }
+
+            case '-weather': {
+                // |-weather|DesolateLand|[from] ability: Desolate Land|[of] p1a: Groudon
+                console.log(`Weather changed to ${parts[2]}`)
+                break
+            }
+
+            case 'upkeep':
+                console.log(`Line: ${line}`)
+                break
+
+            case '':
+                //Line is empty, ignore
+                break
+
+            case 't:':
+                //Time information, ignore
+                break
+
+            case 'start':
+                //Battle starts, ignore
+                break
+
+            case 'gametype':
+            case 'teamsize':
+            case 'tier':
+                //Ignore
+                break
+
+            case 'gen':
+            case 'rule':
+                console.log(`Line: ${line}`)
+                break
 
             default:
                 console.log(`Unhandled update type: ${type}`)

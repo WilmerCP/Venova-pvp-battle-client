@@ -62,6 +62,7 @@ export default function Battle() {
     const [availablePokemon, setAvailablePokemon] = useState([]);
 
     const [waiting, setWaiting] = useState(false); //Waiting for opponent
+    const [switchRequired, setSwitchRequired] = useState(false); //Need to choose a pokemon
 
     const battleData = useLoaderData();
 
@@ -96,13 +97,51 @@ export default function Battle() {
     useEffect(() => {
         window.electronAPI.onSwitch((data) => {
 
+            console.log(data.name + ' switched in!')
+
             if (data.player === 'p1') {
-                setPlayer1((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level }))
+
+                setSwitchRequired(false);
+
+                if(data.maxHp == 100){
+
+                    setPlayer1((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp  }))
+
+                    if(data.reason == 'drag'){
+                        addBattleLog(`¡${data.name} ha sido forzado a combatir!`)
+                    }else{
+                        addBattleLog(`¡${data.name}, yo te elijo!`)
+                    }
+
+                }else{
+
+                    setPlayer1((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHP: data.hp, maxHP: data.maxHp  }))
+
+                }
+
+                
             }
 
+            
+
             if (data.player === 'p2') {
-                setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level }))
-                addBattleLog(`¡Un ${data.name} salvaje apareció!`)
+
+                
+                if(data.maxHp == 100){
+
+                    setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp  }))
+                    
+                    if(data.reason == 'drag'){
+                        addBattleLog(`¡${data.name} rival ha sido forzado a combatir!`)
+                    }else{
+                        addBattleLog(`¡${data.name} rival ha entrado en combate!`)
+                    }
+
+                }else{
+
+                    setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHP: data.hp, maxHP: data.maxHp  }))
+
+                }
             }
         })
         return () => window.electronAPI.offSwitch()
@@ -123,6 +162,22 @@ export default function Battle() {
                 setPlayer1((prev) => ({ ...prev, pkmName: null, number: null }))
                 addBattleLog(`¡${data.name} se debilitó!`)
                 setAvailableMoves([])
+                setSwitchRequired(true)
+
+                setAvailablePokemon((prev) =>{
+
+                        prev.forEach((poke) => {
+
+                            if(poke.name == data.name){
+                                poke.currentHp = 0;
+                                poke.status = 'fnt';
+                            }
+
+                        })
+
+                        return prev;
+
+                    })
             }
 
             if (data.player === 'p2') {
@@ -139,9 +194,10 @@ export default function Battle() {
             //Data.maxHp might be 0 in case of fainted pokemon
             if (data.player === 'p1') {
 
-                if (data.maxHp === 0) {
+                //pokemon fainted
+                if (data.hp === 0) {
                     setPlayer1((prev) => ({ ...prev, currentHP: 0, currentHPPercentage: 0 }))
-
+                    
 
                 } else {
                     setPlayer1((prev) => ({
@@ -182,6 +238,8 @@ export default function Battle() {
                     currentHPPercentage: data.maxHp == 100 ? data.hp : prev.currentHP,
                 }))
 
+                if(data.maxHp == 100) addBattleLog(`¡${data.name} ha recuperado salud!`)
+
 
             }
 
@@ -192,6 +250,8 @@ export default function Battle() {
                     currentHP: data.maxHp !== 100 ? data.hp : prev.currentHP,
                     currentHPPercentage: data.maxHp == 100 ? data.hp : prev.currentHP,
                 }))
+
+                if(data.maxHp == 100) addBattleLog(`¡${data.name} ha recuperado salud!`)
 
             }
         })
@@ -230,6 +290,7 @@ export default function Battle() {
             if (data.side.id === 'p1') {
                 //addBattleLog(`¡${player1.pkmName} se ha debilitado!`)
                 setPlayer1((prev) => ({ ...prev, pkmName: null, number: null }))
+                setSwitchRequired(true);
 
             }
         })
@@ -255,12 +316,84 @@ export default function Battle() {
     }, [])
 
     useEffect(() => {
+        window.electronAPI.onStatusRecover((data) => {
+            if (data.player === 'p2') {
+                setPlayer2((prev) => ({ ...prev, status: 'none' }))
+
+                addBattleLog(`¡${data.pkmName} ${MENSAJES[`${data.status}-recover`]}!`)
+
+            }
+
+            if (data.player === 'p1') {
+                setPlayer1((prev) => ({ ...prev, status: 'none' }))
+                addBattleLog(`¡${data.pkmName} ${MENSAJES[`${data.status}-recover`]}!`)
+
+            }
+        })
+        return () => window.electronAPI.offStatusRecover()
+    }, [])
+
+    useEffect(() => {
         window.electronAPI.onWait((data) => {
 
             setWaiting(true);
 
         })
         return () => window.electronAPI.offWait()
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onCrit((data) => {
+
+            if(data.player == 'p1'){
+
+                addBattleLog(`¡${data.name} ha recibido un golpe crítico!`);
+
+
+            }else{
+
+                addBattleLog(`¡${data.name} rival ha recibido un golpe crítico!`);
+
+            }
+
+        })
+        return () => window.electronAPI.offCrit()
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onSuperEffective((data) => {
+
+            if(data.player == 'p1'){
+
+                addBattleLog(`¡El ataque a ${data.name} fue super efectivo!`);
+
+
+            }else{
+
+                addBattleLog(`¡El ataque a ${data.name} rival fue super efectivo!`);
+
+            }
+
+        })
+        return () => window.electronAPI.offCrit()
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onMiss((data) => {
+
+            if(data.player == 'p1'){
+
+                addBattleLog(`¡${data.name} falló!`);
+
+
+            }else{
+
+                addBattleLog(`¡El ataque de ${data.name} rival ha fallado!`);
+
+            }
+
+        })
+        return () => window.electronAPI.offCrit()
     }, [])
 
 
@@ -294,6 +427,24 @@ export default function Battle() {
             } else {
                 window.electronAPI.makeMove(move)
             }
+        },
+
+        onSelectPokemon: (pokemonObj) => {
+
+            if(pokemonObj.condition == '0 fnt'){
+
+                addBattleLog(`¡${pokemonObj.name} no puede pelear más!`);
+
+            }else if(pokemonObj.active){
+
+                addBattleLog(`¡${pokemonObj.name} ya está luchando!`);
+
+            }else{
+
+                window.electronAPI.selectPokemon(pokemonObj.name)
+
+            }
+    
         }
 
     }
@@ -355,7 +506,7 @@ export default function Battle() {
 
             }
 
-            <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} availablePokemon={availablePokemon} handlers={handlers} />
+            <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} availablePokemon={availablePokemon} handlers={handlers} switchRequired={switchRequired}/>
 
             {waiting && (
                 <div className="bg-white p-6 rounded-lg shadow-lg text-center absolute bottom-1/2 left-1/2 transform -translate-x-1/2">

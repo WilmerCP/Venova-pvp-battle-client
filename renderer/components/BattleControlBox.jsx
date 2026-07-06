@@ -5,7 +5,7 @@ import PokeSelection from './PokeSelection.jsx'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 
-export default function BattleControlBox({ battleLog, handlers, availableMoves, availablePokemon }) {
+export default function BattleControlBox({ battleLog, handlers, availableMoves, availablePokemon, switchRequired }) {
 
   const [menuState, setMenuState] = useState('main') // 'main' | 'moves' | 'pokemon'
   // inside your component, alongside your other state:
@@ -17,7 +17,8 @@ export default function BattleControlBox({ battleLog, handlers, availableMoves, 
     }
   }, [battleLog])
 
-  const effectiveMenuState = availableMoves.length === 0 ? 'main' : menuState;
+  //let effectiveMenuState = availableMoves.length === 0 ? 'main' : menuState;
+  let effectiveMenuState = switchRequired ? 'pokemon' : menuState;
 
   return (
     <div className={`absolute bottom-0 left-0 right-0 h-40 bg-white border-t-4 border-gray-800
@@ -54,9 +55,15 @@ export default function BattleControlBox({ battleLog, handlers, availableMoves, 
 
         {effectiveMenuState === 'pokemon' && (
           <PokeSelection
-            onSelectPokemon={handlers.onSelectPokemon}
+            onSelectPokemon={(name)=>{
+
+              handlers.onSelectPokemon(name);
+              setMenuState('main');
+
+            }}
             onBack={() => setMenuState('main')}
             availablePokemon={availablePokemon}
+            forced={switchRequired}
           />
         )}
       </div>

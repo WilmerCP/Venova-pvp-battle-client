@@ -22,8 +22,16 @@ contextBridge.exposeInMainWorld('electronAPI', {
     offDamage: () => ipcRenderer.removeAllListeners('damage'),
     onStatus: (cb) => ipcRenderer.on('status',(event,data)=>cb(data)),
     offStatus: () => ipcRenderer.removeAllListeners('status'),
+    onStatusRecover: (cb) => ipcRenderer.on('statusRecover',(event,data)=>cb(data)),
+    offStatusRecover: () => ipcRenderer.removeAllListeners('statusRecover'),
     onHeal: (cb) => ipcRenderer.on('heal',(event,data)=>cb(data)),
     offHeal: () => ipcRenderer.removeAllListeners('heal'),
-
+    onCrit: (cb) => ipcRenderer.on('crit',(event,data)=>cb(data)),
+    offCrit: () => ipcRenderer.removeAllListeners('crit'),
+    onSuperEffective: (cb) => ipcRenderer.on('superEffective',(event,data)=>cb(data)),
+    offSuperEffective: () => ipcRenderer.removeAllListeners('superEffective'),
+    selectPokemon: (pokemonName) => ipcRenderer.invoke('select-pokemon', pokemonName),
+    onMiss: (cb) => ipcRenderer.on('miss',(event,data)=>cb(data)),
+    offMiss: () => ipcRenderer.removeAllListeners('miss'),
 
 });

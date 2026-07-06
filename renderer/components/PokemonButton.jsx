@@ -13,7 +13,7 @@ export default function PokemonButton({ pokemon, onClick }) {
     img.onerror = () => setIconSrc(DEFAULT_ICON);
   }, [pokemon.icon]);
 
-  const hpPercent = Math.max(0, Math.min(100, (pokemon.currentHp / pokemon.maxHp) * 100));
+  const hpPercent = pokemon.maxHp !== 0 ? Math.max(0, Math.min(100, (pokemon.currentHp / pokemon.maxHp) * 100)) : 0;
   const hpColor = hpPercent > 50 ? '#4ade80' : hpPercent > 20 ? '#facc15' : '#f87171';
 
   return (
@@ -42,9 +42,12 @@ export default function PokemonButton({ pokemon, onClick }) {
           <span className="text-xs font-medium truncate text-left">
             {pokemon.name}
           </span>
-          <span className="text-[10px] font-semibold text-black/60 shrink-0">
+          <div className="flex flex-row gap-0.5">
+            <span className="text-[10px] font-semibold text-black/60 shrink-0">
             Nv. {pokemon.level}
           </span>
+          <div className={`status-selection status-${pokemon.status}-selection`}></div>
+          </div>
         </div>
 
         <div className="w-full h-1.5 rounded-full bg-black/15 overflow-hidden">

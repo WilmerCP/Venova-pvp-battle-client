@@ -5,6 +5,8 @@ import { TiArrowBack } from "react-icons/ti";
 import MoveButton from './MoveButton.jsx';
 
 export default function MoveMenu({ onSelectMove, onBack, availableMoves }) {
+
+    console.log(availableMoves)
     return (
 
         <div className="flex flex-row justify-between gap-2 p-2">

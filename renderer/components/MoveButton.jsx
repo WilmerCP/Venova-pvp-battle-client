@@ -7,8 +7,8 @@ export default function MoveButton({ name, type, ppCurrent, ppMax, disabled, onS
     <button
       onClick={() => {
 
-        onSelectMove(name,disabled)
-        
+        onSelectMove(name, disabled)
+
       }}
 
       // 'relative' y 'overflow-hidden' para que la marca de agua se quede dentro del botón
@@ -37,9 +37,11 @@ export default function MoveButton({ name, type, ppCurrent, ppMax, disabled, onS
         <span className="text-sm md:text-base leading-tight drop-shadow-[1px_1px_0px_rgba(0,0,0,0.6)]">
           {name}
         </span>
-        <span className="text-[10px] md:text-xs font-semibold opacity-90 mt-0.5 drop-shadow-[1px_1px_0px_rgba(0,0,0,0.5)]">
-          PP {ppCurrent}/{ppMax}
-        </span>
+        {ppCurrent !== undefined && ppMax !== undefined && (
+          <span className="text-[10px] md:text-xs font-semibold opacity-90 mt-0.5 drop-shadow-[1px_1px_0px_rgba(0,0,0,0.5)]">
+            PP {ppCurrent}/{ppMax}
+          </span>
+        )}
       </div>
     </button>
   );

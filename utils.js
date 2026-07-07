@@ -182,12 +182,29 @@ function parseUpdate(content, win) {
 
             case '-heal': {
                 // |-heal|p1a: Pikachu|100/100 brn
+                //|-heal|p2a: Scizor|17/100|[from] item: Leftovers
                 console.log(`${parts[2]} healed to ${parts[3]}`)
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
 
                 const { current, total, status } = parseHealth(parts[3]);
 
+                let reason = null
+
+                if(parts[4] !== undefined){
+
+                    try{
+
+                        reason = parts[4].split(':')[1].trim();
+
+                    }catch(e){
+
+                        console.log('parsing failed at -heal:')
+                        console.log(line);
+
+                    }
+
+                }
 
                 //console.log(`Health: ${current}, Total: ${total}`)
 
@@ -196,7 +213,8 @@ function parseUpdate(content, win) {
                     hp: current,  // 'hp amount or percentage'
                     maxHp: total,     // 100 or total hp
                     status: status,
-                    name: name
+                    name: name,
+                    reason: reason
                 })
                 break
             }
@@ -252,7 +270,7 @@ function parseUpdate(content, win) {
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
 
-                win.webContents.send('faint', {
+                win.webContents.send('crit', {
                     player: player,   // 'p1'
                     name: name,  // 'Pikachu'
                 })
@@ -275,6 +293,56 @@ function parseUpdate(content, win) {
 
             }
 
+            case '-resisted':{
+                //|-resisted|POKEMON
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+
+                win.webContents.send('resisted', {
+                    player: player,   // 'p1'
+                    name: name,  // 'Pikachu'
+                })
+
+                break
+            }
+
+            case '-immune':{
+                //|-immune|POKEMON
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+
+                win.webContents.send('immune', {
+                    player: player,   // 'p1'
+                    name: name,  // 'Pikachu'
+                })
+
+
+                break
+            }
+
+            //When zoroak's illusion ends
+            case 'replace': {
+                //|replace|p1a: Zoroark|Zoroark, L84, F
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+                const { speciesName, gender, level, shiny } = parsePokemonDetails(parts[3]);
+
+                const species = Dex.species.get(speciesName)
+                const num = species.num // 25
+
+                win.webContents.send('replace', {
+                    player: player,   // 'p1'
+                    name: speciesName,  // 'Pikachu'
+                    gender: gender,
+                    level: level,
+                    shiny: shiny,
+                    num: num
+
+                })
+
+                break
+            }
+
             case '-miss':{
                 //|-miss|p1a: Bronzong|p2a: Sceptile
                 //|-miss|SOURCE|TARGET
@@ -289,9 +357,77 @@ function parseUpdate(content, win) {
                 break
             }
 
-            case 'win':
-                console.log(`Winner: ${parts[2]}`)
+            case '-enditem':{
+                //|-enditem|POKEMON|ITEM|[from]EFFECT
+                //|-enditem|p2a: Lickilicky|Leftovers|[from] move: Knock Off|[of] p1a: Cinccino
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+                const item = parts[3];
+
+                win.webContents.send('enditem', {
+                    player: player,   // 'p1'
+                    name: name,  // 'Pikachu'
+                    item: item
+                })
+
                 break
+            }
+
+            //Volatile status effects like confusion, taunt, substitute
+            case '-start':{
+                //|-start|p1a: Zygarde|confusion|[fatigue]
+                //|-start|POKEMON|EFFECT
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+                const effect = parts[3];
+
+                win.webContents.send('startVolatile', {
+                    player: player,   // 'p1'
+                    name: name,  // 'Pikachu'
+                    effect: effect
+                })
+
+                break
+            }
+
+            case '-end':{
+                //|-end|p1a: Zygarde|confusion
+                //|-end|POKEMON|EFFECT
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+                const effect = parts[3];
+
+                win.webContents.send('endVolatile', {
+                    player: player,   // 'p1'
+                    name: name,  // 'Pikachu'
+                    effect: effect
+                })
+
+                break
+            }
+
+            case 'win':{
+                console.log(`Winner: ${parts[2]}`)
+                console.log(line);
+
+                win.webContents.send('battleEnd', {
+                    result: 'win',
+                    winner: parts[2]
+                })
+
+                break
+            }
+
+            case 'tie':{
+                console.log(`Battle ended in a tie`)
+                console.log(line);
+
+                win.webContents.send('battleEnd', {
+                    result: 'tie'
+                })
+
+                break
+            }
 
             case 'turn':
                 console.log(`Turn ${parts[2]}`)

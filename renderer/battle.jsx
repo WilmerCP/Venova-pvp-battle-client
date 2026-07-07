@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
 import BattleControlBox from './components/BattleControlBox.jsx'
 import PokeStatusBar from './components/PokeStatusBar.jsx'
+import PopupEnd from './components/PopupEnd.jsx'
 
 import MENSAJES from './lib/mensajes.js'
 
@@ -64,6 +65,8 @@ export default function Battle() {
     const [waiting, setWaiting] = useState(false); //Waiting for opponent
     const [switchRequired, setSwitchRequired] = useState(false); //Need to choose a pokemon
 
+    const [winner, setWinner] = useState(null);
+
     const battleData = useLoaderData();
 
     //console.log(battleData)
@@ -103,43 +106,43 @@ export default function Battle() {
 
                 setSwitchRequired(false);
 
-                if(data.maxHp == 100){
+                if (data.maxHp == 100) {
 
-                    setPlayer1((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp  }))
+                    setPlayer1((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp }))
 
-                    if(data.reason == 'drag'){
+                    if (data.reason == 'drag') {
                         addBattleLog(`¡${data.name} ha sido forzado a combatir!`)
-                    }else{
+                    } else {
                         addBattleLog(`¡${data.name}, yo te elijo!`)
                     }
 
-                }else{
+                } else {
 
-                    setPlayer1((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHP: data.hp, maxHP: data.maxHp  }))
+                    setPlayer1((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHP: data.hp, maxHP: data.maxHp }))
 
                 }
 
-                
+
             }
 
-            
+
 
             if (data.player === 'p2') {
 
-                
-                if(data.maxHp == 100){
 
-                    setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp  }))
-                    
-                    if(data.reason == 'drag'){
+                if (data.maxHp == 100) {
+
+                    setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp }))
+
+                    if (data.reason == 'drag') {
                         addBattleLog(`¡${data.name} rival ha sido forzado a combatir!`)
-                    }else{
+                    } else {
                         addBattleLog(`¡${data.name} rival ha entrado en combate!`)
                     }
 
-                }else{
+                } else {
 
-                    setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHP: data.hp, maxHP: data.maxHp  }))
+                    setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHP: data.hp, maxHP: data.maxHp }))
 
                 }
             }
@@ -164,20 +167,20 @@ export default function Battle() {
                 setAvailableMoves([])
                 setSwitchRequired(true)
 
-                setAvailablePokemon((prev) =>{
+                setAvailablePokemon((prev) => {
 
-                        prev.forEach((poke) => {
+                    prev.forEach((poke) => {
 
-                            if(poke.name == data.name){
-                                poke.currentHp = 0;
-                                poke.status = 'fnt';
-                            }
-
-                        })
-
-                        return prev;
+                        if (poke.name == data.name) {
+                            poke.currentHp = 0;
+                            poke.status = 'fnt';
+                        }
 
                     })
+
+                    return prev;
+
+                })
             }
 
             if (data.player === 'p2') {
@@ -197,7 +200,7 @@ export default function Battle() {
                 //pokemon fainted
                 if (data.hp === 0) {
                     setPlayer1((prev) => ({ ...prev, currentHP: 0, currentHPPercentage: 0 }))
-                    
+
 
                 } else {
                     setPlayer1((prev) => ({
@@ -238,7 +241,20 @@ export default function Battle() {
                     currentHPPercentage: data.maxHp == 100 ? data.hp : prev.currentHP,
                 }))
 
-                if(data.maxHp == 100) addBattleLog(`¡${data.name} ha recuperado salud!`)
+                if (data.maxHp == 100) {
+
+                    if (data.reason !== null) {
+
+                        addBattleLog(`¡${data.name} ha recuperado salud gracias a ${data.reason}!`)
+
+                    } else {
+
+                        addBattleLog(`¡${data.name} ha recuperado salud!`)
+
+                    }
+
+
+                }
 
 
             }
@@ -251,7 +267,20 @@ export default function Battle() {
                     currentHPPercentage: data.maxHp == 100 ? data.hp : prev.currentHP,
                 }))
 
-                if(data.maxHp == 100) addBattleLog(`¡${data.name} ha recuperado salud!`)
+                if (data.maxHp == 100) {
+
+                    if (data.reason !== null) {
+
+                        addBattleLog(`¡${data.name} rival ha recuperado salud gracias a ${data.reason}!`)
+
+                    } else {
+
+                        addBattleLog(`¡${data.name} rival ha recuperado salud!`)
+
+                    }
+
+
+                }
 
             }
         })
@@ -345,12 +374,12 @@ export default function Battle() {
     useEffect(() => {
         window.electronAPI.onCrit((data) => {
 
-            if(data.player == 'p1'){
+            if (data.player == 'p1') {
 
                 addBattleLog(`¡${data.name} ha recibido un golpe crítico!`);
 
 
-            }else{
+            } else {
 
                 addBattleLog(`¡${data.name} rival ha recibido un golpe crítico!`);
 
@@ -363,39 +392,191 @@ export default function Battle() {
     useEffect(() => {
         window.electronAPI.onSuperEffective((data) => {
 
-            if(data.player == 'p1'){
+            if (data.player == 'p1') {
 
                 addBattleLog(`¡El ataque a ${data.name} fue super efectivo!`);
 
 
-            }else{
+            } else {
 
                 addBattleLog(`¡El ataque a ${data.name} rival fue super efectivo!`);
 
             }
 
         })
-        return () => window.electronAPI.offCrit()
+        return () => window.electronAPI.offSuperEffective()
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onResisted((data) => {
+
+            if (data.player == 'p1') {
+
+                addBattleLog(`El ataque a ${data.name} no es muy efectivo...`);
+
+
+            } else {
+
+                addBattleLog(`El ataque a ${data.name} rival no es muy efectivo...`);
+
+            }
+
+        })
+        return () => window.electronAPI.offResisted()
     }, [])
 
     useEffect(() => {
         window.electronAPI.onMiss((data) => {
 
-            if(data.player == 'p1'){
+            if (data.player == 'p1') {
 
                 addBattleLog(`¡${data.name} falló!`);
 
 
-            }else{
+            } else {
 
                 addBattleLog(`¡El ataque de ${data.name} rival ha fallado!`);
 
             }
 
         })
-        return () => window.electronAPI.offCrit()
+        return () => window.electronAPI.offMiss()
     }, [])
 
+    useEffect(() => {
+        window.electronAPI.onImmune((data) => {
+
+            if (data.player == 'p1') {
+
+                addBattleLog(`¡${data.name} es inmune al ataque!`);
+
+
+            } else {
+
+                addBattleLog(`¡${data.name} rival es inmune al ataque!`);
+
+            }
+
+        })
+        return () => window.electronAPI.offImmune()
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onEndItem((data) => {
+
+            if (data.player == 'p1') {
+
+                addBattleLog(`¡${data.name} ha perdido el objeto ${data.item}!`);
+
+
+            } else {
+
+                addBattleLog(`¡${data.name} rival ha perdido el objeto ${data.item}!`);
+
+            }
+
+        })
+        return () => window.electronAPI.offEndItem()
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onReplace((data) => {
+
+            if (data.player === 'p1') {
+
+                addBattleLog(`¡La ilusión de ${data.name} ha sido revelada!`)
+
+                setPlayer1((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, gender: data.gender, shiny: data.shiny }))
+
+            }
+
+            if (data.player === 'p2') {
+
+                addBattleLog(`¡La ilusión de ${data.name} rival ha sido revelada!`)
+                setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, gender: data.gender, shiny: data.shiny }))
+
+            }
+        })
+        return () => window.electronAPI.offReplace()
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onStartVolatile((data) => {
+
+            let msj = MENSAJES[`${data.effect}-start`];
+
+            if (msj !== undefined) {
+
+                if (data.player === 'p1') {
+
+                    addBattleLog(msj.replace('{pkm}', data.name))
+
+                }
+
+                if (data.player === 'p2') {
+
+                    addBattleLog(msj.replace('{pkm}', data.name + ' rival'))
+
+                }
+            } else {
+
+                console.log('No message for start volatile:', data.effect)
+
+            }
+        })
+        return () => window.electronAPI.offStartVolatile()
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onEndVolatile((data) => {
+
+            let msj = MENSAJES[`${data.effect}-end`];
+
+            if (msj !== undefined) {
+
+                if (data.player === 'p1') {
+
+                    addBattleLog(msj.replace('{pkm}', data.name))
+
+                }
+
+                if (data.player === 'p2') {
+
+                    addBattleLog(msj.replace('{pkm}', data.name + ' rival'))
+
+                }
+            } else {
+
+                console.log('No message for end volatile:', data.effect)
+
+            }
+        })
+        return () => window.electronAPI.offEndVolatile()
+    }, [])
+
+    useEffect(() => {
+        window.electronAPI.onBattleEnd((data) => {
+
+            if (data.result == 'win') {
+
+                if(data.winner == player1.playerName){
+
+                    addBattleLog(`¡Has ganado!`);
+                    setWinner('p1');
+
+                }
+
+                if(data.winner == player2.playerName){
+
+                    addBattleLog(`¡Has perdido!`);
+                    setWinner('p2');
+
+                }
+            }
+
+        })
+        return () => window.electronAPI.offBattleEnd()
+    }, [])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -431,20 +612,20 @@ export default function Battle() {
 
         onSelectPokemon: (pokemonObj) => {
 
-            if(pokemonObj.condition == '0 fnt'){
+            if (pokemonObj.condition == '0 fnt') {
 
                 addBattleLog(`¡${pokemonObj.name} no puede pelear más!`);
 
-            }else if(pokemonObj.active){
+            } else if (pokemonObj.active) {
 
                 addBattleLog(`¡${pokemonObj.name} ya está luchando!`);
 
-            }else{
+            } else {
 
                 window.electronAPI.selectPokemon(pokemonObj.name)
 
             }
-    
+
         }
 
     }
@@ -466,54 +647,57 @@ export default function Battle() {
 
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen relative overflow-hidden"
-            style={{
-                backgroundImage: `url(${bg})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                width: '100vw',
-                height: '100vh'
-            }}>
-            {/* Sprite enemigo - arriba derecha */}
-            {
-                player2.number &&
-                <img
-                    src={battlerSrcs.src2}
-                    onError={(e) => e.target.src = '/battlers/000.png'}
-                    className="absolute top-12 right-12 w-48" />
-            }
+        <>
+            {winner && <PopupEnd winner={winner} onClose={()=>{navigate('/')}}/>}
+            <div className="flex flex-col items-center justify-center h-screen relative overflow-hidden"
+                style={{
+                    backgroundImage: `url(${bg})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    width: '100vw',
+                    height: '100vh'
+                }}>
+                {/* Sprite enemigo - arriba derecha */}
+                {
+                    player2.number &&
+                    <img
+                        src={battlerSrcs.src2}
+                        onError={(e) => e.target.src = '/battlers/000.png'}
+                        className="absolute top-12 right-12 w-48" />
+                }
 
-            {/* HP del enemigo - flotando junto a su sprite */}
+                {/* HP del enemigo - flotando junto a su sprite */}
 
-            {
-                player2.number &&
-                <PokeStatusBar pkm={player2} positionClasses={'absolute top-24 left-8'} />
-            }
+                {
+                    player2.number &&
+                    <PokeStatusBar pkm={player2} positionClasses={'absolute top-24 left-8'} />
+                }
 
-            {/* Sprite jugador - abajo izquierda */}
-            {player1.number &&
-                <img
-                    src={battlerSrcs.src1}
-                    onError={(e) => e.target.src = '/battlers/000.png'}
-                    className="absolute bottom-32 left-12 w-64"
-                />
-            }
+                {/* Sprite jugador - abajo izquierda */}
+                {player1.number &&
+                    <img
+                        src={battlerSrcs.src1}
+                        onError={(e) => e.target.src = '/battlers/000.png'}
+                        className="absolute bottom-32 left-12 w-64"
+                    />
+                }
 
-            {/* HP del jugador - flotando junto a su sprite */}
-            {
-                player1.number &&
-                <PokeStatusBar pkm={player1} positionClasses={'absolute bottom-48 right-12'} />
+                {/* HP del jugador - flotando junto a su sprite */}
+                {
+                    player1.number &&
+                    <PokeStatusBar pkm={player1} positionClasses={'absolute bottom-48 right-12'} />
 
-            }
+                }
 
-            <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} availablePokemon={availablePokemon} handlers={handlers} switchRequired={switchRequired}/>
+                <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} availablePokemon={availablePokemon} handlers={handlers} switchRequired={switchRequired} />
 
-            {waiting && (
-                <div className="bg-white p-6 rounded-lg shadow-lg text-center absolute bottom-1/2 left-1/2 transform -translate-x-1/2">
-                    <p>Esperando a que el rival tome una accion...</p>
-                </div>
-            )}
+                {waiting && (
+                    <div className="bg-white p-6 rounded-lg shadow-lg text-center absolute bottom-1/2 left-1/2 transform -translate-x-1/2">
+                        <p>Esperando a que el rival tome una accion...</p>
+                    </div>
+                )}
 
-        </div>
+            </div>
+        </>
     )
 }

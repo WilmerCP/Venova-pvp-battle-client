@@ -11,6 +11,11 @@ const MENSAJES = {
     'par-recover': 'ya no está paralizado!',
     'slp-recover': 'ha despertado!',
     'frz-recover': 'se ha descongelado!',
+    'confusion-start': '¡{pkm} se ha confundido!',
+    'confusion-end': '¡{pkm} ya no está confundido!',
+    'winner-p1': '¡Has ganado el combate!',
+    'winner-p2': '¡Has perdido el combate!',
+    'winner': '¡{winner} ha ganado el combate!',
 
 }
 export default MENSAJES;

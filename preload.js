@@ -1,6 +1,15 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
+  startRandomBattle: () => ipcRenderer.invoke('start-random-battle'),
+  makeMove: (move) => ipcRenderer.invoke('make-move', move),
+  selectPokemon: (name) => ipcRenderer.invoke('select-pokemon', name),
+
+  on: (channel, cb) => ipcRenderer.on(channel, (event, data) => cb(data)),
+  off: (channel) => ipcRenderer.removeAllListeners(channel),
+})
+
+/*contextBridge.exposeInMainWorld('electronAPI', {
 
     startRandomBattle: () => ipcRenderer.invoke('start-random-battle'),
     onPlayer: (cb) => ipcRenderer.on('player', (event, data) => cb(data)),
@@ -56,4 +65,4 @@ contextBridge.exposeInMainWorld('electronAPI', {
     onFail: (cb) => ipcRenderer.on('fail',(event,data)=>cb(data)),
     offFail: () => ipcRenderer.removeAllListeners('fail'),
 
-});
+});*/

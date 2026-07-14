@@ -368,6 +368,21 @@ function parseUpdate(content, win) {
                 break
             }
 
+            case '-transform':{
+                //|-transform|p2a: Ditto|p1a: Mimikyu|[from] ability: Imposter
+
+                const { player, name } = parsePokemonId(parts[2]);
+                const {  name: targetName } = parsePokemonId(parts[3]);
+
+                win.webContents.send('transform', {
+                    player: player,   // 'p1'
+                    name: name,  // 'Ditto'
+                    targetName: targetName  // 'Mimikyu'
+                });
+
+                break
+            }
+
             case '-miss':{
                 //|-miss|p1a: Bronzong|p2a: Sceptile
                 //|-miss|SOURCE|TARGET

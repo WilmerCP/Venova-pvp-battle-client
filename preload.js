@@ -47,5 +47,13 @@ contextBridge.exposeInMainWorld('electronAPI', {
     offImmune: () => ipcRenderer.removeAllListeners('immune'),
     onBattleEnd: (cb) => ipcRenderer.on('battleEnd',(event,data)=>cb(data)),
     offBattleEnd: () => ipcRenderer.removeAllListeners('battleEnd'),
+    onCant: (cb) => ipcRenderer.on('cant',(event,data)=>cb(data)),
+    offCant: () => ipcRenderer.removeAllListeners('cant'),
+    onStartSideCondition: (cb) => ipcRenderer.on('startSideCondition',(event,data)=>cb(data)),
+    offStartSideCondition: () => ipcRenderer.removeAllListeners('startSideCondition'),
+    onClearAllBoost: (cb) => ipcRenderer.on('clearAllBoost',(event,data)=>cb(data)),
+    offClearAllBoost: () => ipcRenderer.removeAllListeners('clearAllBoost'),
+    onFail: (cb) => ipcRenderer.on('fail',(event,data)=>cb(data)),
+    offFail: () => ipcRenderer.removeAllListeners('fail'),
 
 });

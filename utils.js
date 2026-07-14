@@ -11,6 +11,31 @@ function parsePokemonId(id) {
     return { player, slot, name }
 }
 
+function parseSideId(id) {
+    if (!id) return null 
+
+    const [player, name] = id.split(': ')
+
+    return { player, name }
+}
+
+function parseCondition(text) {
+    if (!text) return null 
+
+    const [origin, condition] = text.split(': ')
+
+    if(condition !== undefined){
+
+        return { conditionName: condition.trim(), origin: origin.trim() }
+
+    }else{
+
+        return { conditionName: origin.trim(), origin: undefined }
+
+    }
+
+}
+
 //Parces strings with format Sawsbuck, L50, F, shiny
 //no L# means level 100, no F/M means genderless, no shiny means not shiny
 function parsePokemonDetails(details) {
@@ -357,6 +382,22 @@ function parseUpdate(content, win) {
                 break
             }
 
+            case 'cant':{
+                //|cant|p2a: Poliwrath|slp
+                //|cant|POKEMON|REASON|MOVE (move optional)
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+
+                win.webContents.send('cant', {
+                    player: player,   // 'p1'
+                    name: name,  // 'Pikachu'
+                    reason: parts[3],
+                    move: parts[4] || null
+                })
+
+                break
+            }
+
             case '-enditem':{
                 //|-enditem|POKEMON|ITEM|[from]EFFECT
                 //|-enditem|p2a: Lickilicky|Leftovers|[from] move: Knock Off|[of] p1a: Cinccino
@@ -388,6 +429,51 @@ function parseUpdate(content, win) {
                 })
 
                 break
+            }
+
+            //A side condition that affects one side of the field. (Tailwind, Stealth Rock, Reflect...)
+            case '-sidestart':{
+                //|-sidestart|SIDE|CONDITION
+                //|-sidestart|p2: Jugador 2|move: Toxic Spikes
+
+                const { player, name } = parseSideId(parts[2]);
+
+                const { conditionName, origin } = parseCondition(parts[3]);
+
+                win.webContents.send('startSideCondition', {
+                    player: player,   // 'p1'
+                    condition: conditionName,
+                    origin: origin
+                })
+
+                break
+            }
+
+            //Clears all boosts from all Pokémon on both sides. (Haze)
+            case '-clearallboost':{
+                //|-clearallboost
+
+                win.webContents.send('clearAllBoost', {
+                    
+                })
+
+                break
+            }
+
+            case '-fail':{
+                //|-fail|p1a: Qwilfish
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+
+                win.webContents.send('fail', {
+
+                    player: player,   // 'p1'
+                    name: name,  // 'Pikachu'
+                    
+                })
+
+                break
+
             }
 
             case '-end':{

@@ -39,7 +39,7 @@ export default function MoveMenu({ onSelectMove, onBack, availableMoves }) {
 
                 {availableMoves.map((move) => (
 
-                    <MoveButton key={move.move} name={move.move} type={move.type} ppCurrent={move.pp} ppMax={move.maxpp} disabled={move.disabled} onSelectMove={onSelectMove}/>
+                    <MoveButton key={move.move} name={move.move} id={move.id} type={move.type} ppCurrent={move.pp} ppMax={move.maxpp} disabled={move.disabled} onSelectMove={onSelectMove}/>
 
                 ))}
 

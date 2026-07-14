@@ -16,6 +16,14 @@ const MENSAJES = {
     'winner-p1': '¡Has ganado el combate!',
     'winner-p2': '¡Has perdido el combate!',
     'winner': '¡{winner} ha ganado el combate!',
+    'cant-slp': '¡{pkm} está dormido!',
+    'cant-par': '{pkm} está paralizado, ¡no se puede mover!',
+    'cant-frz': '{pkm} está congelado, ¡no se puede mover!',
+    'side-condition-[Toxic Spikes]': '¡{pkm} ha sido rodeado por púas tóxicas!',
+    'side-condition-[Stealth Rock]': '¡{pkm} ha sido rodeado por rocas afiladas!',
+    'side-condition-[Spikes]': '¡{pkm} ha sido rodeado por púas!',
+    'side-condition-[Sticky Web]': '¡{pkm} ha sido rodeado por una telaraña pegajosa!',
+    'clear-all-boost': '¡Todos los cambios de características han desaparecido!'
 
 }
 export default MENSAJES;

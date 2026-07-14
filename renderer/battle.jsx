@@ -444,6 +444,34 @@ export default function Battle() {
     }, [])
 
     useEffect(() => {
+        window.electronAPI.onCant((data) => {
+
+            let msj = MENSAJES[`cant-${data.reason}`];
+
+            if (msj !== undefined) {
+
+                if (data.player == 'p1') {
+
+                    addBattleLog(msj.replace('{pkm}', data.name));
+
+
+                } else {
+
+                    addBattleLog(msj.replace('{pkm}', `${data.name} rival`));
+
+                }
+
+            }else{
+
+                addBattleLog(`Error: unhandled reason for event: [cant] -> ${data.reason}`)
+
+            }
+
+        })
+        return () => window.electronAPI.offCant()
+    }, [])
+
+    useEffect(() => {
         window.electronAPI.onImmune((data) => {
 
             if (data.player == 'p1') {
@@ -478,6 +506,34 @@ export default function Battle() {
         })
         return () => window.electronAPI.offEndItem()
     }, [])
+
+    useEffect(() => {
+        window.electronAPI.onStartSideCondition((data) => {
+
+            let msj = MENSAJES[`side-condition-[${data.condition}]`];
+
+            if (msj !== undefined) {
+
+                if (data.player == 'p1') {
+
+                    addBattleLog(msj.replace('{pkm}', `${player2.pkmName}`));
+
+
+                } else {
+
+                    addBattleLog(msj.replace('{pkm}', `${player2.pkmName} rival`));
+
+                }
+
+            }else{
+
+                addBattleLog(`Error: unhandled side condition -> ${data.origin} ${data.condition}`)
+
+            }
+
+        })
+        return () => window.electronAPI.offStartSideCondition()
+    }, [player1.pkmName, player2.pkmName])
 
     useEffect(() => {
         window.electronAPI.onReplace((data) => {
@@ -528,6 +584,16 @@ export default function Battle() {
     }, [])
 
     useEffect(() => {
+        window.electronAPI.onClearAllBoost((data) => {
+
+            let msj = MENSAJES[`clear-all-boost`];
+            addBattleLog(msj);
+
+        })
+        return () => window.electronAPI.offClearAllBoost()
+    }, [])
+
+    useEffect(() => {
         window.electronAPI.onEndVolatile((data) => {
 
             let msj = MENSAJES[`${data.effect}-end`];
@@ -559,14 +625,14 @@ export default function Battle() {
 
             if (data.result == 'win') {
 
-                if(data.winner == player1.playerName){
+                if (data.winner == player1.playerName) {
 
                     addBattleLog(`¡Has ganado!`);
                     setWinner('p1');
 
                 }
 
-                if(data.winner == player2.playerName){
+                if (data.winner == player2.playerName) {
 
                     addBattleLog(`¡Has perdido!`);
                     setWinner('p2');
@@ -648,7 +714,7 @@ export default function Battle() {
 
     return (
         <>
-            {winner && <PopupEnd winner={winner} onClose={()=>{navigate('/')}}/>}
+            {winner && <PopupEnd winner={winner} onClose={() => { navigate('/') }} />}
             <div className="flex flex-col items-center justify-center h-screen relative overflow-hidden"
                 style={{
                     backgroundImage: `url(${bg})`,

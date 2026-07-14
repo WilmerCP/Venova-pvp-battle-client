@@ -1,13 +1,13 @@
 import POKEMON_TYPES from '../lib/tipos.js';
 
-export default function MoveButton({ name, type, ppCurrent, ppMax, disabled, onSelectMove }) {
+export default function MoveButton({ name, type, ppCurrent, ppMax, disabled, onSelectMove, id }) {
   const config = POKEMON_TYPES[type] || POKEMON_TYPES.Normal;
 
   return (
     <button
       onClick={() => {
 
-        onSelectMove(name, disabled)
+        onSelectMove(id, disabled)
 
       }}
 

@@ -2,7 +2,7 @@ import './index.css'
 import bg from './assets/fondos/battlebgChampion.png'
 
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, use } from 'react'
 import { useLoaderData } from 'react-router-dom'
 import BattleControlBox from './components/BattleControlBox.jsx'
 import PokeStatusBar from './components/PokeStatusBar.jsx'
@@ -57,12 +57,94 @@ export default function Battle() {
     const battleData = useLoaderData();
 
     const { battleLog, addBattleLog, player1, player2, battlerSrcs, availableMoves,
-         availablePokemon, waiting, switchRequired, winner } = useBattleEvents({p1,p2});
+        availablePokemon, waiting, switchRequired, winner, animationQueue,
+        pendingAnimation, setPendingAnimation } = useBattleEvents({ p1, p2 });
 
+    const processingRef = useRef(false);
 
-    //console.log(battleData)
+    const [p1VisibleHp, setP1VisibleHp] = useState(100);
+    const [p2VisibleHp, setP2VisibleHp] = useState(100);
+
+    const bar1Ref = useRef();
+    const bar2Ref = useRef();
 
     const navigate = useNavigate()
+
+    async function handleAnimation(animation) {
+
+        console.log(animation)
+
+        switch (animation.event) {
+
+            case 'hpChange': {
+
+
+
+                return new Promise((resolve) => {
+
+                    const barRef = animation.player === 'p1' ? bar1Ref : bar2Ref;
+
+                    if (animation.player == 'p1') {
+
+                        if (p1VisibleHp === animation.newHP) {
+                        return resolve();
+                        }
+
+                        setP1VisibleHp(animation.newHP)
+                    } else {
+
+                        if (p2VisibleHp === animation.newHP) {
+                        return resolve();
+                        }
+
+                        setP2VisibleHp(animation.newHP)
+                    }
+
+                    const el = barRef.current;
+                    if (!el) {
+
+                        console.log('Problem with health bar div element');
+
+                        return resolve(); // safety fallback
+                    }
+
+                    const onEnd = (e) => {
+                        if (e.propertyName !== 'width') return; // filter to the property you're animating
+                        el.removeEventListener('transitionend', onEnd);
+                        resolve();
+                    };
+                    el.addEventListener('transitionend', onEnd);
+                });
+
+                break;
+            }
+
+            default:
+                console.log('Wrong or unhandled animation event');
+                Promise.resolve();
+
+        }
+
+    }
+
+
+
+    async function processQueue() {
+
+        console.log('hola')
+
+        if (processingRef.current) return;
+        processingRef.current = true;
+        while (animationQueue.current.length > 0) {
+            const animation = animationQueue.current.shift();
+            await handleAnimation(animation);
+        }
+        processingRef.current = false;
+    }
+
+    useEffect(() => {
+        processQueue();
+    }, [pendingAnimation]);
 
 
     useEffect(() => {
@@ -142,7 +224,7 @@ export default function Battle() {
 
                 {
                     player2.number &&
-                    <PokeStatusBar pkm={player2} positionClasses={'absolute top-24 left-8'} />
+                    <PokeStatusBar pkm={player2} hpToDisplay={p2VisibleHp} barRef={bar2Ref} positionClasses={'absolute top-24 left-8'} />
                 }
 
                 {/* Sprite jugador - abajo izquierda */}
@@ -157,7 +239,7 @@ export default function Battle() {
                 {/* HP del jugador - flotando junto a su sprite */}
                 {
                     player1.number &&
-                    <PokeStatusBar pkm={player1} positionClasses={'absolute bottom-48 right-12'} />
+                    <PokeStatusBar pkm={player1} hpToDisplay={p1VisibleHp} barRef={bar1Ref} positionClasses={'absolute bottom-48 right-12'} />
 
                 }
 

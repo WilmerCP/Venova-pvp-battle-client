@@ -3,9 +3,11 @@ import { MdStar } from "react-icons/md";
 
 
 
-export default function PokeStatusBar({ pkm, positionClasses }) {
+export default function PokeStatusBar({ pkm, hpToDisplay , barRef , positionClasses }) {
 
     const GenderSymbol = pkm.gender == 'male' ? CgGenderMale : pkm.gender == 'female' ? CgGenderFemale : 'div';
+
+    console.log('hp to display:', hpToDisplay);
 
     return (
         <div className={`bg-white rounded-lg px-4 py-3 shadow-lg w-[220px] ${positionClasses}`}>
@@ -27,9 +29,12 @@ export default function PokeStatusBar({ pkm, positionClasses }) {
                 <div className={`status status-${pkm.status}`}></div>
                 <div className="w-3/4 h-2 bg-gray-300 rounded-full mt-1">
                     <div
-                        className={`h-2 rounded-full ${pkm.currentHPPercentage < 25 ? 'bg-red-500' : pkm.currentHPPercentage < 50 ? 'bg-yellow-400' : 'bg-green-500'
+                        ref={barRef}
+                        className={`h-2 rounded-full ${hpToDisplay < 25 ? 'bg-red-500' : hpToDisplay < 50 ? 'bg-yellow-400' : 'bg-green-500'
                             }`}
-                        style={{ width: `${pkm.currentHPPercentage}%` }}
+                        style={{ width: `${hpToDisplay}%`,
+                                transition: 'width 0.4s ease-out'
+                     }}
                     />
                 </div>
             </div>

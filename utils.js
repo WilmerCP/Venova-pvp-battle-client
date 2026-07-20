@@ -19,6 +19,38 @@ function parseSideId(id) {
     return { player, name }
 }
 
+
+// |-heal|p1a: Pikachu|100/100 brn
+//|-heal|p2a: Scizor|17/100|[from] item: Leftovers
+//|-heal|p1a: Gurdurr|290/290 tox|[from] drain|[of] p2a: Hitmontop
+function parseReason(reasonStr) {
+    if (!reasonStr) return null
+
+    let trimmed = reasonStr.replace('[from]','');
+
+    if(trimmed.includes('item:')){
+
+        return { 
+
+            type: 'item',
+            reason: trimmed.replace('item:','').trim()
+
+        }
+
+
+    }else{
+
+        return { 
+
+            type: 'move',
+            reason: trimmed.trim()
+
+        }
+
+    }
+
+}
+
 function parseCondition(text) {
     if (!text) return null 
 
@@ -208,26 +240,22 @@ function parseUpdate(content, win) {
             case '-heal': {
                 // |-heal|p1a: Pikachu|100/100 brn
                 //|-heal|p2a: Scizor|17/100|[from] item: Leftovers
+                //|-heal|p1a: Gurdurr|290/290 tox|[from] drain|[of] p2a: Hitmontop
                 console.log(`${parts[2]} healed to ${parts[3]}`)
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
 
                 const { current, total, status } = parseHealth(parts[3]);
 
-                let reason = null
+                let healReason, healType;
 
                 if(parts[4] !== undefined){
 
-                    try{
+  
+                    const { type, reason } = parseReason(parts[4]);
 
-                        reason = parts[4].split(':')[1].trim();
-
-                    }catch(e){
-
-                        console.log('parsing failed at -heal:')
-                        console.log(line);
-
-                    }
+                    healReason = reason;
+                    healType = type;
 
                 }
 
@@ -239,7 +267,8 @@ function parseUpdate(content, win) {
                     maxHp: total,     // 100 or total hp
                     status: status,
                     name: name,
-                    reason: reason
+                    reason: healReason,
+                    type: healType
                 })
                 break
             }

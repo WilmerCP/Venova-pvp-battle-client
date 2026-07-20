@@ -6,6 +6,9 @@ import MENSAJES from '../lib/mensajes.js'
 
 export default function useBattleEvents({ p1, p2 }) {
 
+    const animationQueue = useRef([]); //Animate 1 by 1
+    const [pendingAnimation, setPendingAnimation] = useState(0);
+
     const [battlerSrcs, setBattlerSrcs] = useState({});
 
     const [player1, setPlayer1] = useState(p1);
@@ -48,6 +51,13 @@ export default function useBattleEvents({ p1, p2 }) {
         return `/battlers/${key}`;
     }
 
+    function scheduleAnimation(animation) {
+
+        animationQueue.current.push(animation);
+        setPendingAnimation(v => v + 1);
+
+    }
+
     function handlePlayer(data) {
 
         if (data.id === 'p1') {
@@ -72,6 +82,12 @@ export default function useBattleEvents({ p1, p2 }) {
 
                 setPlayer1((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp }))
 
+                scheduleAnimation({
+                    event: 'hpChange',
+                    player: 'p1',
+                    newHP: data.hp
+                });
+
                 if (data.reason == 'drag') {
                     addBattleLog(`¡${data.name} ha sido forzado a combatir!`)
                 } else {
@@ -95,6 +111,12 @@ export default function useBattleEvents({ p1, p2 }) {
             if (data.maxHp == 100) {
 
                 setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp }))
+
+                scheduleAnimation({
+                    event: 'hpChange',
+                    player: 'p2',
+                    newHP: data.hp
+                });
 
                 if (data.reason == 'drag') {
                     addBattleLog(`¡${data.name} rival ha sido forzado a combatir!`)
@@ -161,6 +183,16 @@ export default function useBattleEvents({ p1, p2 }) {
                     currentHP: data.maxHp !== 100 ? data.hp : prev.currentHP,
                     currentHPPercentage: data.maxHp == 100 ? data.hp : prev.currentHP,
                 }))
+
+            }
+
+            //Add animation only once
+            if (data.maxHp == 100) {
+                scheduleAnimation({
+                    event: 'hpChange',
+                    player: 'p1',
+                    newHP: data.hp
+                });
             }
 
         }
@@ -176,6 +208,15 @@ export default function useBattleEvents({ p1, p2 }) {
                     currentHP: data.maxHp !== 100 ? data.hp : prev.currentHP,
                     currentHPPercentage: data.maxHp == 100 ? data.hp : prev.currentHP,
                 }))
+            }
+
+            //Add animation only once
+            if (data.maxHp == 100) {
+                scheduleAnimation({
+                    event: 'hpChange',
+                    player: 'p2',
+                    newHP: data.hp
+                });
             }
         }
     }
@@ -193,7 +234,13 @@ export default function useBattleEvents({ p1, p2 }) {
 
             if (data.maxHp == 100) {
 
-                if (data.reason !== null) {
+                scheduleAnimation({
+                    event: 'hpChange',
+                    player: 'p1',
+                    newHP: data.hp
+                });
+
+                if (data.reason) {
 
                     addBattleLog(`¡${data.name} ha recuperado salud gracias a ${data.reason}!`)
 
@@ -218,6 +265,12 @@ export default function useBattleEvents({ p1, p2 }) {
             }))
 
             if (data.maxHp == 100) {
+
+                scheduleAnimation({
+                    event: 'hpChange',
+                    player: 'p2',
+                    newHP: data.hp
+                });
 
                 if (data.reason !== null) {
 
@@ -610,7 +663,9 @@ export default function useBattleEvents({ p1, p2 }) {
         load();
     }, [player1.number, player2.number]);
 
-    return { battleLog, addBattleLog, player1, player2, battlerSrcs, availableMoves,
-         availablePokemon, waiting, switchRequired, winner }
+    return {
+        battleLog, addBattleLog, player1, player2, battlerSrcs, availableMoves,
+        availablePokemon, waiting, switchRequired, winner, animationQueue, pendingAnimation
+    }
 
 }

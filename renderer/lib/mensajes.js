@@ -20,6 +20,7 @@ const MENSAJES = {
     'cant-[par]': '¡{pkm} está paralizado, ¡no se puede mover!',
     'cant-[frz]': '¡{pkm} está congelado, ¡no se puede mover!',
     'cant-[ability: Truant]': '¡{pkm} se rasca la cabeza!',
+    'cant-[move: Taunt]': '¡{pkm} cayó en la provocación!',
     'cant-[flinch]': '¡{pkm} ha retrocedido!',
     'side-condition-[Toxic Spikes]': '¡{pkm} ha sido rodeado por púas tóxicas!',
     'side-condition-[Stealth Rock]': '¡{pkm} ha sido rodeado por rocas afiladas!',

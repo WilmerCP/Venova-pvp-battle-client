@@ -83,6 +83,13 @@ export default function useBattleEvents({ p1, p2 }) {
                 setPlayer1((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp }))
 
                 scheduleAnimation({
+                    event: 'pkmSwitch',
+                    player: 'p1',
+                    newSrc: getBattlerSrc(data.num, { back: true, shiny: data.shiny }),
+                    pkmData: data
+                });
+
+                scheduleAnimation({
                     event: 'hpChange',
                     player: 'p1',
                     newHP: data.hp
@@ -110,7 +117,16 @@ export default function useBattleEvents({ p1, p2 }) {
 
             if (data.maxHp == 100) {
 
+                setWaiting(false)
+
                 setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp }))
+
+                scheduleAnimation({
+                    event: 'pkmSwitch',
+                    player: 'p2',
+                    newSrc: getBattlerSrc(data.num, { back: false, shiny: data.shiny }),
+                    pkmData: data
+                });
 
                 scheduleAnimation({
                     event: 'hpChange',
@@ -140,10 +156,22 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleFaint(data) {
         if (data.player === 'p1') {
-            setPlayer1((prev) => ({ ...prev, pkmName: null, number: null }))
+
+            setPlayer1((prev) => ({ ...prev, pkmName: null, number: null, currentHP: 0, currentHPPercentage: 0 }))
             addBattleLog(`¡${data.name} se debilitó!`)
             setAvailableMoves([])
             setSwitchRequired(true)
+
+            scheduleAnimation({
+                    event: 'hpChange',
+                    player: 'p1',
+                    newHP: 0
+                });
+
+            scheduleAnimation({
+                event: 'faint',
+                player: 'p1'
+            });
 
             setAvailablePokemon((prev) => {
 
@@ -162,7 +190,19 @@ export default function useBattleEvents({ p1, p2 }) {
         }
 
         if (data.player === 'p2') {
-            setPlayer2((prev) => ({ ...prev, pkmName: null, number: null }))
+            setPlayer2((prev) => ({ ...prev, pkmName: null, number: null, currentHP: 0, currentHPPercentage: 0 }))
+
+            scheduleAnimation({
+                    event: 'hpChange',
+                    player: 'p2',
+                    newHP: 0
+                });
+
+            scheduleAnimation({
+                event: 'faint',
+                player: 'p2'
+            });
+
             addBattleLog(`¡El ${data.name} salvaje se debilitó!`)
         }
     }
@@ -174,8 +214,9 @@ export default function useBattleEvents({ p1, p2 }) {
 
             //pokemon fainted
             if (data.hp === 0) {
-                setPlayer1((prev) => ({ ...prev, currentHP: 0, currentHPPercentage: 0 }))
 
+                //Let Faint function handle it
+                return
 
             } else {
                 setPlayer1((prev) => ({
@@ -199,8 +240,9 @@ export default function useBattleEvents({ p1, p2 }) {
 
         if (data.player === 'p2') {
             if (data.maxHp === 0) {
-                setPlayer2((prev) => ({ ...prev, currentHP: 0, currentHPPercentage: 0 }))
 
+                //Let Faint function handle it
+                return
 
             } else {
                 setPlayer2((prev) => ({
@@ -223,6 +265,7 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleHeal(data) {
 
+
         if (data.player === 'p1') {
 
 
@@ -240,9 +283,10 @@ export default function useBattleEvents({ p1, p2 }) {
                     newHP: data.hp
                 });
 
-                if (data.reason) {
+                if (data.reason !== undefined) {
 
                     addBattleLog(`¡${data.name} ha recuperado salud gracias a ${data.reason}!`)
+                    console.log(data)
 
                 } else {
 
@@ -272,7 +316,7 @@ export default function useBattleEvents({ p1, p2 }) {
                     newHP: data.hp
                 });
 
-                if (data.reason !== null) {
+                if (data.reason !== undefined) {
 
                     addBattleLog(`¡${data.name} rival ha recuperado salud gracias a ${data.reason}!`)
 
@@ -654,17 +698,17 @@ export default function useBattleEvents({ p1, p2 }) {
         }
     }, [])
 
-    useEffect(() => {
+    {/*useEffect(() => {
         async function load() {
             const src1 = getBattlerSrc(player1.number, { back: true, shiny: player1.shiny });
             const src2 = getBattlerSrc(player2.number, { back: false, shiny: player2.shiny });
             setBattlerSrcs({ src1, src2 });
         }
         load();
-    }, [player1.number, player2.number]);
+    }, [player1.number, player2.number]);*/}
 
     return {
-        battleLog, addBattleLog, player1, player2, battlerSrcs, availableMoves,
+        battleLog, addBattleLog, player1, player2, battlerSrcs, setBattlerSrcs, availableMoves,
         availablePokemon, waiting, switchRequired, winner, animationQueue, pendingAnimation
     }
 

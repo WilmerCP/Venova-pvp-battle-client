@@ -49,24 +49,79 @@ const movesTemplate = [
     { move: 'Velocidad Extrema', pp: 5, maxpp: 5, type: 'Normal', disabled: false, target: 'normal' },
 ]
 
+function getSpriteAnimationClass(animationDesc, playerId) {
 
+    if (animationDesc == null) return '';
+    if (!animationDesc.includes(playerId)) return '';
+
+    switch (animationDesc) {
+
+        case 'faint-p1':
+            return 'faint-animation';
+
+        case 'faint-p2':
+            return 'faint-animation';
+
+        case 'switch-p1':
+            return 'sendout-animation';
+
+        case 'switch-p2':
+            return 'sendout-animation';
+
+        default:
+            return '';
+    }
+
+}
+
+function getBarAnimationClass(animationDesc, playerId) {
+
+    if (animationDesc == null) return '';
+    if (!animationDesc.includes(playerId)) return '';
+
+    switch (animationDesc) {
+
+        case 'switch-p1':
+            return 'slide-in-right';
+
+        case 'switch-p2':
+            return 'slide-in-left';
+
+        default:
+            return '';
+    }
+
+
+}
 
 
 export default function Battle() {
 
     const battleData = useLoaderData();
 
-    const { battleLog, addBattleLog, player1, player2, battlerSrcs, availableMoves,
+    const { battleLog, addBattleLog, player1, player2, battlerSrcs, setBattlerSrcs, availableMoves,
         availablePokemon, waiting, switchRequired, winner, animationQueue,
         pendingAnimation, setPendingAnimation } = useBattleEvents({ p1, p2 });
 
     const processingRef = useRef(false);
 
-    const [p1VisibleHp, setP1VisibleHp] = useState(100);
-    const [p2VisibleHp, setP2VisibleHp] = useState(100);
+    const [p1Visible, setP1Visible] = useState(p1);
+    const [p2Visible, setP2Visible] = useState(p2);
 
+    //Health bar ref for animation handling
     const bar1Ref = useRef();
     const bar2Ref = useRef();
+
+    //Floating divs ref for animation handling
+    const statusBar1Ref = useRef();
+    const statusBar2Ref = useRef();
+
+
+    const [currentAnimation, setCurrentAnimation] = useState(null);
+
+    //Sprite image element ref for animation handling
+    const sprite1Ref = useRef();
+    const sprite2Ref = useRef();
 
     const navigate = useNavigate()
 
@@ -78,26 +133,24 @@ export default function Battle() {
 
             case 'hpChange': {
 
-
-
                 return new Promise((resolve) => {
 
                     const barRef = animation.player === 'p1' ? bar1Ref : bar2Ref;
 
                     if (animation.player == 'p1') {
 
-                        if (p1VisibleHp === animation.newHP) {
-                        return resolve();
+                        if (p1Visible.currentHPPercentage === animation.newHP) {
+                            return resolve();
                         }
 
-                        setP1VisibleHp(animation.newHP)
+                        setP1Visible(prev => ({ ...prev, currentHPPercentage: animation.newHP }))
                     } else {
 
-                        if (p2VisibleHp === animation.newHP) {
-                        return resolve();
+                        if (p2Visible.currentHPPercentage === animation.newHP) {
+                            return resolve();
                         }
 
-                        setP2VisibleHp(animation.newHP)
+                        setP2Visible(prev => ({ ...prev, currentHPPercentage: animation.newHP }))
                     }
 
                     const el = barRef.current;
@@ -107,6 +160,11 @@ export default function Battle() {
 
                         return resolve(); // safety fallback
                     }
+
+                    const timeout = setTimeout(() => {
+                        el.removeEventListener('transitionend', onEnd);
+                        resolve();
+                    }, 1100); // slightly more than your CSS transition duration
 
                     const onEnd = (e) => {
                         if (e.propertyName !== 'width') return; // filter to the property you're animating
@@ -119,6 +177,102 @@ export default function Battle() {
                 break;
             }
 
+            case 'faint': {
+                return new Promise((resolve) => {
+                    const spriteRef = animation.player === 'p1' ? sprite1Ref : sprite2Ref;
+                    const elPkm = spriteRef.current;
+
+                    //const statusBarRef = animation.player === 'p1' ? statusBar1Ref : statusBar2Ref;
+                    //const elBar = statusBarRef.current;
+
+                    if (!elPkm) {
+                        console.log('Problem with sprite element');
+                        return resolve();
+                    }
+
+                    const hidePlayer = () => {
+                        setCurrentAnimation('none');
+                        if (animation.player === 'p1') {
+                            setP1Visible(prev => ({ ...prev, number: undefined, pkmName: undefined }));
+                        } else {
+                            setP2Visible(prev => ({ ...prev, number: undefined, pkmName: undefined }));
+                        }
+                    };
+
+                    if (animation.player == 'p1') {
+
+                        setCurrentAnimation('faint-p1')
+
+                    } else {
+
+                        setCurrentAnimation('faint-p2')
+
+                    }
+
+
+                    const timeout = setTimeout(() => {
+                        elPkm.removeEventListener('animationend', onEnd);
+                        hidePlayer();
+                        resolve();
+                    }, 1000); // safety fallback, same reasoning as before
+
+                    const onEnd = (e) => {
+                        clearTimeout(timeout);
+                        elPkm.removeEventListener('animationend', onEnd);
+                        hidePlayer();
+                        resolve();
+                    };
+                    elPkm.addEventListener('animationend', onEnd);
+                });
+                break;
+            }
+
+            case 'pkmSwitch': {
+                return new Promise((resolve) => {
+                    const spriteRef = animation.player === 'p1' ? sprite1Ref : sprite2Ref;
+                    const data = animation.pkmData;
+
+                    // Apply state first — this is what mounts/updates the <img>
+                    if (animation.player === 'p1') {
+                        setBattlerSrcs(prev => ({ ...prev, src1: animation.newSrc }));
+                        setP1Visible(prev => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp }));
+                    } else {
+                        setBattlerSrcs(prev => ({ ...prev, src2: animation.newSrc }));
+                        setP2Visible(prev => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp }));
+                    }
+
+                    // Wait for the DOM to actually reflect the mount before touching refs
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            const elPkm = spriteRef.current;
+                            if (!elPkm) {
+                                console.log('Problem with elements on switch animation handler');
+                                resolve();
+                                return;
+                            }
+
+                            setCurrentAnimation(animation.player === 'p1' ? 'switch-p1' : 'switch-p2');
+
+                            const timeout = setTimeout(() => {
+                                elPkm.removeEventListener('animationend', onEnd);
+                                setCurrentAnimation('none');
+                                resolve();
+                            }, 1000);
+
+                            const onEnd = (e) => {
+                                clearTimeout(timeout);
+                                elPkm.removeEventListener('animationend', onEnd);
+                                setCurrentAnimation('none');
+                                resolve();
+                            };
+                            elPkm.addEventListener('animationend', onEnd);
+                        });
+                    });
+                });
+            }
+
+
+
             default:
                 console.log('Wrong or unhandled animation event');
                 Promise.resolve();
@@ -130,10 +284,8 @@ export default function Battle() {
 
 
     async function processQueue() {
-
-        console.log('hola')
-
         if (processingRef.current) return;
+        console.log('Processing the queue')
         processingRef.current = true;
         while (animationQueue.current.length > 0) {
             const animation = animationQueue.current.shift();
@@ -174,7 +326,7 @@ export default function Battle() {
                 addBattleLog(`${player1.pkmName} no puede usar ${move}!`);
 
                 return
-            } else {
+            } else if (processingRef.current == false) {
                 window.electronAPI.makeMove(move)
             }
         },
@@ -189,7 +341,7 @@ export default function Battle() {
 
                 addBattleLog(`¡${pokemonObj.name} ya está luchando!`);
 
-            } else {
+            } else if (processingRef.current == false) {
 
                 window.electronAPI.selectPokemon(pokemonObj.name)
 
@@ -198,7 +350,6 @@ export default function Battle() {
         }
 
     }
-
 
     return (
         <>
@@ -213,33 +364,36 @@ export default function Battle() {
                 }}>
                 {/* Sprite enemigo - arriba derecha */}
                 {
-                    player2.number &&
+                    p2Visible.number &&
                     <img
                         src={battlerSrcs.src2}
                         onError={(e) => e.target.src = '/battlers/000.png'}
-                        className="absolute top-12 right-12 w-48" />
+                        className={`${getSpriteAnimationClass(currentAnimation, 'p2')} absolute top-12 right-12 w-48`}
+                        ref={sprite2Ref}
+                    />
                 }
 
                 {/* HP del enemigo - flotando junto a su sprite */}
 
                 {
-                    player2.number &&
-                    <PokeStatusBar pkm={player2} hpToDisplay={p2VisibleHp} barRef={bar2Ref} positionClasses={'absolute top-24 left-8'} />
+                    p2Visible.number &&
+                    <PokeStatusBar pkm={p2Visible} barRef={bar2Ref} statusBarRef={statusBar2Ref} positionClasses={`absolute top-24 left-8 ${getBarAnimationClass(currentAnimation, 'p2')} ${(battlerSrcs.src2 == undefined || currentAnimation == 'faint-p2') && 'hidden'}`} />
                 }
 
                 {/* Sprite jugador - abajo izquierda */}
-                {player1.number &&
+                {p1Visible.number &&
                     <img
                         src={battlerSrcs.src1}
                         onError={(e) => e.target.src = '/battlers/000.png'}
-                        className="absolute bottom-32 left-12 w-64"
+                        className={`${getSpriteAnimationClass(currentAnimation, 'p1')} absolute bottom-32 left-12 w-64`}
+                        ref={sprite1Ref}
                     />
                 }
 
                 {/* HP del jugador - flotando junto a su sprite */}
                 {
-                    player1.number &&
-                    <PokeStatusBar pkm={player1} hpToDisplay={p1VisibleHp} barRef={bar1Ref} positionClasses={'absolute bottom-48 right-12'} />
+                    p1Visible.number &&
+                    <PokeStatusBar pkm={p1Visible} barRef={bar1Ref} statusBarRef={statusBar1Ref} positionClasses={`absolute bottom-48 right-12 ${getBarAnimationClass(currentAnimation, 'p1')} ${(battlerSrcs.src1 == undefined || currentAnimation == 'faint-p1') && 'hidden'}`} />
 
                 }
 

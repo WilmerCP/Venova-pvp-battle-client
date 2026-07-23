@@ -11,8 +11,9 @@ const MENSAJES = {
     'par-recover': 'ya no está paralizado!',
     'slp-recover': 'ha despertado!',
     'frz-recover': 'se ha descongelado!',
-    'confusion-start': '¡{pkm} se ha confundido!',
-    'confusion-end': '¡{pkm} ya no está confundido!',
+    '[confusion]-start': '¡{pkm} se ha confundido!',
+    '[move: Leech Seed]-start': '¡{pkm} ha sido infectado por drenadoras!',
+    '[confusion]-end': '¡{pkm} ya no está confundido!',
     'winner-p1': '¡Has ganado el combate!',
     'winner-p2': '¡Has perdido el combate!',
     'winner': '¡{winner} ha ganado el combate!',
@@ -26,7 +27,24 @@ const MENSAJES = {
     'side-condition-[Stealth Rock]': '¡{pkm} ha sido rodeado por rocas afiladas!',
     'side-condition-[Spikes]': '¡{pkm} ha sido rodeado por púas!',
     'side-condition-[Sticky Web]': '¡{pkm} ha sido rodeado por una telaraña pegajosa!',
-    'clear-all-boost': '¡Todos los cambios de características han desaparecido!'
+    'clear-all-boost': '¡Todos los cambios de características han desaparecido!',
+    'effect-[confusion]': '¡{pkm} se ha golpeado a si mismo!',
+    'effect-[move: Protect]': '¡{pkm} se ha protegido!',
+    'effect-[move: Sticky Web]': '¡{pkm} ha caido sobre telaraña pegajosa!',
+    'effect-[move: Struggle]': '¡A {pkm} no le quedan movimientos!',
+    'effect-[move: Heal Bell]': '¡El equipo de {pkm} ha sido curado de problemas de estado!',
+    'boost-atk-[1]': '¡El ataque de {pkm} ha aumentado!',
+    'boost-spa-[1]': '¡El ataque especial de {pkm} ha aumentado!',
+    'boost-def-[1]': '¡La defensa de {pkm} ha aumentado!',
+    'boost-spd-[1]': '¡La defensa especial de {pkm} ha aumentado!',
+    'boost-spe-[1]': '¡La velocidad de {pkm} ha aumentado!',
+    'boost-atk-[2]': '¡El ataque de {pkm} ha aumentado mucho!',
+    'boost-spa-[2]': '¡El ataque especial de {pkm} ha aumentado mucho!',
+    'boost-def-[2]': '¡La defensa de {pkm} ha aumentado mucho!',
+    'boost-spd-[2]': '¡La defensa especial de {pkm} ha aumentado mucho!',
+    'boost-spe-[2]': '¡La velocidad de {pkm} ha aumentado mucho!',
+    'boost-atk-[6]': '¡El ataque de {pkm} ha aumentado al máximo!',
+
 
 }
 export default MENSAJES;

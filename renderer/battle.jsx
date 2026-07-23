@@ -99,11 +99,12 @@ export default function Battle() {
 
     const battleData = useLoaderData();
 
-    const { battleLog, addBattleLog, player1, player2, battlerSrcs, setBattlerSrcs, availableMoves,
+    const { battleLog, addBattleLog, battlerSrcs, setBattlerSrcs, availableMoves,
         availablePokemon, waiting, switchRequired, winner, animationQueue,
         pendingAnimation, setPendingAnimation } = useBattleEvents({ p1, p2 });
 
     const processingRef = useRef(false);
+    const [isProcessing, setIsProcessing] = useState(true);
 
     const [p1Visible, setP1Visible] = useState(p1);
     const [p2Visible, setP2Visible] = useState(p2);
@@ -116,8 +117,10 @@ export default function Battle() {
     const statusBar1Ref = useRef();
     const statusBar2Ref = useRef();
 
-
+    //Used for css animations
     const [currentAnimation, setCurrentAnimation] = useState(null);
+    
+    const [currentLog, setCurrentLog] = useState('');
 
     //Sprite image element ref for animation handling
     const sprite1Ref = useRef();
@@ -271,6 +274,46 @@ export default function Battle() {
                 });
             }
 
+            case 'statusChange': {
+
+                return new Promise((resolve) => {
+
+                    if (animation.player === 'p2') {
+                        setP2Visible((prev) => ({ ...prev, status: animation.newStatus }))
+
+                    }
+
+                    if (animation.player === 'p1') {
+                        setP1Visible((prev) => ({ ...prev, status: animation.newStatus }))
+
+                    }
+
+                    resolve();
+
+                });
+
+            }
+
+            case 'transform': {
+
+                return new Promise((resolve) => {
+
+                    if (animation.player === 'p2') {
+                        setBattlerSrcs(prev => ({ ...prev, src2: animation.newSrc }));
+
+                    }
+
+                    if (animation.player === 'p1') {
+                        setBattlerSrcs(prev => ({ ...prev, src1: animation.newSrc }));
+
+                    }
+
+                    resolve();
+
+                });
+
+            }
+
 
 
             default:
@@ -287,11 +330,22 @@ export default function Battle() {
         if (processingRef.current) return;
         console.log('Processing the queue')
         processingRef.current = true;
+        setIsProcessing(true);
         while (animationQueue.current.length > 0) {
             const animation = animationQueue.current.shift();
+
+            if(animation.log){
+
+                setCurrentLog(animation.log);
+
+            }
+
             await handleAnimation(animation);
         }
         processingRef.current = false;
+        if (battleLog.length > 0) {
+            setIsProcessing(false);
+        }
     }
 
     useEffect(() => {
@@ -397,7 +451,7 @@ export default function Battle() {
 
                 }
 
-                <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} availablePokemon={availablePokemon} handlers={handlers} switchRequired={switchRequired} />
+                <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} availablePokemon={availablePokemon} handlers={handlers} switchRequired={switchRequired} animationPlaying={isProcessing} currentLog={currentLog} />
 
                 {waiting && (
                     <div className="bg-white p-6 rounded-lg shadow-lg text-center absolute bottom-1/2 left-1/2 transform -translate-x-1/2">

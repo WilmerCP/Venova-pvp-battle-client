@@ -82,11 +82,20 @@ export default function useBattleEvents({ p1, p2 }) {
 
                 setPlayer1((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp }))
 
+                let log
+
+                if (data.reason == 'drag') {
+                    log = `¡${data.name} ha sido forzado a combatir!`
+                } else {
+                    log = `¡${data.name}, yo te elijo!`
+                }
+
                 scheduleAnimation({
                     event: 'pkmSwitch',
                     player: 'p1',
                     newSrc: getBattlerSrc(data.num, { back: true, shiny: data.shiny }),
-                    pkmData: data
+                    pkmData: data,
+                    log: log
                 });
 
                 scheduleAnimation({
@@ -95,11 +104,8 @@ export default function useBattleEvents({ p1, p2 }) {
                     newHP: data.hp
                 });
 
-                if (data.reason == 'drag') {
-                    addBattleLog(`¡${data.name} ha sido forzado a combatir!`)
-                } else {
-                    addBattleLog(`¡${data.name}, yo te elijo!`)
-                }
+                addBattleLog(log)
+
 
             } else {
 
@@ -121,11 +127,20 @@ export default function useBattleEvents({ p1, p2 }) {
 
                 setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp }))
 
+                let log
+
+                if (data.reason == 'drag') {
+                    log = `¡${data.name} rival ha sido forzado a combatir!`
+                } else {
+                    log = `¡${data.name} rival ha entrado en combate!`
+                }
+
                 scheduleAnimation({
                     event: 'pkmSwitch',
                     player: 'p2',
                     newSrc: getBattlerSrc(data.num, { back: false, shiny: data.shiny }),
-                    pkmData: data
+                    pkmData: data,
+                    log: log
                 });
 
                 scheduleAnimation({
@@ -134,11 +149,7 @@ export default function useBattleEvents({ p1, p2 }) {
                     newHP: data.hp
                 });
 
-                if (data.reason == 'drag') {
-                    addBattleLog(`¡${data.name} rival ha sido forzado a combatir!`)
-                } else {
-                    addBattleLog(`¡${data.name} rival ha entrado en combate!`)
-                }
+                addBattleLog(log)
 
             } else {
 
@@ -150,8 +161,13 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleMove(data) {
         const pkm = data.source.player === 'p1' ? player1Ref.current.pkmName : player2Ref.current.pkmName;
-        addBattleLog(`${pkm} usó ${data.move}`)
+        let log = `${pkm} usó ${data.move}`;
+        addBattleLog(log);
         setWaiting(false);
+        scheduleAnimation({
+            event: 'move',
+            log: log
+        });
     }
 
     function handleFaint(data) {
@@ -163,10 +179,10 @@ export default function useBattleEvents({ p1, p2 }) {
             setSwitchRequired(true)
 
             scheduleAnimation({
-                    event: 'hpChange',
-                    player: 'p1',
-                    newHP: 0
-                });
+                event: 'hpChange',
+                player: 'p1',
+                newHP: 0
+            });
 
             scheduleAnimation({
                 event: 'faint',
@@ -193,10 +209,10 @@ export default function useBattleEvents({ p1, p2 }) {
             setPlayer2((prev) => ({ ...prev, pkmName: null, number: null, currentHP: 0, currentHPPercentage: 0 }))
 
             scheduleAnimation({
-                    event: 'hpChange',
-                    player: 'p2',
-                    newHP: 0
-                });
+                event: 'hpChange',
+                player: 'p2',
+                newHP: 0
+            });
 
             scheduleAnimation({
                 event: 'faint',
@@ -277,23 +293,27 @@ export default function useBattleEvents({ p1, p2 }) {
 
             if (data.maxHp == 100) {
 
-                scheduleAnimation({
-                    event: 'hpChange',
-                    player: 'p1',
-                    newHP: data.hp
-                });
+
+                let log;
 
                 if (data.reason !== undefined) {
 
-                    addBattleLog(`¡${data.name} ha recuperado salud gracias a ${data.reason}!`)
-                    console.log(data)
+                    log = `¡${data.name} ha recuperado salud gracias a ${data.reason}!`
 
                 } else {
 
-                    addBattleLog(`¡${data.name} ha recuperado salud!`)
+                    log = `¡${data.name} ha recuperado salud!`
 
                 }
 
+                addBattleLog(log);
+
+                scheduleAnimation({
+                    event: 'hpChange',
+                    player: 'p1',
+                    newHP: data.hp,
+                    log: log
+                });
 
             }
 
@@ -310,21 +330,26 @@ export default function useBattleEvents({ p1, p2 }) {
 
             if (data.maxHp == 100) {
 
-                scheduleAnimation({
-                    event: 'hpChange',
-                    player: 'p2',
-                    newHP: data.hp
-                });
+                let log;
 
                 if (data.reason !== undefined) {
 
-                    addBattleLog(`¡${data.name} rival ha recuperado salud gracias a ${data.reason}!`)
+                    log = `¡${data.name} rival ha recuperado salud gracias a ${data.reason}!`
 
                 } else {
 
-                    addBattleLog(`¡${data.name} rival ha recuperado salud!`)
+                    log = `¡${data.name} rival ha recuperado salud!`
 
                 }
+
+                addBattleLog(log);
+
+                scheduleAnimation({
+                    event: 'hpChange',
+                    player: 'p2',
+                    newHP: data.hp,
+                    log: log
+                });
 
 
             }
@@ -365,13 +390,31 @@ export default function useBattleEvents({ p1, p2 }) {
         if (data.player === 'p2') {
             setPlayer2((prev) => ({ ...prev, status: data.status }))
 
-            addBattleLog(`¡${data.pkmName} ${MENSAJES[data.status]}!`)
+            let log = `¡${data.pkmName} rival ${MENSAJES[data.status]}!`
+
+            scheduleAnimation({
+                event: 'statusChange',
+                player: 'p2',
+                newStatus: data.status,
+                log: log
+            });
+
+            addBattleLog(log)
 
         }
 
         if (data.player === 'p1') {
             setPlayer1((prev) => ({ ...prev, status: data.status }))
-            addBattleLog(`¡${data.pkmName} ${MENSAJES[data.status]}!`)
+
+            let log = `¡${data.pkmName} ${MENSAJES[data.status]}!`
+
+            scheduleAnimation({
+                event: 'statusChange',
+                player: 'p1',
+                newStatus: data.status,
+                log: log
+            });
+            addBattleLog(log)
 
         }
     }
@@ -557,7 +600,7 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleStartVolatile(data) {
 
-        let msj = MENSAJES[`${data.effect}-start`];
+        let msj = MENSAJES[`[${data.effect}]-start`];
 
         if (msj !== undefined) {
 
@@ -581,7 +624,7 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleEndVolatile(data) {
 
-        let msj = MENSAJES[`${data.effect}-end`];
+        let msj = MENSAJES[`[${data.effect}]-end`];
 
         if (msj !== undefined) {
 
@@ -633,15 +676,17 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleFail(data) {
 
-        if (data.player == 'p1') {
+        addBattleLog(data.line);
 
-            addBattleLog(`¡${data.name} falló!`);
+        /*if (data.player == 'p1') {
+
+            //addBattleLog(`¡${data.name} falló!`);
 
         } else {
 
-            addBattleLog(`¡${data.name} rival falló!`);
+            //addBattleLog(`¡${data.name} rival falló!`);
 
-        }
+        }*/
 
     }
 
@@ -650,12 +695,69 @@ export default function useBattleEvents({ p1, p2 }) {
         if (data.player == 'p1') {
 
             addBattleLog(`¡${data.name} se ha transformado en ${data.targetName}!`);
+            scheduleAnimation({
+                event: 'transform',
+                player: 'p1',
+                newSrc: getBattlerSrc(player2Ref.current.number, { back: true, shiny: player2.shiny })
+            });
+
 
         } else {
 
             addBattleLog(`¡${data.name} rival se ha transformado en ${data.targetName}!`);
+            scheduleAnimation({
+                event: 'transform',
+                player: 'p2',
+                newSrc: getBattlerSrc(player1Ref.current.number, { back: false, shiny: player1.shiny })
+            });
 
         }
+
+    }
+
+    //Miscelaneous effect activated
+    function handleEffect(data) {
+
+        let msj = MENSAJES[`effect-[${data.effect}]`];
+
+        if (msj) {
+
+            if (data.player == 'p1') {
+
+                addBattleLog(msj.replace('{pkm}', `${data.name}`));
+
+            } else {
+
+
+                addBattleLog(msj.replace('{pkm}', `${data.name} rival`));
+
+            }
+
+        } else {
+
+            addBattleLog(`Error: unhandled effect -> ${data.effect}`);
+
+        }
+
+    }
+
+    //Positive or negative stat boost
+    function handleBoost(data) {
+
+        let msj = MENSAJES[`boost-${data.stat}-[${data.amount}]`];
+        msj = data.negative ? msj.replace('aumentado', 'bajado') : msj;
+
+        if (data.player == 'p1') {
+
+            addBattleLog(msj.replace('{pkm}', `${data.name}`));
+
+        } else {
+
+
+            addBattleLog(msj.replace('{pkm}', `${data.name} rival`));
+
+        }
+
 
     }
 
@@ -686,7 +788,9 @@ export default function useBattleEvents({ p1, p2 }) {
             'endVolatile': handleEndVolatile,
             'battleEnd': handleBattleEnd,
             'fail': handleFail,
-            'transform': handleTransform
+            'transform': handleTransform,
+            'effect': handleEffect,
+            'boost': handleBoost
         }
 
         Object.entries(handlers).forEach(([channel, handler]) => {

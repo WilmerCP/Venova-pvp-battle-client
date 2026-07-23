@@ -1,5 +1,18 @@
 const { Dex } = require('pokemon-showdown')
 
+function cleanPokemonName(name) {
+    // Remove anything if there is - in the name, like "Pikachu-Mega" or "Giratina-Origin"
+    if (!name) return null
+    return name.split('-')[0]
+}
+
+function parseEffect(text) {
+    if (!text) return null 
+
+    return text
+
+}
+
 function parsePokemonId(id) {
     if (!id) return null 
 
@@ -23,8 +36,12 @@ function parseSideId(id) {
 // |-heal|p1a: Pikachu|100/100 brn
 //|-heal|p2a: Scizor|17/100|[from] item: Leftovers
 //|-heal|p1a: Gurdurr|290/290 tox|[from] drain|[of] p2a: Hitmontop
+//|-heal|p2a: Ferrothorn|191/226|[silent]
+//|-heal|p1a: Minun|265/265|[from] ability: Volt Absorb|[of] p2a: Zeraora
 function parseReason(reasonStr) {
-    if (!reasonStr) return null
+    if (!reasonStr) return undefined
+
+    if(reasonStr.includes('[silent]')) return undefined
 
     let trimmed = reasonStr.replace('[from]','');
 
@@ -34,6 +51,17 @@ function parseReason(reasonStr) {
 
             type: 'item',
             reason: trimmed.replace('item:','').trim()
+
+        }
+
+
+
+    }else if(trimmed.includes('ability:')){
+
+        return { 
+
+            type: 'ability',
+            reason: trimmed.replace('ability:','').trim()
 
         }
 
@@ -51,6 +79,7 @@ function parseReason(reasonStr) {
 
 }
 
+//Conditions that affect a side of the field, like Tailwind, Stealth Rock, Reflect...
 function parseCondition(text) {
     if (!text) return null 
 
@@ -203,7 +232,7 @@ function parseUpdate(content, win) {
 
                 win.webContents.send('switch', {
                     player: playerId,   // 'p1'
-                    name: speciesName,  // 'Pikachu'
+                    name: cleanPokemonName(speciesName),  // 'Pikachu'
                     num,                // 25
                     hp: current,             // '100/100'
                     maxHp: total,      // 100
@@ -219,6 +248,9 @@ function parseUpdate(content, win) {
 
             case '-damage': {
                 // |-damage|p2a: Squirtle|80/100 brn
+                //|-damage|p1a: Slaking|341/389|[from] Leech Seed|[of] p2a: Ferrothorn
+                //|-damage|p2a: Malamar|238/272|[from] Stealth Rock
+                //|-damage|p2a: Ditto|161/215|[from] recoil
                 console.log(`${parts[2]} took damage, now at ${parts[3]}`)
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
@@ -386,7 +418,7 @@ function parseUpdate(content, win) {
 
                 win.webContents.send('replace', {
                     player: player,   // 'p1'
-                    name: speciesName,  // 'Pikachu'
+                    name: cleanPokemonName(speciesName),  // 'Pikachu'
                     gender: gender,
                     level: level,
                     shiny: shiny,
@@ -406,7 +438,7 @@ function parseUpdate(content, win) {
                 win.webContents.send('transform', {
                     player: player,   // 'p1'
                     name: name,  // 'Ditto'
-                    targetName: targetName  // 'Mimikyu'
+                    targetName: cleanPokemonName(targetName),  // 'Mimikyu'
                 });
 
                 break
@@ -461,6 +493,8 @@ function parseUpdate(content, win) {
             //Volatile status effects like confusion, taunt, substitute
             case '-start':{
                 //|-start|p1a: Zygarde|confusion|[fatigue]
+                //|-start|p2a: Alomomola|confusion
+                //|-start|p1a: Slaking|move: Leech Seed
                 //|-start|POKEMON|EFFECT
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
@@ -506,13 +540,18 @@ function parseUpdate(content, win) {
 
             case '-fail':{
                 //|-fail|p1a: Qwilfish
+                //|-fail|p2a: Regice|unboost|[from] ability: Clear Body|[of] p2a: Regice
+                //|-fail|p2a: Cryogonal|heal
+                //|-fail|p1a: Pyroar|tox
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
 
                 win.webContents.send('fail', {
 
                     player: player,   // 'p1'
-                    name: name,  // 'Pikachu'
+                    name: name,  // 'Pikachu',
+                    line: line
+
                     
                 })
 
@@ -597,7 +636,7 @@ function parseUpdate(content, win) {
                         const { speciesName, level, gender, shiny } = parsePokemonDetails(pokemon.details);
                         const speciesInfo = Dex.species.get(speciesName)
                         pokemon.num = speciesInfo.num
-                        pokemon.name = speciesInfo.name
+                        pokemon.name = cleanPokemonName(speciesInfo.name)
                         pokemon.level = Number(level)
                         pokemon.gender = gender
                         pokemon.shiny = shiny
@@ -619,6 +658,58 @@ function parseUpdate(content, win) {
                 console.log(`${parts[2]} ability changed to ${parts[3]}`)
 
                 console.log(Dex.abilities.get(parts[3])) // Validate ability exists
+
+                break
+            }
+
+            //Single turn effects (already handled by other events)
+            case 'singleturn': //Grudge, Destiny Bond
+            case 'singlemove': // Protect, Focus Punch, Roost
+            {
+                //|-singleturn|p2a: Alomomola|Protect
+                console.log(line);
+
+            }
+
+            //Miscelaneous effects
+            case '-activate': {
+                //|-activate|p2a: Alomomola|move: Protect
+                //|-activate|p2a: Alomomola|confusion
+                //|-activate|p2a: Ditto|move: Struggle
+                //|-activate|p1a: Granbull|move: Heal Bell
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+
+                const effect = parseEffect(parts[3]);
+
+                win.webContents.send('effect', {
+                    effect: effect,
+                    player: player,   // 'p1'
+                    name: name,  // 'Pikachu'
+                })
+
+                break
+            }
+
+            case '-unboost': 
+            case '-boost': {
+                //|-boost|POKEMON|STAT|AMOUNT
+                //|-boost|p1a: Aegislash|atk|2
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+
+                const stat = parts[3];
+                const amount = parts[4];
+
+                const negative = parts[1] == '-unboost' ? true : false;
+
+                win.webContents.send('boost', {
+                    stat,
+                    player,   // 'p1'
+                    name,  // 'Pikachu'
+                    amount,
+                    negative
+                })
 
                 break
             }

@@ -7,6 +7,7 @@ import { useLoaderData } from 'react-router-dom'
 import BattleControlBox from './components/BattleControlBox.jsx'
 import PokeStatusBar from './components/PokeStatusBar.jsx'
 import PopupEnd from './components/PopupEnd.jsx'
+import MoveAnimation from './components/MoveAnimation.jsx'
 
 import useBattleEvents from './hooks/useBattleEvents.js'
 
@@ -119,7 +120,13 @@ export default function Battle() {
 
     //Used for css animations
     const [currentAnimation, setCurrentAnimation] = useState(null);
-    
+
+    //Animation resolve ref
+    const resolveRef = useRef(null);
+
+    //Current move data for animation
+    const [currentMove, setCurrentMove] = useState(undefined);
+
     const [currentLog, setCurrentLog] = useState('');
 
     //Sprite image element ref for animation handling
@@ -133,6 +140,33 @@ export default function Battle() {
         console.log(animation)
 
         switch (animation.event) {
+
+            case 'move': {
+                return new Promise((resolve) => {
+
+
+                    if (animation.target == 'p1') {
+
+                        setCurrentAnimation('attack-p1')
+                        setCurrentMove(animation)
+
+                    } else {
+
+                        setCurrentAnimation('attack-p2')
+                        setCurrentMove(animation)
+
+                    }
+
+                    resolveRef.current = resolve;
+                    const timeout = setTimeout(() => {
+                        resolve();
+                        setCurrentAnimation('none');
+                        setCurrentMoveName(undefined);
+                    }, 2000); // slightly more than your CSS transition duration
+
+                });
+                break;
+            }
 
             case 'hpChange': {
 
@@ -334,7 +368,7 @@ export default function Battle() {
         while (animationQueue.current.length > 0) {
             const animation = animationQueue.current.shift();
 
-            if(animation.log){
+            if (animation.log) {
 
                 setCurrentLog(animation.log);
 
@@ -416,6 +450,24 @@ export default function Battle() {
                     width: '100vw',
                     height: '100vh'
                 }}>
+
+                {/* Animacion de movimiento */}
+                {currentAnimation == 'attack-p2' && <MoveAnimation classes={`fixed top-12 right-12 w-48 z-10`} onComplete={() => {
+                    setCurrentAnimation('none');
+                    resolveRef.current?.();
+                }} 
+                
+                moveDesc={currentMove}
+                />}
+                {currentAnimation == 'attack-p1' && <MoveAnimation classes={`fixed bottom-32 left-12 w-64 z-10`} onComplete={() => {
+                    setCurrentAnimation('none');
+                    resolveRef.current?.();
+                }}
+                
+                moveDesc={currentMove}
+                />}
+
+
                 {/* Sprite enemigo - arriba derecha */}
                 {
                     p2Visible.number &&

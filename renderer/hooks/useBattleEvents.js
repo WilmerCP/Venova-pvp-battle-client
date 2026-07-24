@@ -160,12 +160,18 @@ export default function useBattleEvents({ p1, p2 }) {
     }
 
     function handleMove(data) {
-        const pkm = data.source.player === 'p1' ? player1Ref.current.pkmName : player2Ref.current.pkmName;
+        const pkm = data.source.name;
         let log = `${pkm} usó ${data.move}`;
         addBattleLog(log);
         setWaiting(false);
         scheduleAnimation({
             event: 'move',
+            target: data.target.player,
+            targetType: data.targetType,
+            type: data.type,
+            category: data.category,
+            heal: data.heal,
+            name: data.move,
             log: log
         });
     }

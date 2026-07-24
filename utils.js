@@ -13,6 +13,7 @@ function parseEffect(text) {
 
 }
 
+//Parces pokemon ID strings like p1a: Pikachu into an object with player and name properties
 function parsePokemonId(id) {
     if (!id) return null 
 
@@ -41,7 +42,12 @@ function parseSideId(id) {
 function parseReason(reasonStr) {
     if (!reasonStr) return undefined
 
-    if(reasonStr.includes('[silent]')) return undefined
+    if(reasonStr.includes('[silent]')) return { 
+
+            type: undefined,
+            reason: undefined
+
+        }
 
     let trimmed = reasonStr.replace('[from]','');
 
@@ -166,16 +172,6 @@ function parseHealth(healthStr) {
     return { current: Number(health), total: Number(total), status: status == undefined ? 'none' : status }
 
 }
-//Parces pokemon ID strings like p1a: Pikachu into an object with player and name properties
-function parsePokemonID(pkmString) {
-
-    let playerId, name;
-
-    const [position, speciesName] = pkmString.split(': ')
-    playerId = position.slice(0, 2)
-
-    return { playerId, speciesName }
-}
 
 
 function parseUpdate(content, win) {
@@ -198,16 +194,24 @@ function parseUpdate(content, win) {
             }
 
             case 'move': {
-                const source = parsePokemonId(parts[2])
-                const target = parsePokemonId(parts[4])
+                const source = parsePokemonId(parts[2]) //{ player, slot, name }
+                const target = parsePokemonId(parts[4]) //{ player, slot, name }
                 const move = parts[3]
 
                 const tags = parts.slice(5)
                 const missed = tags.includes('[miss]')
+                console.log(line)
 
                 console.log(`${source.player} ${source.name} used ${move}`)
 
-                win.webContents.send('move', { source, target, move, missed })
+                const moveInfo = Dex.moves.get(move)
+                console.log(moveInfo)
+                const type = moveInfo.type
+                const category = moveInfo.category //Physical, Special, Status
+                const targetType = moveInfo.target //normal, self, allAdjacentFoes
+                const heal = moveInfo.flags['heal'] !== undefined ? true : false
+
+                win.webContents.send('move', { source, target, move, missed, type, targetType, category, heal })
                 break
             }
 
@@ -223,7 +227,7 @@ function parseUpdate(content, win) {
 
                 const { speciesName, gender, level, shiny } = parsePokemonDetails(parts[3]);
 
-                const { playerId } = parsePokemonID(parts[2]); // 'p1'
+                const { player } = parsePokemonId(parts[2]); // 'p1'
 
                 const species = Dex.species.get(speciesName)
                 const num = species.num // 25
@@ -231,7 +235,7 @@ function parseUpdate(content, win) {
                 const { current, total, status } = parseHealth(parts[4])
 
                 win.webContents.send('switch', {
-                    player: playerId,   // 'p1'
+                    player: player,   // 'p1'
                     name: cleanPokemonName(speciesName),  // 'Pikachu'
                     num,                // 25
                     hp: current,             // '100/100'

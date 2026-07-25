@@ -53,12 +53,11 @@ const MOVE_ANIMATIONS = {
         'Rock Tomb': {
             src: "Rock_Tomb.png",
             cols: 4,
-            rows: 2
-        },
-        'Stone Edge': {
-            src: "Rock_Tomb.png",
-            cols: 4,
-            rows: 2
+            rows: 2,
+            scaleFrom: 1.2,
+            scaleTo: 1.8,
+            fallFrom: -80, // starts above
+            fallTo: 0,      // ends at normal position
         },
         'Iron Head': {
             src: "Iron_Head.png",
@@ -69,6 +68,14 @@ const MOVE_ANIMATIONS = {
             src: "electric.png",
             cols: 5,
             rows: 3
+        },
+        'Thunder': {
+            src: "Thunder.png",
+            cols: 5,
+            rows: 2,
+            totalFrames: 6,
+            scaleFrom: 1,
+            scaleTo: 1.2,
         },
         'Ancient Power': {
             src: "Ancient_Power.png",
@@ -111,6 +118,19 @@ const MOVE_ANIMATIONS = {
             rows: 3,
             totalFrames: 11
         },
+        'Fire Blast': {
+            src: "Fire_Blast.png",
+            cols: 5,
+            rows: 2,
+            scaleFrom: 1,
+            scaleTo: 1.2
+        },
+        'Water Pulse': {
+            src: "Water_Pulse.png",
+            cols: 5,
+            rows: 2,
+            totalFrames: 7
+        },
     },
 
     elemental: {
@@ -135,10 +155,14 @@ const MOVE_ANIMATIONS = {
             },
         },
         Water: {
-            name: "Water",
-            src: "water-1.png",
+            Special: {
+            src: "Water_Pulse.png",
             cols: 5,
-            rows: 2
+            rows: 2,
+            totalFrames: 7,
+            scaleFrom: 1.3,
+            scaleTo: 1,
+        },
         },
         Grass: {
             Physical: {
@@ -177,7 +201,8 @@ const MOVE_ANIMATIONS = {
             Physical: {
                 src: "Poison_Physical.png",
                 cols: 5,
-                rows: 2
+                rows: 3,
+                totalFrames: 13
             },
         },
         Ground: {
@@ -193,10 +218,12 @@ const MOVE_ANIMATIONS = {
             rows: 2
         },
         Psychic: {
-            name: "Psychic",
-            src: "psychic-1.png",
-            cols: 5,
-            rows: 2
+            Special: {
+                src: "psiquico.png",
+                cols: 5,
+                rows: 2,
+                totalFrames: 8
+            },
         },
         Bug: {
             name: "Bug",
@@ -205,10 +232,17 @@ const MOVE_ANIMATIONS = {
             rows: 2
         },
         Rock: {
-            name: "Rock",
-            src: "rock-1.png",
-            cols: 5,
-            rows: 2
+            Physical: {
+                src: "rockice.png",
+                cols: 5,
+                rows: 1,
+            },
+            Special: {
+                src: "Rock_Special.png",
+                cols: 5,
+                rows: 2,
+                totalFrames: 7,
+            },
         },
         Ghost: {
             Physical: {

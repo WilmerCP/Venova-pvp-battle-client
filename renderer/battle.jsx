@@ -8,10 +8,13 @@ import BattleControlBox from './components/BattleControlBox.jsx'
 import PokeStatusBar from './components/PokeStatusBar.jsx'
 import PopupEnd from './components/PopupEnd.jsx'
 import MoveAnimation from './components/MoveAnimation.jsx'
+import AbilityFrame from './components/AbilityFrame.jsx'
 
 import useBattleEvents from './hooks/useBattleEvents.js'
 
 import MENSAJES from './lib/mensajes.js'
+
+const LOG_TIME = 800 //ms
 
 let p1 = {
 
@@ -129,6 +132,9 @@ export default function Battle() {
 
     const [currentLog, setCurrentLog] = useState('');
 
+    //Ability to display
+    const [displayAbility, setDisplayAbility] = useState({ pkmName: undefined, abilityName: undefined, player: undefined });
+
     //Sprite image element ref for animation handling
     const sprite1Ref = useRef();
     const sprite2Ref = useRef();
@@ -161,7 +167,7 @@ export default function Battle() {
                     const timeout = setTimeout(() => {
                         resolve();
                         setCurrentAnimation('none');
-                        setCurrentMoveName(undefined);
+                        setCurrentMove(undefined);
                     }, 2000); // slightly more than your CSS transition duration
 
                 });
@@ -322,7 +328,9 @@ export default function Battle() {
 
                     }
 
-                    resolve();
+                    const timeout = setTimeout(() => {
+                        resolve();
+                    }, LOG_TIME);
 
                 });
 
@@ -342,12 +350,44 @@ export default function Battle() {
 
                     }
 
-                    resolve();
+                    const timeout = setTimeout(() => {
+                        resolve();
+                    }, LOG_TIME);
 
                 });
 
             }
 
+            case 'log': {
+
+                return new Promise((resolve) => {
+
+                    const timeout = setTimeout(() => {
+                        resolve();
+                    }, LOG_TIME);
+
+                });
+
+            }
+
+            case 'ability': {
+
+                return new Promise((resolve) => {
+
+                    console.log('HABILIDAD ACTIVADA')
+
+                    setDisplayAbility({ ...animation })
+
+
+                    const timeout = setTimeout(() => {
+
+                        setDisplayAbility(undefined);
+                        resolve();
+                    }, 1500);
+
+                });
+
+            }
 
 
             default:
@@ -455,16 +495,16 @@ export default function Battle() {
                 {currentAnimation == 'attack-p2' && <MoveAnimation classes={`fixed top-12 right-12 w-48 z-10`} onComplete={() => {
                     setCurrentAnimation('none');
                     resolveRef.current?.();
-                }} 
-                
-                moveDesc={currentMove}
+                }}
+
+                    moveDesc={currentMove}
                 />}
                 {currentAnimation == 'attack-p1' && <MoveAnimation classes={`fixed bottom-32 left-12 w-64 z-10`} onComplete={() => {
                     setCurrentAnimation('none');
                     resolveRef.current?.();
                 }}
-                
-                moveDesc={currentMove}
+
+                    moveDesc={currentMove}
                 />}
 
 
@@ -486,6 +526,14 @@ export default function Battle() {
                     <PokeStatusBar pkm={p2Visible} barRef={bar2Ref} statusBarRef={statusBar2Ref} positionClasses={`absolute top-24 left-8 ${getBarAnimationClass(currentAnimation, 'p2')} ${(battlerSrcs.src2 == undefined || currentAnimation == 'faint-p2') && 'hidden'}`} />
                 }
 
+                {/* Barra para mostrar las habilidades activadas P2 */}
+
+                {displayAbility !== undefined && displayAbility.player == 'p2' &&
+
+                    <AbilityFrame pkmName={displayAbility.pkmName} abilityName={displayAbility.abilityName} positionClasses="absolute top-48 right-0 slide-in-right" side={'right'} />
+
+                }
+
                 {/* Sprite jugador - abajo izquierda */}
                 {p1Visible.number &&
                     <img
@@ -500,6 +548,14 @@ export default function Battle() {
                 {
                     p1Visible.number &&
                     <PokeStatusBar pkm={p1Visible} barRef={bar1Ref} statusBarRef={statusBar1Ref} positionClasses={`absolute bottom-48 right-12 ${getBarAnimationClass(currentAnimation, 'p1')} ${(battlerSrcs.src1 == undefined || currentAnimation == 'faint-p1') && 'hidden'}`} />
+
+                }
+
+                {/* Barra para mostrar las habilidades activadas P1*/}
+
+                {displayAbility !== undefined && displayAbility.player == 'p1' &&
+
+                    <AbilityFrame pkmName={displayAbility.pkmName} abilityName={displayAbility.abilityName} positionClasses="absolute bottom-48 left-0 slide-in-left" side={'left'} />
 
                 }
 

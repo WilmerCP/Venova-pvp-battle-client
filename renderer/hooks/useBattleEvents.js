@@ -4,6 +4,22 @@ import { useEffect, useState, useRef } from 'react'
 
 import MENSAJES from '../lib/mensajes.js'
 
+function replacePokemonName(msj, player, name) {
+
+    if (player == 'p1') {
+
+        return msj.replace('{pkm}', `${name}`);
+
+    } else {
+
+
+        return msj.replace('{pkm}', `${name} rival`);
+
+    }
+
+
+}
+
 export default function useBattleEvents({ p1, p2 }) {
 
     const animationQueue = useRef([]); //Animate 1 by 1
@@ -56,6 +72,11 @@ export default function useBattleEvents({ p1, p2 }) {
         animationQueue.current.push(animation);
         setPendingAnimation(v => v + 1);
 
+    }
+
+    function updatePlayer(player, data) {
+        const setPlayer = player === 'p1' ? setPlayer1 : setPlayer2;
+        setPlayer((prev) => ({ ...prev, ...data }));
     }
 
     function handlePlayer(data) {
@@ -429,13 +450,32 @@ export default function useBattleEvents({ p1, p2 }) {
         if (data.player === 'p2') {
             setPlayer2((prev) => ({ ...prev, status: 'none' }))
 
-            addBattleLog(`¡${data.pkmName} ${MENSAJES[`${data.status}-recover`]}!`)
+            let log = `¡${data.pkmName} ${MENSAJES[`${data.status}-recover`]}!`;
+
+            scheduleAnimation({
+                event: 'statusChange',
+                player: 'p2',
+                newStatus: 'none',
+                log: log
+            });
+
+            addBattleLog(log)
 
         }
 
         if (data.player === 'p1') {
             setPlayer1((prev) => ({ ...prev, status: 'none' }))
-            addBattleLog(`¡${data.pkmName} ${MENSAJES[`${data.status}-recover`]}!`)
+
+            let log = `¡${data.pkmName} ${MENSAJES[`${data.status}-recover`]}!`
+
+            scheduleAnimation({
+                event: 'statusChange',
+                player: 'p1',
+                newStatus: 'none',
+                log: log
+            });
+
+            addBattleLog(log)
 
         }
     }
@@ -533,16 +573,14 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleImmune(data) {
 
-        if (data.player == 'p1') {
+        let msj = `¡{pkm} es inmune al ataque!`
+        msj = replacePokemonName(msj, data.player, data.name);
+        addBattleLog(msj);
 
-            addBattleLog(`¡${data.name} es inmune al ataque!`);
-
-
-        } else {
-
-            addBattleLog(`¡${data.name} rival es inmune al ataque!`);
-
-        }
+        scheduleAnimation({
+            event: 'log',
+            log: msj
+        })
 
     }
 
@@ -586,22 +624,22 @@ export default function useBattleEvents({ p1, p2 }) {
 
     }
 
+    //Zoroak illusion
     function handleReplace(data) {
 
-        if (data.player === 'p1') {
+        let msj = `¡La ilusión de {pkm} ha sido revelada!`
+        msj = replacePokemonName(msj, data.player, data.name);
+        addBattleLog(msj);
 
-            addBattleLog(`¡La ilusión de ${data.name} ha sido revelada!`)
+        scheduleAnimation({
+            event: 'transform',
+            player: data.player,
+            newSrc: getBattlerSrc(data.num, { back: true, shiny: data.shiny }),
+            log: msj
+        });
 
-            setPlayer1((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, gender: data.gender, shiny: data.shiny }))
+        updatePlayer(data.player, { pkmName: data.name, number: data.num, level: data.level, gender: data.gender, shiny: data.shiny })
 
-        }
-
-        if (data.player === 'p2') {
-
-            addBattleLog(`¡La ilusión de ${data.name} rival ha sido revelada!`)
-            setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, gender: data.gender, shiny: data.shiny }))
-
-        }
     }
 
     function handleStartVolatile(data) {
@@ -610,17 +648,15 @@ export default function useBattleEvents({ p1, p2 }) {
 
         if (msj !== undefined) {
 
-            if (data.player === 'p1') {
+            msj = replacePokemonName(msj, data.player, data.name);
 
-                addBattleLog(msj.replace('{pkm}', data.name))
+            addBattleLog(msj);
 
-            }
+            scheduleAnimation({
+                event: 'log',
+                log: msj
+            })
 
-            if (data.player === 'p2') {
-
-                addBattleLog(msj.replace('{pkm}', data.name + ' rival'))
-
-            }
         } else {
 
             console.log('No message for start volatile:', data.effect)
@@ -634,17 +670,15 @@ export default function useBattleEvents({ p1, p2 }) {
 
         if (msj !== undefined) {
 
-            if (data.player === 'p1') {
+            msj = replacePokemonName(msj, data.player, data.name);
 
-                addBattleLog(msj.replace('{pkm}', data.name))
+            addBattleLog(msj);
 
-            }
+            scheduleAnimation({
+                event: 'log',
+                log: msj
+            })
 
-            if (data.player === 'p2') {
-
-                addBattleLog(msj.replace('{pkm}', data.name + ' rival'))
-
-            }
         } else {
 
             console.log('No message for end volatile:', data.effect)
@@ -696,26 +730,34 @@ export default function useBattleEvents({ p1, p2 }) {
 
     }
 
+
+    //Ditto transforming
     function handleTransform(data) {
 
         if (data.player == 'p1') {
 
-            addBattleLog(`¡${data.name} se ha transformado en ${data.targetName}!`);
+            let log = `¡${data.name} se ha transformado en ${data.targetName}!`;
             scheduleAnimation({
                 event: 'transform',
                 player: 'p1',
-                newSrc: getBattlerSrc(player2Ref.current.number, { back: true, shiny: player2.shiny })
+                newSrc: getBattlerSrc(player2Ref.current.number, { back: true, shiny: player2.shiny }),
+                log: log
             });
+
+            addBattleLog(log);
 
 
         } else {
 
-            addBattleLog(`¡${data.name} rival se ha transformado en ${data.targetName}!`);
+            let log = `¡${data.name} rival se ha transformado en ${data.targetName}!`;
             scheduleAnimation({
                 event: 'transform',
                 player: 'p2',
-                newSrc: getBattlerSrc(player1Ref.current.number, { back: false, shiny: player1.shiny })
+                newSrc: getBattlerSrc(player1Ref.current.number, { back: false, shiny: player1.shiny }),
+                log: log
             });
+
+            addBattleLog(log);
 
         }
 
@@ -728,16 +770,14 @@ export default function useBattleEvents({ p1, p2 }) {
 
         if (msj) {
 
-            if (data.player == 'p1') {
+            msj = replacePokemonName(msj, data.player, data.name);
 
-                addBattleLog(msj.replace('{pkm}', `${data.name}`));
+            addBattleLog(msj);
 
-            } else {
-
-
-                addBattleLog(msj.replace('{pkm}', `${data.name} rival`));
-
-            }
+            scheduleAnimation({
+                event: 'log',
+                log: msj
+            })
 
         } else {
 
@@ -753,17 +793,25 @@ export default function useBattleEvents({ p1, p2 }) {
         let msj = MENSAJES[`boost-${data.stat}-[${data.amount}]`];
         msj = data.negative ? msj.replace('aumentado', 'bajado') : msj;
 
-        if (data.player == 'p1') {
+        msj = replacePokemonName(msj, data.player, data.name);
 
-            addBattleLog(msj.replace('{pkm}', `${data.name}`));
+        addBattleLog(msj);
 
-        } else {
+        scheduleAnimation({
+            event: 'log',
+            log: msj
+        });
 
+    }
 
-            addBattleLog(msj.replace('{pkm}', `${data.name} rival`));
+    function handleAbility(data) {
 
-        }
-
+        scheduleAnimation({
+            event: 'ability',
+            pkmName: data.name,
+            abilityName: data.ability,
+            player: data.player
+        });
 
     }
 
@@ -796,7 +844,8 @@ export default function useBattleEvents({ p1, p2 }) {
             'fail': handleFail,
             'transform': handleTransform,
             'effect': handleEffect,
-            'boost': handleBoost
+            'boost': handleBoost,
+            'ability': handleAbility
         }
 
         Object.entries(handlers).forEach(([channel, handler]) => {

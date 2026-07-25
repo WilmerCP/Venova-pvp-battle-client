@@ -205,7 +205,7 @@ function parseUpdate(content, win) {
                 console.log(`${source.player} ${source.name} used ${move}`)
 
                 const moveInfo = Dex.moves.get(move)
-                console.log(moveInfo)
+                //console.log(moveInfo)
                 const type = moveInfo.type
                 const category = moveInfo.category //Physical, Special, Status
                 const targetType = moveInfo.target //normal, self, allAdjacentFoes
@@ -500,6 +500,7 @@ function parseUpdate(content, win) {
                 //|-start|p2a: Alomomola|confusion
                 //|-start|p1a: Slaking|move: Leech Seed
                 //|-start|POKEMON|EFFECT
+                //|-start|p2a: Suicune|Substitute
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
                 const effect = parts[3];
@@ -659,9 +660,27 @@ function parseUpdate(content, win) {
 
             case '-ability': {
                 // |-ability|p1a: Pikachu|Static
+                //|-ability|p1a: Kartana|Beast Boost|boost
+                //|-ability|p2a: Zebstrika|Sap Sipper|boost
                 console.log(`${parts[2]} ability changed to ${parts[3]}`)
 
                 console.log(Dex.abilities.get(parts[3])) // Validate ability exists
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+
+                win.webContents.send('ability', {
+                    ability: parts[3],
+                    player: player,   // 'p1'
+                    name: name,  // 'Pikachu'
+                })
+
+                break
+            }
+
+            case '-weather':{
+                //|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Kyogre
+
+                console.log(line);
 
                 break
             }
@@ -681,6 +700,7 @@ function parseUpdate(content, win) {
                 //|-activate|p2a: Alomomola|confusion
                 //|-activate|p2a: Ditto|move: Struggle
                 //|-activate|p1a: Granbull|move: Heal Bell
+                //|-activate|p1a: Rotom|move: Trick|[of] p2a: Hitmonlee
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
 
@@ -716,6 +736,16 @@ function parseUpdate(content, win) {
                 })
 
                 break
+            }
+
+            case '-item':{
+                //|-item|p2a: Hitmonlee|Choice Scarf|[from] move: Trick
+                //|-item|p1a: Rotom|White Herb|[from] move: Trick
+
+                console.log(line)
+
+
+
             }
 
             case '-weather': {

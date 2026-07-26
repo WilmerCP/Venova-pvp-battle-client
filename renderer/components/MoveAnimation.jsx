@@ -23,7 +23,7 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
     const Xcoor = frameWidth * (frame % spriteSheet.cols)
     const Ycoor = frameHeight * Math.floor(frame / spriteSheet.cols)
     const totalFrames = spriteSheet.totalFrames !== undefined ? spriteSheet.totalFrames : spriteSheet.cols * spriteSheet.rows
-    const totalDuration = totalFrames * frameDuration
+    const totalDuration = spriteSheet.frameDuration !== undefined ? totalFrames * spriteSheet.frameDuration : totalFrames * frameDuration;
 
     //Optional scaling effect
     const scaleFrom = spriteSheet.scaleFrom ?? 1

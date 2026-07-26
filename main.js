@@ -1,7 +1,7 @@
 const { app, BrowserWindow, Menu, ipcMain } = require('electron')
 const { io } = require('socket.io-client')
 const path = require('path')
-const { parseUpdate } = require('./utils.js')
+const { parseUpdate } = require('./parseProtocol.js')
 
 const isDev = !app.isPackaged
 

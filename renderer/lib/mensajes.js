@@ -48,6 +48,9 @@ const MENSAJES = {
     'boost-spd-[2]': '¡La defensa especial de {pkm} ha aumentado mucho!',
     'boost-spe-[2]': '¡La velocidad de {pkm} ha aumentado mucho!',
     'boost-atk-[6]': '¡El ataque de {pkm} ha aumentado al máximo!',
+    'prepare-[Fly]': '¡{pkm} se ha elevado en el aire!',
+    'prepare-[Dive]': '¡{pkm} se ha sumergido en el agua!',
+    'prepare-[Dig]': '¡{pkm} se ha enterrado en el suelo!',
 
 
 }

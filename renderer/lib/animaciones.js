@@ -116,7 +116,10 @@ const MOVE_ANIMATIONS = {
             src: "Curse.png",
             cols: 5,
             rows: 3,
-            totalFrames: 11
+            totalFrames: 11,
+            scaleFrom: 1.3,
+            scaleTo: 2,
+            frameDuration: 150
         },
         'Fire Blast': {
             src: "Fire_Blast.png",

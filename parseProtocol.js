@@ -1,180 +1,20 @@
 const { Dex } = require('pokemon-showdown')
+const fs = require('fs');
+const path = require('path');
 
-function cleanPokemonName(name) {
-    // Remove anything if there is - in the name, like "Pikachu-Mega" or "Giratina-Origin"
-    if (!name) return null
-    return name.split('-')[0]
-}
+const abilitiesPath = path.join(__dirname, 'data', 'abilities.json');
+const movesPath = path.join(__dirname, 'data', 'moves.json');
 
-function parseEffect(text) {
-    if (!text) return null 
+let movesStr = fs.readFileSync(movesPath);
+const MOVES = JSON.parse(movesStr);
 
-    return text
+let abilitiesStr = fs.readFileSync(abilitiesPath);
+const ABILITIES = JSON.parse(abilitiesStr);
 
-}
+const { cleanPokemonName, parseEffect, parsePokemonId, parseSideId, parseReason,
+     parseCondition, parsePokemonDetails, parseHealth } = require('./utility.js')
 
-//Parces pokemon ID strings like p1a: Pikachu into an object with player and name properties
-function parsePokemonId(id) {
-    if (!id) return null 
-
-    const [position, name] = id.split(': ')
-    // position is like "p1a" — player is first 2 chars, slot letter is the rest
-    const player = position.slice(0, 2)   // 'p1' or 'p2'
-    const slot = position.slice(2)        // 'a', 'b', 'c'... empty string if not in active position
-
-    return { player, slot, name }
-}
-
-function parseSideId(id) {
-    if (!id) return null 
-
-    const [player, name] = id.split(': ')
-
-    return { player, name }
-}
-
-
-// |-heal|p1a: Pikachu|100/100 brn
-//|-heal|p2a: Scizor|17/100|[from] item: Leftovers
-//|-heal|p1a: Gurdurr|290/290 tox|[from] drain|[of] p2a: Hitmontop
-//|-heal|p2a: Ferrothorn|191/226|[silent]
-//|-heal|p1a: Minun|265/265|[from] ability: Volt Absorb|[of] p2a: Zeraora
-function parseReason(reasonStr) {
-    if (!reasonStr) return undefined
-
-    if(reasonStr.includes('[silent]')) return { 
-
-            type: undefined,
-            reason: undefined
-
-        }
-
-    let trimmed = reasonStr.replace('[from]','');
-
-    if(trimmed.includes('item:')){
-
-        return { 
-
-            type: 'item',
-            reason: trimmed.replace('item:','').trim()
-
-        }
-
-
-
-    }else if(trimmed.includes('ability:')){
-
-        return { 
-
-            type: 'ability',
-            reason: trimmed.replace('ability:','').trim()
-
-        }
-
-
-    }else{
-
-        return { 
-
-            type: 'move',
-            reason: trimmed.trim()
-
-        }
-
-    }
-
-}
-
-//Conditions that affect a side of the field, like Tailwind, Stealth Rock, Reflect...
-function parseCondition(text) {
-    if (!text) return null 
-
-    const [origin, condition] = text.split(': ')
-
-    if(condition !== undefined){
-
-        return { conditionName: condition.trim(), origin: origin.trim() }
-
-    }else{
-
-        return { conditionName: origin.trim(), origin: undefined }
-
-    }
-
-}
-
-//Parces strings with format Sawsbuck, L50, F, shiny
-//no L# means level 100, no F/M means genderless, no shiny means not shiny
-function parsePokemonDetails(details) {
-
-    const parts = details.split(',').map(part => part.trim());
-    const items = parts.length;
-
-    let speciesName = parts[0];
-    let gender = 'none';
-    let level = 100;
-    let shiny = false;
-
-    for (let i = 1; i < items; i++) {
-
-        let first = parts[i].charAt(0);
-
-        switch (first) {
-
-            case 'L':
-                let levelString = parts[i].slice(1);
-                level = Number(levelString)
-                break
-
-            case 'M':
-                gender = 'male';
-                break
-
-            case 'F':
-                gender = 'female';
-                break
-
-            case 's':
-                if (parts[i] === 'shiny') {
-                    shiny = true;
-                }
-                break
-
-            default:
-                console.warn(`Unrecognized part in details: ${parts[i]}`);
-                break
-
-        }
-
-    }
-
-    return { speciesName, gender, level, shiny }
-}
-
-//Parces a health string like  156/320 brn or 0 fnt
-function parseHealth(healthStr) {
-
-    let health, total, status;
-
-    if (healthStr === '0 fnt') {
-        health = 0;
-        total = null; // unknown, Showdown doesn't send max HP on faint
-        status = 'fnt';
-    } else {
-        const data = healthStr.split('/');
-        health = data[0];
-        [total, status] = data[1].split(' ');
-    }
-
-
-    //console.log(`Health: ${health}, Total: ${total}, Status: ${status}`)
-
-    return { current: Number(health), total: Number(total), status: status == undefined ? 'none' : status }
-
-}
-
-
-function parseUpdate(content, win) {
+async function parseUpdate(content, win) {
     const lines = content.split('\n')
 
     for (const line of lines) {
@@ -193,6 +33,8 @@ function parseUpdate(content, win) {
                 break
             }
 
+            //|move|p2a: Togekiss|Roost||[still]
+            //|move|p2a: Togekiss|Roost|p2a: Togekiss
             case 'move': {
                 const source = parsePokemonId(parts[2]) //{ player, slot, name }
                 const target = parsePokemonId(parts[4]) //{ player, slot, name }
@@ -200,6 +42,7 @@ function parseUpdate(content, win) {
 
                 const tags = parts.slice(5)
                 const missed = tags.includes('[miss]')
+                const still = tags.includes('[still]')
                 console.log(line)
 
                 console.log(`${source.player} ${source.name} used ${move}`)
@@ -211,7 +54,14 @@ function parseUpdate(content, win) {
                 const targetType = moveInfo.target //normal, self, allAdjacentFoes
                 const heal = moveInfo.flags['heal'] !== undefined ? true : false
 
-                win.webContents.send('move', { source, target, move, missed, type, targetType, category, heal })
+                const translation = MOVES[move] !== undefined ? MOVES[move].translation : move;
+                const description = MOVES[move] !== undefined ? MOVES[move].description : 'Movimiento desconocido';
+
+                win.webContents.send('move',
+                    {
+                        source, target, move, missed, still, type, targetType, category, heal,
+                        translation, description
+                    })
                 break
             }
 
@@ -285,9 +135,9 @@ function parseUpdate(content, win) {
 
                 let healReason, healType;
 
-                if(parts[4] !== undefined){
+                if (parts[4] !== undefined) {
 
-  
+
                     const { type, reason } = parseReason(parts[4]);
 
                     healReason = reason;
@@ -355,7 +205,7 @@ function parseUpdate(content, win) {
                 break
             }
 
-            case '-crit':{
+            case '-crit': {
                 //|-crit|p1a: Zeraora
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
@@ -369,7 +219,7 @@ function parseUpdate(content, win) {
 
             }
 
-            case '-supereffective':{
+            case '-supereffective': {
                 //|-crit|p1a: Zeraora
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
@@ -383,7 +233,7 @@ function parseUpdate(content, win) {
 
             }
 
-            case '-resisted':{
+            case '-resisted': {
                 //|-resisted|POKEMON
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
@@ -396,7 +246,7 @@ function parseUpdate(content, win) {
                 break
             }
 
-            case '-immune':{
+            case '-immune': {
                 //|-immune|POKEMON
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
@@ -433,11 +283,11 @@ function parseUpdate(content, win) {
                 break
             }
 
-            case '-transform':{
+            case '-transform': {
                 //|-transform|p2a: Ditto|p1a: Mimikyu|[from] ability: Imposter
 
                 const { player, name } = parsePokemonId(parts[2]);
-                const {  name: targetName } = parsePokemonId(parts[3]);
+                const { name: targetName } = parsePokemonId(parts[3]);
 
                 win.webContents.send('transform', {
                     player: player,   // 'p1'
@@ -448,7 +298,7 @@ function parseUpdate(content, win) {
                 break
             }
 
-            case '-miss':{
+            case '-miss': {
                 //|-miss|p1a: Bronzong|p2a: Sceptile
                 //|-miss|SOURCE|TARGET
 
@@ -462,7 +312,7 @@ function parseUpdate(content, win) {
                 break
             }
 
-            case 'cant':{
+            case 'cant': {
                 //|cant|p2a: Poliwrath|slp
                 //|cant|POKEMON|REASON|MOVE (move optional)
 
@@ -478,7 +328,7 @@ function parseUpdate(content, win) {
                 break
             }
 
-            case '-enditem':{
+            case '-enditem': {
                 //|-enditem|POKEMON|ITEM|[from]EFFECT
                 //|-enditem|p2a: Lickilicky|Leftovers|[from] move: Knock Off|[of] p1a: Cinccino
 
@@ -495,7 +345,7 @@ function parseUpdate(content, win) {
             }
 
             //Volatile status effects like confusion, taunt, substitute
-            case '-start':{
+            case '-start': {
                 //|-start|p1a: Zygarde|confusion|[fatigue]
                 //|-start|p2a: Alomomola|confusion
                 //|-start|p1a: Slaking|move: Leech Seed
@@ -515,7 +365,7 @@ function parseUpdate(content, win) {
             }
 
             //A side condition that affects one side of the field. (Tailwind, Stealth Rock, Reflect...)
-            case '-sidestart':{
+            case '-sidestart': {
                 //|-sidestart|SIDE|CONDITION
                 //|-sidestart|p2: Jugador 2|move: Toxic Spikes
 
@@ -533,17 +383,17 @@ function parseUpdate(content, win) {
             }
 
             //Clears all boosts from all Pokémon on both sides. (Haze)
-            case '-clearallboost':{
+            case '-clearallboost': {
                 //|-clearallboost
 
                 win.webContents.send('clearAllBoost', {
-                    
+
                 })
 
                 break
             }
 
-            case '-fail':{
+            case '-fail': {
                 //|-fail|p1a: Qwilfish
                 //|-fail|p2a: Regice|unboost|[from] ability: Clear Body|[of] p2a: Regice
                 //|-fail|p2a: Cryogonal|heal
@@ -557,14 +407,14 @@ function parseUpdate(content, win) {
                     name: name,  // 'Pikachu',
                     line: line
 
-                    
+
                 })
 
                 break
 
             }
 
-            case '-end':{
+            case '-end': {
                 //|-end|p1a: Zygarde|confusion
                 //|-end|POKEMON|EFFECT
 
@@ -580,7 +430,7 @@ function parseUpdate(content, win) {
                 break
             }
 
-            case 'win':{
+            case 'win': {
                 console.log(`Winner: ${parts[2]}`)
                 console.log(line);
 
@@ -592,7 +442,7 @@ function parseUpdate(content, win) {
                 break
             }
 
-            case 'tie':{
+            case 'tie': {
                 console.log(`Battle ended in a tie`)
                 console.log(line);
 
@@ -633,7 +483,12 @@ function parseUpdate(content, win) {
                     for (const move of request.active[0].moves) {
                         const moveInfo = Dex.moves.get(move.move)
                         move.type = moveInfo.type
-                        move.description = moveInfo.desc
+
+                        const translation = MOVES[move.move] !== undefined ? MOVES[move.move].translation : move;
+                        const description = MOVES[move.move] !== undefined ? MOVES[move.move].description : 'Movimiento desconocido';
+
+                        move.translation = translation;
+                        move.description = description;
                     }
 
                     for (const pokemon of request.side.pokemon) {
@@ -668,16 +523,24 @@ function parseUpdate(content, win) {
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
 
+                const ability = parts[3];
+
+                const translation = ABILITIES[ability] !== undefined ? ABILITIES[ability].translation : ability;
+
+                const description = ABILITIES[ability] !== undefined ? ABILITIES[ability].description : 'Habilidad desconocida';
+
                 win.webContents.send('ability', {
                     ability: parts[3],
                     player: player,   // 'p1'
-                    name: name,  // 'Pikachu'
+                    name: name,  // 'Pikachu',
+                    translation: translation,
+                    description: description
                 })
 
                 break
             }
 
-            case '-weather':{
+            case '-weather': {
                 //|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Kyogre
 
                 console.log(line);
@@ -688,11 +551,11 @@ function parseUpdate(content, win) {
             //Single turn effects (already handled by other events)
             case 'singleturn': //Grudge, Destiny Bond
             case 'singlemove': // Protect, Focus Punch, Roost
-            {
-                //|-singleturn|p2a: Alomomola|Protect
-                console.log(line);
+                {
+                    //|-singleturn|p2a: Alomomola|Protect
+                    console.log(line);
 
-            }
+                }
 
             //Miscelaneous effects
             case '-activate': {
@@ -715,7 +578,24 @@ function parseUpdate(content, win) {
                 break
             }
 
-            case '-unboost': 
+            //Charge moves
+            case '-prepare': {
+                //|-prepare|p1a: Dragonite|Fly
+                //|-prepare|ATTACKER|MOVE|DEFENDER
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+
+                const move = parts[3];
+
+                win.webContents.send('prepare', {
+                    move: move,
+                    player: player,   // 'p1'
+                    name: name,  // 'Pikachu'
+                })
+
+            }
+
+            case '-unboost':
             case '-boost': {
                 //|-boost|POKEMON|STAT|AMOUNT
                 //|-boost|p1a: Aegislash|atk|2
@@ -738,7 +618,7 @@ function parseUpdate(content, win) {
                 break
             }
 
-            case '-item':{
+            case '-item': {
                 //|-item|p2a: Hitmonlee|Choice Scarf|[from] move: Trick
                 //|-item|p1a: Rotom|White Herb|[from] move: Trick
 

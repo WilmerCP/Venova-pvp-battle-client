@@ -150,25 +150,34 @@ export default function Battle() {
             case 'move': {
                 return new Promise((resolve) => {
 
+                    if (animation.target === null || animation.still) {
 
-                    if (animation.target == 'p1') {
-
-                        setCurrentAnimation('attack-p1')
-                        setCurrentMove(animation)
+                        const timeout = setTimeout(() => {
+                            resolve();
+                        }, LOG_TIME);
 
                     } else {
 
-                        setCurrentAnimation('attack-p2')
-                        setCurrentMove(animation)
+                        if (animation.target == 'p1') {
+
+                            setCurrentAnimation('attack-p1')
+                            setCurrentMove(animation)
+
+                        } else {
+
+                            setCurrentAnimation('attack-p2')
+                            setCurrentMove(animation)
+
+                        }
+
+                        resolveRef.current = resolve;
+                        const timeout = setTimeout(() => {
+                            resolve();
+                            setCurrentAnimation('none');
+                            setCurrentMove(undefined);
+                        }, 3000); // slightly more than your CSS transition duration
 
                     }
-
-                    resolveRef.current = resolve;
-                    const timeout = setTimeout(() => {
-                        resolve();
-                        setCurrentAnimation('none');
-                        setCurrentMove(undefined);
-                    }, 2000); // slightly more than your CSS transition duration
 
                 });
                 break;
@@ -530,7 +539,7 @@ export default function Battle() {
 
                 {displayAbility !== undefined && displayAbility.player == 'p2' &&
 
-                    <AbilityFrame pkmName={displayAbility.pkmName} abilityName={displayAbility.abilityName} positionClasses="absolute top-48 right-0 slide-in-right" side={'right'} />
+                    <AbilityFrame pkmName={displayAbility.pkmName} abilityName={displayAbility.translation} positionClasses="absolute top-48 right-0 slide-in-right" side={'right'} />
 
                 }
 
@@ -555,7 +564,7 @@ export default function Battle() {
 
                 {displayAbility !== undefined && displayAbility.player == 'p1' &&
 
-                    <AbilityFrame pkmName={displayAbility.pkmName} abilityName={displayAbility.abilityName} positionClasses="absolute bottom-48 left-0 slide-in-left" side={'left'} />
+                    <AbilityFrame pkmName={displayAbility.pkmName} abilityName={displayAbility.translation} positionClasses="absolute bottom-48 left-0 slide-in-left" side={'left'} />
 
                 }
 

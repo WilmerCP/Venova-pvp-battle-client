@@ -93,7 +93,7 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleSwitch(data) {
 
-        console.log(data.name + ' switched in!')
+        //console.log(data.name + ' switched in!')
 
         if (data.player === 'p1') {
 
@@ -182,13 +182,15 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleMove(data) {
         const pkm = data.source.name;
-        let log = `${pkm} usó ${data.move}`;
+        let log = `${pkm} usó ${data.translation}`;
         addBattleLog(log);
         setWaiting(false);
         scheduleAnimation({
             event: 'move',
-            target: data.target.player,
+            target: data.target !== null ? data.target.player : null,
             targetType: data.targetType,
+            still: data.still,
+            missed: data.missed,
             type: data.type,
             category: data.category,
             heal: data.heal,
@@ -480,6 +482,30 @@ export default function useBattleEvents({ p1, p2 }) {
         }
     }
 
+    function handlePrepare(data) {
+        // Handle the (charge moves) prepare event
+
+        let log = MENSAJES[`prepare-${data.move}`];
+
+        if (log !== undefined) {
+
+            log = replacePokemonName(log, data.player, data.name);
+
+            addBattleLog(log);
+
+            scheduleAnimation({
+                event: 'log',
+                log: log
+            })
+
+        } else {
+
+            addBattleLog(`Error: unhandled prepare move -> ${data.move}`)
+
+
+        }
+    }
+
     function handleWait(data) {
 
         setWaiting(true);
@@ -533,16 +559,14 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleMiss(data) {
 
-        if (data.player == 'p1') {
+        let log = `¡{pkm} ha fallado!`;
+        log = replacePokemonName(log, data.player, data.name);
+        addBattleLog(log);
 
-            addBattleLog(`¡${data.name} falló!`);
-
-
-        } else {
-
-            addBattleLog(`¡El ataque de ${data.name} rival ha fallado!`);
-
-        }
+        scheduleAnimation({
+            event: 'log',
+            log: log
+        })
 
     }
 
@@ -552,16 +576,14 @@ export default function useBattleEvents({ p1, p2 }) {
 
         if (msj !== undefined) {
 
-            if (data.player == 'p1') {
+            msj = replacePokemonName(msj, data.player, data.name);
 
-                addBattleLog(msj.replace('{pkm}', data.name));
+            addBattleLog(msj);
 
-
-            } else {
-
-                addBattleLog(msj.replace('{pkm}', `${data.name} rival`));
-
-            }
+            scheduleAnimation({
+                event: 'log',
+                log: msj
+            })
 
         } else {
 
@@ -586,16 +608,15 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleEndItem(data) {
 
-        if (data.player == 'p1') {
+        let msj = `¡{pkm} ha perdido el objeto ${data.item}!`
+        msj = replacePokemonName(msj, data.player, data.name);
 
-            addBattleLog(`¡${data.name} ha perdido el objeto ${data.item}!`);
+        addBattleLog(msj);
 
-
-        } else {
-
-            addBattleLog(`¡${data.name} rival ha perdido el objeto ${data.item}!`);
-
-        }
+        scheduleAnimation({
+            event: 'log',
+            log: msj
+        })
 
     }
 
@@ -634,7 +655,7 @@ export default function useBattleEvents({ p1, p2 }) {
         scheduleAnimation({
             event: 'transform',
             player: data.player,
-            newSrc: getBattlerSrc(data.num, { back: true, shiny: data.shiny }),
+            newSrc: getBattlerSrc(data.num, { back: data.player == 'p1' ? true : false, shiny: data.shiny }),
             log: msj
         });
 
@@ -719,13 +740,13 @@ export default function useBattleEvents({ p1, p2 }) {
         addBattleLog(data.line);
 
         /*if (data.player == 'p1') {
-
+ 
             //addBattleLog(`¡${data.name} falló!`);
-
+ 
         } else {
-
+ 
             //addBattleLog(`¡${data.name} rival falló!`);
-
+ 
         }*/
 
     }
@@ -810,7 +831,8 @@ export default function useBattleEvents({ p1, p2 }) {
             event: 'ability',
             pkmName: data.name,
             abilityName: data.ability,
-            player: data.player
+            player: data.player,
+            translation: data.translation
         });
 
     }
@@ -845,7 +867,8 @@ export default function useBattleEvents({ p1, p2 }) {
             'transform': handleTransform,
             'effect': handleEffect,
             'boost': handleBoost,
-            'ability': handleAbility
+            'ability': handleAbility,
+            'prepare': handlePrepare
         }
 
         Object.entries(handlers).forEach(([channel, handler]) => {

@@ -37,6 +37,8 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc, isFr
     const easedProgress = progress * progress
     const yOffset = fallFrom + (fallTo - fallFrom) * easedProgress
 
+    const background = spriteSheet.back ? isFront : false;
+
     useEffect(() => {
 
         if (moveDesc.name) {
@@ -137,10 +139,10 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc, isFr
                 backgroundPosition: `-${Xcoor}px -${Ycoor}px`,
                 backgroundRepeat: "no-repeat",
                 //backgroundColor: 'blue',
-                transform: `scale(${scale}) translateY(${yOffset}px)`,
+                transform: `scale(${scale}) translateY(${yOffset}px) translateX(${isFront ? 30 : 0}px)`,
                 transformOrigin: 'center center',
                 transition: 'transform 100ms ease-out',
-                zIndex: 10
+                zIndex: background ? 5 : 15
             }}
         />
     );

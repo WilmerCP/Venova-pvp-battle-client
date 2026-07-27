@@ -390,6 +390,7 @@ async function parseUpdate(content, win) {
                 //|-fail|p2a: Regice|unboost|[from] ability: Clear Body|[of] p2a: Regice
                 //|-fail|p2a: Cryogonal|heal
                 //|-fail|p1a: Pyroar|tox
+                //|-fail|p2a: Articuno|move: Substitute|[weak]
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
 

@@ -524,7 +524,7 @@ export default function Battle() {
                     <img
                         src={battlerSrcs.src2}
                         onError={(e) => e.target.src = '/battlers/000.png'}
-                        className={`${getSpriteAnimationClass(currentAnimation, 'p2')} absolute top-12 right-12 w-48`}
+                        className={`${getSpriteAnimationClass(currentAnimation, 'p2')} absolute top-12 right-12 w-48 z-10`}
                         ref={sprite2Ref}
                     />
                 }
@@ -549,7 +549,7 @@ export default function Battle() {
                     <img
                         src={battlerSrcs.src1}
                         onError={(e) => e.target.src = '/battlers/000.png'}
-                        className={`${getSpriteAnimationClass(currentAnimation, 'p1')} absolute bottom-32 left-12 w-64`}
+                        className={`${getSpriteAnimationClass(currentAnimation, 'p1')} absolute bottom-32 left-12 w-64 z-10`}
                         ref={sprite1Ref}
                     />
                 }
@@ -572,7 +572,7 @@ export default function Battle() {
                 <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} availablePokemon={availablePokemon} handlers={handlers} switchRequired={switchRequired} animationPlaying={isProcessing} currentLog={currentLog} />
 
                 {waiting && (
-                    <div className="bg-white p-6 rounded-lg shadow-lg text-center absolute bottom-1/2 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-white p-6 rounded-lg shadow-lg text-center absolute bottom-1/2 left-1/2 transform -translate-x-1/2 z-25">
                         <p>Esperando a que el rival tome una accion...</p>
                     </div>
                 )}

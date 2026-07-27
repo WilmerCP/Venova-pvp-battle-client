@@ -152,6 +152,22 @@ const MOVE_ANIMATIONS = {
             rows: 2,
             totalFrames: 6
         },
+        'Protect': {
+            src: "Protect.png",
+            cols: 4,
+            rows: 3,
+            scaleFrom: 1.6,
+            scaleTo: 1.6,
+            back: true
+        },
+        'King’s Shield': {
+            src: "Protect.png",
+            cols: 4,
+            rows: 3,
+            scaleFrom: 1.6,
+            scaleTo: 1.6,
+            back: true
+        },
     },
 
     elemental: {

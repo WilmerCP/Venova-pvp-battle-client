@@ -501,19 +501,20 @@ export default function Battle() {
                 }}>
 
                 {/* Animacion de movimiento */}
-                {currentAnimation == 'attack-p2' && <MoveAnimation classes={`fixed top-12 right-12 w-48 z-10`} onComplete={() => {
+                {currentAnimation == 'attack-p2' && <MoveAnimation classes={`fixed top-12 right-12 w-48`} onComplete={() => {
                     setCurrentAnimation('none');
                     resolveRef.current?.();
                 }}
 
                     moveDesc={currentMove}
+                    isFront={false}
                 />}
-                {currentAnimation == 'attack-p1' && <MoveAnimation classes={`fixed bottom-32 left-12 w-64 z-10`} onComplete={() => {
+                {currentAnimation == 'attack-p1' && <MoveAnimation classes={`fixed bottom-32 left-22 w-64`} onComplete={() => {
                     setCurrentAnimation('none');
                     resolveRef.current?.();
                 }}
-
                     moveDesc={currentMove}
+                    isFront={true}
                 />}
 
 

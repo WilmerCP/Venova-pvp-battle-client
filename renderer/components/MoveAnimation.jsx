@@ -9,7 +9,7 @@ const frameDuration = 100 // in milliseconds
 
 import { useEffect, useRef, useState } from 'react'
 
-export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
+export default function MoveAnimation({ classes = '', onComplete, moveDesc, isFront = true }) {
 
     const [frame, setFrame] = useState(0);
     const [spriteSheet, setSpriteSheet] = useState(MOVE_ANIMATIONS.default);
@@ -140,6 +140,7 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
                 transform: `scale(${scale}) translateY(${yOffset}px)`,
                 transformOrigin: 'center center',
                 transition: 'transform 100ms ease-out',
+                zIndex: 10
             }}
         />
     );

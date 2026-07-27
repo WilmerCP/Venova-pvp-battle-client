@@ -1,3 +1,6 @@
+
+const { ABILITIES, ITEMS } = require('./loadDictionaries.js');
+
 const spanishOverrides = {
     "Type: Null": "Código Cero",
     "Great Tusk": "Colmilargo",
@@ -77,10 +80,12 @@ function parseReason(reasonStr) {
 
     if (trimmed.includes('item:')) {
 
+        let itemName = trimmed.replace('item:', '').trim();
+
         return {
 
             type: 'item',
-            reason: trimmed.replace('item:', '').trim()
+            reason: ITEMS[itemName] ? ITEMS[itemName].translation : itemName,
 
         }
 
@@ -88,15 +93,17 @@ function parseReason(reasonStr) {
 
     } else if (trimmed.includes('ability:')) {
 
+        let abilityName = trimmed.replace('ability:', '').trim();
+
         return {
 
             type: 'ability',
-            reason: trimmed.replace('ability:', '').trim()
+            reason: ABILITIES[abilityName] ? ABILITIES[abilityName].translation : abilityName
 
         }
 
 
-    } else {
+    }else {
 
         return {
 

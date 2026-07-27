@@ -79,7 +79,7 @@ export default function BattleControlBox({ battleLog, handlers, availableMoves, 
       )
       }
       {effectiveMenuState === 'waiting' && (
-        <div className={`absolute bottom-0 left-0 right-0 h-40 bg-white border-t-4 border-gray-800 flex items-center justify-center`}>
+        <div className={`absolute bottom-0 left-0 right-0 h-40 bg-white border-t-4 border-gray-800 flex items-center justify-center z-15`}>
           <p className="text-lg font-semibold">{currentLog}</p>
         </div>
       )

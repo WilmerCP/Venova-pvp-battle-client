@@ -77,6 +77,12 @@ const MOVE_ANIMATIONS = {
             scaleFrom: 1,
             scaleTo: 1.2,
         },
+        'Thunder Wave': {
+                src: "electric.png",
+                cols: 5,
+                rows: 2,
+                totalFrames: 8
+            },
         'Ancient Power': {
             src: "Ancient_Power.png",
             cols: 5,
@@ -133,6 +139,18 @@ const MOVE_ANIMATIONS = {
             cols: 5,
             rows: 2,
             totalFrames: 7
+        },
+        'Scary Face': {
+            src: "Scary_Face.png",
+            cols: 5,
+            rows: 2,
+            totalFrames: 8
+        },
+        'Mean Look': {
+            src: "Mean_Look.png",
+            cols: 4,
+            rows: 2,
+            totalFrames: 6
         },
     },
 
@@ -215,10 +233,12 @@ const MOVE_ANIMATIONS = {
             rows: 2
         },
         Flying: {
-            name: "Flying",
-            src: "flying-1.png",
-            cols: 5,
-            rows: 2
+            Special: {
+                src: "Flying_Special.png",
+                cols: 5,
+                rows: 3,
+                totalFrames: 14
+            },
         },
         Psychic: {
             Special: {

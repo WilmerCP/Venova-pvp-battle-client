@@ -1,15 +1,6 @@
 const { Dex } = require('pokemon-showdown')
-const fs = require('fs');
-const path = require('path');
 
-const abilitiesPath = path.join(__dirname, 'data', 'abilities.json');
-const movesPath = path.join(__dirname, 'data', 'moves.json');
-
-let movesStr = fs.readFileSync(movesPath);
-const MOVES = JSON.parse(movesStr);
-
-let abilitiesStr = fs.readFileSync(abilitiesPath);
-const ABILITIES = JSON.parse(abilitiesStr);
+const { MOVES, ABILITIES, ITEMS } = require('./loadDictionaries.js');
 
 const { cleanPokemonName, parseEffect, parsePokemonId, parseSideId, parseReason,
      parseCondition, parsePokemonDetails, parseHealth } = require('./utility.js')
@@ -331,14 +322,15 @@ async function parseUpdate(content, win) {
             case '-enditem': {
                 //|-enditem|POKEMON|ITEM|[from]EFFECT
                 //|-enditem|p2a: Lickilicky|Leftovers|[from] move: Knock Off|[of] p1a: Cinccino
+                //|-enditem|p2a: Gorebyss|White Herb
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
-                const item = parts[3];
+                const item = parts[3].trim();
 
                 win.webContents.send('enditem', {
                     player: player,   // 'p1'
                     name: name,  // 'Pikachu'
-                    item: item
+                    item: ITEMS[item] ? ITEMS[item].translation : item,
                 })
 
                 break
@@ -484,7 +476,7 @@ async function parseUpdate(content, win) {
                         const moveInfo = Dex.moves.get(move.move)
                         move.type = moveInfo.type
 
-                        const translation = MOVES[move.move] !== undefined ? MOVES[move.move].translation : move;
+                        const translation = MOVES[move.move] !== undefined ? MOVES[move.move].translation : move.move;
                         const description = MOVES[move.move] !== undefined ? MOVES[move.move].description : 'Movimiento desconocido';
 
                         move.translation = translation;
@@ -519,7 +511,7 @@ async function parseUpdate(content, win) {
                 //|-ability|p2a: Zebstrika|Sap Sipper|boost
                 console.log(`${parts[2]} ability changed to ${parts[3]}`)
 
-                console.log(Dex.abilities.get(parts[3])) // Validate ability exists
+                //console.log(Dex.abilities.get(parts[3])) // Validate ability exists
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
 

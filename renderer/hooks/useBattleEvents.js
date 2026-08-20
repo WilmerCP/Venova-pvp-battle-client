@@ -92,6 +92,8 @@ export default function useBattleEvents({ p1, p2 }) {
     }
 
     function handleSwitch(data) {
+        
+        console.log('Switch event:', data)
 
         //console.log(data.name + ' switched in!')
 
@@ -485,7 +487,7 @@ export default function useBattleEvents({ p1, p2 }) {
     function handlePrepare(data) {
         // Handle the (charge moves) prepare event
 
-        let log = MENSAJES[`prepare-${data.move}`];
+        let log = MENSAJES[`prepare-[${data.move}]`];
 
         if (log !== undefined) {
 

@@ -26,6 +26,7 @@ const MENSAJES = {
     'cant-[ability: Truant]': '¡{pkm} se rasca la cabeza!',
     'cant-[move: Taunt]': '¡{pkm} no puede usar movimientos de estado!',
     'cant-[flinch]': '¡{pkm} ha retrocedido!',
+    'cant-[nopp]': '¡{pkm} no tiene suficientes pp!',
     'side-condition-[Toxic Spikes]': '¡{pkm} ha sido rodeado por púas tóxicas!',
     'side-condition-[Stealth Rock]': '¡{pkm} ha sido rodeado por rocas afiladas!',
     'side-condition-[Spikes]': '¡{pkm} ha sido rodeado por púas!',
@@ -51,6 +52,7 @@ const MENSAJES = {
     'prepare-[Fly]': '¡{pkm} se ha elevado en el aire!',
     'prepare-[Dive]': '¡{pkm} se ha sumergido en el agua!',
     'prepare-[Dig]': '¡{pkm} se ha enterrado en el suelo!',
+    'prepare-[Sky Attack]': '¡{pkm} está brillando!',
 
 
 }

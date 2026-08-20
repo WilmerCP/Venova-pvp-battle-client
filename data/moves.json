@@ -1445,7 +1445,7 @@
     "id": "swagger",
     "number": 207,
     "name": "Swagger",
-    "translation": "Fanfarronear",
+    "translation": "Contoneo",
     "description": "Provoca confusión en el objetivo, pero también sube mucho su Ataque."
   },
   "Milk Drink": {
@@ -6305,5 +6305,138 @@
     "name": "Malignant Chain",
     "translation": "Cadena Virulenta",
     "description": "The user pours toxins into the target by wrapping them in a toxic, corrosive chain. This may also leave the target badly poisoned."
-  }
+  },
+  "posesioninfernal": {
+    "num": -1,
+    "name": "Posesion Infernal",
+    "translation": "Posesión Infernal",
+    "description": "El objetivo es enviado a un mundo de tinieblas que lo paraliza."
+  },
+  "silbidoespectral": {
+    "num": -2,
+    "name": "Silbido Espectral",
+    "translation": "Silbido Espectral",
+    "description": "Silbido desgarrador que inflige daño al objetivo."
+  },
+  "hachazo": {
+    "num": -3,
+    "name": "Hachazo",
+    "translation": "Hachazo",
+    "description": "Rebana con su hacha. Sube la defensa en 1 nivel."
+  },
+  "plumamagica": {
+    "num": -4,
+    "name": "Pluma magica",
+    "translation": "Pluma mágica",
+    "description": "Ataca con sus plumas llameantes y puede causar quemaduras."
+  },
+  "venenolaser": {
+    "num": -5,
+    "name": "Veneno Laser",
+    "translation": "Veneno Láser",
+    "description": "Ataca con el veneno de sus perlas en forma de espada. Puede envenenar."
+  },
+  "acuatridente": {
+    "num": -6,
+    "name": "Acua Tridente",
+    "translation": "Acua Tridente",
+    "description": "Ataca con su cola en forma de tridente envuelta en agua, aumenta la velocidad."
+  },
+  "estocadamarcial": {
+    "num": -7,
+    "name": "Estocada Marcial",
+    "translation": "Estocada Marcial",
+    "description": "Emplea su bastón de arte marcial para dar un contundente golpe que puede desmayar."
+  },
+  "proyectilesberetta": {
+    "num": -8,
+    "name": "Proyectiles Beretta",
+    "translation": "Proyectiles Beretta",
+    "description": "Dispara al objetivo de dos a cinco veces."
+  },
+  "cubrebasura": {
+    "num": -9,
+    "name": "Cubrebasura",
+    "translation": "Cubrebasura",
+    "description": "Se esconde entre la basura y aumenta mucho la defensa."
+  },
+  "cantomagico": {
+    "num": -10,
+    "name": "Canto Magico",
+    "translation": "Canto Mágico",
+    "description": "Canta una hermosa melodía mística que inflige daño y puede congelar, paralizar o quemar."
+  },
+  "cantooscuro": {
+    "num": -11,
+    "name": "Canto Oscuro",
+    "translation": "Canto Oscuro",
+    "description": "Canta una tétrica melodía oscura que inflige daño y puede congelar, paralizar o quemar."
+  },
+  "notasllameantes": {
+    "num": -12,
+    "name": "Notas llameantes",
+    "translation": "Notas Llameantes",
+    "description": "Con sus cuernos toca notas musicales que infligen daño y puede hacer retroceder o quemar."
+  },
+  "comecables": {
+    "num": -13,
+    "name": "Come Cables",
+    "translation": "Come Cables",
+    "description": "Usa sus fuertes dientes para atacar el sistema nervioso del objetivo y baja su precisión."
+
+  },
+  "mangazo": {
+    "num": -14,
+    "name": "Mangazo",
+    "translation": "Mangazo",
+    "description": "Lanza unos mangos verdes de dos a cinco veces seguidas."
+  },
+  "acuarosa": {
+    "num": -15,
+    "name": "Acuarosa",
+    "translation": "Acuarosa",
+    "description": "Inunda el campo de batalla con una ola mágica gigante, reduce la evasión y elimina efectos de defensa como pantalla de luz."
+  },
+  "energiaoscura": {
+    "num": -16,
+    "name": "Energia Oscura",
+    "translation": "Energía Oscura",
+    "description": "La energía que sale de su esfera daña al objetivo y reinicia los niveles de todas las características del objetivo a 0."
+  },
+  "flechanociva": {
+    "num": -17,
+    "name": "Flecha Nociva",
+    "translation": "Flecha Nociva",
+    "description": "Prepara su flecha, la imbuye de veneno y apunta hacia un punto vital del enemigo. Puede envenenar."
+  },
+  "arepazos": {
+    "num": -18,
+    "name": "Arepazos",
+    "translation": "Arepazos",
+    "description": "El usuario invoca arepas quemadas para que ataquen al rival. Suele ser crítico."
+  },
+  "picaduraextrema": {
+    "num": -19,
+    "name": "Picadura Extrema",
+    "translation": "Picadura Extrema",
+    "description": "Picadura peligrosa que aumenta el doble si tiene un problema de estado."
+  },
+  "sollozo": {
+    "num": -20,
+    "name": "Sollozo",
+    "translation": "Sollozo",
+    "description": "Usa sus lágrimas para golpear al objetivo y drena PS."
+  },
+  "rompecraneos": {
+    "num": -21,
+    "name": "Rompecraneos",
+    "translation": "Rompecráneos",
+    "description": "Usa un cabezazo tan potente que rompe huesos. Puede causar retroceso."
+  },
+  "hackeo": {
+    "num": -22,
+    "name": "Hackeo",
+    "translation": "Hackeo",
+    "description": "Usa su electricidad parasitaria para golpear al objetivo y drena PS."
+}
 }

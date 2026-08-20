@@ -34,12 +34,19 @@ app.whenReady().then(() => {
 
   const win = createWindow()
 
-  ipcMain.handle('start-random-battle', async () => {
+  ipcMain.handle('start-random-battle', async (team) => {
 
     socket = io('http://localhost:3000')
 
     socket.on('connect', () => {
       console.log('Connected to server:', socket.id)
+
+      if (team) {
+        socket.emit('start-random-battle',team);
+      }else{
+        socket.emit('start-random-battle');
+      }
+
     })
 
     socket.on('battle-update', (data) => {

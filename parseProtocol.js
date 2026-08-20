@@ -1,5 +1,7 @@
 const { Dex } = require('pokemon-showdown')
 
+const ModdedDex = Dex.mod('venova')
+
 const { MOVES, ABILITIES, ITEMS } = require('./loadDictionaries.js');
 
 const { cleanPokemonName, parseEffect, parsePokemonId, parseSideId, parseReason,
@@ -38,8 +40,8 @@ async function parseUpdate(content, win) {
 
                 console.log(`${source.player} ${source.name} used ${move}`)
 
-                const moveInfo = Dex.moves.get(move)
-                //console.log(moveInfo)
+                const moveInfo = ModdedDex.moves.get(move)
+                console.log(moveInfo)
                 const type = moveInfo.type
                 const category = moveInfo.category //Physical, Special, Status
                 const targetType = moveInfo.target //normal, self, allAdjacentFoes
@@ -70,15 +72,20 @@ async function parseUpdate(content, win) {
 
                 const { player } = parsePokemonId(parts[2]); // 'p1'
 
-                const species = Dex.species.get(speciesName)
+                const species = ModdedDex.species.get(speciesName)
                 const num = species.num // 25
+
+                console.log(`${speciesName} switched in with number ${num}`);
+                if(num === 0){
+                    console.log(species);
+                }
 
                 const { current, total, status } = parseHealth(parts[4])
 
                 win.webContents.send('switch', {
                     player: player,   // 'p1'
                     name: cleanPokemonName(speciesName),  // 'Pikachu'
-                    num,                // 25
+                    num: num * -1,                // 25
                     hp: current,             // '100/100'
                     maxHp: total,      // 100
                     level: level,
@@ -258,7 +265,7 @@ async function parseUpdate(content, win) {
                 const { player, slot, name } = parsePokemonId(parts[2]);
                 const { speciesName, gender, level, shiny } = parsePokemonDetails(parts[3]);
 
-                const species = Dex.species.get(speciesName)
+                const species = ModdedDex.species.get(speciesName)
                 const num = species.num // 25
 
                 win.webContents.send('replace', {
@@ -267,7 +274,7 @@ async function parseUpdate(content, win) {
                     gender: gender,
                     level: level,
                     shiny: shiny,
-                    num: num
+                    num: num * -1
 
                 })
 
@@ -391,6 +398,7 @@ async function parseUpdate(content, win) {
                 //|-fail|p2a: Cryogonal|heal
                 //|-fail|p1a: Pyroar|tox
                 //|-fail|p2a: Articuno|move: Substitute|[weak]
+                //|-fail|p1a: Knoc|slp
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
 
@@ -471,11 +479,19 @@ async function parseUpdate(content, win) {
 
                 if (request.side.id === 'p1') {
 
-                    console.log('player 1 choice: ', request)
+                    //console.log('player 1 choice: ', request)
 
                     for (const move of request.active[0].moves) {
-                        const moveInfo = Dex.moves.get(move.move)
+                        const moveInfo = ModdedDex.moves.get(move.move)
                         move.type = moveInfo.type
+
+                        const officialInfo = Dex.moves.get(move.move);
+
+                        if(!officialInfo) {
+                            console.log(`Move ${move.move} not found in official Dex`)
+                            console.log(moveInfo)
+                        }
+                        //console.log(`Move: ${move.move}, Type: ${move.type}`)
 
                         const translation = MOVES[move.move] !== undefined ? MOVES[move.move].translation : move.move;
                         const description = MOVES[move.move] !== undefined ? MOVES[move.move].description : 'Movimiento desconocido';
@@ -487,8 +503,8 @@ async function parseUpdate(content, win) {
                     for (const pokemon of request.side.pokemon) {
 
                         const { speciesName, level, gender, shiny } = parsePokemonDetails(pokemon.details);
-                        const speciesInfo = Dex.species.get(speciesName)
-                        pokemon.num = speciesInfo.num
+                        const speciesInfo = ModdedDex.species.get(speciesName)
+                        pokemon.num = speciesInfo.num * -1
                         pokemon.name = cleanPokemonName(speciesInfo.name)
                         pokemon.level = Number(level)
                         pokemon.gender = gender
@@ -512,7 +528,7 @@ async function parseUpdate(content, win) {
                 //|-ability|p2a: Zebstrika|Sap Sipper|boost
                 console.log(`${parts[2]} ability changed to ${parts[3]}`)
 
-                //console.log(Dex.abilities.get(parts[3])) // Validate ability exists
+                //console.log(ModdedDex.abilities.get(parts[3])) // Validate ability exists
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
 

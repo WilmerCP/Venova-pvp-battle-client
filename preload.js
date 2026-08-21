@@ -4,6 +4,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   startRandomBattle: () => ipcRenderer.invoke('start-random-battle'),
   makeMove: (move) => ipcRenderer.invoke('make-move', move),
   selectPokemon: (name) => ipcRenderer.invoke('select-pokemon', name),
+  getDexData: (name) => ipcRenderer.invoke('get-dex-data'),
 
   on: (channel, cb) => ipcRenderer.on(channel, (event, data) => cb(data)),
   off: (channel) => ipcRenderer.removeAllListeners(channel),

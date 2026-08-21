@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-    --status-scale: 0.75;
-    --pkm-icon-scale: 0.6667;
+  --status-scale: 0.75;
+  --pkm-icon-scale: 0.6667;
 }
 
 .status {
@@ -12,17 +12,49 @@
   background-repeat: no-repeat;
 }
 
-.status-slp  { background-position: 0px 0px; }   /* Dormido */
-.status-psn { background-position: 0px -16px; }  /* Envenenado */
-.status-tox  { background-position: 0px -16px; }  /* Gravemente envenenado */
-.status-brn { background-position: 0px -32px; }  /* Quemado */
-.status-par  { background-position: 0px -48px; }  /* Paralizado */
-.status-frz  { background-position: 0px -64px; }  /* Congelado */
-.status-fnt  { background-position: 0px -80px; }  /* Debilitado */
-.status-none { background-image: none; }  /* NONE */
+.status-slp {
+  background-position: 0px 0px;
+}
+
+/* Dormido */
+.status-psn {
+  background-position: 0px -16px;
+}
+
+/* Envenenado */
+.status-tox {
+  background-position: 0px -16px;
+}
+
+/* Gravemente envenenado */
+.status-brn {
+  background-position: 0px -32px;
+}
+
+/* Quemado */
+.status-par {
+  background-position: 0px -48px;
+}
+
+/* Paralizado */
+.status-frz {
+  background-position: 0px -64px;
+}
+
+/* Congelado */
+.status-fnt {
+  background-position: 0px -80px;
+}
+
+/* Debilitado */
+.status-none {
+  background-image: none;
+}
+
+/* NONE */
 
 
-.status-selection {   
+.status-selection {
 
   background-image: url('./assets/icons/statuses.PNG');
   width: calc(44px * var(--status-scale));
@@ -31,40 +63,107 @@
   background-size: calc(44px * var(--status-scale)) calc(112px * var(--status-scale));
 }
 
-.status-slp-selection  { background-position: 0px 0px; }   /* Dormido */
-.status-psn-selection { background-position: 0px calc(-16px * var(--status-scale)); }  /* Envenenado */
-.status-tox-selection  { background-position: 0px calc(-16px * var(--status-scale)); }  /* Gravemente envenenado */
-.status-brn-selection { background-position: 0px calc(-32px * var(--status-scale)); }  /* Quemado */
-.status-par-selection  { background-position: 0px calc(-48px * var(--status-scale)); }  /* Paralizado */
-.status-frz-selection  { background-position: 0px calc(-64px * var(--status-scale)); }  /* Congelado */
-.status-fnt-selection  { background-position: 0px calc(-80px * var(--status-scale)); }  /* Debilitado */
-.status-none-selection { background-image: none; }  /* NONE */
+.status-slp-selection {
+  background-position: 0px 0px;
+}
 
-.female { color: rgb(211, 94, 133);}
-.male { color: rgb(0, 162, 255);}
+/* Dormido */
+.status-psn-selection {
+  background-position: 0px calc(-16px * var(--status-scale));
+}
+
+/* Envenenado */
+.status-tox-selection {
+  background-position: 0px calc(-16px * var(--status-scale));
+}
+
+/* Gravemente envenenado */
+.status-brn-selection {
+  background-position: 0px calc(-32px * var(--status-scale));
+}
+
+/* Quemado */
+.status-par-selection {
+  background-position: 0px calc(-48px * var(--status-scale));
+}
+
+/* Paralizado */
+.status-frz-selection {
+  background-position: 0px calc(-64px * var(--status-scale));
+}
+
+/* Congelado */
+.status-fnt-selection {
+  background-position: 0px calc(-80px * var(--status-scale));
+}
+
+/* Debilitado */
+.status-none-selection {
+  background-image: none;
+}
+
+/* NONE */
+
+.female {
+  color: rgb(211, 94, 133);
+}
+
+.male {
+  color: rgb(0, 162, 255);
+}
+
+.nice-background {
+  background-color: #1b325f;
+  opacity: 0.8;
+  background: repeating-linear-gradient(45deg, #9cc4e4 0px, #9cc4e4 2px, transparent 2px, transparent 78px), repeating-linear-gradient(135deg, #9cc4e4 0px, #9cc4e4 2px, transparent 2px, transparent 78px), #1b325f;
+}
+
+.special-background {
+  background-color: #ecd078;
+opacity: 0.8;
+background: repeating-linear-gradient(45deg, #d95b43 0, #d95b43 39px, #c02942 39px, #c02942 78px, #542437 78px, #542437 117px, #c02942 117px, #c02942 156px);
+}
+.special-background2 {
+background-color: #655643;
+opacity: 0.8;
+background: repeating-linear-gradient(45deg, transparent 0, transparent 45.5px, #80bca3 45.5px, #80bca3 52px), repeating-linear-gradient(-45deg, transparent 0, transparent 45.5px, #f6f7bd 45.5px, #f6f7bd 52px), repeating-linear-gradient(90deg, transparent 0, transparent 45.5px, #e6ac27 45.5px, #e6ac27 52px), #655643;
+mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 75%);
+-webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 75%);
+mask-size: 100% 100%;
+-webkit-mask-size: 100% 100%;
+mask-repeat: no-repeat;
+-webkit-mask-repeat: no-repeat;
+}
+
+.isometric-background {
+background-color: #351330;
+opacity: 1;
+background-image:  linear-gradient(30deg, #424254 12%, transparent 12.5%, transparent 87%, #424254 87.5%, #424254), linear-gradient(150deg, #424254 12%, transparent 12.5%, transparent 87%, #424254 87.5%, #424254), linear-gradient(30deg, #424254 12%, transparent 12.5%, transparent 87%, #424254 87.5%, #424254), linear-gradient(150deg, #424254 12%, transparent 12.5%, transparent 87%, #424254 87.5%, #424254), linear-gradient(60deg, #42425477 25%, transparent 25.5%, transparent 75%, #42425477 75%, #42425477), linear-gradient(60deg, #42425477 25%, transparent 25.5%, transparent 75%, #42425477 75%, #42425477);
+background-size: 60px 105px;
+background-position: 0 0, 0 0, 30px 53px, 30px 53px, 0 0, 30px 53px;
+}
 
 .mini-icon {
 
-    width: calc(64px * var(--pkm-icon-scale));
-    height: calc(54px * var(--pkm-icon-scale));
+  width: calc(64px * var(--pkm-icon-scale));
+  height: calc(54px * var(--pkm-icon-scale));
 
-    background-repeat: no-repeat;
-    background-size: calc(128px * var(--pkm-icon-scale))
-                     calc(54px * var(--pkm-icon-scale));
+  background-repeat: no-repeat;
+  background-size: calc(128px * var(--pkm-icon-scale)) calc(54px * var(--pkm-icon-scale));
 
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
-    animation: walk 1s steps(2) infinite;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  animation: walk 1s steps(2) infinite;
 }
 
 @keyframes walk {
-    from {
-        background-position: 0 calc(-10px * var(--pkm-icon-scale));
-    }
-    to {
-        background-position: calc(-128px * var(--pkm-icon-scale))
-                             calc(-10px * var(--pkm-icon-scale));
-    }
+  from {
+    background-position: 0 calc(-10px * var(--pkm-icon-scale));
+  }
+
+  to {
+    background-position: calc(-128px * var(--pkm-icon-scale)) calc(-10px * var(--pkm-icon-scale));
+  }
 }
 
 
@@ -73,10 +172,12 @@
     transform: translateY(0) scale(1);
     opacity: 1;
   }
+
   60% {
     transform: translateY(20px) scale(0.9);
     opacity: 1;
   }
+
   100% {
     transform: translateY(40px) scale(0.3);
     opacity: 0;
@@ -92,10 +193,12 @@
     transform: translateY(-30px) scale(0.2);
     opacity: 0;
   }
+
   70% {
     transform: translateY(4px) scale(1.05);
     opacity: 1;
   }
+
   100% {
     transform: translateY(0) scale(1);
     opacity: 1;
@@ -111,10 +214,12 @@
     transform: translateX(-120%);
     opacity: 0;
   }
+
   70% {
     transform: translateX(6%);
     opacity: 1;
   }
+
   100% {
     transform: translateX(0);
     opacity: 1;
@@ -126,10 +231,12 @@
     transform: translateX(120%);
     opacity: 0;
   }
+
   70% {
     transform: translateX(-6%);
     opacity: 1;
   }
+
   100% {
     transform: translateX(0);
     opacity: 1;

@@ -47,7 +47,8 @@ export default function App() {
         <button className="bg-amber-500 hover:bg-amber-400 active:translate-y-1 active:border-b-2
              text-white font-bold text-lg tracking-wide py-3 px-6 rounded-lg
              border-b-[6px] border-amber-800
-             transition-all duration-100 z-5">
+             transition-all duration-100 z-5"
+             onClick={() => navigate('/teamBuilder')}>
           Equipos
         </button>
         <img src={p1} alt="Player 1" className="w-64 absolute left-5 bottom-10 transform" />

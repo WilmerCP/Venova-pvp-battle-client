@@ -1,6 +1,7 @@
 //Custom hook to handle battle events
 
 import { useEffect, useState, useRef } from 'react'
+import { getMiniSrc, getBattlerSrc } from '../helpers.js'
 
 import MENSAJES from '../lib/mensajes.js'
 
@@ -52,19 +53,6 @@ export default function useBattleEvents({ p1, p2 }) {
 
         setBattleLog((prev) => [...prev, log])
 
-    }
-
-    //Function to get the path of the icon for a given pokemon number
-    function getMiniSrc(number) {
-        const key = `icon${String(number).padStart(3, '0')}.png`;
-        return `/minis/${key}`;
-    }
-
-    //Function to get the path of the battle sprite for a given pokemon number
-    function getBattlerSrc(number, { back = false, shiny = false } = {}) {
-        const suffix = `${shiny ? 's' : ''}${back ? 'b' : ''}`;
-        const key = `${String(number).padStart(3, '0')}${suffix}.png`;
-        return `/battlers/${key}`;
     }
 
     function scheduleAnimation(animation) {

@@ -2,6 +2,7 @@
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 import Home from './inicio.jsx'
 import Battle from './battle.jsx'
+import TeamBuilder from './teamBuilder.jsx'
 
 /*function waitForBattleReady() {
   return new Promise((resolve, reject) => {
@@ -56,8 +57,20 @@ const router = createHashRouter([
       //const initialData = await waitForBattleReady();
 
       return window.electronAPI.startRandomBattle()
-    }
-  }
+    },
+    
+  },
+  {
+    path: '/teamBuilder',
+    element: <TeamBuilder />,
+    loader: async () => {
+      if (!window.electronAPI) {
+        throw new Error('electronAPI not available')
+      }
+
+      return window.electronAPI.getDexData()
+    },
+  },
 ])
 
 export default function App() {

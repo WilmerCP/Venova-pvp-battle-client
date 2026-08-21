@@ -14,14 +14,14 @@
     "description": "Hace que llueva cuando entra en combate."
   },
   "Speed Boost": {
-    "id": "speed-boost",
+    "id": "speedboost",
     "number": 3,
     "name": "Speed Boost",
     "translation": "Impulso",
     "description": "Aumenta la Velocidad gradualmente."
   },
   "Battle Armor": {
-    "id": "battle-armor",
+    "id": "battlearmor",
     "number": 4,
     "name": "Battle Armor",
     "translation": "Armadura Batalla",
@@ -49,7 +49,7 @@
     "description": "Evita ser paralizado."
   },
   "Sand Veil": {
-    "id": "sand-veil",
+    "id": "sandveil",
     "number": 8,
     "name": "Sand Veil",
     "translation": "Velo Arena",
@@ -63,14 +63,14 @@
     "description": "Puede paralizar al mínimo contacto."
   },
   "Volt Absorb": {
-    "id": "volt-absorb",
+    "id": "voltabsorb",
     "number": 10,
     "name": "Volt Absorb",
     "translation": "Absorbe Electricidad",
     "description": "Recupera PS al recibir ataques de tipo Eléctrico."
   },
   "Water Absorb": {
-    "id": "water-absorb",
+    "id": "waterabsorb",
     "number": 11,
     "name": "Water Absorb",
     "translation": "Absorbe Agua",
@@ -84,14 +84,14 @@
     "description": "Evita que el Pokémon sea atraído o provocado."
   },
   "Cloud Nine": {
-    "id": "cloud-nine",
+    "id": "cloudnine",
     "number": 13,
     "name": "Cloud Nine",
     "translation": "Aclimatación",
     "description": "Anula los efectos del tiempo atmosférico."
   },
   "Compound Eyes": {
-    "id": "compound-eyes",
+    "id": "compoundeyes",
     "number": 14,
     "name": "Compound Eyes",
     "translation": "Ojo Compuesto",
@@ -105,7 +105,7 @@
     "description": "Evita el quedarse dormido."
   },
   "Color Change": {
-    "id": "color-change",
+    "id": "colorchange",
     "number": 16,
     "name": "Color Change",
     "translation": "Cambio Color",
@@ -119,28 +119,28 @@
     "description": "Evita el envenenamiento."
   },
   "Flash Fire": {
-    "id": "flash-fire",
+    "id": "flashfire",
     "number": 18,
     "name": "Flash Fire",
     "translation": "Absorbe Fuego",
     "description": "Potencia movimientos de tipo Fuego si ha sufrido antes alguno."
   },
   "Shield Dust": {
-    "id": "shield-dust",
+    "id": "shielddust",
     "number": 19,
     "name": "Shield Dust",
     "translation": "Polvo Escudo",
     "description": "Anula el efecto secundario del ataque sufrido."
   },
   "Own Tempo": {
-    "id": "own-tempo",
+    "id": "owntempo",
     "number": 20,
     "name": "Own Tempo",
     "translation": "Ritmo Propio",
     "description": "Evita ser confundido."
   },
   "Suction Cups": {
-    "id": "suction-cups",
+    "id": "suctioncups",
     "number": 21,
     "name": "Suction Cups",
     "translation": "Ventosas",
@@ -154,21 +154,21 @@
     "description": "Baja el Ataque del rival."
   },
   "Shadow Tag": {
-    "id": "shadow-tag",
+    "id": "shadowtag",
     "number": 23,
     "name": "Shadow Tag",
     "translation": "Sombra Trampa",
     "description": "Evita que el enemigo huya."
   },
   "Rough Skin": {
-    "id": "rough-skin",
+    "id": "roughskin",
     "number": 24,
     "name": "Rough Skin",
     "translation": "Piel Tosca",
     "description": "Hiere al tacto."
   },
   "Wonder Guard": {
-    "id": "wonder-guard",
+    "id": "wonderguard",
     "number": 25,
     "name": "Wonder Guard",
     "translation": "Superguarda",
@@ -182,7 +182,7 @@
     "description": "Proporciona inmunidad frente a los ataques de tipo Tierra."
   },
   "Effect Spore": {
-    "id": "effect-spore",
+    "id": "effectspore",
     "number": 27,
     "name": "Effect Spore",
     "translation": "Efecto Espora",
@@ -196,35 +196,35 @@
     "description": "Contagia envenenamiento, parálisis o quemaduras."
   },
   "Clear Body": {
-    "id": "clear-body",
+    "id": "clearbody",
     "number": 29,
     "name": "Clear Body",
     "translation": "Cuerpo Puro",
     "description": "Evita que bajen las características."
   },
   "Natural Cure": {
-    "id": "natural-cure",
+    "id": "naturalcure",
     "number": 30,
     "name": "Natural Cure",
     "translation": "Cura Natural",
     "description": "Cura problemas de estado al cambiar de Pokémon."
   },
   "Lightning Rod": {
-    "id": "lightning-rod",
+    "id": "lightningrod",
     "number": 31,
     "name": "Lightning Rod",
     "translation": "Pararrayos",
     "description": "Atrae y neutraliza movimientos de tipo Eléctrico y sube el At. Esp."
   },
   "Serene Grace": {
-    "id": "serene-grace",
+    "id": "serenegrace",
     "number": 32,
     "name": "Serene Grace",
     "translation": "Dicha",
     "description": "Aumenta la probabilidad de que haya efectos secundarios."
   },
   "Swift Swim": {
-    "id": "swift-swim",
+    "id": "swiftswim",
     "number": 33,
     "name": "Swift Swim",
     "translation": "Nado Rápido",
@@ -252,42 +252,42 @@
     "description": "Copia la habilidad del rival."
   },
   "Huge Power": {
-    "id": "huge-power",
+    "id": "hugepower",
     "number": 37,
     "name": "Huge Power",
     "translation": "Potencia",
     "description": "Aumenta el Ataque."
   },
   "Poison Point": {
-    "id": "poison-point",
+    "id": "poisonpoint",
     "number": 38,
     "name": "Poison Point",
     "translation": "Punto Tóxico",
     "description": "Puede envenenar al mínimo contacto."
   },
   "Inner Focus": {
-    "id": "inner-focus",
+    "id": "innerfocus",
     "number": 39,
     "name": "Inner Focus",
     "translation": "Fuerza Mental",
     "description": "Evita el retroceso."
   },
   "Magma Armor": {
-    "id": "magma-armor",
+    "id": "magmaarmor",
     "number": 40,
     "name": "Magma Armor",
     "translation": "Escudo Magma",
     "description": "Evita la congelación."
   },
   "Water Veil": {
-    "id": "water-veil",
+    "id": "waterveil",
     "number": 41,
     "name": "Water Veil",
     "translation": "Velo Agua",
     "description": "Evita las quemaduras."
   },
   "Magnet Pull": {
-    "id": "magnet-pull",
+    "id": "magnetpull",
     "number": 42,
     "name": "Magnet Pull",
     "translation": "Imán",
@@ -301,14 +301,14 @@
     "description": "Evita ataques de sonido."
   },
   "Rain Dish": {
-    "id": "rain-dish",
+    "id": "raindish",
     "number": 44,
     "name": "Rain Dish",
     "translation": "Cura Lluvia",
     "description": "Recupera PS de forma gradual cuando llueve."
   },
   "Sand Stream": {
-    "id": "sand-stream",
+    "id": "sandstream",
     "number": 45,
     "name": "Sand Stream",
     "translation": "Chorro Arena",
@@ -322,42 +322,42 @@
     "description": "Hace que los PP del rival se acaben antes."
   },
   "Thick Fat": {
-    "id": "thick-fat",
+    "id": "thickfat",
     "number": 47,
     "name": "Thick Fat",
     "translation": "Sebo",
     "description": "Atenúa los ataques de tipo Fuego y Hielo."
   },
   "Early Bird": {
-    "id": "early-bird",
+    "id": "earlybird",
     "number": 48,
     "name": "Early Bird",
     "translation": "Madrugar",
     "description": "Si se duerme, tardará la mitad de tiempo en despertarse."
   },
   "Flame Body": {
-    "id": "flame-body",
+    "id": "flamebody",
     "number": 49,
     "name": "Flame Body",
     "translation": "Cuerpo Llama",
     "description": "Puede quemar al mínimo contacto."
   },
   "Run Away": {
-    "id": "run-away",
+    "id": "runaway",
     "number": 50,
     "name": "Run Away",
     "translation": "Fuga",
     "description": "Permite escapar de todos los Pokémon salvajes."
   },
   "Keen Eye": {
-    "id": "keen-eye",
+    "id": "keeneye",
     "number": 51,
     "name": "Keen Eye",
     "translation": "Vista Lince",
     "description": "Evita que disminuya la Precisión."
   },
   "Hyper Cutter": {
-    "id": "hyper-cutter",
+    "id": "hypercutter",
     "number": 52,
     "name": "Hyper Cutter",
     "translation": "Corte Fuerte",
@@ -385,7 +385,7 @@
     "description": "Aumenta el Ataque, pero reduce la Precisión."
   },
   "Cute Charm": {
-    "id": "cute-charm",
+    "id": "cutecharm",
     "number": 56,
     "name": "Cute Charm",
     "translation": "Gran Encanto",
@@ -413,14 +413,14 @@
     "description": "Se transforma según el tiempo atmosférico."
   },
   "Sticky Hold": {
-    "id": "sticky-hold",
+    "id": "stickyhold",
     "number": 60,
     "name": "Sticky Hold",
     "translation": "Viscosidad",
     "description": "Protege al Pokémon del robo de objetos."
   },
   "Shed Skin": {
-    "id": "shed-skin",
+    "id": "shedskin",
     "number": 61,
     "name": "Shed Skin",
     "translation": "Mudar",
@@ -434,14 +434,14 @@
     "description": "Sube el Ataque si sufre un problema de estado."
   },
   "Marvel Scale": {
-    "id": "marvel-scale",
+    "id": "marvelscale",
     "number": 63,
     "name": "Marvel Scale",
     "translation": "Escama Especial",
     "description": "Sube la Defensa si sufre un problema de estado."
   },
   "Liquid Ooze": {
-    "id": "liquid-ooze",
+    "id": "liquidooze",
     "number": 64,
     "name": "Liquid Ooze",
     "translation": "Lodo Líquido",
@@ -476,7 +476,7 @@
     "description": "Potencia los ataques de tipo Bicho en un apuro."
   },
   "Rock Head": {
-    "id": "rock-head",
+    "id": "rockhead",
     "number": 69,
     "name": "Rock Head",
     "translation": "Cabeza Roca",
@@ -490,56 +490,56 @@
     "description": "El sol sale si el Pokémon entra en combate."
   },
   "Arena Trap": {
-    "id": "arena-trap",
+    "id": "arenatrap",
     "number": 71,
     "name": "Arena Trap",
     "translation": "Trampa Arena",
     "description": "Evita que el rival huya."
   },
   "Vital Spirit": {
-    "id": "vital-spirit",
+    "id": "vitalspirit",
     "number": 72,
     "name": "Vital Spirit",
     "translation": "Espíritu Vital",
     "description": "Evita el quedarse dormido."
   },
   "White Smoke": {
-    "id": "white-smoke",
+    "id": "whitesmoke",
     "number": 73,
     "name": "White Smoke",
     "translation": "Humo Blanco",
     "description": "Evita que bajen las características."
   },
   "Pure Power": {
-    "id": "pure-power",
+    "id": "purepower",
     "number": 74,
     "name": "Pure Power",
     "translation": "Energía Pura",
     "description": "Aumenta el Ataque."
   },
   "Shell Armor": {
-    "id": "shell-armor",
+    "id": "shellarmor",
     "number": 75,
     "name": "Shell Armor",
     "translation": "Caparazón",
     "description": "Bloquea los golpes críticos."
   },
   "Air Lock": {
-    "id": "air-lock",
+    "id": "airlock",
     "number": 76,
     "name": "Air Lock",
     "translation": "Bucle Aire",
     "description": "Anula los efectos del tiempo atmosférico."
   },
   "Tangled Feet": {
-    "id": "tangled-feet",
+    "id": "tangledfeet",
     "number": 77,
     "name": "Tangled Feet",
     "translation": "Tumbos",
     "description": "Sube la Evasión si el Pokémon está confuso."
   },
   "Motor Drive": {
-    "id": "motor-drive",
+    "id": "motordrive",
     "number": 78,
     "name": "Motor Drive",
     "translation": "Electromotor",
@@ -560,7 +560,7 @@
     "description": "Cada vez que retrocede sube su Velocidad."
   },
   "Snow Cloak": {
-    "id": "snow-cloak",
+    "id": "snowcloak",
     "number": 81,
     "name": "Snow Cloak",
     "translation": "Manto Níveo",
@@ -574,7 +574,7 @@
     "description": "Fomenta el uso rápido de la baya que porte."
   },
   "Anger Point": {
-    "id": "anger-point",
+    "id": "angerpoint",
     "number": 83,
     "name": "Anger Point",
     "translation": "Irascible",
@@ -602,7 +602,7 @@
     "description": "Aumenta los cambios en las características."
   },
   "Dry Skin": {
-    "id": "dry-skin",
+    "id": "dryskin",
     "number": 87,
     "name": "Dry Skin",
     "translation": "Piel Seca",
@@ -616,14 +616,14 @@
     "description": "Adapta su fuerza para cada rival."
   },
   "Iron Fist": {
-    "id": "iron-fist",
+    "id": "ironfist",
     "number": 89,
     "name": "Iron Fist",
     "translation": "Puño Férreo",
     "description": "Aumenta la fuerza de los puñetazos."
   },
   "Poison Heal": {
-    "id": "poison-heal",
+    "id": "poisonheal",
     "number": 90,
     "name": "Poison Heal",
     "translation": "Antídoto",
@@ -637,7 +637,7 @@
     "description": "Potencia los movimientos del mismo tipo del Pokémon."
   },
   "Skill Link": {
-    "id": "skill-link",
+    "id": "skilllink",
     "number": 92,
     "name": "Skill Link",
     "translation": "Encadenado",
@@ -651,14 +651,14 @@
     "description": "Cura los problemas de estado si está lloviendo."
   },
   "Solar Power": {
-    "id": "solar-power",
+    "id": "solarpower",
     "number": 94,
     "name": "Solar Power",
     "translation": "Poder Solar",
     "description": "Si hace sol, baja los PS, pero potencia el At. Esp."
   },
   "Quick Feet": {
-    "id": "quick-feet",
+    "id": "quickfeet",
     "number": 95,
     "name": "Quick Feet",
     "translation": "Pies Rápidos",
@@ -679,14 +679,14 @@
     "description": "Potencia los movimientos si se vuelven críticos."
   },
   "Magic Guard": {
-    "id": "magic-guard",
+    "id": "magicguard",
     "number": 98,
     "name": "Magic Guard",
     "translation": "Muro Mágico",
     "description": "Solo dañan al Pokémon los ataques directos."
   },
   "No Guard": {
-    "id": "no-guard",
+    "id": "noguard",
     "number": 99,
     "name": "No Guard",
     "translation": "Indefenso",
@@ -707,7 +707,7 @@
     "description": "Potencia los movimientos más débiles del Pokémon."
   },
   "Leaf Guard": {
-    "id": "leaf-guard",
+    "id": "leafguard",
     "number": 102,
     "name": "Leaf Guard",
     "translation": "Defensa Hoja",
@@ -721,14 +721,14 @@
     "description": "El Pokémon no puede usar objetos equipados."
   },
   "Mold Breaker": {
-    "id": "mold-breaker",
+    "id": "moldbreaker",
     "number": 104,
     "name": "Mold Breaker",
     "translation": "Rompemoldes",
     "description": "Usa movimientos sin que importen las habilidades del objetivo."
   },
   "Super Luck": {
-    "id": "super-luck",
+    "id": "superluck",
     "number": 105,
     "name": "Super Luck",
     "translation": "Afortunado",
@@ -763,7 +763,7 @@
     "description": "No tiene en cuenta las mejoras en las características del rival."
   },
   "Tinted Lens": {
-    "id": "tinted-lens",
+    "id": "tintedlens",
     "number": 110,
     "name": "Tinted Lens",
     "translation": "Cromolente",
@@ -777,7 +777,7 @@
     "description": "Mitiga los movimientos supereficaces."
   },
   "Slow Start": {
-    "id": "slow-start",
+    "id": "slowstart",
     "number": 112,
     "name": "Slow Start",
     "translation": "Inicio Lento",
@@ -791,35 +791,35 @@
     "description": "Movimientos tipo Normal y Lucha golpean a Pokémon Fantasma."
   },
   "Storm Drain": {
-    "id": "storm-drain",
+    "id": "stormdrain",
     "number": 114,
     "name": "Storm Drain",
     "translation": "Colector",
     "description": "Atrae y neutraliza los movimientos de tipo Agua y sube el At. Esp."
   },
   "Ice Body": {
-    "id": "ice-body",
+    "id": "icebody",
     "number": 115,
     "name": "Ice Body",
     "translation": "Gélido",
     "description": "Recupera algunos PS cuando hay tormentas de granizo."
   },
   "Solid Rock": {
-    "id": "solid-rock",
+    "id": "solidrock",
     "number": 116,
     "name": "Solid Rock",
     "translation": "Roca Sólida",
     "description": "Mitiga los movimientos supereficaces."
   },
   "Snow Warning": {
-    "id": "snow-warning",
+    "id": "snowwarning",
     "number": 117,
     "name": "Snow Warning",
     "translation": "Nevada",
     "description": "El Pokémon invoca una tormenta de granizo."
   },
   "Honey Gather": {
-    "id": "honey-gather",
+    "id": "honeygather",
     "number": 118,
     "name": "Honey Gather",
     "translation": "Recogemiel",
@@ -847,14 +847,14 @@
     "description": "Cambia el tipo al de la tabla que lleve."
   },
   "Flower Gift": {
-    "id": "flower-gift",
+    "id": "flowergift",
     "number": 122,
     "name": "Flower Gift",
     "translation": "Don Floral",
     "description": "Potencia los Pokémon del equipo si está soleado."
   },
   "Bad Dreams": {
-    "id": "bad-dreams",
+    "id": "baddreams",
     "number": 123,
     "name": "Bad Dreams",
     "translation": "Mal Sueño",
@@ -868,7 +868,7 @@
     "description": "Al ser golpeado, roba el objeto del objetivo."
   },
   "Sheer Force": {
-    "id": "sheer-force",
+    "id": "sheerforce",
     "number": 125,
     "name": "Sheer Force",
     "translation": "Potencia Bruta",
@@ -903,7 +903,7 @@
     "description": "Baja las características al llegar a la mitad los PS."
   },
   "Cursed Body": {
-    "id": "cursed-body",
+    "id": "cursedbody",
     "number": 130,
     "name": "Cursed Body",
     "translation": "Cuerpo Maldito",
@@ -917,28 +917,28 @@
     "description": "A veces cura los cambios de estado de un aliado."
   },
   "Friend Guard": {
-    "id": "friend-guard",
+    "id": "friendguard",
     "number": 132,
     "name": "Friend Guard",
     "translation": "Compiescolta",
     "description": "Reduce el daño que sufren los aliados."
   },
   "Weak Armor": {
-    "id": "weak-armor",
+    "id": "weakarmor",
     "number": 133,
     "name": "Weak Armor",
     "translation": "Armadura Frágil",
     "description": "Un ataque físico baja la Defensa y sube la Velocidad."
   },
   "Heavy Metal": {
-    "id": "heavy-metal",
+    "id": "heavymetal",
     "number": 134,
     "name": "Heavy Metal",
     "translation": "Metal Pesado",
     "description": "Duplica su peso."
   },
   "Light Metal": {
-    "id": "light-metal",
+    "id": "lightmetal",
     "number": 135,
     "name": "Light Metal",
     "translation": "Metal Liviano",
@@ -952,14 +952,14 @@
     "description": "Reduce el daño sufrido si los PS están al máximo."
   },
   "Toxic Boost": {
-    "id": "toxic-boost",
+    "id": "toxicboost",
     "number": 137,
     "name": "Toxic Boost",
     "translation": "Ímpetu Tóxico",
     "description": "Aumenta la potencia física si está envenenado."
   },
   "Flare Boost": {
-    "id": "flare-boost",
+    "id": "flareboost",
     "number": 138,
     "name": "Flare Boost",
     "translation": "Ímpetu Ardiente",
@@ -994,7 +994,7 @@
     "description": "Protege del polvo, la arena y el granizo."
   },
   "Poison Touch": {
-    "id": "poison-touch",
+    "id": "poisontouch",
     "number": 143,
     "name": "Poison Touch",
     "translation": "Toque Tóxico",
@@ -1008,21 +1008,21 @@
     "description": "Recupera unos pocos PS al cambiar de Pokémon."
   },
   "Big Pecks": {
-    "id": "big-pecks",
+    "id": "bigpecks",
     "number": 145,
     "name": "Big Pecks",
     "translation": "Sacapecho",
     "description": "Protege de los ataques que bajan la Defensa."
   },
   "Sand Rush": {
-    "id": "sand-rush",
+    "id": "sandrush",
     "number": 146,
     "name": "Sand Rush",
     "translation": "Ímpetu Arena",
     "description": "Aumenta la Velocidad durante las tormentas de arena."
   },
   "Wonder Skin": {
-    "id": "wonder-skin",
+    "id": "wonderskin",
     "number": 147,
     "name": "Wonder Skin",
     "translation": "Piel Milagro",
@@ -1085,14 +1085,14 @@
     "description": "El miedo a algunos ataques sube su Velocidad."
   },
   "Magic Bounce": {
-    "id": "magic-bounce",
+    "id": "magicbounce",
     "number": 156,
     "name": "Magic Bounce",
     "translation": "Espejo Mágico",
     "description": "Permite devolver los ataques de estado."
   },
   "Sap Sipper": {
-    "id": "sap-sipper",
+    "id": "sapsipper",
     "number": 157,
     "name": "Sap Sipper",
     "translation": "Herbívoro",
@@ -1106,28 +1106,28 @@
     "description": "Permite lanzar ataques de estado en primer lugar."
   },
   "Sand Force": {
-    "id": "sand-force",
+    "id": "sandforce",
     "number": 159,
     "name": "Sand Force",
     "translation": "Poder Arena",
     "description": "Potencia algunos movimientos durante las tormentas de arena."
   },
   "Iron Barbs": {
-    "id": "iron-barbs",
+    "id": "ironbarbs",
     "number": 160,
     "name": "Iron Barbs",
     "translation": "Punta Acero",
     "description": "Hiere al hacer contacto."
   },
   "Zen Mode": {
-    "id": "zen-mode",
+    "id": "zenmode",
     "number": 161,
     "name": "Zen Mode",
     "translation": "Modo Daruma",
     "description": "Cambia de forma en un apuro."
   },
   "Victory Star": {
-    "id": "victory-star",
+    "id": "victorystar",
     "number": 162,
     "name": "Victory Star",
     "translation": "Tinovictoria",
@@ -1148,21 +1148,21 @@
     "description": "Usa movimientos sin que importen las habilidades."
   },
   "Aroma Veil": {
-    "id": "aroma-veil",
+    "id": "aromaveil",
     "number": 165,
     "name": "Aroma Veil",
     "translation": "Velo Aroma",
     "description": "Protege al equipo de ataques que impiden elegir movimientos."
   },
   "Flower Veil": {
-    "id": "flower-veil",
+    "id": "flowerveil",
     "number": 166,
     "name": "Flower Veil",
     "translation": "Velo Flor",
     "description": "Evita que bajen las características de Pokémon tipo Planta aliados."
   },
   "Cheek Pouch": {
-    "id": "cheek-pouch",
+    "id": "cheekpouch",
     "number": 167,
     "name": "Cheek Pouch",
     "translation": "Carrillo",
@@ -1176,7 +1176,7 @@
     "description": "Cambia su tipo al del movimiento que acaba de usar."
   },
   "Fur Coat": {
-    "id": "fur-coat",
+    "id": "furcoat",
     "number": 169,
     "name": "Fur Coat",
     "translation": "Pelaje Recio",
@@ -1204,7 +1204,7 @@
     "description": "Aumenta su At. Esp. cuando disminuyen otras características."
   },
   "Strong Jaw": {
-    "id": "strong-jaw",
+    "id": "strongjaw",
     "number": 173,
     "name": "Strong Jaw",
     "translation": "Mandíbula Fuerte",
@@ -1218,35 +1218,35 @@
     "description": "Convierte movimientos de tipo Normal en tipo Hielo."
   },
   "Sweet Veil": {
-    "id": "sweet-veil",
+    "id": "sweetveil",
     "number": 175,
     "name": "Sweet Veil",
     "translation": "Velo Dulce",
     "description": "Evita que tu equipo Pokémon se duerma."
   },
   "Stance Change": {
-    "id": "stance-change",
+    "id": "stancechange",
     "number": 176,
     "name": "Stance Change",
     "translation": "Cambio Táctico",
     "description": "Cambia de forma según su estilo de combate."
   },
   "Gale Wings": {
-    "id": "gale-wings",
+    "id": "galewings",
     "number": 177,
     "name": "Gale Wings",
     "translation": "Alas Vendaval",
     "description": "Da prioridad a los movimientos de tipo Volador."
   },
   "Mega Launcher": {
-    "id": "mega-launcher",
+    "id": "megalauncher",
     "number": 178,
     "name": "Mega Launcher",
     "translation": "Megadisparador",
     "description": "Aumenta la potencia de algunos movimientos de pulsos y auras."
   },
   "Grass Pelt": {
-    "id": "grass-pelt",
+    "id": "grasspelt",
     "number": 179,
     "name": "Grass Pelt",
     "translation": "Manto Frondoso",
@@ -1260,7 +1260,7 @@
     "description": "El Pokémon puede pasar su objeto a un aliado."
   },
   "Tough Claws": {
-    "id": "tough-claws",
+    "id": "toughclaws",
     "number": 181,
     "name": "Tough Claws",
     "translation": "Garra Dura",
@@ -1288,49 +1288,49 @@
     "description": "Convierte movimientos de tipo Normal en tipo Volador."
   },
   "Parental Bond": {
-    "id": "parental-bond",
+    "id": "parentalbond",
     "number": 185,
     "name": "Parental Bond",
     "translation": "Amor Filial",
     "description": "Ataque en familia."
   },
   "Dark Aura": {
-    "id": "dark-aura",
+    "id": "darkaura",
     "number": 186,
     "name": "Dark Aura",
     "translation": "Aura Oscura",
     "description": "Aumenta la potencia de todos los movimientos de tipo Siniestro."
   },
   "Fairy Aura": {
-    "id": "fairy-aura",
+    "id": "fairyaura",
     "number": 187,
     "name": "Fairy Aura",
     "translation": "Aura Feérica",
     "description": "Aumenta la potencia de todos los movimientos de tipo Hada."
   },
   "Aura Break": {
-    "id": "aura-break",
+    "id": "aurabreak",
     "number": 188,
     "name": "Aura Break",
     "translation": "Rompeaura",
     "description": "Invierte los efectos que causan las auras."
   },
   "Primordial Sea": {
-    "id": "primordial-sea",
+    "id": "primordialsea",
     "number": 189,
     "name": "Primordial Sea",
     "translation": "Mar del Albor",
     "description": "Altera el clima para anular los ataques de tipo Fuego."
   },
   "Desolate Land": {
-    "id": "desolate-land",
+    "id": "desolateland",
     "number": 190,
     "name": "Desolate Land",
     "translation": "Tierra del Ocaso",
     "description": "Altera el clima para anular los ataques de tipo Agua."
   },
   "Delta Stream": {
-    "id": "delta-stream",
+    "id": "deltastream",
     "number": 191,
     "name": "Delta Stream",
     "translation": "Ráfaga Delta",
@@ -1344,21 +1344,21 @@
     "description": "Aumenta la Defensa al recibir un ataque físico."
   },
   "Wimp Out": {
-    "id": "wimp-out",
+    "id": "wimpout",
     "number": 193,
     "name": "Wimp Out",
     "translation": "Huida",
     "description": "Se asusta y abandona el terreno de combate cuando sus PS se ven reducidos a la mitad."
   },
   "Emergency Exit": {
-    "id": "emergency-exit",
+    "id": "emergencyexit",
     "number": 194,
     "name": "Emergency Exit",
     "translation": "Retirada",
     "description": "Abandona el terreno de combate cuando sus PS se ven reducidos a la mitad para evitar males mayores."
   },
   "Water Compaction": {
-    "id": "water-compaction",
+    "id": "watercompaction",
     "number": 195,
     "name": "Water Compaction",
     "translation": "Hidrorrefuerzo",
@@ -1372,7 +1372,7 @@
     "description": "Hace que los movimientos asesten siempre un golpe crítico si el rival está envenenado."
   },
   "Shields Down": {
-    "id": "shields-down",
+    "id": "shieldsdown",
     "number": 197,
     "name": "Shields Down",
     "translation": "Escudo Limitado",
@@ -1386,7 +1386,7 @@
     "description": "Duplica el daño infligido a un Pokémon que se haya incorporado al combate mediante un cambio."
   },
   "Water Bubble": {
-    "id": "water-bubble",
+    "id": "waterbubble",
     "number": 199,
     "name": "Water Bubble",
     "translation": "Pompa",
@@ -1407,21 +1407,21 @@
     "description": "Aumenta el Ataque Especial si los ataques del oponente le reducen los PS a la mitad."
   },
   "Slush Rush": {
-    "id": "slush-rush",
+    "id": "slushrush",
     "number": 202,
     "name": "Slush Rush",
     "translation": "Quitanieves",
     "description": "Aumenta su Velocidad si está granizando."
   },
   "Long Reach": {
-    "id": "long-reach",
+    "id": "longreach",
     "number": 203,
     "name": "Long Reach",
     "translation": "Remoto",
     "description": "Permite usar cualquier movimiento sin entrar en contacto con el rival."
   },
   "Liquid Voice": {
-    "id": "liquid-voice",
+    "id": "liquidvoice",
     "number": 204,
     "name": "Liquid Voice",
     "translation": "Voz Fluida",
@@ -1442,7 +1442,7 @@
     "description": "Convierte los movimientos de tipo Normal en tipo Eléctrico y aumenta ligeramente su potencia."
   },
   "Surge Surfer": {
-    "id": "surge-surfer",
+    "id": "surgesurfer",
     "number": 207,
     "name": "Surge Surfer",
     "translation": "Cola Surf",
@@ -1463,14 +1463,14 @@
     "description": "Permite eludir un único ataque valiéndose de la tela que le cubre el cuerpo."
   },
   "Battle Bond": {
-    "id": "battle-bond",
+    "id": "battlebond",
     "number": 210,
     "name": "Battle Bond",
     "translation": "Fuerte Afecto",
     "description": "Al derrotar a un rival, los vínculos con su Entrenador se refuerzan y se convierte en Greninja Ash. Su Shuriken de Agua también se ve potenciado."
   },
   "Power Construct": {
-    "id": "power-construct",
+    "id": "powerconstruct",
     "number": 211,
     "name": "Power Construct",
     "translation": "Agrupamiento",
@@ -1491,14 +1491,14 @@
     "description": "No despierta jamás de su profundo letargo e incluso ataca dormido."
   },
   "Queenly Majesty": {
-    "id": "queenly-majesty",
+    "id": "queenlymajesty",
     "number": 214,
     "name": "Queenly Majesty",
     "translation": "Regia Presencia",
     "description": "Intimida al rival y le impide usar movimientos con prioridad dirigidos al Pokémon."
   },
   "Innards Out": {
-    "id": "innards-out",
+    "id": "innardsout",
     "number": 215,
     "name": "Innards Out",
     "translation": "Revés",
@@ -1533,14 +1533,14 @@
     "description": "Desconcierta al rival y le impide utilizar movimientos con prioridad contra el usuario."
   },
   "Soul-Heart": {
-    "id": "soul-heart",
+    "id": "soulheart",
     "number": 220,
     "name": "Soul-Heart",
     "translation": "Coránima",
     "description": "Aumenta el Ataque Especial cada vez que un Pokémon cae debilitado."
   },
   "Tangling Hair": {
-    "id": "tangling-hair",
+    "id": "tanglinghair",
     "number": 221,
     "name": "Tangling Hair",
     "translation": "Rizos Rebeldes",
@@ -1554,70 +1554,70 @@
     "description": "Adquiere la habilidad de un aliado debilitado."
   },
   "Power of Alchemy": {
-    "id": "power-of-alchemy",
+    "id": "powerofalchemy",
     "number": 223,
     "name": "Power of Alchemy",
     "translation": "Reacción Química",
     "description": "Reacciona copiando la habilidad de un aliado debilitado."
   },
   "Beast Boost": {
-    "id": "beast-boost",
+    "id": "beastboost",
     "number": 224,
     "name": "Beast Boost",
     "translation": "Ultraimpulso",
     "description": "Si el Pokémon derrota a un rival en ese turno, aumenta su característica más fuerte."
   },
   "RKS System": {
-    "id": "rks-system",
+    "id": "rkssystem",
     "number": 225,
     "name": "RKS System",
     "translation": "Sistema Alfa",
     "description": "Cambia su tipo según el disco que lleve instalado."
   },
   "Electric Surge": {
-    "id": "electric-surge",
+    "id": "electricsurge",
     "number": 226,
     "name": "Electric Surge",
     "translation": "Electrogénesis",
     "description": "Crea un campo eléctrico al entrar en combate."
   },
   "Psychic Surge": {
-    "id": "psychic-surge",
+    "id": "psychicsurge",
     "number": 227,
     "name": "Psychic Surge",
     "translation": "Psicogénesis",
     "description": "Crea un campo psíquico al entrar en combate."
   },
   "Misty Surge": {
-    "id": "misty-surge",
+    "id": "mistysurge",
     "number": 228,
     "name": "Misty Surge",
     "translation": "Nebulogénesis",
     "description": "Crea un campo de niebla al entrar en combate."
   },
   "Grassy Surge": {
-    "id": "grassy-surge",
+    "id": "grassysurge",
     "number": 229,
     "name": "Grassy Surge",
     "translation": "Herbogénesis",
     "description": "Crea un campo de hierba al entrar en combate."
   },
   "Full Metal Body": {
-    "id": "full-metal-body",
+    "id": "fullmetalbody",
     "number": 230,
     "name": "Full Metal Body",
     "translation": "Guardia Metálica",
     "description": "Evita que bajen sus características a causa de movimientos o habilidades de otros Pokémon."
   },
   "Shadow Shield": {
-    "id": "shadow-shield",
+    "id": "shadowshield",
     "number": 231,
     "name": "Shadow Shield",
     "translation": "Guardia Espectro",
     "description": "Reduce el daño sufrido si los PS están al máximo."
   },
   "Prism Armor": {
-    "id": "prism-armor",
+    "id": "prismarmor",
     "number": 232,
     "name": "Prism Armor",
     "translation": "Armadura Prisma",
@@ -1631,14 +1631,14 @@
     "description": "Potencia los ataques supereficaces."
   },
   "Intrepid Sword": {
-    "id": "intrepid-sword",
+    "id": "intrepidsword",
     "number": 234,
     "name": "Intrepid Sword",
     "translation": "Espada Indómita",
     "description": "Aumenta su Ataque al entrar en combate."
   },
   "Dauntless Shield": {
-    "id": "dauntless-shield",
+    "id": "dauntlessshield",
     "number": 235,
     "name": "Dauntless Shield",
     "translation": "Escudo Recio",
@@ -1652,35 +1652,35 @@
     "description": "Cambia su tipo al del movimiento que va a usar."
   },
   "Ball Fetch": {
-    "id": "ball-fetch",
+    "id": "ballfetch",
     "number": 237,
     "name": "Ball Fetch",
     "translation": "Recogebolas",
     "description": "Si no lleva equipado ningún objeto, recupera la Poké Ball del primer intento de captura fallido."
   },
   "Cotton Down": {
-    "id": "cotton-down",
+    "id": "cottondown",
     "number": 238,
     "name": "Cotton Down",
     "translation": "Pelusa",
     "description": "Al ser alcanzado por un ataque, suelta una pelusa de algodón que reduce la Velocidad de todos los demás Pokémon."
   },
   "Propeller Tail": {
-    "id": "propeller-tail",
+    "id": "propellertail",
     "number": 239,
     "name": "Propeller Tail",
     "translation": "Hélice Caudal",
     "description": "Impide que el rival pueda atraer ataques hacia sí mismo por efecto de su habilidad o sus movimientos."
   },
   "Mirror Armor": {
-    "id": "mirror-armor",
+    "id": "mirrorarmor",
     "number": 240,
     "name": "Mirror Armor",
     "translation": "Coraza Reflejo",
     "description": "Refleja los efectos que reducen las características."
   },
   "Gulp Missile": {
-    "id": "gulp-missile",
+    "id": "gulpmissile",
     "number": 241,
     "name": "Gulp Missile",
     "translation": "Tragamisil",
@@ -1694,28 +1694,28 @@
     "description": "Impide que el rival pueda atraer ataques hacia sí mismo por efecto de su habilidad o sus movimientos."
   },
   "Steam Engine": {
-    "id": "steam-engine",
+    "id": "steamengine",
     "number": 243,
     "name": "Steam Engine",
     "translation": "Combustible",
     "description": "Si le alcanza un movimiento de tipo Fuego o Agua, le sube muchísimo la Velocidad."
   },
   "Punk Rock": {
-    "id": "punk-rock",
+    "id": "punkrock",
     "number": 244,
     "name": "Punk Rock",
     "translation": "Punk Rock",
     "description": "Potencia los movimientos que usan sonido y reduce a la mitad el daño que le infligen dichos movimientos."
   },
   "Sand Spit": {
-    "id": "sand-spit",
+    "id": "sandspit",
     "number": 245,
     "name": "Sand Spit",
     "translation": "Expulsarena",
     "description": "Provoca una tormenta de arena al recibir un ataque."
   },
   "Ice Scales": {
-    "id": "ice-scales",
+    "id": "icescales",
     "number": 246,
     "name": "Ice Scales",
     "translation": "Escama de Hielo",
@@ -1729,14 +1729,14 @@
     "description": "Hace madurar las bayas, por lo que duplica sus efectos."
   },
   "Ice Face": {
-    "id": "ice-face",
+    "id": "iceface",
     "number": 248,
     "name": "Ice Face",
     "translation": "Cara de Hielo",
     "description": "Absorbe el daño de un ataque físico con el hielo de la cabeza, tras lo cual cambia de forma. El hielo se regenerará la próxima vez que granice."
   },
   "Power Spot": {
-    "id": "power-spot",
+    "id": "powerspot",
     "number": 249,
     "name": "Power Spot",
     "translation": "Fuente Energía",
@@ -1750,77 +1750,77 @@
     "description": "Cambia su tipo según el campo que haya en el terreno de combate."
   },
   "Screen Cleaner": {
-    "id": "screen-cleaner",
+    "id": "screencleaner",
     "number": 251,
     "name": "Screen Cleaner",
     "translation": "Antibarrera",
     "description": "Anula los efectos de Pantalla de Luz, Reflejo y Velo Aurora tanto de rivales como de aliados al entrar en combate."
   },
   "Steely Spirit": {
-    "id": "steely-spirit",
+    "id": "steelyspirit",
     "number": 252,
     "name": "Steely Spirit",
     "translation": "Alma Acerada",
     "description": "Potencia los movimientos de tipo Acero de los aliados."
   },
   "Perish Body": {
-    "id": "perish-body",
+    "id": "perishbody",
     "number": 253,
     "name": "Perish Body",
     "translation": "Cuerpo Mortal",
     "description": "Si le alcanza un movimiento de contacto, se debilitará al cabo de 3 turnos, así como su agresor, a menos que abandonen el terreno de combate."
   },
   "Wandering Spirit": {
-    "id": "wandering-spirit",
+    "id": "wanderingspirit",
     "number": 254,
     "name": "Wandering Spirit",
     "translation": "Alma Errante",
     "description": "Si le alcanza un movimiento de contacto, intercambia su habilidad con la del agresor."
   },
   "Gorilla Tactics": {
-    "id": "gorilla-tactics",
+    "id": "gorillatactics",
     "number": 255,
     "name": "Gorilla Tactics",
     "translation": "Monotema",
     "description": "Potencia su Ataque, pero solo puede usar el primer movimiento escogido."
   },
   "Neutralizing Gas": {
-    "id": "neutralizing-gas",
+    "id": "neutralizinggas",
     "number": 256,
     "name": "Neutralizing Gas",
     "translation": "Gas Reactivo",
     "description": "Anula los efectos de las habilidades de los demás Pokémon presentes mientras esté en el terreno de combate."
   },
   "Pastel Veil": {
-    "id": "pastel-veil",
+    "id": "pastelveil",
     "number": 257,
     "name": "Pastel Veil",
     "translation": "Velo Pastel",
     "description": "Se protege a sí mismo y a sus aliados del envenenamiento."
   },
   "Hunger Switch": {
-    "id": "hunger-switch",
+    "id": "hungerswitch",
     "number": 258,
     "name": "Hunger Switch",
     "translation": "Mutapetito",
     "description": "Alterna entre su Forma Saciada y Forma Voraz al final de cada turno."
   },
   "Quick Draw": {
-    "id": "quick-draw",
+    "id": "quickdraw",
     "number": 259,
     "name": "Quick Draw",
     "translation": "Mano Rápida",
     "description": "A veces, puede atacar el primero."
   },
   "Unseen Fist": {
-    "id": "unseen-fist",
+    "id": "unseenfist",
     "number": 260,
     "name": "Unseen Fist",
     "translation": "Puño Invisible",
     "description": "Si usa un movimiento de contacto, puede infligir daño al objetivo aunque este se proteja."
   },
   "Curious Medicine": {
-    "id": "curious-medicine",
+    "id": "curiousmedicine",
     "number": 261,
     "name": "Curious Medicine",
     "translation": "Medicina Extraña",
@@ -1834,105 +1834,105 @@
     "description": "Potencia los movimientos de tipo Eléctrico."
   },
   "Dragon’s Maw": {
-    "id": "dragons-maw",
+    "id": "dragonsmaw",
     "number": 263,
     "name": "Dragon’s Maw",
     "translation": "Mandíbula Dragón",
     "description": "Potencia los movimientos de tipo Dragón."
   },
   "Chilling Neigh": {
-    "id": "chilling-neigh",
+    "id": "chillingneigh",
     "number": 264,
     "name": "Chilling Neigh",
     "translation": "Relincho Blanco",
     "description": "Al derrotar a un objetivo, emite un relincho gélido y aumenta su Ataque."
   },
   "Grim Neigh": {
-    "id": "grim-neigh",
+    "id": "grimneigh",
     "number": 265,
     "name": "Grim Neigh",
     "translation": "Relincho Negro",
     "description": "Al derrotar a un objetivo, emite un relincho aterrador y aumenta su Ataque Especial."
   },
   "As One": {
-    "id": "as-one-spectrier",
+    "id": "asonespectrier",
     "number": 267,
     "name": "As One",
     "translation": "Unidad Ecuestre",
     "description": "El Pokémon tiene dos habilidades: Relincho Negro de Spectrier y Nerviosismo de Calyrex."
   },
   "Lingering Aroma": {
-    "id": "lingering-aroma",
+    "id": "lingeringaroma",
     "number": 268,
     "name": "Lingering Aroma",
     "translation": "Olor Persistente",
     "description": "Contact with the Pokémon changes the attacker's Ability to Lingering Aroma."
   },
   "Seed Sower": {
-    "id": "seed-sower",
+    "id": "seedsower",
     "number": 269,
     "name": "Seed Sower",
     "translation": "Disemillar",
     "description": "Turns the ground into Grassy Terrain when the Pokémon is hit by an attack."
   },
   "Thermal Exchange": {
-    "id": "thermal-exchange",
+    "id": "thermalexchange",
     "number": 270,
     "name": "Thermal Exchange",
     "translation": "Termoconversión",
     "description": "Boosts the Attack stat when the Pokémon is hit by a Fire-type move. The Pokémon also cannot be burned."
   },
   "Anger Shell": {
-    "id": "anger-shell",
+    "id": "angershell",
     "number": 271,
     "name": "Anger Shell",
     "translation": "Coraza Ira",
     "description": "When an attack causes its HP to drop to half or less, the Pokémon gets angry. This lowers its Defense and Sp. Def stats but boosts its Attack, Sp. Atk, and Speed stats."
   },
   "Purifying Salt": {
-    "id": "purifying-salt",
+    "id": "purifyingsalt",
     "number": 272,
     "name": "Purifying Salt",
     "translation": "Sal Purificadora",
     "description": "The Pokémon's pure salt protects it from status conditions and halves the damage taken from Ghost-type moves."
   },
   "Well-Baked Body": {
-    "id": "well-baked-body",
+    "id": "wellbakedbody",
     "number": 273,
     "name": "Well-Baked Body",
     "translation": "Cuerpo Horneado",
     "description": "The Pokémon takes no damage when hit by Fire-type moves. Instead, its Defense stat is sharply boosted."
   },
   "Wind Rider": {
-    "id": "wind-rider",
+    "id": "windrider",
     "number": 274,
     "name": "Wind Rider",
     "translation": "Surcavientos",
     "description": "Boosts the Pokémon's Attack stat if Tailwind takes effect or if the Pokémon is hit by a wind move. The Pokémon also takes no damage from wind moves."
   },
   "Guard Dog": {
-    "id": "guard-dog",
+    "id": "guarddog",
     "number": 275,
     "name": "Guard Dog",
     "translation": "Perro Guardián",
     "description": "Boosts the Pokémon’s Attack stat if intimidated. Moves and items that would force the Pokémon to switch out also fail to work."
   },
   "Rocky Payload": {
-    "id": "rocky-payload",
+    "id": "rockypayload",
     "number": 276,
     "name": "Rocky Payload",
     "translation": "Transportarrocas",
     "description": "Powers up Rock-type moves."
   },
   "Wind Power": {
-    "id": "wind-power",
+    "id": "windpower",
     "number": 277,
     "name": "Wind Power",
     "translation": "Energía Eólica",
     "description": "The Pokémon becomes charged when it is hit by a wind move, boosting the power of the next Electric-type move the Pokémon uses."
   },
   "Zero to Hero": {
-    "id": "zero-to-hero",
+    "id": "zerotohero",
     "number": 278,
     "name": "Zero to Hero",
     "translation": "Cambio Heroico",
@@ -1960,56 +1960,56 @@
     "description": "Boosts the Pokémon's most proficient stat in harsh sunlight or if the Pokémon is holding Booster Energy."
   },
   "Quark Drive": {
-    "id": "quark-drive",
+    "id": "quarkdrive",
     "number": 282,
     "name": "Quark Drive",
     "translation": "Carga Cuark",
     "description": "Boosts the Pokémon's most proficient stat on Electric Terrain or if the Pokémon is holding Booster Energy."
   },
   "Good as Gold": {
-    "id": "good-as-gold",
+    "id": "goodasgold",
     "number": 283,
     "name": "Good as Gold",
     "translation": "Cuerpo Áureo",
     "description": "A body of pure, solid gold gives the Pokémon full immunity to other Pokémon's status moves."
   },
   "Vessel of Ruin": {
-    "id": "vessel-of-ruin",
+    "id": "vesselofruin",
     "number": 284,
     "name": "Vessel of Ruin",
     "translation": "Caldero Debacle",
     "description": "The power of the Pokémon's ruinous vessel lowers the Sp. Atk stats of all Pokémon except itself."
   },
   "Sword of Ruin": {
-    "id": "sword-of-ruin",
+    "id": "swordofruin",
     "number": 285,
     "name": "Sword of Ruin",
     "translation": "Espada Debacle",
     "description": "The power of the Pokémon's ruinous sword lowers the Defense stats of all Pokémon except itself."
   },
   "Tablets of Ruin": {
-    "id": "tablets-of-ruin",
+    "id": "tabletsofruin",
     "number": 286,
     "name": "Tablets of Ruin",
     "translation": "Tablilla Debacle",
     "description": "The power of the Pokémon's ruinous wooden tablets lowers the Attack stats of all Pokémon except itself."
   },
   "Beads of Ruin": {
-    "id": "beads-of-ruin",
+    "id": "beadsofruin",
     "number": 287,
     "name": "Beads of Ruin",
     "translation": "Abalorio Debacle",
     "description": "The power of the Pokémon's ruinous beads lowers the Sp. Def stats of all Pokémon except itself."
   },
   "Orichalcum Pulse": {
-    "id": "orichalcum-pulse",
+    "id": "orichalcumpulse",
     "number": 288,
     "name": "Orichalcum Pulse",
     "translation": "Latido Oricalco",
     "description": "Turns the sunlight harsh when the Pokémon enters a battle. The ancient pulse thrumming through the Pokémon also boosts its Attack stat in harsh sunlight."
   },
   "Hadron Engine": {
-    "id": "hadron-engine",
+    "id": "hadronengine",
     "number": 289,
     "name": "Hadron Engine",
     "translation": "Motor Hadrónico",
@@ -2023,7 +2023,7 @@
     "description": "If an opponent's stat is boosted, the Pokémon seizes the opportunity to boost the same stat for itself."
   },
   "Cud Chew": {
-    "id": "cud-chew",
+    "id": "cudchew",
     "number": 291,
     "name": "Cud Chew",
     "translation": "Rumia",
@@ -2037,7 +2037,7 @@
     "description": "Powers up slicing moves."
   },
   "Supreme Overlord": {
-    "id": "supreme-overlord",
+    "id": "supremeoverlord",
     "number": 293,
     "name": "Supreme Overlord",
     "translation": "General Supremo",
@@ -2051,42 +2051,42 @@
     "description": "When the Pokémon enters a battle, it copies an ally's stat changes."
   },
   "Toxic Debris": {
-    "id": "toxic-debris",
+    "id": "toxicdebris",
     "number": 295,
     "name": "Toxic Debris",
     "translation": "Capa Tóxica",
     "description": "Scatters poison spikes at the feet of the opposing team when the Pokémon takes damage from physical moves."
   },
   "Armor Tail": {
-    "id": "armor-tail",
+    "id": "armortail",
     "number": 296,
     "name": "Armor Tail",
     "translation": "Cola Armadura",
     "description": "The mysterious tail covering the Pokémon's head makes opponents unable to use priority moves against the Pokémon or its allies."
   },
   "Earth Eater": {
-    "id": "earth-eater",
+    "id": "eartheater",
     "number": 297,
     "name": "Earth Eater",
     "translation": "Geofagia",
     "description": "If hit by a Ground-type move, the Pokémon has its HP restored instead of taking damage."
   },
   "Mycelium Might": {
-    "id": "mycelium-might",
+    "id": "myceliummight",
     "number": 298,
     "name": "Mycelium Might",
     "translation": "Poder Fúngico",
     "description": "The Pokémon will always act more slowly when using status moves, but these moves will be unimpeded by the Ability of the target."
   },
   "Mind’s Eye": {
-    "id": "minds-eye",
+    "id": "mindseye",
     "number": 299,
     "name": "Mind’s Eye",
     "translation": "Ojo Mental",
     "description": "The Pokémon ignores changes to opponents' evasiveness, its accuracy can't be lowered, and it can hit Ghost types with Normal-type and Fighting-type moves"
   },
   "Supersweet Syrup": {
-    "id": "supersweet-syrup",
+    "id": "supersweetsyrup",
     "number": 300,
     "name": "Supersweet Syrup",
     "translation": "Néctar Dulce",
@@ -2100,49 +2100,49 @@
     "description": "When the Pokémon enters a battle, it showers its ally with hospitality, restoring a small amount of the ally's HP"
   },
   "Toxic Chain": {
-    "id": "toxic-chain",
+    "id": "toxicchain",
     "number": 302,
     "name": "Toxic Chain",
     "translation": "Cadena Tóxica",
     "description": "The power of the Pokémon's toxic chain may badly poison any target the Pokémon hits with a move"
   },
   "Embody Aspect": {
-    "id": "embody-aspect",
+    "id": "embodyaspect",
     "number": 303,
     "name": "Embody Aspect",
     "translation": "Evocarrecuerdos",
     "description": "The Pokémon's heart fills with memories, causing the Mask to shine and one of the Pokémon's stats to be boosted."
   },
   "Tera Shift": {
-    "id": "tera-shift",
+    "id": "terashift",
     "number": 304,
     "name": "Tera Shift",
     "translation": "Teracambio",
     "description": "When the Pokémon enters a battle, it absorbs the energy around itself and transforms into its Terastal Form."
   },
   "Tera Shell": {
-    "id": "tera-shell",
+    "id": "terashell",
     "number": 305,
     "name": "Tera Shell",
     "translation": "Teracaparazón",
     "description": "The Pokémon's shell contains the powers of each type. All damage-dealing moves that hit the Pokémon when its HP is full will not be very effective."
   },
   "Teraform Zero": {
-    "id": "teraform-zero",
+    "id": "teraformzero",
     "number": 306,
     "name": "Teraform Zero",
     "translation": "Teraformación 0",
     "description": "When Terapagos changes into its Stellar Form, it uses its hidden powers to eliminate all effects of weather and terrain, reducing them to zero."
   },
   "Poison Puppeteer": {
-    "id": "poison-puppeteer",
+    "id": "poisonpuppeteer",
     "number": 307,
     "name": "Poison Puppeteer",
     "translation": "Títere Tóxico",
     "description": "Pokémon poisoned by Pecharunt's moves will also become confused."
   },
   "Piercing Drill": {
-    "id": "piercing-drill",
+    "id": "piercingdrill",
     "number": 308,
     "name": "Piercing Drill",
     "translation": "Turbotaladro",
@@ -2156,14 +2156,14 @@
     "description": "The Pokémon's Normal-type moves become Dragon-type moves and their power is boosted by 20%."
   },
   "Mega Sol": {
-    "id": "mega-sol",
+    "id": "megasol",
     "number": 310,
     "name": "Mega Sol",
     "translation": "Megasolar",
     "description": "Even when the sunlight has not turned harsh, the Pokémon can use its moves as if the weather were harsh sunlight."
   },
   "Spicy Spray": {
-    "id": "spicy-spray",
+    "id": "spicyspray",
     "number": 311,
     "name": "Spicy Spray",
     "translation": "Salpicante",
@@ -2177,7 +2177,7 @@
     "description": "The Pokémon floats off the ground, making it immune to Ground-type moves, as well as the Spikes, Toxic Spikes, and Sticky Web statuses. When the Pokémon knocks out a target with an attack, its highest stat is boosted by 1 stage."
   },
   "Fire Mane": {
-    "id": "fire-mane",
+    "id": "firemane",
     "number": 313,
     "name": "Fire Mane",
     "translation": "fire-mane",

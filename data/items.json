@@ -1,2330 +1,2718 @@
 {
   "Guard Spec.": {
-    "id": "guard-spec",
+    "id": "guardspec",
     "translation": "Protección X",
     "description": "Evita que bajen las características del equipo Pokémon durante cinco turnos.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/guard-spec.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/guard-spec.png",
+    "holdable": false
   },
   "Dire Hit": {
-    "id": "dire-hit",
+    "id": "direhit",
     "translation": "Crítico X",
     "description": "Aumenta el índice de golpe crítico en combate. Solo se puede usar una vez y, al cambiar de Pokémon, el efecto desaparece.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dire-hit.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dire-hit.png",
+    "holdable": false
   },
   "X Attack": {
-    "id": "x-attack",
+    "id": "xattack",
     "translation": "Ataque X",
     "description": "Aumenta mucho el Ataque en combate. Al cambiar de Pokémon, el efecto desaparece.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/x-attack.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/x-attack.png",
+    "holdable": false
   },
   "X Defense": {
-    "id": "x-defense",
+    "id": "xdefense",
     "translation": "Defensa X",
     "description": "Aumenta mucho la Defensa en combate. Al cambiar de Pokémon, el efecto desaparece.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/x-defense.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/x-defense.png",
+    "holdable": false
   },
   "X Speed": {
-    "id": "x-speed",
+    "id": "xspeed",
     "translation": "Velocidad X",
     "description": "Aumenta mucho la Velocidad en combate. Al cambiar de Pokémon, el efecto desaparece.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/x-speed.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/x-speed.png",
+    "holdable": false
   },
   "X Accuracy": {
-    "id": "x-accuracy",
+    "id": "xaccuracy",
     "translation": "Precisión X",
     "description": "Aumenta mucho la Precisión en combate. Al cambiar de Pokémon, el efecto desaparece.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/x-accuracy.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/x-accuracy.png",
+    "holdable": false
   },
   "X Sp. Atk": {
-    "id": "x-sp-atk",
+    "id": "xspatk",
     "translation": "At. Especial X",
     "description": "Aumenta mucho el Ataque Especial en combate. Al cambiar de Pokémon, el efecto desaparece.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/x-sp-atk.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/x-sp-atk.png",
+    "holdable": false
   },
   "X Sp. Def": {
-    "id": "x-sp-def",
+    "id": "xspdef",
     "translation": "Def. Especial X",
     "description": "Aumenta mucho la Defensa Especial en combate. Al cambiar de Pokémon, el efecto desaparece.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/x-sp-def.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/x-sp-def.png",
+    "holdable": false
   },
   "Max Mushrooms": {
-    "id": "max-mushrooms",
+    "id": "maxmushrooms",
     "translation": "Maxiseta",
     "description": "Una seta capaz de cambiar el aspecto de los Pokémon al dinamaxizarse. Aumenta todas las características de un Pokémon si se usa en combate.",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Cheri Berry": {
-    "id": "cheri-berry",
+    "id": "cheriberry",
     "translation": "Baya Zreza",
     "description": "Los Pokémon pueden llevarla o usarla para recuperarse de la parálisis.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/cheri-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/cheri-berry.png",
+    "holdable": true
   },
   "Chesto Berry": {
-    "id": "chesto-berry",
+    "id": "chestoberry",
     "translation": "Baya Atania",
     "description": "Los Pokémon pueden llevarla o usarla para despertar del sueño.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/chesto-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/chesto-berry.png",
+    "holdable": true
   },
   "Pecha Berry": {
-    "id": "pecha-berry",
+    "id": "pechaberry",
     "translation": "Baya Meloc",
     "description": "Los Pokémon pueden llevarla o usarla para curarse del envenenamiento.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pecha-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pecha-berry.png",
+    "holdable": true
   },
   "Rawst Berry": {
-    "id": "rawst-berry",
+    "id": "rawstberry",
     "translation": "Baya Safre",
     "description": "Los Pokémon pueden llevarla o usarla para curarse las quemaduras.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rawst-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rawst-berry.png",
+    "holdable": true
   },
   "Aspear Berry": {
-    "id": "aspear-berry",
+    "id": "aspearberry",
     "translation": "Baya Perasi",
     "description": "Los Pokémon pueden llevarla o usarla para descongelarse.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/aspear-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/aspear-berry.png",
+    "holdable": true
   },
   "Leppa Berry": {
-    "id": "leppa-berry",
+    "id": "leppaberry",
     "translation": "Baya Zanama",
     "description": "Los Pokémon pueden llevarla o usarla para restaurar 10 PP de un movimiento.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/leppa-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/leppa-berry.png",
+    "holdable": true
   },
   "Oran Berry": {
-    "id": "oran-berry",
+    "id": "oranberry",
     "translation": "Baya Aranja",
     "description": "Los Pokémon pueden llevarla o usarla para restaurar 10 PS.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/oran-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/oran-berry.png",
+    "holdable": true
   },
   "Persim Berry": {
-    "id": "persim-berry",
+    "id": "persimberry",
     "translation": "Baya Caquic",
     "description": "Los Pokémon pueden llevarla o usarla para librarse de la confusión.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/persim-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/persim-berry.png",
+    "holdable": true
   },
   "Lum Berry": {
-    "id": "lum-berry",
+    "id": "lumberry",
     "translation": "Baya Ziuela",
     "description": "Los Pokémon pueden llevarla o usarla para recuperarse de problemas de estado.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lum-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lum-berry.png",
+    "holdable": true
   },
   "Sitrus Berry": {
-    "id": "sitrus-berry",
+    "id": "sitrusberry",
     "translation": "Baya Zidra",
     "description": "Los Pokémon pueden llevarla o usarla para restaurar algunos PS.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sitrus-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sitrus-berry.png",
+    "holdable": true
   },
   "Liechi Berry": {
-    "id": "liechi-berry",
+    "id": "liechiberry",
     "translation": "Baya Lichi",
     "description": "Si la lleva un Pokémon, le sube el Ataque en un momento de apuro.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/liechi-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/liechi-berry.png",
+    "holdable": true
   },
   "Ganlon Berry": {
-    "id": "ganlon-berry",
+    "id": "ganlonberry",
     "translation": "Baya Gonlan",
     "description": "Si la lleva un Pokémon, le sube la Defensa en un momento de apuro.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ganlon-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ganlon-berry.png",
+    "holdable": true
   },
   "Salac Berry": {
-    "id": "salac-berry",
+    "id": "salacberry",
     "translation": "Baya Aslac",
     "description": "Si la lleva un Pokémon, le sube la Velocidad en un momento de apuro.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/salac-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/salac-berry.png",
+    "holdable": true
   },
   "Petaya Berry": {
-    "id": "petaya-berry",
+    "id": "petayaberry",
     "translation": "Baya Yapati",
     "description": "Si la lleva un Pokémon, le sube el Ataque Especial en un momento de apuro.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/petaya-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/petaya-berry.png",
+    "holdable": true
   },
   "Apicot Berry": {
-    "id": "apicot-berry",
+    "id": "apicotberry",
     "translation": "Baya Aricoc",
     "description": "Si la lleva un Pokémon, le sube la Defensa Especial en un momento de apuro.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/apicot-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/apicot-berry.png",
+    "holdable": true
   },
   "Lansat Berry": {
-    "id": "lansat-berry",
+    "id": "lansatberry",
     "translation": "Baya Zonlan",
     "description": "Si la lleva un Pokémon, aumenta la probabilidad de dar un golpe crítico en un momento de apuro.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lansat-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lansat-berry.png",
+    "holdable": true
   },
   "Starf Berry": {
-    "id": "starf-berry",
+    "id": "starfberry",
     "translation": "Baya Arabol",
     "description": "Si la lleva un Pokémon, aumenta mucho una característica en un momento de apuro.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/starf-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/starf-berry.png",
+    "holdable": true
   },
   "Micle Berry": {
-    "id": "micle-berry",
+    "id": "micleberry",
     "translation": "Baya Lagro",
     "description": "Cuando la lleva un Pokémon, le sube la Precisión de un movimiento en un momento de apuro.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/micle-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/micle-berry.png",
+    "holdable": true
   },
   "Custap Berry": {
-    "id": "custap-berry",
+    "id": "custapberry",
     "translation": "Baya Chiri",
     "description": "El Pokémon que la lleva puede actuar en primer lugar una vez cuando se encuentra en un momento de apuro.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/custap-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/custap-berry.png",
+    "holdable": true
   },
   "Figy Berry": {
-    "id": "figy-berry",
+    "id": "figyberry",
     "translation": "Baya Higog",
     "description": "Los Pokémon pueden llevarla o usarla para restaurar algunos PS. Su sabor puede causar confusión.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/figy-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/figy-berry.png",
+    "holdable": true
   },
   "Wiki Berry": {
-    "id": "wiki-berry",
+    "id": "wikiberry",
     "translation": "Baya Wiki",
     "description": "Los Pokémon pueden llevarla o usarla para restaurar algunos PS. Su sabor puede causar confusión.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/wiki-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/wiki-berry.png",
+    "holdable": true
   },
   "Mago Berry": {
-    "id": "mago-berry",
+    "id": "magoberry",
     "translation": "Baya Ango",
     "description": "Los Pokémon pueden llevarla o usarla para restaurar algunos PS. Su sabor puede causar confusión.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mago-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mago-berry.png",
+    "holdable": true
   },
   "Aguav Berry": {
-    "id": "aguav-berry",
+    "id": "aguavberry",
     "translation": "Baya Guaya",
     "description": "Los Pokémon pueden llevarla o usarla para restaurar algunos PS. Su sabor puede causar confusión.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/aguav-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/aguav-berry.png",
+    "holdable": true
   },
   "Iapapa Berry": {
-    "id": "iapapa-berry",
+    "id": "iapapaberry",
     "translation": "Baya Pabaya",
     "description": "Los Pokémon pueden llevarla o usarla para restaurar algunos PS. Su sabor puede causar confusión.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/iapapa-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/iapapa-berry.png",
+    "holdable": true
   },
   "Occa Berry": {
-    "id": "occa-berry",
+    "id": "occaberry",
     "translation": "Baya Caoca",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Fuego de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/occa-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/occa-berry.png",
+    "holdable": true
   },
   "Passho Berry": {
-    "id": "passho-berry",
+    "id": "passhoberry",
     "translation": "Baya Pasio",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Agua de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/passho-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/passho-berry.png",
+    "holdable": true
   },
   "Wacan Berry": {
-    "id": "wacan-berry",
+    "id": "wacanberry",
     "translation": "Baya Gualot",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Eléctrico de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/wacan-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/wacan-berry.png",
+    "holdable": true
   },
   "Rindo Berry": {
-    "id": "rindo-berry",
+    "id": "rindoberry",
     "translation": "Baya Tamar",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Planta de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rindo-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rindo-berry.png",
+    "holdable": true
   },
   "Yache Berry": {
-    "id": "yache-berry",
+    "id": "yacheberry",
     "translation": "Baya Rimoya",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Hielo de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/yache-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/yache-berry.png",
+    "holdable": true
   },
   "Chople Berry": {
-    "id": "chople-berry",
+    "id": "chopleberry",
     "translation": "Baya Pomaro",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Lucha de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/chople-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/chople-berry.png",
+    "holdable": true
   },
   "Kebia Berry": {
-    "id": "kebia-berry",
+    "id": "kebiaberry",
     "translation": "Baya Kebia",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Veneno de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/kebia-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/kebia-berry.png",
+    "holdable": true
   },
   "Shuca Berry": {
-    "id": "shuca-berry",
+    "id": "shucaberry",
     "translation": "Baya Acardo",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Tierra de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/shuca-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/shuca-berry.png",
+    "holdable": true
   },
   "Coba Berry": {
-    "id": "coba-berry",
+    "id": "cobaberry",
     "translation": "Baya Kouba",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Volador de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/coba-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/coba-berry.png",
+    "holdable": true
   },
   "Payapa Berry": {
-    "id": "payapa-berry",
+    "id": "payapaberry",
     "translation": "Baya Payapa",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Psíquico de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/payapa-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/payapa-berry.png",
+    "holdable": true
   },
   "Tanga Berry": {
-    "id": "tanga-berry",
+    "id": "tangaberry",
     "translation": "Baya Yecana",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Bicho de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/tanga-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/tanga-berry.png",
+    "holdable": true
   },
   "Charti Berry": {
-    "id": "charti-berry",
+    "id": "chartiberry",
     "translation": "Baya Alcho",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Roca de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/charti-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/charti-berry.png",
+    "holdable": true
   },
   "Kasib Berry": {
-    "id": "kasib-berry",
+    "id": "kasibberry",
     "translation": "Baya Drasi",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Fantasma de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/kasib-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/kasib-berry.png",
+    "holdable": true
   },
   "Haban Berry": {
-    "id": "haban-berry",
+    "id": "habanberry",
     "translation": "Baya Anjiro",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Dragón de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/haban-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/haban-berry.png",
+    "holdable": true
   },
   "Colbur Berry": {
-    "id": "colbur-berry",
+    "id": "colburberry",
     "translation": "Baya Dillo",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Siniestro de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/colbur-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/colbur-berry.png",
+    "holdable": true
   },
   "Babiri Berry": {
-    "id": "babiri-berry",
+    "id": "babiriberry",
     "translation": "Baya Baribá",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Acero de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/babiri-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/babiri-berry.png",
+    "holdable": true
   },
   "Chilan Berry": {
-    "id": "chilan-berry",
+    "id": "chilanberry",
     "translation": "Baya Chilan",
     "description": "Si la lleva un Pokémon, debilita un ataque de tipo Normal de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/chilan-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/chilan-berry.png",
+    "holdable": true
   },
   "Roseli Berry": {
-    "id": "roseli-berry",
+    "id": "roseliberry",
     "translation": "Baya Hibis",
     "description": "Si la lleva un Pokémon, debilita un ataque supereficaz de tipo Hada de un enemigo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/roseli-berry.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/roseli-berry.png",
+    "holdable": true
   },
   "Bright Powder": {
-    "id": "bright-powder",
+    "id": "brightpowder",
     "translation": "Polvo Brillo",
     "description": "Lanza un destello que baja la Precisión del enemigo. Debe llevarlo un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/bright-powder.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/bright-powder.png",
+    "holdable": true
   },
   "White Herb": {
-    "id": "white-herb",
+    "id": "whiteherb",
     "translation": "Hierba Blanca",
     "description": "Restaura cualquier característica reducida en combate. Solo se puede usar una vez. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/white-herb.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/white-herb.png",
+    "holdable": true
   },
   "Quick Claw": {
-    "id": "quick-claw",
+    "id": "quickclaw",
     "translation": "Garra Rápida",
     "description": "Garra ligera y afilada que permite que el Pokémon que la lleve ataque a veces el primero.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/quick-claw.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/quick-claw.png",
+    "holdable": true
   },
   "Mental Herb": {
-    "id": "mental-herb",
+    "id": "mentalherb",
     "translation": "Hierba Mental",
     "description": "El Pokémon que la lleva se libera del efecto de movimientos que restringen sus acciones. Solo puede usarse una vez.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mental-herb.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mental-herb.png",
+    "holdable": true
   },
   "King’s Rock": {
-    "id": "kings-rock",
+    "id": "kingsrock",
     "translation": "Roca del Rey",
     "description": "El Pokémon que la lleva puede hacer retroceder al Pokémon al que le inflige daño.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/kings-rock.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/kings-rock.png",
+    "holdable": true
   },
   "Smoke Ball": {
-    "id": "smoke-ball",
+    "id": "smokeball",
     "translation": "Bola de Humo",
     "description": "Debe llevarla un Pokémon. Permite huir siempre de combates contra Pokémon salvajes.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/smoke-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/smoke-ball.png",
+    "holdable": true
   },
   "Focus Band": {
-    "id": "focus-band",
+    "id": "focusband",
     "translation": "Cinta Aguante",
     "description": "El Pokémon que la lleva puede resistir un golpe que potencialmente lo dejaría K. O. y se queda con 1 PS.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/focus-band.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/focus-band.png",
+    "holdable": true
   },
   "Scope Lens": {
-    "id": "scope-lens",
+    "id": "scopelens",
     "translation": "Periscopio",
     "description": "Su lente aumenta la probabilidad que tiene el Pokémon que lo lleva de conseguir un golpe crítico.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/scope-lens.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/scope-lens.png",
+    "holdable": true
   },
   "Leftovers": {
     "id": "leftovers",
     "translation": "Restos",
     "description": "Este objeto restaura gradualmente durante el combate los PS del Pokémon que lo lleva.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/leftovers.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/leftovers.png",
+    "holdable": true
   },
   "Shell Bell": {
-    "id": "shell-bell",
+    "id": "shellbell",
     "translation": "Cascabel Concha",
     "description": "Debe llevarla un Pokémon. Cada vez que este inflige daño, recupera algunos PS.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/shell-bell.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/shell-bell.png",
+    "holdable": true
   },
   "Lax Incense": {
-    "id": "lax-incense",
+    "id": "laxincense",
     "translation": "Incienso Suave",
     "description": "Debe llevarlo un Pokémon. Su peculiar aroma reduce la Precisión del objetivo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lax-incense.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lax-incense.png",
+    "holdable": true
   },
   "Wide Lens": {
-    "id": "wide-lens",
+    "id": "widelens",
     "translation": "Lupa",
     "description": "Debe llevarla un Pokémon. Aumenta ligeramente la precisión de los movimientos.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/wide-lens.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/wide-lens.png",
+    "holdable": true
   },
   "Muscle Band": {
-    "id": "muscle-band",
+    "id": "muscleband",
     "translation": "Cinta Fuerte",
     "description": "Cinta del pelo que aumenta ligeramente la potencia de los ataques físicos. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/muscle-band.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/muscle-band.png",
+    "holdable": true
   },
   "Wise Glasses": {
-    "id": "wise-glasses",
+    "id": "wiseglasses",
     "translation": "Gafas Especiales",
     "description": "Potencian ligeramente los ataques especiales. Debe llevarlas un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/wise-glasses.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/wise-glasses.png",
+    "holdable": true
   },
   "Expert Belt": {
-    "id": "expert-belt",
+    "id": "expertbelt",
     "translation": "Cinta Experto",
     "description": "Potencia ligeramente los movimientos supereficaces. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/expert-belt.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/expert-belt.png",
+    "holdable": true
   },
   "Light Clay": {
-    "id": "light-clay",
+    "id": "lightclay",
     "translation": "Refleluz",
     "description": "Prolonga la duración de barreras como Reflejo y Pantalla de Luz. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/light-clay.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/light-clay.png",
+    "holdable": true
   },
   "Life Orb": {
-    "id": "life-orb",
+    "id": "lifeorb",
     "translation": "Vidasfera",
     "description": "Potencia los movimientos, pero consume PS con cada ataque. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/life-orb.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/life-orb.png",
+    "holdable": true
   },
   "Power Herb": {
-    "id": "power-herb",
+    "id": "powerherb",
     "translation": "Hierba Única",
     "description": "Permite el uso inmediato de cualquier movimiento en el primer turno. Es de un solo uso y debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/power-herb.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/power-herb.png",
+    "holdable": true
   },
   "Focus Sash": {
-    "id": "focus-sash",
+    "id": "focussash",
     "translation": "Banda Aguante",
     "description": "Si el Pokémon que la lleva tiene los PS al máximo, puede resistir un golpe que lo dejaría K. O. y se queda con 1 PS.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/focus-sash.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/focus-sash.png",
+    "holdable": true
   },
   "Zoom Lens": {
-    "id": "zoom-lens",
+    "id": "zoomlens",
     "translation": "Telescopio",
     "description": "Debe llevarlo un Pokémon. Si se mueve después del enemigo, aumenta la Precisión del Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/zoom-lens.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/zoom-lens.png",
+    "holdable": true
   },
   "Metronome": {
     "id": "metronome",
     "translation": "Metrónomo",
     "description": "Potencia un movimiento que se use de forma consecutiva. Pero el efecto se pierde si se emplea otro movimiento.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/metronome.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/metronome.png",
+    "holdable": true
   },
   "Destiny Knot": {
-    "id": "destiny-knot",
+    "id": "destinyknot",
     "translation": "Lazo Destino",
     "description": "Un hilo largo y delgado de color rojo que transmite el enamoramiento del Pokémon que lo lleva a su objetivo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/destiny-knot.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/destiny-knot.png",
+    "holdable": true
   },
   "Black Sludge": {
-    "id": "black-sludge",
+    "id": "blacksludge",
     "translation": "Lodo Negro",
     "description": "Restaura gradualmente los PS de los Pokémon de tipo Veneno y daña a todos los demás.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/black-sludge.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/black-sludge.png",
+    "holdable": true
   },
   "Icy Rock": {
-    "id": "icy-rock",
+    "id": "icyrock",
     "translation": "Roca Helada",
     "description": "Prolonga la duración del movimiento Granizo que use el Pokémon que la lleva.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/icy-rock.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/icy-rock.png",
+    "holdable": true
   },
   "Smooth Rock": {
-    "id": "smooth-rock",
+    "id": "smoothrock",
     "translation": "Roca Suave",
     "description": "Prolonga la duración del movimiento Tormenta de Arena que use el Pokémon que la lleva.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/smooth-rock.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/smooth-rock.png",
+    "holdable": true
   },
   "Heat Rock": {
-    "id": "heat-rock",
+    "id": "heatrock",
     "translation": "Roca Calor",
     "description": "Prolonga la duración del movimiento Día Soleado que use el Pokémon que la lleva.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heat-rock.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heat-rock.png",
+    "holdable": true
   },
   "Damp Rock": {
-    "id": "damp-rock",
+    "id": "damprock",
     "translation": "Roca Lluvia",
     "description": "Prolonga la duración del movimiento Danza Lluvia que use el Pokémon que la lleva.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/damp-rock.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/damp-rock.png",
+    "holdable": true
   },
   "Grip Claw": {
-    "id": "grip-claw",
+    "id": "gripclaw",
     "translation": "Garra Garfio",
     "description": "Prolonga la duración de ataques multiturno como Atadura y Constricción si la lleva un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/grip-claw.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/grip-claw.png",
+    "holdable": true
   },
   "Shed Shell": {
-    "id": "shed-shell",
+    "id": "shedshell",
     "translation": "Muda Concha",
     "description": "En combate, esta concha desechada sirve para que un Pokémon se cambie por otro que no esté combatiendo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/shed-shell.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/shed-shell.png",
+    "holdable": true
   },
   "Big Root": {
-    "id": "big-root",
+    "id": "bigroot",
     "translation": "Raíz Grande",
     "description": "El Pokémon que la lleva recupera más PS al usar movimientos que drenan al objetivo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/big-root.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/big-root.png",
+    "holdable": true
   },
   "Razor Claw": {
-    "id": "razor-claw",
+    "id": "razorclaw",
     "translation": "Garra Afilada",
     "description": "Aumenta la probabilidad de que el Pokémon que la lleve consiga un golpe crítico.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/razor-claw.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/razor-claw.png",
+    "holdable": true
   },
   "Razor Fang": {
-    "id": "razor-fang",
+    "id": "razorfang",
     "translation": "Colmillo Agudo",
     "description": "Si lo lleva un Pokémon cuando inflige daño al objetivo, puede hacerle retroceder.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/razor-fang.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/razor-fang.png",
+    "holdable": true
   },
   "Eviolite": {
     "id": "eviolite",
     "translation": "Mineral Evol",
     "description": "Roca misteriosa. El Pokémon portador aumentará su Defensa y su Defensa Especial si aún puede evolucionar.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eviolite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eviolite.png",
+    "holdable": true
   },
   "Float Stone": {
-    "id": "float-stone",
+    "id": "floatstone",
     "translation": "Piedra Pómez",
     "description": "Piedra muy ligera que reduce el peso del Pokémon que la lleve.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/float-stone.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/float-stone.png",
+    "holdable": true
   },
   "Rocky Helmet": {
-    "id": "rocky-helmet",
+    "id": "rockyhelmet",
     "translation": "Casco Dentado",
     "description": "Si el portador es alcanzado por un movimiento de contacto, el agresor también recibe daño.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rocky-helmet.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rocky-helmet.png",
+    "holdable": true
   },
   "Air Balloon": {
-    "id": "air-balloon",
+    "id": "airballoon",
     "translation": "Globo Helio",
     "description": "El Pokémon que lo lleve flotará en el aire. Si recibe un golpe, estallará.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/air-balloon.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/air-balloon.png",
+    "holdable": true
   },
   "Red Card": {
-    "id": "red-card",
+    "id": "redcard",
     "translation": "Tarjeta Roja",
     "description": "Misteriosa tarjeta que permite al Pokémon que la lleva expulsar al oponente cuando este le cause daño.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/red-card.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/red-card.png",
+    "holdable": true
   },
   "Ring Target": {
-    "id": "ring-target",
+    "id": "ringtarget",
     "translation": "Blanco",
     "description": "El Pokémon que lo lleva es vulnerable frente a movimientos que normalmente no afectan a su tipo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ring-target.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ring-target.png",
+    "holdable": true
   },
   "Binding Band": {
-    "id": "binding-band",
+    "id": "bindingband",
     "translation": "Banda Atadura",
     "description": "Banda que potencia los movimientos que estrujan al rival.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/binding-band.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/binding-band.png",
+    "holdable": true
   },
   "Absorb Bulb": {
-    "id": "absorb-bulb",
+    "id": "absorbbulb",
     "translation": "Tubérculo",
     "description": "Raíz de usar y tirar que sube el Ataque Especial cuando se recibe un ataque de tipo Agua.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/absorb-bulb.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/absorb-bulb.png",
+    "holdable": true
   },
   "Cell Battery": {
-    "id": "cell-battery",
+    "id": "cellbattery",
     "translation": "Pila",
     "description": "Batería de usar y tirar que sube el Ataque de quien la lleva cuando recibe un golpe de tipo Eléctrico.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/cell-battery.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/cell-battery.png",
+    "holdable": true
   },
   "Eject Button": {
-    "id": "eject-button",
+    "id": "ejectbutton",
     "translation": "Botón Escape",
     "description": "Si el portador es alcanzado por un ataque, saldrá del combate y será sustituido por otro Pokémon del equipo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eject-button.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eject-button.png",
+    "holdable": true
   },
   "Pass Orb": {
-    "id": "pass-orb",
+    "id": "passorb",
     "translation": "Regalosfera",
     "description": "Esfera misteriosa que contiene el poder de la región de Teselia y se utiliza para generar Poderes Regalo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pass-orb.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pass-orb.png",
+    "holdable": false
   },
   "Weakness Policy": {
-    "id": "weakness-policy",
+    "id": "weaknesspolicy",
     "translation": "Seguro Debilidad",
     "description": "Aumenta mucho el Ataque y el Ataque Especial cuando el Pokémon que lo lleva recibe un ataque frente al cual es débil.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/weakness-policy.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/weakness-policy.png",
+    "holdable": true
   },
   "Assault Vest": {
-    "id": "assault-vest",
+    "id": "assaultvest",
     "translation": "Chaleco Asalto",
     "description": "Chaleco que potencia la Defensa Especial del Pokémon que lo lleva, pero le impide lanzar ataques de estado.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/assault-vest.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/assault-vest.png",
+    "holdable": true
   },
   "Luminous Moss": {
-    "id": "luminous-moss",
+    "id": "luminousmoss",
     "translation": "Musgo Brillante",
     "description": "Objeto de un solo uso. Aumenta la Defensa Especial del Pokémon que lo lleva si este recibe un ataque de tipo Agua.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/luminous-moss.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/luminous-moss.png",
+    "holdable": true
   },
   "Snowball": {
     "id": "snowball",
     "translation": "Bola de Nieve",
     "description": "Objeto de un solo uso. Aumenta el Ataque del Pokémon que lo lleva si este recibe un ataque de tipo Hielo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/snowball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/snowball.png",
+    "holdable": true
   },
   "Safety Goggles": {
-    "id": "safety-goggles",
+    "id": "safetygoggles",
     "translation": "Gafa Protectora",
     "description": "Gafa que protege de los efectos adversos del clima y del polvo lanzado por los rivales.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/safety-goggles.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/safety-goggles.png",
+    "holdable": true
   },
   "Adrenaline Orb": {
-    "id": "adrenaline-orb",
+    "id": "adrenalineorb",
     "translation": "Nerviosfera",
     "description": "Aumenta la Velocidad del portador al sufrir Intimidación. Si se usa, hará más probable que el Pokémon rival pida ayuda. Desaparece tras usarla.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/adrenaline-orb.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/adrenaline-orb.png",
+    "holdable": true
   },
   "Terrain Extender": {
-    "id": "terrain-extender",
+    "id": "terrainextender",
     "translation": "Cubresuelos",
     "description": "Al llevarlo, prolonga la duración de los campos creados por el Pokémon en el terreno de combate mediante movimientos o su habilidad.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/terrain-extender.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/terrain-extender.png",
+    "holdable": true
   },
   "Protective Pads": {
-    "id": "protective-pads",
+    "id": "protectivepads",
     "translation": "Paracontacto",
     "description": "Protege al Pokémon de los efectos que le produciría el contacto directo en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/protective-pads.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/protective-pads.png",
+    "holdable": true
   },
   "Electric Seed": {
-    "id": "electric-seed",
+    "id": "electricseed",
     "translation": "Semilla Electro",
     "description": "Aumenta la Defensa del portador si se usa cuando el terreno está cubierto por un campo eléctrico.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/electric-seed.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/electric-seed.png",
+    "holdable": true
   },
   "Psychic Seed": {
-    "id": "psychic-seed",
+    "id": "psychicseed",
     "translation": "Semilla Psique",
     "description": "Aumenta la Defensa Especial del portador si se usa cuando el terreno está cubierto por un campo psíquico.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/psychic-seed.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/psychic-seed.png",
+    "holdable": true
   },
   "Misty Seed": {
-    "id": "misty-seed",
+    "id": "mistyseed",
     "translation": "Semilla Bruma",
     "description": "Aumenta la Defensa Especial del portador si se usa cuando el terreno está cubierto por un campo de niebla.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/misty-seed.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/misty-seed.png",
+    "holdable": true
   },
   "Grassy Seed": {
-    "id": "grassy-seed",
+    "id": "grassyseed",
     "translation": "Semilla Hierba",
     "description": "Aumenta la Defensa del portador si se usa cuando el terreno está cubierto por un campo de hierba.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/grassy-seed.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/grassy-seed.png",
+    "holdable": true
   },
   "Throat Spray": {
-    "id": "throat-spray",
+    "id": "throatspray",
     "translation": "Espray Bucal",
     "description": "Aumenta el Ataque Especial al emplear un movimiento que se sirva del sonido.",
-    "icon": null
+    "icon": null,
+    "holdable": true
   },
   "Eject Pack": {
-    "id": "eject-pack",
+    "id": "ejectpack",
     "translation": "Mochila Escape",
     "description": "Si el portador ve reducidas sus características, será sustituido por otro Pokémon del equipo.",
-    "icon": null
+    "icon": null,
+    "holdable": true
   },
   "Heavy-Duty Boots": {
-    "id": "heavy-duty-boots",
+    "id": "heavydutyboots",
     "translation": "Botas Gruesas",
     "description": "Anula los efectos de aquello que se coloca a los pies del Pokémon para obstaculizarlo, como las trampas.",
-    "icon": null
+    "icon": null,
+    "holdable": true
   },
   "Blunder Policy": {
-    "id": "blunder-policy",
+    "id": "blunderpolicy",
     "translation": "Seguro Fallo",
     "description": "Aumenta mucho la Velocidad cuando el Pokémon yerra el movimiento debido a la precisión.",
-    "icon": null
+    "icon": null,
+    "holdable": true
   },
   "Room Service": {
-    "id": "room-service",
+    "id": "roomservice",
     "translation": "Servicio Raro",
     "description": "Si lo lleva un Pokémon, reduce la Velocidad cuando se usa Espacio Raro.",
-    "icon": null
+    "icon": null,
+    "holdable": true
   },
   "Utility Umbrella": {
-    "id": "utility-umbrella",
+    "id": "utilityumbrella",
     "translation": "Parasol Multiuso",
     "description": "El portador se vuelve invulnerable a los efectos de la lluvia y del sol.",
-    "icon": null
+    "icon": null,
+    "holdable": true
   },
   "Booster Energy": {
-    "id": "booster-energy",
+    "id": "boosterenergy",
     "translation": "Booster Energy",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": true
   },
   "Ability Shield": {
-    "id": "ability-shield",
-    "translation": "Ability Shield",
-    "description": "Descripción no disponible",
-    "icon": null
+    "id": "abilityshield",
+    "translation": "Escudo Habilidad",
+    "description": "Evita que la habilidad del portador sea suprimida o cambiada.",
+    "icon": null,
+    "holdable": true
   },
   "Clear Amulet": {
-    "id": "clear-amulet",
-    "translation": "Clear Amulet",
-    "description": "Descripción no disponible",
-    "icon": null
+    "id": "clearamulet",
+    "translation": "Amuleto Puro",
+    "description": "Evita que las características del portador sean reducidas por habilidades o movimientos de otros Pokémon.",
+    "icon": null,
+    "holdable": true
   },
   "Mirror Herb": {
-    "id": "mirror-herb",
-    "translation": "Mirror Herb",
-    "description": "Descripción no disponible",
-    "icon": null
+    "id": "mirrorherb",
+    "translation": "Hierba Copia",
+    "description": "Copia un aumento de características del oponente.",
+    "icon": null,
+    "holdable": true
   },
   "Punching Glove": {
-    "id": "punching-glove",
-    "translation": "Punching Glove",
-    "description": "Descripción no disponible",
-    "icon": null
+    "id": "punchingglove",
+    "translation": "Guante de Boxeo",
+    "description": "Aumenta en un 10% la potencia y evita el daño por contacto de movimientos basados en puños.",
+    "icon": null,
+    "holdable": true
   },
   "Covert Cloak": {
-    "id": "covert-cloak",
-    "translation": "Covert Cloak",
-    "description": "Descripción no disponible",
-    "icon": null
+    "id": "covertcloak",
+    "translation": "Capa Furtiva",
+    "description": "Anula los efectos secundarios de los movimientos del rival que afectan al portador.",
+    "icon": null,
+    "holdable": true
   },
   "Loaded Dice": {
-    "id": "loaded-dice",
-    "translation": "Loaded Dice",
-    "description": "Descripción no disponible",
-    "icon": null
+    "id": "loadeddice",
+    "translation": "Dado Trucado",
+    "description": "Aumenta la cantidad de golpes en movimientos que golpean varias veces.",
+    "icon": null,
+    "holdable": true
   },
   "Fairy Feather": {
-    "id": "fairy-feather",
+    "id": "fairyfeather",
     "translation": "Pluma Feérica",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": true
   },
   "Wellspring Mask": {
-    "id": "wellspring-mask",
-    "translation": "Wellspring Mask",
+    "id": "wellspringmask",
+    "translation": "Máscara Fuente",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": true
   },
   "Hearthflame Mask": {
-    "id": "hearthflame-mask",
-    "translation": "Hearthflame Mask",
+    "id": "hearthflamemask",
+    "translation": "Máscara Horno",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": true
   },
   "Cornerstone Mask": {
-    "id": "cornerstone-mask",
-    "translation": "Cornerstone Mask",
+    "id": "cornerstonemask",
+    "translation": "Máscara Cimiento",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": true
   },
   "Choice Band": {
-    "id": "choice-band",
-    "translation": "Cinta Elección",
+    "id": "choiceband",
+    "translation": "Cinta Elegida",
     "description": "Aumenta la potencia de los ataques físicos del Pokémon que la lleva, pero solo le permite usar un movimiento.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/choice-band.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/choice-band.png",
+    "holdable": true
   },
   "Choice Scarf": {
-    "id": "choice-scarf",
-    "translation": "Pañuelo Elección",
+    "id": "choicescarf",
+    "translation": "Pañuelo Elegido",
     "description": "Debe llevarlo un Pokémon. Potencia la Velocidad, pero solo permite usar un movimiento.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/choice-scarf.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/choice-scarf.png",
+    "holdable": true
   },
   "Choice Specs": {
-    "id": "choice-specs",
-    "translation": "Gafas Elección",
+    "id": "choicespecs",
+    "translation": "Gafas Elegidas",
     "description": "Aumentan la potencia de los ataques especiales del Pokémon que las lleva, pero solo le permiten usar un movimiento.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/choice-specs.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/choice-specs.png",
+    "holdable": true
   },
   "Toxic Orb": {
-    "id": "toxic-orb",
+    "id": "toxicorb",
     "translation": "Toxisfera",
     "description": "Extraña esfera que envenena gravemente al Pokémon que la lleva en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/toxic-orb.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/toxic-orb.png",
+    "holdable": true
   },
   "Flame Orb": {
-    "id": "flame-orb",
+    "id": "flameorb",
     "translation": "Llamasfera",
     "description": "Extraña esfera que causa quemaduras al Pokémon que la lleva en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/flame-orb.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/flame-orb.png",
+    "holdable": true
   },
   "Iron Ball": {
-    "id": "iron-ball",
+    "id": "ironball",
     "translation": "Bola Férrea",
     "description": "Reduce la Velocidad. Los Pokémon que levitan y los de tipo Volador se tornan sensibles a movimientos de tipo Tierra.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/iron-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/iron-ball.png",
+    "holdable": true
   },
   "Lagging Tail": {
-    "id": "lagging-tail",
+    "id": "laggingtail",
     "translation": "Cola Plúmbea",
     "description": "Es muy pesada y hace que el Pokémon que la lleva se mueva más lento de lo normal.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lagging-tail.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lagging-tail.png",
+    "holdable": true
   },
   "Sticky Barb": {
-    "id": "sticky-barb",
+    "id": "stickybarb",
     "translation": "Toxiestrella",
     "description": "Daña en cada turno al Pokémon que la lleva. Puede adherirse al Pokémon que alcance con su ataque al portador.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sticky-barb.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sticky-barb.png",
+    "holdable": true
   },
   "Full Incense": {
-    "id": "full-incense",
+    "id": "fullincense",
     "translation": "Incienso Lento",
     "description": "Incienso de exótico aroma que hace que el Pokémon que lo lleve esté aturdido y se mueva más despacio.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/full-incense.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/full-incense.png",
+    "holdable": true
   },
   "Flame Plate": {
-    "id": "flame-plate",
+    "id": "flameplate",
     "translation": "Tabla Llama",
     "description": "Tabla de piedra que potencia los movimientos de tipo Fuego. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/flame-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/flame-plate.png",
+    "holdable": true
   },
   "Splash Plate": {
-    "id": "splash-plate",
+    "id": "splashplate",
     "translation": "Tabla Linfa",
     "description": "Tabla de piedra que potencia los movimientos de tipo Agua. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/splash-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/splash-plate.png",
+    "holdable": true
   },
   "Zap Plate": {
-    "id": "zap-plate",
+    "id": "zapplate",
     "translation": "Tabla Trueno",
     "description": "Tabla de piedra que potencia los movimientos de tipo Eléctrico. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/zap-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/zap-plate.png",
+    "holdable": true
   },
   "Meadow Plate": {
-    "id": "meadow-plate",
+    "id": "meadowplate",
     "translation": "Tabla Pradal",
     "description": "Tabla de piedra que potencia los movimientos de tipo Planta. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/meadow-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/meadow-plate.png",
+    "holdable": true
   },
   "Icicle Plate": {
-    "id": "icicle-plate",
+    "id": "icicleplate",
     "translation": "Tabla Helada",
     "description": "Tabla de piedra que potencia los movimientos de tipo Hielo. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/icicle-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/icicle-plate.png",
+    "holdable": true
   },
   "Fist Plate": {
-    "id": "fist-plate",
+    "id": "fistplate",
     "translation": "Tabla Fuerte",
     "description": "Tabla de piedra que potencia los movimientos de tipo Lucha. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fist-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fist-plate.png",
+    "holdable": true
   },
   "Toxic Plate": {
-    "id": "toxic-plate",
+    "id": "toxicplate",
     "translation": "Tabla Tóxica",
     "description": "Tabla de piedra que potencia los movimientos de tipo Veneno. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/toxic-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/toxic-plate.png",
+    "holdable": true
   },
   "Earth Plate": {
-    "id": "earth-plate",
+    "id": "earthplate",
     "translation": "Tabla Terrax",
     "description": "Tabla de piedra que potencia los movimientos de tipo Tierra. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/earth-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/earth-plate.png",
+    "holdable": true
   },
   "Sky Plate": {
-    "id": "sky-plate",
+    "id": "skyplate",
     "translation": "Tabla Cielo",
     "description": "Tabla de piedra que potencia los movimientos de tipo Volador. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sky-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sky-plate.png",
+    "holdable": true
   },
   "Mind Plate": {
-    "id": "mind-plate",
+    "id": "mindplate",
     "translation": "Tabla Mental",
     "description": "Tabla de piedra que potencia los movimientos de tipo Psíquico. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mind-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mind-plate.png",
+    "holdable": true
   },
   "Insect Plate": {
-    "id": "insect-plate",
+    "id": "insectplate",
     "translation": "Tabla Bicho",
     "description": "Tabla de piedra que potencia los movimientos de tipo Bicho. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/insect-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/insect-plate.png",
+    "holdable": true
   },
   "Stone Plate": {
-    "id": "stone-plate",
+    "id": "stoneplate",
     "translation": "Tabla Pétrea",
     "description": "Tabla de piedra que potencia los movimientos de tipo Roca. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/stone-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/stone-plate.png",
+    "holdable": true
   },
   "Spooky Plate": {
-    "id": "spooky-plate",
+    "id": "spookyplate",
     "translation": "Tabla Terror",
     "description": "Tabla de piedra que potencia los movimientos de tipo Fantasma. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/spooky-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/spooky-plate.png",
+    "holdable": true
   },
   "Draco Plate": {
-    "id": "draco-plate",
+    "id": "dracoplate",
     "translation": "Tabla Draco",
     "description": "Tabla de piedra que potencia los movimientos de tipo Dragón. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/draco-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/draco-plate.png",
+    "holdable": true
   },
   "Dread Plate": {
-    "id": "dread-plate",
+    "id": "dreadplate",
     "translation": "Tabla Oscura",
     "description": "Tabla de piedra que potencia los movimientos de tipo Siniestro. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dread-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dread-plate.png",
+    "holdable": true
   },
   "Iron Plate": {
-    "id": "iron-plate",
+    "id": "ironplate",
     "translation": "Tabla Acero",
     "description": "Tabla de piedra que potencia los movimientos de tipo Acero. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/iron-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/iron-plate.png",
+    "holdable": true
   },
   "Pixie Plate": {
-    "id": "pixie-plate",
+    "id": "pixieplate",
     "translation": "Tabla Duende",
     "description": "Tabla de piedra que potencia los movimientos de tipo Hada. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pixie-plate.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pixie-plate.png",
+    "holdable": true
   },
   "Blank Plate": {
-    "id": "blank-plate",
+    "id": "blankplate",
     "translation": "Blank Plate",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": true
   },
   "Legend Plate": {
-    "id": "legend-plate",
+    "id": "legendplate",
     "translation": "Legend Plate",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": true
   },
   "Adamant Orb": {
-    "id": "adamant-orb",
+    "id": "adamantorb",
     "translation": "Diamansfera",
     "description": "Una esfera brillante que potencia los movimientos de tipo Acero y Dragón. Debe llevarla Dialga.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/adamant-orb.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/adamant-orb.png",
+    "holdable": true
   },
   "Lustrous Orb": {
-    "id": "lustrous-orb",
+    "id": "lustrousorb",
     "translation": "Lustresfera",
     "description": "Una bonita esfera que potencia los movimientos de tipo Dragón y Agua. Debe llevarla Palkia.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lustrous-orb.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lustrous-orb.png",
+    "holdable": true
   },
   "Soul Dew": {
-    "id": "soul-dew",
+    "id": "souldew",
     "translation": "Rocío Bondad",
     "description": "Un orbe fantástico que debe llevar Latios o Latias. Potencia los movimientos de tipo Psíquico y Dragón.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/soul-dew.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/soul-dew.png",
+    "holdable": true
   },
   "Deep Sea Tooth": {
-    "id": "deep-sea-tooth",
+    "id": "deepseatooth",
     "translation": "Diente Marino",
     "description": "Tiene el brillo afilado de la plata y debe llevarlo Clamperl. Sube el Ataque Especial.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/deep-sea-tooth.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/deep-sea-tooth.png",
+    "holdable": true
   },
   "Deep Sea Scale": {
-    "id": "deep-sea-scale",
+    "id": "deepseascale",
     "translation": "Escama Marina",
     "description": "Tiene un débil brillo rosado y debe llevarla Clamperl. Sube la Defensa Especial.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/deep-sea-scale.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/deep-sea-scale.png",
+    "holdable": true
   },
   "Light Ball": {
-    "id": "light-ball",
+    "id": "lightball",
     "translation": "Bola Luminosa",
     "description": "Asombrosa esfera que debe llevar Pikachu y que aumenta su Ataque y su Ataque Especial.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/light-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/light-ball.png",
+    "holdable": true
   },
   "Lucky Punch": {
-    "id": "lucky-punch",
+    "id": "luckypunch",
     "translation": "Puño Suerte",
     "description": "Un par de guantes que debe llevar Chansey. Potencian mucho su índice de golpe crítico.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lucky-punch.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lucky-punch.png",
+    "holdable": true
   },
   "Metal Powder": {
-    "id": "metal-powder",
+    "id": "metalpowder",
     "translation": "Polvo Metálico",
     "description": "Debe llevarlo Ditto. Es un polvo muy fino, pero a la vez poderoso, que aumenta su Defensa.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/metal-powder.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/metal-powder.png",
+    "holdable": true
   },
   "Thick Club": {
-    "id": "thick-club",
+    "id": "thickclub",
     "translation": "Hueso Grueso",
     "description": "Un extraño tipo de hueso que potencia los ataques físicos de Cubone y Marowak cuando lo llevan.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/thick-club.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/thick-club.png",
+    "holdable": true
   },
   "Leek": {
     "id": "stick",
     "translation": "Puerro",
     "description": "Es un puerro muy largo que debe llevar Farfetch’d. Aumenta mucho la probabilidad de que logre un golpe crítico.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/stick.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/stick.png",
+    "holdable": true
   },
   "Quick Powder": {
-    "id": "quick-powder",
+    "id": "quickpowder",
     "translation": "Polvo Veloz",
     "description": "Debe llevarlo Ditto. Es un polvo muy fino, pero a la vez poderoso, que aumenta su Velocidad.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/quick-powder.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/quick-powder.png",
+    "holdable": true
   },
   "Griseous Orb": {
-    "id": "griseous-orb",
+    "id": "griseousorb",
     "translation": "Griseosfera",
     "description": "Una esfera brillante que potencia los movimientos de tipo Dragón y Fantasma. Debe llevarla Giratina.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/griseous-orb.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/griseous-orb.png",
+    "holdable": true
   },
   "Douse Drive": {
-    "id": "douse-drive",
+    "id": "dousedrive",
     "translation": "HidroROM",
     "description": "Cartucho que convierte Tecno Shock de Genesect en un movimiento de tipo Agua.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/douse-drive.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/douse-drive.png",
+    "holdable": true
   },
   "Shock Drive": {
-    "id": "shock-drive",
+    "id": "shockdrive",
     "translation": "FulgoROM",
     "description": "Cartucho que convierte Tecno Shock de Genesect en un movimiento de tipo Eléctrico.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/shock-drive.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/shock-drive.png",
+    "holdable": true
   },
   "Burn Drive": {
-    "id": "burn-drive",
+    "id": "burndrive",
     "translation": "PiroROM",
     "description": "Cartucho que convierte Tecno Shock de Genesect en un movimiento de tipo Fuego.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/burn-drive.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/burn-drive.png",
+    "holdable": true
   },
   "Chill Drive": {
-    "id": "chill-drive",
+    "id": "chilldrive",
     "translation": "CrioROM",
     "description": "Cartucho que convierte Tecno Shock de Genesect en un movimiento de tipo Hielo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/chill-drive.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/chill-drive.png",
+    "holdable": true
   },
   "Red Nectar": {
-    "id": "red-nectar",
+    "id": "rednectar",
     "translation": "Néctar Rojo",
     "description": "Néctar de ciertas flores de los Jardines de Ula-Ula, capaz de hacer cambiar de forma a una determinada especie de Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/red-nectar.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/red-nectar.png",
+    "holdable": false
   },
   "Yellow Nectar": {
-    "id": "yellow-nectar",
+    "id": "yellownectar",
     "translation": "Néctar Amarillo",
     "description": "Néctar de ciertas flores de los Jardines de Melemele, capaz de hacer cambiar de forma a una determinada especie de Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/yellow-nectar.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/yellow-nectar.png",
+    "holdable": false
   },
   "Pink Nectar": {
-    "id": "pink-nectar",
+    "id": "pinknectar",
     "translation": "Néctar Rosa",
     "description": "Néctar de ciertas flores de los parterres de la Avenida Royale, capaz de hacer cambiar de forma a una determinada especie de Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pink-nectar.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pink-nectar.png",
+    "holdable": false
   },
   "Purple Nectar": {
-    "id": "purple-nectar",
+    "id": "purplenectar",
     "translation": "Néctar Violeta",
     "description": "Néctar de ciertas flores de los Jardines de Poni, capaz de hacer cambiar de forma a una determinada especie de Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/purple-nectar.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/purple-nectar.png",
+    "holdable": false
   },
   "Rusted Sword": {
-    "id": "rusted-sword",
+    "id": "rustedsword",
     "translation": "Espada Oxidada",
     "description": "Cuenta una antigua leyenda que un valiente héroe blandió esta espada para hacer frente a un cataclismo, pero ahora está oxidada y en un estado lamentable.",
-    "icon": null
+    "icon": null,
+    "holdable": true
   },
   "Rusted Shield": {
-    "id": "rusted-shield",
+    "id": "rustedshield",
     "translation": "Escudo Oxidado",
     "description": "Cuenta una antigua leyenda que un valiente héroe asió este escudo para hacer frente a un cataclismo, pero ahora está oxidado y en un estado lamentable.",
-    "icon": null
+    "icon": null,
+    "holdable": true
   },
   "Silver Powder": {
-    "id": "silver-powder",
+    "id": "silverpowder",
     "translation": "Polvo Plata",
     "description": "Polvo de brillo argénteo que fortalece los ataques de tipo Bicho. Debe llevarlo un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/silver-powder.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/silver-powder.png",
+    "holdable": true
   },
   "Metal Coat": {
-    "id": "metal-coat",
+    "id": "metalcoat",
     "translation": "Revest. Metálico",
     "description": "Película metálica que fortalece los ataques de tipo Acero. Debe llevarlo un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/metal-coat.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/metal-coat.png",
+    "holdable": true
   },
   "Soft Sand": {
-    "id": "soft-sand",
+    "id": "softsand",
     "translation": "Arena Fina",
     "description": "Debe llevarla un Pokémon. La suavidad de la arena fortalece los movimientos de tipo Tierra.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/soft-sand.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/soft-sand.png",
+    "holdable": true
   },
   "Hard Stone": {
-    "id": "hard-stone",
+    "id": "hardstone",
     "translation": "Piedra Dura",
     "description": "Debe llevarla un Pokémon. La robustez de la piedra fortalece los movimientos de tipo Roca.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/hard-stone.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/hard-stone.png",
+    "holdable": true
   },
   "Miracle Seed": {
-    "id": "miracle-seed",
+    "id": "miracleseed",
     "translation": "Semilla Milagro",
     "description": "Debe llevarla un Pokémon. La vitalidad de la semilla fortalece los movimientos de tipo Planta.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/miracle-seed.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/miracle-seed.png",
+    "holdable": true
   },
   "Black Glasses": {
-    "id": "black-glasses",
+    "id": "blackglasses",
     "translation": "Gafas de Sol",
     "description": "Debe llevarlas un Pokémon. Fortalecen los movimientos de tipo Siniestro.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/black-glasses.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/black-glasses.png",
+    "holdable": true
   },
   "Black Belt": {
-    "id": "black-belt",
+    "id": "blackbelt",
     "translation": "Cinturón Negro",
     "description": "Debe llevarlo un Pokémon. Aumenta la concentración y fortalece los movimientos de tipo Lucha.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/black-belt.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/black-belt.png",
+    "holdable": true
   },
   "Magnet": {
     "id": "magnet",
     "translation": "Imán",
     "description": "Debe llevarlo un Pokémon. Su potente magnetismo fortalece los movimientos de tipo Eléctrico.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/magnet.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/magnet.png",
+    "holdable": true
   },
   "Mystic Water": {
-    "id": "mystic-water",
+    "id": "mysticwater",
     "translation": "Agua Mística",
     "description": "Gema con forma de gota de agua que fortalece los movimientos de tipo Agua. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mystic-water.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mystic-water.png",
+    "holdable": true
   },
   "Sharp Beak": {
-    "id": "sharp-beak",
+    "id": "sharpbeak",
     "translation": "Pico Afilado",
     "description": "Pico largo y afilado que aumenta la potencia de los movimientos de tipo Volador. Debe llevarlo un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sharp-beak.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sharp-beak.png",
+    "holdable": true
   },
   "Poison Barb": {
-    "id": "poison-barb",
+    "id": "poisonbarb",
     "translation": "Flecha Venenosa",
     "description": "Flecha venenosa que refuerza los movimientos de tipo Veneno. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poison-barb.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poison-barb.png",
+    "holdable": true
   },
   "Never-Melt Ice": {
-    "id": "never-melt-ice",
+    "id": "nevermeltice",
     "translation": "Hielo Perpetuo",
     "description": "Fragmento de hielo que repele el calor y fortalece los movimientos de tipo Hielo. Debe llevarlo un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/never-melt-ice.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/never-melt-ice.png",
+    "holdable": true
   },
   "Spell Tag": {
-    "id": "spell-tag",
+    "id": "spelltag",
     "translation": "Hechizo",
     "description": "Misterioso y siniestro objeto que potencia los movimientos de tipo Fantasma. Debe llevarlo un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/spell-tag.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/spell-tag.png",
+    "holdable": true
   },
   "Twisted Spoon": {
-    "id": "twisted-spoon",
+    "id": "twistedspoon",
     "translation": "Cuchara Torcida",
     "description": "Cuchara imbuida de energía telequinética que potencia los movimientos de tipo Psíquico. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/twisted-spoon.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/twisted-spoon.png",
+    "holdable": true
   },
   "Charcoal": {
     "id": "charcoal",
     "translation": "Carbón",
     "description": "Actúa como combustible y potencia los movimientos de tipo Fuego. Debe llevarlo un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/charcoal.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/charcoal.png",
+    "holdable": true
   },
   "Dragon Fang": {
-    "id": "dragon-fang",
+    "id": "dragonfang",
     "translation": "Colmillo de Dragón",
     "description": "Colmillo de gran dureza que refuerza los movimientos de tipo Dragón. Debe llevarlo un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dragon-fang.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dragon-fang.png",
+    "holdable": true
   },
   "Silk Scarf": {
-    "id": "silk-scarf",
+    "id": "silkscarf",
     "translation": "Pañuelo de Seda",
     "description": "La delicadeza del pañuelo fortalece los movimientos de tipo Normal. Debe llevarlo un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/silk-scarf.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/silk-scarf.png",
+    "holdable": true
   },
   "Sea Incense": {
-    "id": "sea-incense",
+    "id": "seaincense",
     "translation": "Incienso Marino",
     "description": "Tiene un curioso aroma que potencia los movimientos de tipo Agua. Debe llevarlo un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sea-incense.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sea-incense.png",
+    "holdable": true
   },
   "Odd Incense": {
-    "id": "odd-incense",
+    "id": "oddincense",
     "translation": "Incienso Raro",
     "description": "Incienso de exótico aroma que fortalece los movimientos de tipo Psíquico. Debe llevarlo un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/odd-incense.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/odd-incense.png",
+    "holdable": true
   },
   "Rock Incense": {
-    "id": "rock-incense",
+    "id": "rockincense",
     "translation": "Incienso Roca",
     "description": "Incienso de exótico aroma que fortalece los movimientos de tipo Roca. Debe llevarlo un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rock-incense.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rock-incense.png",
+    "holdable": true
   },
   "Wave Incense": {
-    "id": "wave-incense",
+    "id": "waveincense",
     "translation": "Incienso Acua",
     "description": "Tiene un curioso aroma que potencia los movimientos de tipo Agua. Debe llevarlo un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/wave-incense.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/wave-incense.png",
+    "holdable": true
   },
   "Rose Incense": {
-    "id": "rose-incense",
+    "id": "roseincense",
     "translation": "Incienso Floral",
     "description": "Incienso de exótico aroma que fortalece los movimientos de tipo Planta. Debe llevarlo un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rose-incense.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rose-incense.png",
+    "holdable": true
   },
   "Potion": {
     "id": "potion",
     "translation": "Poción",
     "description": "Medicina en espray que cura heridas y restaura 20 PS a un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png",
+    "holdable": false
   },
   "Full Restore": {
-    "id": "full-restore",
+    "id": "fullrestore",
     "translation": "Restaurar Todo",
     "description": "Medicina que restaura todos los PS y cura todos los problemas de estado de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/full-restore.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/full-restore.png",
+    "holdable": false
   },
   "Max Potion": {
-    "id": "max-potion",
+    "id": "maxpotion",
     "translation": "Poción Máxima",
     "description": "Medicina en espray que cura heridas y restaura todos los PS de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/max-potion.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/max-potion.png",
+    "holdable": false
   },
   "Hyper Potion": {
-    "id": "hyper-potion",
+    "id": "hyperpotion",
     "translation": "Hiperpoción",
     "description": "Medicina en espray que cura heridas y restaura 120 PS de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/hyper-potion.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/hyper-potion.png",
+    "holdable": false
   },
   "Super Potion": {
-    "id": "super-potion",
+    "id": "superpotion",
     "translation": "Superpoción",
     "description": "Medicina en espray que cura heridas y restaura 60 PS de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/super-potion.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/super-potion.png",
+    "holdable": false
   },
   "Fresh Water": {
-    "id": "fresh-water",
+    "id": "freshwater",
     "translation": "Agua Fresca",
     "description": "Agua de alto contenido mineral que restaura 30 PS de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fresh-water.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fresh-water.png",
+    "holdable": false
   },
   "Soda Pop": {
-    "id": "soda-pop",
+    "id": "sodapop",
     "translation": "Refresco",
     "description": "Chispeante bebida gaseosa que restaura 50 PS de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/soda-pop.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/soda-pop.png",
+    "holdable": false
   },
   "Lemonade": {
     "id": "lemonade",
     "translation": "Limonada",
     "description": "Bebida muy dulce que restaura 70 PS de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lemonade.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lemonade.png",
+    "holdable": false
   },
   "Moomoo Milk": {
-    "id": "moomoo-milk",
+    "id": "moomoomilk",
     "translation": "Leche Mu-mu",
     "description": "Leche de alto valor nutritivo que restaura 100 PS de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/moomoo-milk.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/moomoo-milk.png",
+    "holdable": false
   },
   "Energy Powder": {
-    "id": "energy-powder",
+    "id": "energypowder",
     "translation": "Polvo Energía",
     "description": "Polvo medicinal muy amargo que restaura 60 PS de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/energy-powder.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/energy-powder.png",
+    "holdable": false
   },
   "Energy Root": {
-    "id": "energy-root",
+    "id": "energyroot",
     "translation": "Raíz Energía",
     "description": "Raíz muy amarga que restaura 120 PS de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/energy-root.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/energy-root.png",
+    "holdable": false
   },
   "Berry Juice": {
-    "id": "berry-juice",
+    "id": "berryjuice",
     "translation": "Zumo de Baya",
     "description": "Zumo de bayas 100% natural que restaura 20 PS de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/berry-juice.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/berry-juice.png",
+    "holdable": false
   },
   "Sweet Heart": {
-    "id": "sweet-heart",
+    "id": "sweetheart",
     "translation": "Corazón Dulce",
     "description": "Chocolatina de sabor dulce. Restaura 20 PS de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sweet-heart.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sweet-heart.png",
+    "holdable": false
   },
   "Ether": {
     "id": "ether",
     "translation": "Éter",
     "description": "Restaura 10 PP del movimiento elegido de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ether.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ether.png",
+    "holdable": false
   },
   "Max Ether": {
-    "id": "max-ether",
+    "id": "maxether",
     "translation": "Éter Máximo",
     "description": "Restaura completamente los PP del movimiento elegido de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/max-ether.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/max-ether.png",
+    "holdable": false
   },
   "Elixir": {
     "id": "elixir",
     "translation": "Elixir",
     "description": "Restaura 10 PP de todos los movimientos aprendidos por el Pokémon elegido.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/elixir.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/elixir.png",
+    "holdable": false
   },
   "Max Elixir": {
-    "id": "max-elixir",
+    "id": "maxelixir",
     "translation": "Elixir Máximo",
     "description": "Restaura completamente los PP de todos los movimientos aprendidos por el Pokémon elegido.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/max-elixir.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/max-elixir.png",
+    "holdable": false
   },
   "Revive": {
     "id": "revive",
     "translation": "Revivir",
     "description": "Medicina que revive a un Pokémon debilitado y le devuelve la mitad de sus PS.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/revive.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/revive.png",
+    "holdable": false
   },
   "Max Revive": {
-    "id": "max-revive",
+    "id": "maxrevive",
     "translation": "Revivir Máximo",
     "description": "Medicina que revive a un Pokémon debilitado y le devuelve todos sus PS.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/max-revive.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/max-revive.png",
+    "holdable": false
   },
   "Revival Herb": {
-    "id": "revival-herb",
+    "id": "revivalherb",
     "translation": "Hierba Revivir",
     "description": "Hierba muy amarga que reanima a un Pokémon debilitado y restaura todos sus PS.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/revival-herb.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/revival-herb.png",
+    "holdable": false
   },
   "Sacred Ash": {
-    "id": "sacred-ash",
+    "id": "sacredash",
     "translation": "Ceniza Sagrada",
     "description": "Reanima completamente a todos los Pokémon debilitados y restaura todos sus PS.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sacred-ash.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sacred-ash.png",
+    "holdable": false
   },
   "Max Honey": {
-    "id": "max-honey",
+    "id": "maxhoney",
     "translation": "Maxipanal",
     "description": "Panal construido por Vespiquen Dinamax cuya densa miel suaviza el sabor de la Maxisopa. También tiene el mismo efecto que un Revivir Máximo.",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Antidote": {
     "id": "antidote",
     "translation": "Antídoto",
     "description": "Medicina en espray que contrarresta los efectos del veneno en un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/antidote.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/antidote.png",
+    "holdable": false
   },
   "Burn Heal": {
-    "id": "burn-heal",
+    "id": "burnheal",
     "translation": "Antiquemar",
     "description": "Medicina en espray que cura las quemaduras a un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/burn-heal.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/burn-heal.png",
+    "holdable": false
   },
   "Ice Heal": {
-    "id": "ice-heal",
+    "id": "iceheal",
     "translation": "Antihielo",
     "description": "Medicina en espray que descongela a un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ice-heal.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ice-heal.png",
+    "holdable": false
   },
   "Awakening": {
     "id": "awakening",
     "translation": "Despertar",
     "description": "Medicina en espray que libera a un Pokémon de las garras del sueño.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/awakening.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/awakening.png",
+    "holdable": false
   },
   "Paralyze Heal": {
-    "id": "paralyze-heal",
+    "id": "paralyzeheal",
     "translation": "Antiparalizador",
     "description": "Medicina en espray que cura a un Pokémon paralizado.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/paralyze-heal.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/paralyze-heal.png",
+    "holdable": false
   },
   "Full Heal": {
-    "id": "full-heal",
+    "id": "fullheal",
     "translation": "Cura Total",
     "description": "Medicina en espray que cura todos los problemas de estado de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/full-heal.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/full-heal.png",
+    "holdable": false
   },
   "Heal Powder": {
-    "id": "heal-powder",
+    "id": "healpowder",
     "translation": "Polvo Curación",
     "description": "Polvos medicinales muy amargos que curan todos los problemas de estado de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heal-powder.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heal-powder.png",
+    "holdable": false
   },
   "Lava Cookie": {
-    "id": "lava-cookie",
+    "id": "lavacookie",
     "translation": "Galleta Lava",
     "description": "Dulce típico de Pueblo Lavacalda que cura todos los problemas de estado de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lava-cookie.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lava-cookie.png",
+    "holdable": false
   },
   "Old Gateau": {
-    "id": "old-gateau",
+    "id": "oldgateau",
     "translation": "Barrita Plus",
     "description": "Especialidad de la Vieja Mansión. Cura todos los problemas de estado de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/old-gateau.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/old-gateau.png",
+    "holdable": false
   },
   "Casteliacone": {
     "id": "casteliacone",
     "translation": "Porcehelado",
     "description": "Especialidad de Ciudad Porcelana. Cura los problemas de estado de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/casteliacone.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/casteliacone.png",
+    "holdable": false
   },
   "Lumiose Galette": {
-    "id": "lumiose-galette",
+    "id": "lumiosegalette",
     "translation": "Crêpe Luminalia",
     "description": "El dulce estrella de Ciudad Luminalia. Cura los problemas de estado de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lumiose-galette.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lumiose-galette.png",
+    "holdable": false
   },
   "Shalour Sable": {
-    "id": "shalour-sable",
+    "id": "shaloursable",
     "translation": "Galleta Yantra",
     "description": "Especialidad de Ciudad Yantra. Cura los problemas de estado de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/shalour-sable.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/shalour-sable.png",
+    "holdable": false
   },
   "Big Malasada": {
-    "id": "big-malasada",
+    "id": "bigmalasada",
     "translation": "Malasada Maxi",
     "description": "Fritura típica de Alola que cura todos los problemas de estado de un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/big-malasada.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/big-malasada.png",
+    "holdable": false
   },
   "Pewter Crunchies": {
-    "id": "pewter-crunchies",
+    "id": "pewtercrunchies",
     "translation": "Rokikos",
     "description": "Tentempié típico de Ciudad Plateada. Cura todos los problemas de estado de un Pokémon.",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Fire Gem": {
-    "id": "fire-gem",
+    "id": "firegem",
     "translation": "Gema Fuego",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Fuego. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fire-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fire-gem.png",
+    "holdable": true
   },
   "Water Gem": {
-    "id": "water-gem",
+    "id": "watergem",
     "translation": "Gema Agua",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Agua. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/water-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/water-gem.png",
+    "holdable": true
   },
   "Electric Gem": {
-    "id": "electric-gem",
+    "id": "electricgem",
     "translation": "Gema Eléctrica",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Eléctrico. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/electric-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/electric-gem.png",
+    "holdable": true
   },
   "Grass Gem": {
-    "id": "grass-gem",
+    "id": "grassgem",
     "translation": "Gema Planta",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Planta. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/grass-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/grass-gem.png",
+    "holdable": true
   },
   "Ice Gem": {
-    "id": "ice-gem",
+    "id": "icegem",
     "translation": "Gema Hielo",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Hielo. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ice-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ice-gem.png",
+    "holdable": true
   },
   "Fighting Gem": {
-    "id": "fighting-gem",
+    "id": "fightinggem",
     "translation": "Gema Lucha",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Lucha. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fighting-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fighting-gem.png",
+    "holdable": true
   },
   "Poison Gem": {
-    "id": "poison-gem",
+    "id": "poisongem",
     "translation": "Gema Veneno",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Veneno. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poison-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poison-gem.png",
+    "holdable": true
   },
   "Ground Gem": {
-    "id": "ground-gem",
+    "id": "groundgem",
     "translation": "Gema Tierra",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Tierra. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ground-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ground-gem.png",
+    "holdable": true
   },
   "Flying Gem": {
-    "id": "flying-gem",
+    "id": "flyinggem",
     "translation": "Gema Voladora",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Volador. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/flying-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/flying-gem.png",
+    "holdable": true
   },
   "Psychic Gem": {
-    "id": "psychic-gem",
+    "id": "psychicgem",
     "translation": "Gema Psíquica",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Psíquico. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/psychic-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/psychic-gem.png",
+    "holdable": true
   },
   "Bug Gem": {
-    "id": "bug-gem",
+    "id": "buggem",
     "translation": "Gema Bicho",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Bicho. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/bug-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/bug-gem.png",
+    "holdable": true
   },
   "Rock Gem": {
-    "id": "rock-gem",
+    "id": "rockgem",
     "translation": "Gema Roca",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Roca. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rock-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rock-gem.png",
+    "holdable": true
   },
   "Ghost Gem": {
-    "id": "ghost-gem",
+    "id": "ghostgem",
     "translation": "Gema Fantasma",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Fantasma. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ghost-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ghost-gem.png",
+    "holdable": true
   },
   "Dark Gem": {
-    "id": "dark-gem",
+    "id": "darkgem",
     "translation": "Gema Siniestra",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Siniestro. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dark-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dark-gem.png",
+    "holdable": true
   },
   "Steel Gem": {
-    "id": "steel-gem",
+    "id": "steelgem",
     "translation": "Gema Acero",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Acero. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/steel-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/steel-gem.png",
+    "holdable": true
   },
   "Dragon Gem": {
-    "id": "dragon-gem",
+    "id": "dragongem",
     "translation": "Gema Dragón",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Dragón. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dragon-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dragon-gem.png",
+    "holdable": true
   },
   "Normal Gem": {
-    "id": "normal-gem",
+    "id": "normalgem",
     "translation": "Gema Normal",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Normal. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/normal-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/normal-gem.png",
+    "holdable": true
   },
   "Fairy Gem": {
-    "id": "fairy-gem",
+    "id": "fairygem",
     "translation": "Gema Hada",
     "description": "Joya de un solo uso que potencia los movimientos de tipo Hada. Debe llevarla un Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fairy-gem.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fairy-gem.png",
+    "holdable": true
   },
   "Gengarite": {
     "id": "gengarite",
     "translation": "Gengarita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Gengar en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/gengarite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/gengarite.png",
+    "holdable": true
   },
   "Gardevoirite": {
     "id": "gardevoirite",
     "translation": "Gardevoirita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Gardevoir en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/gardevoirite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/gardevoirite.png",
+    "holdable": true
   },
   "Ampharosite": {
     "id": "ampharosite",
     "translation": "Ampharosita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Ampharos en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ampharosite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ampharosite.png",
+    "holdable": true
   },
   "Venusaurite": {
     "id": "venusaurite",
     "translation": "Venusaurita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Venusaur en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/venusaurite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/venusaurite.png",
+    "holdable": true
   },
   "Charizardite X": {
-    "id": "charizardite-x",
+    "id": "charizarditex",
     "translation": "Charizardita X",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Charizard en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/charizardite-x.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/charizardite-x.png",
+    "holdable": true
   },
   "Blastoisinite": {
     "id": "blastoisinite",
     "translation": "Blastoisita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Blastoise en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/blastoisinite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/blastoisinite.png",
+    "holdable": true
   },
   "Mewtwonite X": {
-    "id": "mewtwonite-x",
+    "id": "mewtwonitex",
     "translation": "Mewtwoita X",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Mewtwo en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mewtwonite-x.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mewtwonite-x.png",
+    "holdable": true
   },
   "Mewtwonite Y": {
-    "id": "mewtwonite-y",
+    "id": "mewtwonitey",
     "translation": "Mewtwoita Y",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Mewtwo en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mewtwonite-y.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mewtwonite-y.png",
+    "holdable": true
   },
   "Blazikenite": {
     "id": "blazikenite",
     "translation": "Blazikenita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Blaziken en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/blazikenite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/blazikenite.png",
+    "holdable": true
   },
   "Medichamite": {
     "id": "medichamite",
     "translation": "Medichamita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Medicham en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/medichamite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/medichamite.png",
+    "holdable": true
   },
   "Houndoominite": {
     "id": "houndoominite",
     "translation": "Houndoomita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Houndoom en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/houndoominite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/houndoominite.png",
+    "holdable": true
   },
   "Aggronite": {
     "id": "aggronite",
     "translation": "Aggronita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Aggron en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/aggronite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/aggronite.png",
+    "holdable": true
   },
   "Banettite": {
     "id": "banettite",
     "translation": "Banettita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Banette en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/banettite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/banettite.png",
+    "holdable": true
   },
   "Tyranitarite": {
     "id": "tyranitarite",
     "translation": "Tyranitarita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Tyranitar en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/tyranitarite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/tyranitarite.png",
+    "holdable": true
   },
   "Scizorite": {
     "id": "scizorite",
     "translation": "Scizorita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Scizor en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/scizorite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/scizorite.png",
+    "holdable": true
   },
   "Pinsirite": {
     "id": "pinsirite",
     "translation": "Pinsirita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Pinsir en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pinsirite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pinsirite.png",
+    "holdable": true
   },
   "Aerodactylite": {
     "id": "aerodactylite",
     "translation": "Aerodactylita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Aerodactyl en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/aerodactylite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/aerodactylite.png",
+    "holdable": true
   },
   "Lucarionite": {
     "id": "lucarionite",
     "translation": "Lucarita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Lucario en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lucarionite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lucarionite.png",
+    "holdable": true
   },
   "Abomasite": {
     "id": "abomasite",
     "translation": "Abomasnowita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Abomasnow en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/abomasite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/abomasite.png",
+    "holdable": true
   },
   "Kangaskhanite": {
     "id": "kangaskhanite",
     "translation": "Kangaskhanita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Kangaskhan en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/kangaskhanite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/kangaskhanite.png",
+    "holdable": true
   },
   "Gyaradosite": {
     "id": "gyaradosite",
     "translation": "Gyaradosita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Gyarados en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/gyaradosite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/gyaradosite.png",
+    "holdable": true
   },
   "Absolite": {
     "id": "absolite",
     "translation": "Absolita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Absol en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/absolite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/absolite.png",
+    "holdable": true
   },
   "Charizardite Y": {
-    "id": "charizardite-y",
+    "id": "charizarditey",
     "translation": "Charizardita Y",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Charizard en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/charizardite-y.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/charizardite-y.png",
+    "holdable": true
   },
   "Alakazite": {
     "id": "alakazite",
     "translation": "Alakazamita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Alakazam en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/alakazite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/alakazite.png",
+    "holdable": true
   },
   "Heracronite": {
     "id": "heracronite",
     "translation": "Heracrossita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Heracross en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heracronite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heracronite.png",
+    "holdable": true
   },
   "Mawilite": {
     "id": "mawilite",
     "translation": "Mawilita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Mawile en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mawilite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mawilite.png",
+    "holdable": true
   },
   "Manectite": {
     "id": "manectite",
     "translation": "Manectricita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Manectric en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/manectite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/manectite.png",
+    "holdable": true
   },
   "Garchompite": {
     "id": "garchompite",
     "translation": "Garchompita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Garchomp en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/garchompite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/garchompite.png",
+    "holdable": true
   },
   "Latiasite": {
     "id": "latiasite",
     "translation": "Latiasita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Latias en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/latiasite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/latiasite.png",
+    "holdable": true
   },
   "Latiosite": {
     "id": "latiosite",
     "translation": "Latiosita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Latios en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/latiosite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/latiosite.png",
+    "holdable": true
   },
   "Swampertite": {
     "id": "swampertite",
     "translation": "Swampertita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Swampert en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/swampertite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/swampertite.png",
+    "holdable": true
   },
   "Sceptilite": {
     "id": "sceptilite",
     "translation": "Sceptilita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Sceptile en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sceptilite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sceptilite.png",
+    "holdable": true
   },
   "Sablenite": {
     "id": "sablenite",
     "translation": "Sableynita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Sableye en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sablenite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sablenite.png",
+    "holdable": true
   },
   "Altarianite": {
     "id": "altarianite",
     "translation": "Altarianita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Altaria en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/altarianite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/altarianite.png",
+    "holdable": true
   },
   "Galladite": {
     "id": "galladite",
     "translation": "Galladita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Gallade en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/galladite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/galladite.png",
+    "holdable": true
   },
   "Audinite": {
     "id": "audinite",
     "translation": "Audinita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Audino en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/audinite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/audinite.png",
+    "holdable": true
   },
   "Metagrossite": {
     "id": "metagrossite",
     "translation": "Metagrossita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Metagross en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/metagrossite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/metagrossite.png",
+    "holdable": true
   },
   "Sharpedonite": {
     "id": "sharpedonite",
     "translation": "Sharpedonita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Sharpedo en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sharpedonite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sharpedonite.png",
+    "holdable": true
   },
   "Slowbronite": {
     "id": "slowbronite",
     "translation": "Slowbronita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Slowbro en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/slowbronite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/slowbronite.png",
+    "holdable": true
   },
   "Steelixite": {
     "id": "steelixite",
     "translation": "Steelixita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Steelix en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/steelixite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/steelixite.png",
+    "holdable": true
   },
   "Pidgeotite": {
     "id": "pidgeotite",
     "translation": "Pidgeotita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Pidgeot en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pidgeotite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pidgeotite.png",
+    "holdable": true
   },
   "Glalitite": {
     "id": "glalitite",
     "translation": "Glalita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Glalie en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/glalitite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/glalitite.png",
+    "holdable": true
   },
   "Diancite": {
     "id": "diancite",
     "translation": "Diancita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Diancie en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/diancite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/diancite.png",
+    "holdable": true
   },
   "Cameruptite": {
     "id": "cameruptite",
     "translation": "Cameruptita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Camerupt en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/cameruptite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/cameruptite.png",
+    "holdable": true
   },
   "Lopunnite": {
     "id": "lopunnite",
     "translation": "Lopunnita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Lopunny en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lopunnite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lopunnite.png",
+    "holdable": true
   },
   "Salamencite": {
     "id": "salamencite",
     "translation": "Salamencita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Salamence en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/salamencite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/salamencite.png",
+    "holdable": true
   },
   "Beedrillite": {
     "id": "beedrillite",
     "translation": "Beedrillita",
     "description": "Una de las misteriosas Megapiedras. Permite megaevolucionar a Beedrill en combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/beedrillite.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/beedrillite.png",
+    "holdable": true
   },
   "Fighting Memory": {
-    "id": "fighting-memory",
+    "id": "fightingmemory",
     "translation": "Disco Lucha",
     "description": "Disco de datos que contiene información relativa al tipo Lucha. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fighting-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fighting-memory.png",
+    "holdable": true
   },
   "Flying Memory": {
-    "id": "flying-memory",
+    "id": "flyingmemory",
     "translation": "Disco Volador",
     "description": "Disco de datos que contiene información relativa al tipo Volador. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/flying-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/flying-memory.png",
+    "holdable": true
   },
   "Poison Memory": {
-    "id": "poison-memory",
+    "id": "poisonmemory",
     "translation": "Disco Veneno",
     "description": "Disco de datos que contiene información relativa al tipo Veneno. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poison-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poison-memory.png",
+    "holdable": true
   },
   "Ground Memory": {
-    "id": "ground-memory",
+    "id": "groundmemory",
     "translation": "Disco Tierra",
     "description": "Disco de datos que contiene información relativa al tipo Tierra. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ground-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ground-memory.png",
+    "holdable": true
   },
   "Rock Memory": {
-    "id": "rock-memory",
+    "id": "rockmemory",
     "translation": "Disco Roca",
     "description": "Disco de datos que contiene información relativa al tipo Roca. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rock-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rock-memory.png",
+    "holdable": true
   },
   "Bug Memory": {
-    "id": "bug-memory",
+    "id": "bugmemory",
     "translation": "Disco Bicho",
     "description": "Disco de datos que contiene información relativa al tipo Bicho. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/bug-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/bug-memory.png",
+    "holdable": true
   },
   "Ghost Memory": {
-    "id": "ghost-memory",
+    "id": "ghostmemory",
     "translation": "Disco Fantasma",
     "description": "Disco de datos que contiene información relativa al tipo Fantasma. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ghost-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ghost-memory.png",
+    "holdable": true
   },
   "Steel Memory": {
-    "id": "steel-memory",
+    "id": "steelmemory",
     "translation": "Disco Acero",
     "description": "Disco de datos que contiene información relativa al tipo Acero. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/steel-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/steel-memory.png",
+    "holdable": true
   },
   "Fire Memory": {
-    "id": "fire-memory",
+    "id": "firememory",
     "translation": "Disco Fuego",
     "description": "Disco de datos que contiene información relativa al tipo Fuego. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fire-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fire-memory.png",
+    "holdable": true
   },
   "Water Memory": {
-    "id": "water-memory",
+    "id": "watermemory",
     "translation": "Disco Agua",
     "description": "Disco de datos que contiene información relativa al tipo Agua. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/water-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/water-memory.png",
+    "holdable": true
   },
   "Grass Memory": {
-    "id": "grass-memory",
+    "id": "grassmemory",
     "translation": "Disco Planta",
     "description": "Disco de datos que contiene información relativa al tipo Planta. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/grass-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/grass-memory.png",
+    "holdable": true
   },
   "Electric Memory": {
-    "id": "electric-memory",
+    "id": "electricmemory",
     "translation": "Disco Eléctrico",
     "description": "Disco de datos que contiene información relativa al tipo Eléctrico. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/electric-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/electric-memory.png",
+    "holdable": true
   },
   "Psychic Memory": {
-    "id": "psychic-memory",
+    "id": "psychicmemory",
     "translation": "Disco Psíquico",
     "description": "Disco de datos que contiene información relativa al tipo Psíquico. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/psychic-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/psychic-memory.png",
+    "holdable": true
   },
   "Ice Memory": {
-    "id": "ice-memory",
+    "id": "icememory",
     "translation": "Disco Hielo",
     "description": "Disco de datos que contiene información relativa al tipo Hielo. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ice-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ice-memory.png",
+    "holdable": true
   },
   "Dragon Memory": {
-    "id": "dragon-memory",
+    "id": "dragonmemory",
     "translation": "Disco Dragón",
     "description": "Disco de datos que contiene información relativa al tipo Dragón. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dragon-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dragon-memory.png",
+    "holdable": true
   },
   "Dark Memory": {
-    "id": "dark-memory",
+    "id": "darkmemory",
     "translation": "Disco Siniestro",
     "description": "Disco de datos que contiene información relativa al tipo Siniestro. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dark-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dark-memory.png",
+    "holdable": true
   },
   "Fairy Memory": {
-    "id": "fairy-memory",
+    "id": "fairymemory",
     "translation": "Disco Hada",
     "description": "Disco de datos que contiene información relativa al tipo Hada. Permite cambiar de tipo a cierto Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fairy-memory.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fairy-memory.png",
+    "holdable": true
   },
   "Normalium Z": {
-    "id": "normalium-z--held",
+    "id": "normaliumzheld",
     "translation": "Normastal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Normal.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/normalium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/normalium-z--held.png",
+    "holdable": true
   },
   "Firium Z": {
-    "id": "firium-z--held",
+    "id": "firiumzheld",
     "translation": "Pirostal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Fuego.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/firium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/firium-z--held.png",
+    "holdable": true
   },
   "Waterium Z": {
-    "id": "waterium-z--held",
+    "id": "wateriumzheld",
     "translation": "Hidrostal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Agua.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/waterium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/waterium-z--held.png",
+    "holdable": true
   },
   "Electrium Z": {
-    "id": "electrium-z--held",
+    "id": "electriumzheld",
     "translation": "Electrostal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Eléctrico.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/electrium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/electrium-z--held.png",
+    "holdable": true
   },
   "Grassium Z": {
-    "id": "grassium-z--held",
+    "id": "grassiumzheld",
     "translation": "Fitostal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Planta.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/grassium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/grassium-z--held.png",
+    "holdable": true
   },
   "Icium Z": {
-    "id": "icium-z--held",
+    "id": "iciumzheld",
     "translation": "Criostal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Hielo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/icium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/icium-z--held.png",
+    "holdable": true
   },
   "Fightinium Z": {
-    "id": "fightinium-z--held",
+    "id": "fightiniumzheld",
     "translation": "Lizastal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Lucha.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fightinium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fightinium-z--held.png",
+    "holdable": true
   },
   "Poisonium Z": {
-    "id": "poisonium-z--held",
+    "id": "poisoniumzheld",
     "translation": "Toxistal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Veneno.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poisonium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poisonium-z--held.png",
+    "holdable": true
   },
   "Groundium Z": {
-    "id": "groundium-z--held",
+    "id": "groundiumzheld",
     "translation": "Geostal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Tierra.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/groundium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/groundium-z--held.png",
+    "holdable": true
   },
   "Flyinium Z": {
-    "id": "flyinium-z--held",
+    "id": "flyiniumzheld",
     "translation": "Aerostal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Volador.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/flyinium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/flyinium-z--held.png",
+    "holdable": true
   },
   "Psychium Z": {
-    "id": "psychium-z--held",
+    "id": "psychiumzheld",
     "translation": "Psicostal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Psíquico.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/psychium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/psychium-z--held.png",
+    "holdable": true
   },
   "Buginium Z": {
-    "id": "buginium-z--held",
+    "id": "buginiumzheld",
     "translation": "Insectostal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Bicho.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/buginium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/buginium-z--held.png",
+    "holdable": true
   },
   "Rockium Z": {
-    "id": "rockium-z--held",
+    "id": "rockiumzheld",
     "translation": "Litostal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Roca.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rockium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rockium-z--held.png",
+    "holdable": true
   },
   "Ghostium Z": {
-    "id": "ghostium-z--held",
+    "id": "ghostiumzheld",
     "translation": "Espectrostal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Fantasma.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ghostium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ghostium-z--held.png",
+    "holdable": true
   },
   "Dragonium Z": {
-    "id": "dragonium-z--held",
+    "id": "dragoniumzheld",
     "translation": "Dracostal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Dragón.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dragonium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dragonium-z--held.png",
+    "holdable": true
   },
   "Darkinium Z": {
-    "id": "darkinium-z--held",
+    "id": "darkiniumzheld",
     "translation": "Nictostal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Siniestro.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/darkinium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/darkinium-z--held.png",
+    "holdable": true
   },
   "Steelium Z": {
-    "id": "steelium-z--held",
+    "id": "steeliumzheld",
     "translation": "Metalostal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Acero.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/steelium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/steelium-z--held.png",
+    "holdable": true
   },
   "Fairium Z": {
-    "id": "fairium-z--held",
+    "id": "fairiumzheld",
     "translation": "Feeristal Z",
     "description": "Cristal que confiere el Poder Z a los movimientos de tipo Hada.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fairium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fairium-z--held.png",
+    "holdable": true
   },
   "Pikanium Z": {
-    "id": "pikanium-z--held",
+    "id": "pikaniumzheld",
     "translation": "Pikastal Z",
     "description": "Cristal que confiere el Poder Z al movimiento Placaje Eléc de Pikachu.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pikanium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pikanium-z--held.png",
+    "holdable": true
   },
   "Decidium Z": {
-    "id": "decidium-z--held",
+    "id": "decidiumzheld",
     "translation": "Dueyestal Z",
     "description": "Cristal que confiere el Poder Z al movimiento Puntada Sombría de Decidueye.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/decidium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/decidium-z--held.png",
+    "holdable": true
   },
   "Incinium Z": {
-    "id": "incinium-z--held",
+    "id": "inciniumzheld",
     "translation": "Incinostal Z",
     "description": "Cristal que confiere el Poder Z al movimiento Lariat Oscuro de Incineroar.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/incinium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/incinium-z--held.png",
+    "holdable": true
   },
   "Primarium Z": {
-    "id": "primarium-z--held",
+    "id": "primariumzheld",
     "translation": "Primastal Z",
     "description": "Cristal que confiere el Poder Z al movimiento Aria Burbuja de Primarina.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/primarium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/primarium-z--held.png",
+    "holdable": true
   },
   "Tapunium Z": {
-    "id": "tapunium-z--held",
+    "id": "tapuniumzheld",
     "translation": "Tapistal Z",
     "description": "Cristal que confiere el Poder Z al movimiento Furia Natural de los Tapu.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/tapunium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/tapunium-z--held.png",
+    "holdable": true
   },
   "Marshadium Z": {
-    "id": "marshadium-z--held",
+    "id": "marshadiumzheld",
     "translation": "Marshastal Z",
     "description": "Cristal que confiere el Poder Z al movimiento Robasombra de Marshadow.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/marshadium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/marshadium-z--held.png",
+    "holdable": true
   },
   "Aloraichium Z": {
-    "id": "aloraichium-z--held",
+    "id": "aloraichiumzheld",
     "translation": "Alo-Raistal Z",
     "description": "Cristal que confiere el Poder Z al movimiento Rayo de los Raichu de Alola.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/aloraichium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/aloraichium-z--held.png",
+    "holdable": true
   },
   "Snorlium Z": {
-    "id": "snorlium-z--held",
+    "id": "snorliumzheld",
     "translation": "Snorlastal Z",
     "description": "Cristal que confiere el Poder Z al movimiento Giga Impacto de Snorlax.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/snorlium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/snorlium-z--held.png",
+    "holdable": true
   },
   "Eevium Z": {
-    "id": "eevium-z--held",
+    "id": "eeviumzheld",
     "translation": "Eeveestal Z",
     "description": "Cristal que confiere el Poder Z al movimiento Última Baza de Eevee.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eevium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/eevium-z--held.png",
+    "holdable": true
   },
   "Mewnium Z": {
-    "id": "mewnium-z--held",
+    "id": "mewniumzheld",
     "translation": "Mewstal Z",
     "description": "Cristal que confiere el Poder Z al movimiento Psíquico de Mew.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mewnium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/mewnium-z--held.png",
+    "holdable": true
   },
   "Pikashunium Z": {
-    "id": "pikashunium-z--held",
+    "id": "pikashuniumzheld",
     "translation": "Ash-Pikastal Z",
     "description": "Cristal que confiere el Poder Z al movimiento Rayo de los Pikachu que llevan gorra.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pikashunium-z--held.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/pikashunium-z--held.png",
+    "holdable": true
   },
   "Normal Tera Shard": {
-    "id": "normal-tera-shard",
+    "id": "normalterashard",
     "translation": "Normal Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Fire Tera Shard": {
-    "id": "fire-tera-shard",
+    "id": "fireterashard",
     "translation": "Fire Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Water Tera Shard": {
-    "id": "water-tera-shard",
+    "id": "waterterashard",
     "translation": "Water Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Electric Tera Shard": {
-    "id": "electric-tera-shard",
+    "id": "electricterashard",
     "translation": "Electric Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Grass Tera Shard": {
-    "id": "grass-tera-shard",
+    "id": "grassterashard",
     "translation": "Grass Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Ice Tera Shard": {
-    "id": "ice-tera-shard",
+    "id": "iceterashard",
     "translation": "Ice Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Fighting Tera Shard": {
-    "id": "fighting-tera-shard",
+    "id": "fightingterashard",
     "translation": "Fighting Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Poison Tera Shard": {
-    "id": "poison-tera-shard",
+    "id": "poisonterashard",
     "translation": "Poison Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Ground Tera Shard": {
-    "id": "ground-tera-shard",
+    "id": "groundterashard",
     "translation": "Ground Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Flying Tera Shard": {
-    "id": "flying-tera-shard",
+    "id": "flyingterashard",
     "translation": "Flying Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Psychic Tera Shard": {
-    "id": "psychic-tera-shard",
+    "id": "psychicterashard",
     "translation": "Psychic Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Bug Tera Shard": {
-    "id": "bug-tera-shard",
+    "id": "bugterashard",
     "translation": "Bug Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Rock Tera Shard": {
-    "id": "rock-tera-shard",
+    "id": "rockterashard",
     "translation": "Rock Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Ghost Tera Shard": {
-    "id": "ghost-tera-shard",
+    "id": "ghostterashard",
     "translation": "Ghost Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Dragon Tera Shard": {
-    "id": "dragon-tera-shard",
+    "id": "dragonterashard",
     "translation": "Dragon Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Dark Tera Shard": {
-    "id": "dark-tera-shard",
+    "id": "darkterashard",
     "translation": "Dark Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Steel Tera Shard": {
-    "id": "steel-tera-shard",
+    "id": "steelterashard",
     "translation": "Steel Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Fairy Tera Shard": {
-    "id": "fairy-tera-shard",
+    "id": "fairyterashard",
     "translation": "Fairy Tera Shard",
     "description": "Descripción no disponible",
-    "icon": null
+    "icon": null,
+    "holdable": false
   },
   "Net Ball": {
-    "id": "net-ball",
+    "id": "netball",
     "translation": "Malla Ball",
     "description": "Es algo distinta a las demás. Funciona especialmente bien con los Pokémon de tipo Agua y Bicho.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/net-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/net-ball.png",
+    "holdable": false
   },
   "Dive Ball": {
-    "id": "dive-ball",
+    "id": "diveball",
     "translation": "Buceo Ball",
     "description": "Es algo distinta a las demás. Funciona especialmente bien con los Pokémon que viven bajo el agua.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dive-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dive-ball.png",
+    "holdable": false
   },
   "Nest Ball": {
-    "id": "nest-ball",
+    "id": "nestball",
     "translation": "Nido Ball",
     "description": "Es algo distinta a las demás. Funciona especialmente bien con los Pokémon salvajes de nivel bajo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/nest-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/nest-ball.png",
+    "holdable": false
   },
   "Repeat Ball": {
-    "id": "repeat-ball",
+    "id": "repeatball",
     "translation": "Acopio Ball",
     "description": "Es algo distinta a las demás. Funciona especialmente bien con las especies de Pokémon que ya has capturado.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/repeat-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/repeat-ball.png",
+    "holdable": false
   },
   "Timer Ball": {
-    "id": "timer-ball",
+    "id": "timerball",
     "translation": "Turno Ball",
     "description": "Una Poké Ball algo distinta que va mejorando su rendimiento con cada turno de combate.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/timer-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/timer-ball.png",
+    "holdable": false
   },
   "Luxury Ball": {
-    "id": "luxury-ball",
+    "id": "luxuryball",
     "translation": "Lujo Ball",
     "description": "Acogedora Poké Ball que hace más amistosos a los Pokémon salvajes capturados.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/luxury-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/luxury-ball.png",
+    "holdable": false
   },
   "Premier Ball": {
-    "id": "premier-ball",
+    "id": "premierball",
     "translation": "Honor Ball",
     "description": "Es una Poké Ball algo singular que se creó para conmemorar algún acontecimiento.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/premier-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/premier-ball.png",
+    "holdable": false
   },
   "Dusk Ball": {
-    "id": "dusk-ball",
+    "id": "duskball",
     "translation": "Ocaso Ball",
     "description": "Es algo particular. Hace que sea más fácil capturar a los Pokémon salvajes por la noche o en lugares oscuros.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dusk-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dusk-ball.png",
+    "holdable": false
   },
   "Heal Ball": {
-    "id": "heal-ball",
+    "id": "healball",
     "translation": "Sana Ball",
     "description": "Poké Ball curativa que restaura los PS y cura todos los problemas de estado de un Pokémon después de capturarlo.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heal-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heal-ball.png",
+    "holdable": false
   },
   "Quick Ball": {
-    "id": "quick-ball",
+    "id": "quickball",
     "translation": "Veloz Ball",
     "description": "Una Poké Ball algo distinta que potencia el índice de captura si se usa al inicio de un encuentro con Pokémon salvajes.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/quick-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/quick-ball.png",
+    "holdable": false
   },
   "Cherish Ball": {
-    "id": "cherish-ball",
+    "id": "cherishball",
     "translation": "Gloria Ball",
     "description": "Es una Poké Ball bastante singular que se creó para conmemorar alguna ocasión especial.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/cherish-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/cherish-ball.png",
+    "holdable": false
   },
   "Dream Ball": {
-    "id": "dream-ball",
+    "id": "dreamball",
     "translation": "Ensueño Ball",
     "description": "Bola especial que aparece de pronto en tu Bolsa en el Bosque Nexo y puede atrapar a cualquier Pokémon.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dream-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dream-ball.png",
+    "holdable": false
   },
   "Beast Ball": {
-    "id": "beast-ball",
+    "id": "beastball",
     "translation": "Ente Ball",
     "description": "Un tipo especial de Poké Ball diseñada para capturar de forma específica y exclusiva a los misteriosos seres conocidos como Ultraentes.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/beast-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/beast-ball.png",
+    "holdable": false
   },
   "Master Ball": {
-    "id": "master-ball",
+    "id": "masterball",
     "translation": "Master Ball",
     "description": "La Poké Ball definitiva. Atrapa cualquier Pokémon salvaje y no falla nunca.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png",
+    "holdable": false
   },
   "Ultra Ball": {
-    "id": "laultra-ball",
+    "id": "laultraball",
     "translation": "Ultra Ball",
     "description": "Descripción no disponible",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/laultra-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/laultra-ball.png",
+    "holdable": false
   },
   "Great Ball": {
-    "id": "lagreat-ball",
+    "id": "lagreatball",
     "translation": "Great Ball",
     "description": "Descripción no disponible",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lagreat-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lagreat-ball.png",
+    "holdable": false
   },
   "Poké Ball": {
-    "id": "lapoke-ball",
+    "id": "lapokeball",
     "translation": "Poké Ball",
     "description": "Descripción no disponible",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lapoke-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lapoke-ball.png",
+    "holdable": false
   },
   "Safari Ball": {
-    "id": "safari-ball",
+    "id": "safariball",
     "translation": "Safari Ball",
     "description": "Poké Ball con un diseño de camuflaje que se utiliza únicamente en la Zona Safari.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/safari-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/safari-ball.png",
+    "holdable": false
   },
   "Park Ball": {
-    "id": "park-ball",
+    "id": "parkball",
     "translation": "Parque Ball",
     "description": "Poké Ball que se utiliza dentro del Parque Compi.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/park-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/park-ball.png",
+    "holdable": false
   },
   "Sport Ball": {
-    "id": "sport-ball",
+    "id": "sportball",
     "translation": "Competi Ball",
     "description": "Poké Ball que se utiliza en el Concurso de Captura de Bichos.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sport-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sport-ball.png",
+    "holdable": false
   },
   "Strange Ball": {
-    "id": "lastrange-ball",
+    "id": "lastrangeball",
     "translation": "Strange Ball",
     "description": "Descripción no disponible",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lastrange-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lastrange-ball.png",
+    "holdable": false
   },
   "Heavy Ball": {
-    "id": "laheavy-ball",
+    "id": "laheavyball",
     "translation": "Heavy Ball",
     "description": "Doesn't fly far, but is more effective if the Pokémon hasn't noticed the player.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/laheavy-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/laheavy-ball.png",
+    "holdable": false
   },
   "Leaden Ball": {
-    "id": "laleaden-ball",
+    "id": "laleadenball",
     "translation": "Leaden Ball",
     "description": "Upgraded version of the Heavy Ball. Doesn't fly far, but is more effective if the Pokémon hasn't noticed the player.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/laleaden-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/laleaden-ball.png",
+    "holdable": false
   },
   "Gigaton Ball": {
-    "id": "lagigaton-ball",
+    "id": "lagigatonball",
     "translation": "Gigaton Ball",
     "description": "Upgraded version of the Leaden Ball. Doesn't fly far, but is more effective if the Pokémon hasn't noticed the player.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lagigaton-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lagigaton-ball.png",
+    "holdable": false
   },
   "Feather Ball": {
-    "id": "lafeather-ball",
+    "id": "lafeatherball",
     "translation": "Feather Ball",
     "description": "Can be thrown further than a regular Poké Ball. Is more effective for catching Pokémon that fly high in the air.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lafeather-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lafeather-ball.png",
+    "holdable": false
   },
   "Wing Ball": {
-    "id": "lawing-ball",
+    "id": "lawingball",
     "translation": "Wing Ball",
     "description": "Can be thrown further than a Feather Ball. Is more effective for catching Pokémon that fly high in the air.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lawing-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lawing-ball.png",
+    "holdable": false
   },
   "Jet Ball": {
-    "id": "lajet-ball",
+    "id": "lajetball",
     "translation": "Jet Ball",
     "description": "Can be thrown further than a Wing Ball. Is more effective for catching Pokémon that fly high in the air.",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lajet-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lajet-ball.png",
+    "holdable": false
   },
   "Origin Ball": {
-    "id": "laorigin-ball",
+    "id": "laoriginball",
     "translation": "Origin Ball",
     "description": "Descripción no disponible",
-    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/laorigin-ball.png"
+    "icon": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/laorigin-ball.png",
+    "holdable": false
   }
 }

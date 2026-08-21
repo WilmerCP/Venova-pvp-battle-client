@@ -38,6 +38,7 @@ const MENSAJES = {
     'effect-[move: Struggle]': '¡A {pkm} no le quedan movimientos!',
     'effect-[move: Heal Bell]': '¡El equipo de {pkm} ha sido curado de problemas de estado!',
     'effect-[move: Trick]': '¡{pkm} ha intercambiado objetos!',
+    'effect-[ability: Mummy]': '¡{pkm} ha adquirido la habilidad: Momia!',
     'boost-atk-[1]': '¡El ataque de {pkm} ha aumentado!',
     'boost-spa-[1]': '¡El ataque especial de {pkm} ha aumentado!',
     'boost-def-[1]': '¡La defensa de {pkm} ha aumentado!',

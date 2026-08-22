@@ -56,7 +56,7 @@ const router = createHashRouter([
 
       //const initialData = await waitForBattleReady();
 
-      return window.electronAPI.startRandomBattle()
+      return window.electronAPI.startRandomBattle();
     },
     
   },

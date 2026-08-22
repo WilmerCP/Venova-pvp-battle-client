@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 
 import PokemonEditor from './components/PokemonEditor';
 import ComboBox from './components/ComboBox';
-import { getMiniSrc } from './helpers';
+import { getMiniSrc, getGenderFromRatio } from './helpers';
 
 
 const EMPTY_SLOT = {
     num: null,
+    species: '',
+    gender: 'M',
     ability: '',
     item: '',
+    evs: {"hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0},
+    nature: '',
     moves: ['', '', '', ''],
     shiny: false,
     level: 100,
@@ -42,18 +46,59 @@ export default function TeamBuilder() {
         setTeam((prev) => {
             const next = [...prev];
             next[slotIndex] = { ...next[slotIndex], ...changes };
+
+            //console.log(next[slotIndex])
             return next;
         });
     };
 
     const handleSpeciesSelect = (slotIndex, num) => {
         // Al cambiar de especie, resetea el resto de la configuración de ese slot
+
+       let species = venomonWithIcons.find((v) => v.num === num);
+
+        let gender = getGenderFromRatio(species.genderRatio);
+
         setTeam((prev) => {
             const next = [...prev];
-            next[slotIndex] = { ...EMPTY_SLOT, num };
+            next[slotIndex] = { ...EMPTY_SLOT, num, gender, species: species.name };
             return next;
         });
     };
+
+    const handleStartBattle = async ()=>{
+
+
+        let result = await window.electronAPI.setSelectedTeam(team);
+
+        console.log(result)
+
+        if(result.success){
+
+            navigate('/battle')
+
+        }
+
+    }
+
+    useEffect(()=>{
+
+        async function getTeam() {
+
+            const prevTeam = await window.electronAPI.getSelectedTeam();
+
+            if(prevTeam !== null){
+
+                setTeam(prevTeam);
+
+            }
+            
+        }
+
+        getTeam();
+
+
+    },[])
 
     return (
         <div className="min-h-screen p-6 isometric-background">
@@ -83,23 +128,15 @@ export default function TeamBuilder() {
                                 options={speciesOptions}
                                 value={slot.num}
                                 onChange={(num) => handleSpeciesSelect(slotIndex, num)}
-                                placeholder={`-- Slot ${slotIndex + 1}: elegir pokemon --`}
+                                placeholder={`-- Slot ${slotIndex + 1}: elegir venomon --`}
                             />
 
                             {/* Solo mostramos el editor si ya se eligió un pokemon en este slot */}
                             {pokemon && (
                                 <PokemonEditor
                                     pokemon={pokemon}
-                                    onClick={() => { }}
-                                    onAbilityChange={(ability) => updateSlot(slotIndex, { ability })}
-                                    onItemChange={(item) => updateSlot(slotIndex, { item })}
-                                    onShinyChange={(shiny) => updateSlot(slotIndex, { shiny })}
-                                    onLevelChange={(level) => updateSlot(slotIndex, { level })}
-                                    onMoveChange={(moveSlot, move) =>
-                                        updateSlot(slotIndex, {
-                                            moves: slot.moves.map((m, i) => (i === moveSlot ? move : m)),
-                                        })
-                                    }
+                                    build={team[slotIndex]}
+                                    onChange={(changes) => updateSlot(slotIndex, { ...changes })}
                                 />
                             )}
                         </div>
@@ -118,7 +155,7 @@ export default function TeamBuilder() {
                 </button>
 
                 <button
-                    onClick={() => {/* iniciar combate con `team` */ }}
+                    onClick={() => { handleStartBattle() }}
                     className="px-4 py-2 rounded-lg text-sm font-medium
                      bg-emerald-500 text-white
                      hover:bg-emerald-400 transition-colors duration-150

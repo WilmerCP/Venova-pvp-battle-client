@@ -1,10 +1,12 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  startRandomBattle: () => ipcRenderer.invoke('start-random-battle'),
+  startRandomBattle: (team) => ipcRenderer.invoke('start-random-battle',team),
   makeMove: (move) => ipcRenderer.invoke('make-move', move),
   selectPokemon: (name) => ipcRenderer.invoke('select-pokemon', name),
   getDexData: (name) => ipcRenderer.invoke('get-dex-data'),
+  setSelectedTeam: (team) => ipcRenderer.invoke('set-selected-team', team),
+  getSelectedTeam: () => ipcRenderer.invoke('get-selected-team'),
 
   on: (channel, cb) => ipcRenderer.on(channel, (event, data) => cb(data)),
   off: (channel) => ipcRenderer.removeAllListeners(channel),

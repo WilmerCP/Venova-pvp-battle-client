@@ -3,12 +3,11 @@ const { io } = require('socket.io-client')
 const path = require('path')
 const { parseUpdate } = require('./parseProtocol.js')
 
-const { Dex } = require('pokemon-showdown')
-const ModdedDex = Dex.mod('venova')
-
-const { MOVES, ABILITIES, ITEMS } = require('./loadDictionaries.js');
+const { getDexData, teamIsValid } = require('./utility.js')
 
 const isDev = !app.isPackaged
+
+let selectedTeam = null;
 
 let socket
 
@@ -39,15 +38,16 @@ app.whenReady().then(() => {
 
   const win = createWindow()
 
-  ipcMain.handle('start-random-battle', async (team) => {
+  ipcMain.handle('start-random-battle', async () => {
 
     socket = io('http://localhost:3000')
 
     socket.on('connect', () => {
       console.log('Connected to server:', socket.id)
 
-      if (team) {
-        socket.emit('start-random-battle', team);
+      if (selectedTeam != null) {
+        const filtered = selectedTeam.filter((pkm)=>pkm.species !== '');
+        socket.emit('start-random-battle', filtered);
       } else {
         socket.emit('start-random-battle');
       }
@@ -92,46 +92,26 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })
 
-ipcMain.handle('get-dex-data', async () => {
+ipcMain.handle('get-dex-data', getDexData)
 
-  let species = ModdedDex.species.all()
-  species = species.filter((pkm) => pkm.isNonstandard == null)
-  let fakemonOnly = species.filter((pkm) => pkm.num < 0)
+ipcMain.handle('set-selected-team', (event, team) => {
 
-  let dexData = fakemonOnly.map((speciesObj) => {
+  const filtered = team.filter((pkm)=>pkm.species !== '');
 
-    return {
+  if (teamIsValid(filtered)) {
 
-      name: speciesObj.name,
-      num: speciesObj.num * -1,
-      abilities: speciesObj.abilities,
-      learnset: ModdedDex.data.Learnsets[speciesObj.id].learnset,
+    selectedTeam = team;
 
-    }
+    return { success: true, message: 'Team Validated' }
 
-
-  })
-
-  //console.log(ModdedDex.items.get('sitrusberry'))
-
-  const movesById = Object.fromEntries(
-    Object.values(MOVES).map((m) => [m.id, m])
-  )
-
-  const EXCLUDED_KEYWORDS = ['tera'];
-
-  const filteredItems = Object.fromEntries(
-    Object.entries(ITEMS).filter(([name, item]) =>
-      item.holdable == true && !EXCLUDED_KEYWORDS.some(keyword => name.includes(keyword))
-    )
-  );
-
-  return {
-
-    venomon: dexData,
-    moves: movesById,
-    abilities: ABILITIES,
-    items: filteredItems
+  }else{
+    
+    return { success: false, message: 'Invalid team' }
 
   }
-})
+
+});
+
+ipcMain.handle('get-selected-team', () => {
+  return selectedTeam;
+});

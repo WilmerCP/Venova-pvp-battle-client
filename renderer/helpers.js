@@ -10,3 +10,10 @@ export function getBattlerSrc(number, { back = false, shiny = false } = {}) {
     const key = `${String(number).padStart(3, '0')}${suffix}.png`;
     return `/battlers/${key}`;
 }
+
+export function getGenderFromRatio(ratio) {
+  if (ratio.F === 0 && ratio.M === 0) return 'N';
+
+  const n = Math.random();
+  return n < ratio.F ? 'F' : 'M'; 
+}

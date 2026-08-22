@@ -2,31 +2,34 @@ import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import ComboBox from './ComboBox';
 
+import { CgGenderMale, CgGenderFemale } from "react-icons/cg";
+
 const DEFAULT_ICON = 'minis/icon000.png';
 const DEFAULT_LEVEL = 100;
 
+const statList = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'];
+
 export default function PokemonEditor({
     pokemon,
-    onClick,
-    onAbilityChange,
-    onMoveChange,
-    onShinyChange,
-    onItemChange,
-    onLevelChange,
+    build,
+    onChange
 }) {
-    const { moves, items, abilities } = useLoaderData();
+    const { moves, items, abilities, natures } = useLoaderData();
+
+    const GenderSymbol = build.gender == 'M' ? CgGenderMale : build.gender == 'F' ? CgGenderFemale : 'div';
+    const genderClass = build.gender == 'M' ? 'male' : build.gender == 'F' ? 'female' : '';
 
     const itemOptions = Object.entries(items).map(([name, item]) => ({
         value: name,
         label: item.translation ?? name,
     }));
 
+    const natureOptions = Object.entries(natures).map(([name, nature]) => ({
+        value: name,
+        label: nature.translation ?? name,
+    }));
+
     const [iconSrc, setIconSrc] = useState(pokemon.icon);
-    const [selectedAbility, setSelectedAbility] = useState('');
-    const [selectedMoves, setSelectedMoves] = useState(['', '', '', '']);
-    const [selectedItem, setSelectedItem] = useState('');
-    const [level, setLevel] = useState(DEFAULT_LEVEL);
-    const [shiny, setShiny] = useState(false);
 
     useEffect(() => {
         setIconSrc(pokemon.icon);
@@ -36,34 +39,68 @@ export default function PokemonEditor({
     }, [pokemon.icon]);
 
     const handleAbilityChange = (value) => {
-        setSelectedAbility(value);
-        onAbilityChange?.(value);
+        onChange({ ability: value });
     };
 
     const handleMoveChange = (slot, value) => {
-        setSelectedMoves((prev) => {
-            const next = [...prev];
-            next[slot] = value;
-            return next;
-        });
-        onMoveChange?.(slot, value);
+
+        let newMoves = [...build.moves];
+
+        let already = newMoves.findIndex((m) => m === value)
+
+        if(already >= 0){
+
+            newMoves[already] = '';
+            
+        }
+
+        newMoves[slot] = value;
+
+        onChange({ moves: newMoves });
+    };
+
+    const handleEvChange = (ev, value) => {
+
+        const parsed = Math.max(0, Math.min(252, Number(value) || 0));
+
+        let newEvs = { ...build.evs };
+        newEvs[ev] = parsed;
+
+        const sum = Object.values(newEvs).reduce((acc, v) => acc + v, 0);
+
+        if (sum <= 510 && parsed <= 252) {
+
+            onChange({ evs: newEvs });
+
+        }
     };
 
     const handleShinyChange = (checked) => {
-        setShiny(checked);
-        onShinyChange?.(checked);
+        onChange({ shiny: checked });
     };
 
     const handleItemChange = (value) => {
-        setSelectedItem(value);
-        onItemChange?.(value);
+        onChange({ item: value });
+    };
+
+    const handleNatureChange = (value) => {
+        onChange({ nature: value });
     };
 
     const handleLevelChange = (value) => {
         const parsed = Math.max(1, Math.min(100, Number(value) || 1));
-        setLevel(parsed);
-        onLevelChange?.(parsed);
+        onChange({ level: parsed });
     };
+
+    const handleGenderChange = () => {
+
+        if (!pokemon.genderFixed) {
+            const newGender = build.gender == 'M' ? 'F' : 'M';
+
+            onChange({ gender: newGender });
+        }
+
+    }
 
     // Movimientos que este pokemon puede aprender según su learnset,
     // resueltos contra el diccionario completo de moves del loader
@@ -73,7 +110,6 @@ export default function PokemonEditor({
 
     return (
         <div
-            onClick={onClick}
             className="
                 py-1.5 px-3 rounded-xl
                 transition-all duration-100
@@ -96,8 +132,9 @@ export default function PokemonEditor({
 
                 {/* Nombre de especie (fijo) + selector de nivel (elegido por el usuario) */}
                 <div className="flex flex-col items-start flex-1 min-w-0">
-                    <span className="text-xs font-medium truncate text-left">
+                    <span className="text-xs font-medium truncate text-left flex flex-row">
                         {pokemon.name}
+                        <GenderSymbol className={`${genderClass} text-lg`} onClick={() => { handleGenderChange() }} />
                     </span>
                     <div
                         className="flex items-center gap-1"
@@ -108,7 +145,7 @@ export default function PokemonEditor({
                             type="number"
                             min={1}
                             max={100}
-                            value={level}
+                            value={build.level}
                             onChange={(e) => handleLevelChange(e.target.value)}
                             className="w-10 text-[10px] rounded border border-black/10 px-1"
                         />
@@ -122,11 +159,30 @@ export default function PokemonEditor({
                 >
                     <input
                         type="checkbox"
-                        checked={shiny}
+                        checked={build.shiny}
                         onChange={(e) => handleShinyChange(e.target.checked)}
                     />
                     <span className="text-[10px] font-semibold text-black/60">Shiny</span>
                 </label>
+            </div>
+
+            {/* Selectores de puntos de esfuerzo */}
+            <div className="flex flex-row flex-wrap gap-2 items-center justify-center" onClick={(e) => e.stopPropagation()}>
+                {
+                    statList.map((stat) => (
+                        <div key={stat} className="flex flex-col items-center gap-1">
+                            <span className="text-[10px] font-semibold text-black/60">{stat.toUpperCase()}</span>
+                            <input
+                                type="number"
+                                min={0}
+                                max={252}
+                                value={build.evs[stat]}
+                                onChange={(e) => handleEvChange(stat, e.target.value)}
+                                className="w-10 text-[10px] rounded border border-black/10 px-1"
+                            />
+                        </div>
+                    ))
+                }
             </div>
 
             {/* Selectores de configuración: habilidad, item y movimientos */}
@@ -135,10 +191,18 @@ export default function PokemonEditor({
                 onClick={(e) => e.stopPropagation()}
             >
 
+                {/* Naturaleza: combobox con traducciones */}
+                <ComboBox
+                    options={natureOptions}
+                    value={build.nature}
+                    onChange={handleNatureChange}
+                    placeholder="-- Naturaleza --"
+                />
+
                 {/* Habilidad: opciones limitadas a las que puede tener este pokemon */}
                 <select
                     className="text-xs rounded-md border border-black/10 px-1 py-0.5"
-                    value={selectedAbility}
+                    value={build.ability}
                     onChange={(e) => handleAbilityChange(e.target.value)}
                 >
                     <option value="" disabled>Habilidad</option>
@@ -152,7 +216,7 @@ export default function PokemonEditor({
                 {/* Item: combobox con traducciones */}
                 <ComboBox
                     options={itemOptions}
-                    value={selectedItem}
+                    value={build.item}
                     onChange={handleItemChange}
                     placeholder="-- Objeto --"
                 />
@@ -163,7 +227,7 @@ export default function PokemonEditor({
                         <select
                             key={slot}
                             className="text-xs rounded-md border border-black/10 px-1 py-0.5"
-                            value={selectedMoves[slot]}
+                            value={build.moves[slot]}
                             onChange={(e) => handleMoveChange(slot, e.target.value)}
                         >
                             <option value="">-- Movimiento --</option>

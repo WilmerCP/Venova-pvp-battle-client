@@ -41,7 +41,7 @@ async function parseUpdate(content, win) {
                 console.log(`${source.player} ${source.name} used ${move}`)
 
                 const moveInfo = ModdedDex.moves.get(move)
-                console.log(moveInfo)
+                //console.log(moveInfo)
                 const type = moveInfo.type
                 const category = moveInfo.category //Physical, Special, Status
                 const targetType = moveInfo.target //normal, self, allAdjacentFoes

@@ -1,5 +1,9 @@
 
-const { ABILITIES, ITEMS } = require('./loadDictionaries.js');
+const { ABILITIES, ITEMS, NATURES, MOVES } = require('./loadDictionaries.js');
+const { Dex, TeamValidator, Teams } = require('pokemon-showdown')
+const ModdedDex = Dex.mod('venova')
+
+const validator = new TeamValidator('gen8venovacustombattle');
 
 const spanishOverrides = {
     "Type: Null": "Código Cero",
@@ -103,7 +107,7 @@ function parseReason(reasonStr) {
         }
 
 
-    }else {
+    } else {
 
         return {
 
@@ -204,5 +208,74 @@ function parseHealth(healthStr) {
 
 }
 
-module.exports = { cleanPokemonName, parseEffect, parsePokemonId, parseSideId, parseReason,
-     parseCondition, parsePokemonDetails, parseHealth }
+async function getDexData() {
+
+    let species = ModdedDex.species.all()
+    species = species.filter((pkm) => pkm.isNonstandard == null)
+    let fakemonOnly = species.filter((pkm) => pkm.num < 0)
+
+    /*console.log(ModdedDex.species.get('Bullchub'));
+    console.log(ModdedDex.species.get('Arpidor'));
+    console.log(ModdedDex.species.get('GardevoirV'));*/
+
+    let dexData = fakemonOnly.map((speciesObj) => {
+
+        return {
+
+            name: speciesObj.name,
+            num: speciesObj.num * -1,
+            abilities: speciesObj.abilities,
+            learnset: ModdedDex.data.Learnsets[speciesObj.id].learnset,
+            genderRatio: speciesObj.genderRatio,
+            genderFixed: speciesObj.genderRatio.M == 0 || speciesObj.genderRatio.F == 0
+
+        }
+
+
+    })
+
+    //console.log(ModdedDex.items.get('sitrusberry'))
+
+    const movesById = Object.fromEntries(
+        Object.values(MOVES).map((m) => [m.id, m])
+    )
+
+    const EXCLUDED_KEYWORDS = ['tera'];
+
+    const filteredItems = Object.fromEntries(
+        Object.entries(ITEMS).filter(([name, item]) =>
+            item.holdable == true && !EXCLUDED_KEYWORDS.some(keyword => name.includes(keyword))
+        )
+    );
+
+    return {
+
+        venomon: dexData,
+        moves: movesById,
+        abilities: ABILITIES,
+        items: filteredItems,
+        natures: NATURES
+
+    }
+}
+
+function teamIsValid(team) {
+
+    const output = validator.validateTeam(team);
+
+    if (output == null) {
+        console.log("Team is valid")
+
+        return true;
+    } else {
+
+        console.log('Team validation failed:', output);
+        return false;
+    }
+
+}
+
+module.exports = {
+    cleanPokemonName, parseEffect, parsePokemonId, parseSideId, parseReason,
+    parseCondition, parsePokemonDetails, parseHealth, getDexData, teamIsValid
+}

@@ -91,6 +91,8 @@ export default function TeamBuilder() {
 
                 setTeam(prevTeam);
 
+                console.log("Team cargado desde el main process:", prevTeam);
+
             }
             
         }

@@ -16,6 +16,8 @@ export default function PokemonEditor({
 }) {
     const { moves, items, abilities, natures } = useLoaderData();
 
+    console.log("PokemonEditor renderizado con build:", build);
+
     const GenderSymbol = build.gender == 'M' ? CgGenderMale : build.gender == 'F' ? CgGenderFemale : 'div';
     const genderClass = build.gender == 'M' ? 'male' : build.gender == 'F' ? 'female' : '';
 
@@ -25,9 +27,11 @@ export default function PokemonEditor({
     }));
 
     const natureOptions = Object.entries(natures).map(([name, nature]) => ({
-        value: name,
+        value: nature.name,
         label: nature.translation ?? name,
     }));
+
+    console.log(natureOptions);
 
     const [iconSrc, setIconSrc] = useState(pokemon.icon);
 
@@ -185,7 +189,7 @@ export default function PokemonEditor({
                 }
             </div>
 
-            {/* Selectores de configuración: habilidad, item y movimientos */}
+            {/* Selectores de configuración: naturaleza, habilidad, item y movimientos */}
             <div
                 className="flex flex-col gap-1"
                 onClick={(e) => e.stopPropagation()}

@@ -5,7 +5,7 @@ const ModdedDex = Dex.mod('venova')
 const { MOVES, ABILITIES, ITEMS } = require('./loadDictionaries.js');
 
 const { cleanPokemonName, parseEffect, parsePokemonId, parseSideId, parseReason,
-     parseCondition, parsePokemonDetails, parseHealth } = require('./utility.js')
+    parseCondition, parsePokemonDetails, parseHealth } = require('./utility.js')
 
 async function parseUpdate(content, win) {
     const lines = content.split('\n')
@@ -28,6 +28,7 @@ async function parseUpdate(content, win) {
 
             //|move|p2a: Togekiss|Roost||[still]
             //|move|p2a: Togekiss|Roost|p2a: Togekiss
+            //|move|p1a: Onzanterian|Thunder Wave|p2a: Sazonte|[from] ability: Magic Bounce
             case 'move': {
                 const source = parsePokemonId(parts[2]) //{ player, slot, name }
                 const target = parsePokemonId(parts[4]) //{ player, slot, name }
@@ -36,6 +37,17 @@ async function parseUpdate(content, win) {
                 const tags = parts.slice(5)
                 const missed = tags.includes('[miss]')
                 const still = tags.includes('[still]')
+
+                const fromTag = tags.find(t => t.startsWith('[from] ability:'))
+                const ability = fromTag ? fromTag.split('ability: ')[1] : null
+                const abilityTranslation = ability ? ABILITIES[ability] !== undefined ? ABILITIES[ability].translation : ability : null;
+
+                const ofTag = tags.find(t => t.startsWith('[of]'))
+
+                let ofPokemon = ofTag ? ofTag.replace('[of] ', '') : null // "p2a: Sazonte"
+
+                ofPokemon = ofPokemon ? parsePokemonId(ofPokemon) : null
+
                 console.log(line)
 
                 console.log(`${source.player} ${source.name} used ${move}`)
@@ -53,8 +65,9 @@ async function parseUpdate(content, win) {
                 win.webContents.send('move',
                     {
                         source, target, move, missed, still, type, targetType, category, heal,
-                        translation, description
+                        translation, description, ability, ofPokemon, abilityTranslation
                     })
+
                 break
             }
 
@@ -66,6 +79,8 @@ async function parseUpdate(content, win) {
             case 'drag':
             case 'switch': {
                 // |switch|p1a: Pikachu|Pikachu, L59, F|100/100
+                //|switch|p1a: Simobolite|Simobolite|100/100|[from] Baton Pass
+
                 console.log(parts)
 
                 const { speciesName, gender, level, shiny } = parsePokemonDetails(parts[3]);
@@ -76,7 +91,7 @@ async function parseUpdate(content, win) {
                 const num = species.num // 25
 
                 console.log(`${speciesName} switched in with number ${num}`);
-                if(num === 0){
+                if (num === 0) {
                     console.log(species);
                 }
 
@@ -92,7 +107,8 @@ async function parseUpdate(content, win) {
                     status: status,  // brn, par
                     shiny: shiny,
                     gender: gender,
-                    reason: parts[1] // drag o switch
+                    reason: parts[1], // drag o switch
+                    batonPass: parts[5] === '[from] Baton Pass' ? true : false
                 })
 
                 break
@@ -125,6 +141,8 @@ async function parseUpdate(content, win) {
                 // |-heal|p1a: Pikachu|100/100 brn
                 //|-heal|p2a: Scizor|17/100|[from] item: Leftovers
                 //|-heal|p1a: Gurdurr|290/290 tox|[from] drain|[of] p2a: Hitmontop
+                //|-heal|p2a: Motiti|100/100 slp|[silent]
+
                 console.log(`${parts[2]} healed to ${parts[3]}`)
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
@@ -143,7 +161,16 @@ async function parseUpdate(content, win) {
 
                 }
 
-                //console.log(`Health: ${current}, Total: ${total}`)
+                console.log(`Sending heal`)
+                console.log({
+                    player: player,   // 'p1'
+                    hp: current,  // 'hp amount or percentage'
+                    maxHp: total,     // 100 or total hp
+                    status: status,
+                    name: name,
+                    reason: healReason,
+                    type: healType
+                })
 
                 win.webContents.send('heal', {
                     player: player,   // 'p1'
@@ -383,6 +410,25 @@ async function parseUpdate(content, win) {
                 break
             }
 
+            //A side condition that affects one side of the field. (Tailwind, Stealth Rock, Reflect...)
+            case '-sideend': {
+                //|-sideend|SIDE|CONDITION
+                //|-sideend|p2: Jugador 2|move: Light Screen
+
+
+                const { player, name } = parseSideId(parts[2]);
+
+                const { conditionName, origin } = parseCondition(parts[3]);
+
+                win.webContents.send('endSideCondition', {
+                    player: player,   // 'p1'
+                    condition: conditionName,
+                    origin: origin
+                })
+
+                break
+            }
+
             //Clears all boosts from all Pokémon on both sides. (Haze)
             case '-clearallboost': {
                 //|-clearallboost
@@ -489,7 +535,7 @@ async function parseUpdate(content, win) {
 
                         const officialInfo = Dex.moves.get(move.move);
 
-                        if(!officialInfo) {
+                        if (!officialInfo) {
                             console.log(`Move ${move.move} not found in official Dex`)
                             console.log(moveInfo)
                         }
@@ -571,7 +617,7 @@ async function parseUpdate(content, win) {
             //Miscelaneous effects
             case '-activate': {
                 //|-activate|p2a: Alomomola|move: Protect
-                //|-activate|p2a: Alomomola|confusion
+                //|-activate|p2a: Alomomola|confusion -> Only the animation, no damage
                 //|-activate|p2a: Ditto|move: Struggle
                 //|-activate|p1a: Granbull|move: Heal Bell
                 //|-activate|p1a: Rotom|move: Trick|[of] p2a: Hitmonlee

@@ -80,7 +80,7 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleSwitch(data) {
 
-        console.log('Switch event:', data)
+        //console.log('Switch event:', data)
 
         //console.log(data.name + ' switched in!')
 
@@ -105,7 +105,8 @@ export default function useBattleEvents({ p1, p2 }) {
                     player: 'p1',
                     newSrc: getBattlerSrc(data.num, { back: true, shiny: data.shiny }),
                     pkmData: data,
-                    log: log
+                    log: log,
+                    batonPass: data.batonPass
                 });
 
                 scheduleAnimation({
@@ -150,6 +151,7 @@ export default function useBattleEvents({ p1, p2 }) {
                     player: 'p2',
                     newSrc: getBattlerSrc(data.num, { back: false, shiny: data.shiny }),
                     pkmData: data,
+                    batonPass: data.batonPass,
                     log: log
                 });
 
@@ -174,6 +176,19 @@ export default function useBattleEvents({ p1, p2 }) {
         let log = `${pkm} usó ${data.translation}`;
         addBattleLog(log);
         setWaiting(false);
+
+        if (data.ability !== null) {
+
+            scheduleAnimation({
+                event: 'ability',
+                pkmName: data.ofPokemon ? data.ofPokemon.name : pkm,
+                abilityName: data.ability,
+                player: data.ofPokemon ? data.ofPokemon.player : data.source.player,
+                translation: data.abilityTranslation
+            });
+
+        }
+
         scheduleAnimation({
             event: 'move',
             target: data.target !== null ? data.target.player : null,
@@ -299,6 +314,9 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleHeal(data) {
 
+        console.log("HOLAAAAA")
+
+        console.log(data)
 
         if (data.player === 'p1') {
 
@@ -314,7 +332,7 @@ export default function useBattleEvents({ p1, p2 }) {
 
                 let log;
 
-                if (data.reason == 'drain') {
+                if (data.reason?.includes('drain')) {
 
                     log = `¡${data.name} ha absorbido puntos de salud!`
 
@@ -354,7 +372,11 @@ export default function useBattleEvents({ p1, p2 }) {
 
                 let log;
 
-                if (data.reason !== undefined) {
+                if (data.reason?.includes('drain')) {
+
+                    log = `¡${data.name} rival ha absorbido puntos de salud!`
+
+                } else if (data.reason !== undefined) {
 
                     log = `¡${data.name} rival ha recuperado salud gracias a ${data.reason}!`
 
@@ -381,8 +403,8 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleTeam(data) {
         setAvailableMoves(data.active[0].moves)
-        console.log('Available moves updated:', data.active[0].moves)
-        console.log(data.side.pokemon)
+        //console.log('Available moves updated:', data.active[0].moves)
+        //console.log(data.side.pokemon)
 
         data.side.pokemon.forEach((poke) => {
 
@@ -645,6 +667,38 @@ export default function useBattleEvents({ p1, p2 }) {
 
     }
 
+    function handleEndSideCondition(data) {
+
+        let msj = MENSAJES[`side-condition-end-[${data.condition}]`];
+
+        if (msj !== undefined) {
+
+            if (data.player == 'p1') {
+
+                msj = msj.replace('{pkm}', `${player1Ref.current.pkmName}`);
+
+
+            } else {
+
+                msj = msj.replace('{pkm}', `${player2Ref.current.pkmName} rival`);
+
+            }
+
+            addBattleLog(msj);
+
+            scheduleAnimation({
+                event: 'log',
+                log: msj
+            })
+
+        } else {
+
+            addBattleLog(`Error: unhandled side condition -> ${data.origin} ${data.condition}`)
+
+        }
+
+    }
+
     //Zoroak illusion
     function handleReplace(data) {
 
@@ -876,6 +930,7 @@ export default function useBattleEvents({ p1, p2 }) {
             'immune': handleImmune,
             'enditem': handleEndItem,
             'startSideCondition': handleStartSideCondition,
+            'endSideCondition': handleEndSideCondition,
             'replace': handleReplace,
             'startVolatile': handleStartVolatile,
             'clearAllBoost': handleClearAllBoost,

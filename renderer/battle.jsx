@@ -112,6 +112,8 @@ export default function Battle() {
 
     const [p1Visible, setP1Visible] = useState(p1);
     const [p2Visible, setP2Visible] = useState(p2);
+    const p1HPRef = useRef(100);
+    const p2HPRef = useRef(100);
 
     //Health bar ref for animation handling
     const bar1Ref = useRef();
@@ -193,19 +195,19 @@ export default function Battle() {
                 return new Promise((resolve) => {
 
                     const barRef = animation.player === 'p1' ? bar1Ref : bar2Ref;
+                    const hpRef = animation.player === 'p1' ? p1HPRef : p2HPRef;
+
+                    if (hpRef.current === animation.newHP) {
+                        return resolve();
+                    }
+
+                    hpRef.current = animation.newHP;
 
                     if (animation.player == 'p1') {
 
-                        if (p1Visible.currentHPPercentage === animation.newHP) {
-                            return resolve();
-                        }
-
                         setP1Visible(prev => ({ ...prev, currentHPPercentage: animation.newHP }))
-                    } else {
 
-                        if (p2Visible.currentHPPercentage === animation.newHP) {
-                            return resolve();
-                        }
+                    } else {
 
                         setP2Visible(prev => ({ ...prev, currentHPPercentage: animation.newHP }))
                     }
@@ -225,6 +227,7 @@ export default function Battle() {
 
                     const onEnd = (e) => {
                         if (e.propertyName !== 'width') return; // filter to the property you're animating
+                        clearTimeout(timeout)
                         el.removeEventListener('transitionend', onEnd);
                         resolve();
                     };
@@ -293,11 +296,15 @@ export default function Battle() {
                     if (animation.player === 'p1') {
                         setBattlerSrcs(prev => ({ ...prev, src1: animation.newSrc }));
                         setP1Visible(prev => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp }));
-                        setSubstituteP1(false); // Remove the substitute
+                        if (!animation.batonPass) {
+                            setSubstituteP1(false); // Remove the substitute
+                        }
                     } else {
                         setBattlerSrcs(prev => ({ ...prev, src2: animation.newSrc }));
                         setP2Visible(prev => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp }));
-                        setSubstituteP2(false);
+                        if (!animation.batonPass) {
+                            setSubstituteP2(false);
+                        }
                     }
 
                     // Wait for the DOM to actually reflect the mount before touching refs

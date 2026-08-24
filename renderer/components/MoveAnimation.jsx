@@ -1,7 +1,4 @@
-
 import MOVE_ANIMATIONS from '../lib/animaciones'
-
-const src = 'moveAnimations/attack-1.png'
 
 const frameWidth = 192
 const frameHeight = 192
@@ -18,102 +15,96 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc, isFr
     const nextTickIdRef = useRef(null);
     const callbackFiredRef = useRef(null);
 
-
-
+    // Estos son solo para el RENDER (posición del background, escala, etc.)
+    // Se actualizan solos cuando spriteSheet cambia de estado.
     const Xcoor = frameWidth * (frame % spriteSheet.cols)
     const Ycoor = frameHeight * Math.floor(frame / spriteSheet.cols)
-    const totalFrames = spriteSheet.totalFrames !== undefined ? spriteSheet.totalFrames : spriteSheet.cols * spriteSheet.rows
-    const totalDuration = spriteSheet.frameDuration !== undefined ? totalFrames * spriteSheet.frameDuration : totalFrames * frameDuration;
 
-    //Optional scaling effect
     const scaleFrom = spriteSheet.scaleFrom ?? 1
     const scaleTo = spriteSheet.scaleTo ?? 1
-    const progress = totalFrames > 1 ? frame / (totalFrames - 1) : 1
+    const totalFramesForRender = spriteSheet.totalFrames !== undefined ? spriteSheet.totalFrames : spriteSheet.cols * spriteSheet.rows
+    const progress = totalFramesForRender > 1 ? frame / (totalFramesForRender - 1) : 1
     const scale = scaleFrom + (scaleTo - scaleFrom) * progress
 
-    //Optional falling effect
     const fallFrom = spriteSheet.fallFrom ?? 0
     const fallTo = spriteSheet.fallTo ?? 0
     const easedProgress = progress * progress
     const yOffset = fallFrom + (fallTo - fallFrom) * easedProgress
 
+    const slideFrom = spriteSheet.slideFrom ?? 0
+    const slideTo = spriteSheet.slideTo ?? 0
+    const xOffset = slideFrom + (slideTo - slideFrom) * progress
+
     const background = spriteSheet.back ? isFront : false;
 
     useEffect(() => {
 
-        if (moveDesc.name) {
-            if (MOVE_ANIMATIONS.moves[moveDesc.name] !== undefined) {
+        if (!moveDesc.name) return;
 
-                setSpriteSheet(MOVE_ANIMATIONS.moves[moveDesc.name]);
+        // 1. Resolver el sheet de forma SINCRONA
+        let sheet;
 
-            } else if (moveDesc.heal && moveDesc.category === 'Status') {
+        if (MOVE_ANIMATIONS.moves[moveDesc.name] !== undefined) {
 
-                setSpriteSheet(MOVE_ANIMATIONS.default.heal);
+            sheet = MOVE_ANIMATIONS.moves[moveDesc.name];
 
-            } else if (MOVE_ANIMATIONS.elemental[moveDesc.type][moveDesc.category] !== undefined) {
+        } else if (moveDesc.heal && moveDesc.category === 'Status') {
 
-                setSpriteSheet(MOVE_ANIMATIONS.elemental[moveDesc.type][moveDesc.category]);
+            sheet = MOVE_ANIMATIONS.default.heal;
 
-            } else {
+        } else if (MOVE_ANIMATIONS.elemental[moveDesc.type]?.[moveDesc.category] !== undefined) {
 
-                switch (moveDesc.category) {
+            sheet = MOVE_ANIMATIONS.elemental[moveDesc.type][moveDesc.category];
 
-                    case 'Physical':
-                        setSpriteSheet(MOVE_ANIMATIONS.default.physical);
-                        break;
+        } else {
 
-                    case 'Special':
-                        setSpriteSheet(MOVE_ANIMATIONS.default.special);
-                        break;
-
-                    case 'Status':
-                        if (moveDesc.target === 'self') {
-                            setSpriteSheet(MOVE_ANIMATIONS.default.status_self);
-                        } else {
-                            setSpriteSheet(MOVE_ANIMATIONS.default.status_other);
-                        }
-                        break;
-
-                    default:
-                        setSpriteSheet(MOVE_ANIMATIONS.default.physical);
-                        break;
-
-                }
-
+            switch (moveDesc.category) {
+                case 'Physical':
+                    sheet = MOVE_ANIMATIONS.default.physical;
+                    break;
+                case 'Special':
+                    sheet = MOVE_ANIMATIONS.default.special;
+                    break;
+                case 'Status':
+                    sheet = moveDesc.target === 'self'
+                        ? MOVE_ANIMATIONS.default.status_self
+                        : MOVE_ANIMATIONS.default.status_other;
+                    break;
+                default:
+                    sheet = MOVE_ANIMATIONS.default.physical;
+                    break;
             }
         }
 
-    }, [moveDesc]);
-
-
-    useEffect(() => {
-
+        setSpriteSheet(sheet);
         setFrame(0);
-        startTimeRef.current = null
-        nextTickIdRef.current = null
-        callbackFiredRef.current = null
+        startTimeRef.current = null;
+        callbackFiredRef.current = false;
+
+        // 2. Calcular totalFrames/totalDuration ACA, del sheet recien resuelto,
+        //    no de las variables del render (que todavia tienen el sheet viejo).
+        const totalFrames = sheet.totalFrames !== undefined
+            ? sheet.totalFrames
+            : sheet.cols * sheet.rows;
+
+        const totalDuration = sheet.frameDuration !== undefined
+            ? totalFrames * sheet.frameDuration
+            : totalFrames * frameDuration;
 
         function tick(now) {
+            if (startTimeRef.current === null) startTimeRef.current = now;
 
-            if (startTimeRef.current === null) {
-                startTimeRef.current = now;
-            }
-
-            const elapsed_time = now - startTimeRef.current
-            const progress = totalDuration > 0 ? Math.min(elapsed_time / totalDuration, 1) : 1
-
+            const elapsed_time = now - startTimeRef.current;
+            const progress = totalDuration > 0 ? Math.min(elapsed_time / totalDuration, 1) : 1;
             const currentFrame = Math.min(Math.floor(totalFrames * progress), totalFrames - 1);
             setFrame(currentFrame);
 
             if (progress < 1) {
-
                 nextTickIdRef.current = requestAnimationFrame(tick);
-
             } else if (!callbackFiredRef.current) {
                 callbackFiredRef.current = true;
                 onComplete?.();
             }
-
         }
 
         nextTickIdRef.current = requestAnimationFrame(tick);
@@ -124,13 +115,10 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc, isFr
             }
         };
 
-
-    }, [spriteSheet]);
-
+    }, [moveDesc]);
 
     return (
         <div
-
             className={classes}
             style={{
                 width: frameWidth,
@@ -138,14 +126,11 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc, isFr
                 backgroundImage: `url(moveAnimations/${spriteSheet.src})`,
                 backgroundPosition: `-${Xcoor}px -${Ycoor}px`,
                 backgroundRepeat: "no-repeat",
-                //backgroundColor: 'blue',
-                transform: `scale(${scale}) translateY(${yOffset}px) translateX(${isFront ? 30 : 0}px)`,
+                transform: `scale(${scale}) translateY(${yOffset}px) translateX(${xOffset}px)`,
                 transformOrigin: 'center center',
                 transition: 'transform 100ms ease-out',
                 zIndex: background ? 5 : 15
             }}
         />
     );
-
-
 }

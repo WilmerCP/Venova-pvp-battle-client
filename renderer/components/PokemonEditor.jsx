@@ -16,10 +16,17 @@ export default function PokemonEditor({
 }) {
     const { moves, items, abilities, natures } = useLoaderData();
 
-    console.log("PokemonEditor renderizado con build:", build);
+    //console.log("PokemonEditor renderizado con build:", build);
+    console.log("PokemonEditor renderizado con pokemon:", pokemon);
 
     const GenderSymbol = build.gender == 'M' ? CgGenderMale : build.gender == 'F' ? CgGenderFemale : 'div';
     const genderClass = build.gender == 'M' ? 'male' : build.gender == 'F' ? 'female' : '';
+
+    // Movimientos que este pokemon puede aprender según su learnset,
+    // resueltos contra el diccionario completo de moves del loader
+    const learnableMoves = Object.keys(pokemon.learnset)
+        .map((moveId) => moves[moveId])
+        .filter(Boolean);
 
     const itemOptions = Object.entries(items).map(([name, item]) => ({
         value: name,
@@ -31,7 +38,16 @@ export default function PokemonEditor({
         label: nature.translation ?? name,
     }));
 
-    console.log(natureOptions);
+    const moveOptions = learnableMoves.map((moveData) => ({
+        value: moveData.name,
+        label: moveData.translation ?? moveData.name,
+    }));
+    
+    const abilityOptions = Object.entries(pokemon.abilities).map(([slot, name]) => (
+        {
+            value: name,
+            label: abilities[name]?.translation ?? name
+        }));
 
     const [iconSrc, setIconSrc] = useState(pokemon.icon);
 
@@ -52,10 +68,10 @@ export default function PokemonEditor({
 
         let already = newMoves.findIndex((m) => m === value)
 
-        if(already >= 0){
+        if (already >= 0) {
 
             newMoves[already] = '';
-            
+
         }
 
         newMoves[slot] = value;
@@ -105,12 +121,6 @@ export default function PokemonEditor({
         }
 
     }
-
-    // Movimientos que este pokemon puede aprender según su learnset,
-    // resueltos contra el diccionario completo de moves del loader
-    const learnableMoves = Object.keys(pokemon.learnset)
-        .map((moveId) => moves[moveId])
-        .filter(Boolean);
 
     return (
         <div
@@ -204,18 +214,13 @@ export default function PokemonEditor({
                 />
 
                 {/* Habilidad: opciones limitadas a las que puede tener este pokemon */}
-                <select
-                    className="text-xs rounded-md border border-black/10 px-1 py-0.5"
+
+                <ComboBox
+                    options={abilityOptions}
                     value={build.ability}
-                    onChange={(e) => handleAbilityChange(e.target.value)}
-                >
-                    <option value="" disabled>Habilidad</option>
-                    {Object.entries(pokemon.abilities).map(([slot, name]) => (
-                        <option key={slot} value={name}>
-                            {abilities[name]?.translation ?? name}
-                        </option>
-                    ))}
-                </select>
+                    onChange={handleAbilityChange}
+                    placeholder="-- Habilidad --"
+                />
 
                 {/* Item: combobox con traducciones */}
                 <ComboBox
@@ -228,6 +233,13 @@ export default function PokemonEditor({
                 {/* 4 slots de movimientos, cada uno con las opciones del learnset */}
                 <div className="grid grid-cols-2 gap-1">
                     {[0, 1, 2, 3].map((slot) => (
+                        <ComboBox
+                            key={slot}
+                            options={moveOptions}
+                            value={build.moves[slot]}
+                            onChange={(value) => handleMoveChange(slot,value)}
+                            placeholder="-- Movimiento --"
+                        />/*
                         <select
                             key={slot}
                             className="text-xs rounded-md border border-black/10 px-1 py-0.5"
@@ -238,7 +250,7 @@ export default function PokemonEditor({
                             {learnableMoves.map((m) => (
                                 <option key={m.id ?? m.name} value={m.name}>{m.translation}</option>
                             ))}
-                        </select>
+                        </select>*/
                     ))}
                 </div>
             </div>

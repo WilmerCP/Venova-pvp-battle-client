@@ -47,7 +47,6 @@ export default function useBattleEvents({ p1, p2 }) {
     const [waiting, setWaiting] = useState(false); //Waiting for opponent
     const [switchRequired, setSwitchRequired] = useState(false); //Need to choose a pokemon
 
-    const [winner, setWinner] = useState(null);
 
     function addBattleLog(log) {
 
@@ -80,7 +79,7 @@ export default function useBattleEvents({ p1, p2 }) {
     }
 
     function handleSwitch(data) {
-        
+
         console.log('Switch event:', data)
 
         //console.log(data.name + ' switched in!')
@@ -315,11 +314,15 @@ export default function useBattleEvents({ p1, p2 }) {
 
                 let log;
 
-                if (data.reason !== undefined) {
+                if (data.reason == 'drain') {
+
+                    log = `¡${data.name} ha absorbido puntos de salud!`
+
+                } else if (data.reason !== undefined) {
 
                     log = `¡${data.name} ha recuperado salud gracias a ${data.reason}!`
 
-                } else {
+                } {
 
                     log = `¡${data.name} ha recuperado salud!`
 
@@ -618,14 +621,21 @@ export default function useBattleEvents({ p1, p2 }) {
 
             if (data.player == 'p1') {
 
-                addBattleLog(msj.replace('{pkm}', `${player1Ref.current.pkmName}`));
+                msj = msj.replace('{pkm}', `${player1Ref.current.pkmName}`);
 
 
             } else {
 
-                addBattleLog(msj.replace('{pkm}', `${player2Ref.current.pkmName} rival`));
+                msj = msj.replace('{pkm}', `${player2Ref.current.pkmName} rival`);
 
             }
+
+            addBattleLog(msj);
+
+            scheduleAnimation({
+                event: 'log',
+                log: msj
+            })
 
         } else {
 
@@ -664,7 +674,10 @@ export default function useBattleEvents({ p1, p2 }) {
             addBattleLog(msj);
 
             scheduleAnimation({
-                event: 'log',
+                event: 'volatileStart',
+                effect: data.effect,
+                player: data.player,
+                pokemon: data.name,
                 log: msj
             })
 
@@ -686,7 +699,10 @@ export default function useBattleEvents({ p1, p2 }) {
             addBattleLog(msj);
 
             scheduleAnimation({
-                event: 'log',
+                event: 'volatileEnd',
+                effect: data.effect,
+                player: data.player,
+                pokemon: data.name,
                 log: msj
             })
 
@@ -711,14 +727,26 @@ export default function useBattleEvents({ p1, p2 }) {
             if (data.winner == player1Ref.current.playerName) {
 
                 addBattleLog(`¡Has ganado!`);
-                setWinner('p1');
+                //setWinner('p1');
+
+                scheduleAnimation({
+                    event: 'battleEnd',
+                    winner: 'p1',
+                    log: `¡Has ganado!`
+                });
 
             }
 
             if (data.winner == player2Ref.current.playerName) {
 
                 addBattleLog(`¡Has perdido!`);
-                setWinner('p2');
+                //setWinner('p2');
+
+                scheduleAnimation({
+                    event: 'battleEnd',
+                    winner: 'p2',
+                    log: `¡Has perdido!`
+                });
 
             }
         }
@@ -881,7 +909,7 @@ export default function useBattleEvents({ p1, p2 }) {
 
     return {
         battleLog, addBattleLog, player1, player2, battlerSrcs, setBattlerSrcs, availableMoves,
-        availablePokemon, waiting, switchRequired, winner, animationQueue, pendingAnimation
+        availablePokemon, waiting, switchRequired, animationQueue, pendingAnimation
     }
 
 }

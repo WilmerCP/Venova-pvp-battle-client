@@ -103,7 +103,7 @@ export default function TeamBuilder() {
     },[])
 
     return (
-        <div className="min-h-screen p-6 isometric-background">
+        <div className="min-h-screen p-6 isometric-background pb-20">
             <h1 className="text-center text-4xl font-bold text-white/90 mb-6 tracking-wide font-['Russo_One']"
                 style={{
                     textShadow: `

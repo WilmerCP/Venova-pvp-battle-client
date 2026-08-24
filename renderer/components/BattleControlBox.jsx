@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 
 export default function BattleControlBox({ battleLog, handlers, availableMoves, availablePokemon,
- switchRequired, animationPlaying, currentLog }) {
+ switchRequired, animationPlaying, currentLog, battleEnded }) {
 
   const [menuState, setMenuState] = useState('main') // 'main' | 'moves' | 'pokemon'
   // inside your component, alongside your other state:
@@ -15,6 +15,8 @@ export default function BattleControlBox({ battleLog, handlers, availableMoves, 
 
   //let effectiveMenuState = availableMoves.length === 0 ? 'main' : menuState;
   let effectiveMenuState = animationPlaying === false ? (switchRequired ? 'pokemon' : menuState) : 'waiting';
+
+  effectiveMenuState = battleEnded ? 'waiting' : effectiveMenuState;
 
   useEffect(() => {
 

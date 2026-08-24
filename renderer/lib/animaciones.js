@@ -168,6 +168,16 @@ const MOVE_ANIMATIONS = {
             scaleTo: 1.6,
             back: true
         },
+        'Substitute': {
+            src: "smokebomb.png",
+            cols: 4,
+            rows: 2,
+            totalFrames: 8,
+            scaleFrom: 1,
+            scaleTo: 1.8,
+            slideFrom: 0,
+            slideTo: 0
+        },
     },
 
     elemental: {

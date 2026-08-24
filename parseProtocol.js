@@ -367,6 +367,8 @@ async function parseUpdate(content, win) {
             case '-sidestart': {
                 //|-sidestart|SIDE|CONDITION
                 //|-sidestart|p2: Jugador 2|move: Toxic Spikes
+                //|-sidestart|p2: Jugador 2|Safeguard
+
 
                 const { player, name } = parseSideId(parts[2]);
 

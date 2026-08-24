@@ -104,7 +104,7 @@ export default function Battle() {
     const battleData = useLoaderData();
 
     const { battleLog, addBattleLog, battlerSrcs, setBattlerSrcs, availableMoves,
-        availablePokemon, waiting, switchRequired, winner, animationQueue,
+        availablePokemon, waiting, switchRequired, animationQueue,
         pendingAnimation, setPendingAnimation } = useBattleEvents({ p1, p2 });
 
     const processingRef = useRef(false);
@@ -140,6 +140,11 @@ export default function Battle() {
     const sprite2Ref = useRef();
 
     const navigate = useNavigate()
+
+    const [winner, setWinner] = useState(null);
+
+    const [substituteP1, setSubstituteP1] = useState(false);
+    const [substituteP2, setSubstituteP2] = useState(false);
 
     async function handleAnimation(animation) {
 
@@ -288,9 +293,11 @@ export default function Battle() {
                     if (animation.player === 'p1') {
                         setBattlerSrcs(prev => ({ ...prev, src1: animation.newSrc }));
                         setP1Visible(prev => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp }));
+                        setSubstituteP1(false); // Remove the substitute
                     } else {
                         setBattlerSrcs(prev => ({ ...prev, src2: animation.newSrc }));
                         setP2Visible(prev => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp }));
+                        setSubstituteP2(false);
                     }
 
                     // Wait for the DOM to actually reflect the mount before touching refs
@@ -393,6 +400,74 @@ export default function Battle() {
                         setDisplayAbility(undefined);
                         resolve();
                     }, 1500);
+
+                });
+
+            }
+
+            case 'battleEnd': {
+
+                return new Promise((resolve) => {
+
+                    const timeout = setTimeout(() => {
+
+                        setWinner(animation.winner);
+                        resolve();
+                    }, 1500);
+
+                });
+
+            }
+
+            case 'volatileStart': {
+
+                return new Promise((resolve) => {
+
+                    if (animation.effect == 'Substitute') {
+
+                        if (animation.player === 'p2') {
+                            setSubstituteP2(true);
+
+                        }
+
+                        if (animation.player === 'p1') {
+                            setSubstituteP1(true);
+
+                        }
+
+
+                    }
+
+                    const timeout = setTimeout(() => {
+                        resolve();
+                    }, LOG_TIME);
+
+                });
+
+            }
+
+            case 'volatileEnd': {
+
+                return new Promise((resolve) => {
+
+                    if (animation.effect == 'Substitute') {
+
+                        if (animation.player === 'p2') {
+                            setSubstituteP2(false);
+
+                        }
+
+                        if (animation.player === 'p1') {
+                            setSubstituteP1(false);
+
+                        }
+
+
+                    }
+
+                    const timeout = setTimeout(() => {
+                        resolve();
+                    }, LOG_TIME);
 
                 });
 
@@ -522,9 +597,9 @@ export default function Battle() {
                 {
                     p2Visible.number &&
                     <img
-                        src={battlerSrcs.src2}
+                        src={!substituteP2 ? battlerSrcs.src2 : '/sustituto-front.png'}
                         onError={(e) => e.target.src = '/battlers/000.png'}
-                        className={`${getSpriteAnimationClass(currentAnimation, 'p2')} absolute top-12 right-12 w-48 z-10`}
+                        className={`${getSpriteAnimationClass(currentAnimation, 'p2')} absolute z-10 ${!substituteP2 ? 'top-12 right-12 w-48' : 'top-15 right-12 w-40'}`}
                         ref={sprite2Ref}
                     />
                 }
@@ -547,9 +622,9 @@ export default function Battle() {
                 {/* Sprite jugador - abajo izquierda */}
                 {p1Visible.number &&
                     <img
-                        src={battlerSrcs.src1}
+                        src={!substituteP1 ? battlerSrcs.src1 : '/sustituto-back.png'}
                         onError={(e) => e.target.src = '/battlers/000.png'}
-                        className={`${getSpriteAnimationClass(currentAnimation, 'p1')} absolute bottom-32 left-12 w-64 z-10`}
+                        className={`${getSpriteAnimationClass(currentAnimation, 'p1')} absolute z-10 ${!substituteP1 ? 'bottom-32 left-12 w-64' : 'bottom-25 left-12 w-50'}`}
                         ref={sprite1Ref}
                     />
                 }
@@ -569,7 +644,7 @@ export default function Battle() {
 
                 }
 
-                <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} availablePokemon={availablePokemon} handlers={handlers} switchRequired={switchRequired} animationPlaying={isProcessing} currentLog={currentLog} />
+                <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} availablePokemon={availablePokemon} handlers={handlers} switchRequired={switchRequired} animationPlaying={isProcessing} currentLog={currentLog} battleEnded={winner !== null} />
 
                 {waiting && (
                     <div className="bg-white p-6 rounded-lg shadow-lg text-center absolute bottom-1/2 left-1/2 transform -translate-x-1/2 z-25">

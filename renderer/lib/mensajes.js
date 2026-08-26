@@ -66,7 +66,12 @@ const MENSAJES = {
     'prepare-[Dive]': '¡{pkm} se ha sumergido en el agua!',
     'prepare-[Dig]': '¡{pkm} se ha enterrado en el suelo!',
     'prepare-[Sky Attack]': '¡{pkm} está brillando!',
-    'prepare-[Solar Beam]': '¡{pkm} está cargando energía!'
+    'prepare-[Solar Beam]': '¡{pkm} está cargando energía!',
+    'damage-[confusion]': '¡{pkm} se ha golpeado a si mismo!',
+    'damage-[Leech Seed]': '¡La energía de {pkm} está siendo drenada!',
+    'damage-[Stealth Rock]': '¡Las rocas afiladas han dañado a {pkm}!',
+    'damage-[recoil]': '¡{pkm} ha recibido daño de retroceso!',
+    'damage-[ability: Rough Skin]': '¡{pkm} ha recibido daño de contacto!',
 
 
 }

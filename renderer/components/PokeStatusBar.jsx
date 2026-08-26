@@ -10,7 +10,7 @@ export default function PokeStatusBar({ pkm , barRef , statusBarRef, positionCla
     //console.log('hp to display:', hpToDisplay);
 
     return (
-        <div className={`bg-white rounded-lg px-4 py-3 shadow-lg w-[220px] ${positionClasses}`} ref={statusBarRef}>
+        <div className={`bg-white rounded-sm px-4 py-3 shadow-lg w-[220px] ${positionClasses}`} ref={statusBarRef}>
             <div className="flex flex-row justify-between w-full">
 
                 <p className="flex flex-row items-center">

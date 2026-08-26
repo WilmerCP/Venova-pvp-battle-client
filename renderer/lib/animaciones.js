@@ -142,9 +142,13 @@ const MOVE_ANIMATIONS = {
         },
         'Scary Face': {
             src: "Scary_Face.png",
-            cols: 5,
+            cols: 4,
             rows: 2,
-            totalFrames: 8
+            totalFrames: 8,
+            frameDuration: 150,
+            invertTarget: true,
+            scaleFrom: 1,
+            scaleTo: 1.5,
         },
         'Mean Look': {
             src: "Mean_Look.png",
@@ -177,6 +181,15 @@ const MOVE_ANIMATIONS = {
             scaleTo: 1.8,
             slideFrom: 0,
             slideTo: 0
+        },
+        'Leech Seed': {
+            src: "Leech_Seed.png",
+            cols: 4,
+            rows: 3,
+            totalFrames: 12,
+            fallFrom: 60, // below
+            fallTo: 60,
+            frameDuration: 140
         },
     },
 
@@ -263,7 +276,9 @@ const MOVE_ANIMATIONS = {
                 src: "Flying_Special.png",
                 cols: 5,
                 rows: 3,
-                totalFrames: 14
+                totalFrames: 14,
+                scaleFrom: 1.5,
+                scaleTo: 1.5
             },
         },
         Psychic: {

@@ -1,4 +1,5 @@
 import MOVE_ANIMATIONS from '../lib/animaciones'
+import EFFECTS from '../lib/efectos'
 
 const frameWidth = 192
 const frameHeight = 192
@@ -6,7 +7,7 @@ const frameDuration = 100 // in milliseconds
 
 import { useEffect, useRef, useState } from 'react'
 
-export default function MoveAnimation({ classes = '', onComplete, moveDesc, isFront = true }) {
+export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
 
     const [frame, setFrame] = useState(0);
     const [spriteSheet, setSpriteSheet] = useState(MOVE_ANIMATIONS.default);
@@ -35,7 +36,12 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc, isFr
     const slideTo = spriteSheet.slideTo ?? 0
     const xOffset = slideFrom + (slideTo - slideFrom) * progress
 
+    let isFront = moveDesc.target == 'p1';
+    isFront = spriteSheet.invertTarget ? !isFront : isFront;
+
     const background = spriteSheet.back ? isFront : false;
+
+    let positionClasses = isFront ? 'fixed bottom-32 left-22 w-64': 'fixed top-12 right-12 w-48';
 
     useEffect(() => {
 
@@ -44,7 +50,11 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc, isFr
         // 1. Resolver el sheet de forma SINCRONA
         let sheet;
 
-        if (MOVE_ANIMATIONS.moves[moveDesc.name] !== undefined) {
+        if (moveDesc.event == 'effect') {
+
+            sheet = EFFECTS[moveDesc.name];
+
+        } else if (MOVE_ANIMATIONS.moves[moveDesc.name] !== undefined) {
 
             sheet = MOVE_ANIMATIONS.moves[moveDesc.name];
 
@@ -119,7 +129,7 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc, isFr
 
     return (
         <div
-            className={classes}
+            className={positionClasses}
             style={{
                 width: frameWidth,
                 height: frameHeight,

@@ -53,7 +53,7 @@ async function parseUpdate(content, win) {
                 console.log(`${source.player} ${source.name} used ${move}`)
 
                 const moveInfo = ModdedDex.moves.get(move)
-                //console.log(moveInfo)
+                console.log(moveInfo)
                 const type = moveInfo.type
                 const category = moveInfo.category //Physical, Special, Status
                 const targetType = moveInfo.target //normal, self, allAdjacentFoes
@@ -119,6 +119,8 @@ async function parseUpdate(content, win) {
                 //|-damage|p1a: Slaking|341/389|[from] Leech Seed|[of] p2a: Ferrothorn
                 //|-damage|p2a: Malamar|238/272|[from] Stealth Rock
                 //|-damage|p2a: Ditto|161/215|[from] recoil
+                //|-damage|p2a: Rockicer|207/272|[from] confusion
+                //|-damage|p1a: Bulltauron|310/374|[from] ability: Rough Skin|[of] p2a: Cairoco
                 console.log(`${parts[2]} took damage, now at ${parts[3]}`)
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
@@ -126,12 +128,30 @@ async function parseUpdate(content, win) {
                 const { current, total, status } = parseHealth(parts[3]);
                 console.log(`Health: ${current}, Total: ${total}, Status: ${status}`)
 
+                const tags = parts.slice(4)
+                const fromTag = tags.find(t => t.startsWith('[from]'))
+                const ofTag = tags.find(t => t.startsWith('[of]'))
+
+                const fromInfo = fromTag ? fromTag.replace('[from]','').trim() : null;
+
+                let ofPokemon = ofTag ? ofTag.replace('[of] ', '').trim() : null // "p2a: Sazonte"
+
+                ofPokemon = ofPokemon ? parsePokemonId(ofPokemon) : null
+
+                const ability = fromInfo && fromInfo.includes('ability: ') ? fromInfo.replace('ability: ','').trim() : null
+                const abilityTranslation = ability ? ABILITIES[ability] !== undefined ? ABILITIES[ability].translation : ability : null;
+
+
                 win.webContents.send('damage', {
                     player: player,   // 'p1'
                     hp: current,  // 'hp amount or percentage'
                     maxHp: total,     // 100 or total hp
                     status: status,
-                    name: name
+                    name: name,
+                    from: fromInfo,
+                    ofPokemon: ofPokemon,
+                    ability,
+                    abilityTranslation
                 })
 
                 break

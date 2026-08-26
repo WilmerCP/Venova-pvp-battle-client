@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react'
 import { getMiniSrc, getBattlerSrc } from '../helpers.js'
 
 import MENSAJES from '../lib/mensajes.js'
+import EFFECTS from '../lib/efectos.js'
 
 function replacePokemonName(msj, player, name) {
 
@@ -257,58 +258,77 @@ export default function useBattleEvents({ p1, p2 }) {
     }
 
     function handleDamage(data) {
+        const isPercentageHP = data.maxHp === 100;
 
-        //Data.maxHp might be 0 in case of fainted pokemon
-        if (data.player === 'p1') {
+        if (isPercentageHP && data.from !== null) {
+            logDamageReason(data);
+        }
 
-            //pokemon fainted
-            if (data.hp === 0) {
+        updatePlayerHP('p1', data);
+        updatePlayerHP('p2', data);
+    }
 
-                //Let Faint function handle it
-                return
+    function logDamageReason(data) {
+        const log = MENSAJES[`damage-[${data.from}]`];
 
-            } else {
-                setPlayer1((prev) => ({
-                    ...prev,
-                    currentHP: data.maxHp !== 100 ? data.hp : prev.currentHP,
-                    currentHPPercentage: data.maxHp == 100 ? data.hp : prev.currentHP,
-                }))
+        if (log === undefined) {
+            addBattleLog(`Unhandled damage reason ${data.from}`);
+            return;
+        }
 
-            }
+        const resolvedLog = replacePokemonName(log, data.player, data.name);
 
-            //Add animation only once
-            if (data.maxHp == 100) {
-                scheduleAnimation({
-                    event: 'hpChange',
-                    player: 'p1',
-                    newHP: data.hp
-                });
-            }
+        if (data.from === 'confusion') {
+            scheduleAnimation({
+                event: 'effect',
+                target: data.player,
+                log: resolvedLog,
+                name: 'selfHit'
+            });
+        } else if (data.ability) {
+
+            scheduleAnimation({
+                event: 'ability',
+                pkmName: data.ofPokemon ? data.ofPokemon.name : data.name,
+                abilityName: data.ability,
+                player: data.ofPokemon ? data.ofPokemon.player : data.source.player,
+                translation: data.abilityTranslation
+            });
+
+            scheduleAnimation({
+                event: 'log',
+                log: resolvedLog
+            });
+
+        } else {
+
+            scheduleAnimation({
+                event: 'log',
+                log: resolvedLog
+            });
 
         }
 
-        if (data.player === 'p2') {
-            if (data.maxHp === 0) {
+        addBattleLog(resolvedLog);
+    }
 
-                //Let Faint function handle it
-                return
+    function updatePlayerHP(player, data) {
+        if (data.player !== player) return;
 
-            } else {
-                setPlayer2((prev) => ({
-                    ...prev,
-                    currentHP: data.maxHp !== 100 ? data.hp : prev.currentHP,
-                    currentHPPercentage: data.maxHp == 100 ? data.hp : prev.currentHP,
-                }))
-            }
+        // Pokemon fainted — let the Faint function handle it
+        if (data.hp === 0) return;
 
-            //Add animation only once
-            if (data.maxHp == 100) {
-                scheduleAnimation({
-                    event: 'hpChange',
-                    player: 'p2',
-                    newHP: data.hp
-                });
-            }
+        const isPercentageHP = data.maxHp === 100;
+        const setPlayer = player === 'p1' ? setPlayer1 : setPlayer2;
+
+        setPlayer((prev) => ({
+            ...prev,
+            currentHP: isPercentageHP ? prev.currentHP : data.hp,
+            currentHPPercentage: isPercentageHP ? data.hp : prev.currentHP,
+        }));
+
+        if (isPercentageHP) {
+            scheduleAnimation({ event: 'hpChange', player, newHP: data.hp });
         }
     }
 
@@ -812,13 +832,13 @@ export default function useBattleEvents({ p1, p2 }) {
         addBattleLog(data.line);
 
         /*if (data.player == 'p1') {
- 
+     
             //addBattleLog(`¡${data.name} falló!`);
- 
+     
         } else {
- 
+     
             //addBattleLog(`¡${data.name} rival falló!`);
- 
+     
         }*/
 
     }
@@ -867,10 +887,23 @@ export default function useBattleEvents({ p1, p2 }) {
 
             addBattleLog(msj);
 
-            scheduleAnimation({
-                event: 'log',
-                log: msj
-            })
+            if (EFFECTS[data.effect]) {
+
+                scheduleAnimation({
+                    event: 'effect',
+                    target: data.player,
+                    log: msj,
+                    name: data.effect
+                })
+
+            } else {
+
+                scheduleAnimation({
+                    event: 'log',
+                    log: msj
+                })
+
+            }
 
         } else {
 

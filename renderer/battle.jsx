@@ -125,6 +125,7 @@ export default function Battle() {
 
     //Used for css animations
     const [currentAnimation, setCurrentAnimation] = useState(null);
+    const [animationPlaying, setAnimationPlaying] = useState(false);
 
     //Animation resolve ref
     const resolveRef = useRef(null);
@@ -148,6 +149,8 @@ export default function Battle() {
     const [substituteP1, setSubstituteP1] = useState(false);
     const [substituteP2, setSubstituteP2] = useState(false);
 
+    const [weather, setWeather] = useState('none');
+
     async function handleAnimation(animation) {
 
         console.log(animation)
@@ -165,22 +168,42 @@ export default function Battle() {
 
                     } else {
 
-                        if (animation.target == 'p1') {
-
-                            setCurrentAnimation('attack-p1')
-                            setCurrentMove(animation)
-
-                        } else {
-
-                            setCurrentAnimation('attack-p2')
-                            setCurrentMove(animation)
-
-                        }
+                        setCurrentMove(animation)
+                        setAnimationPlaying(true)
 
                         resolveRef.current = resolve;
                         const timeout = setTimeout(() => {
                             resolve();
-                            setCurrentAnimation('none');
+                            //setCurrentAnimation('none');
+                            setAnimationPlaying(false);
+                            setCurrentMove(undefined);
+                        }, 3000); // slightly more than your CSS transition duration
+
+                    }
+
+                });
+                break;
+            }
+
+            case 'effect': {
+                return new Promise((resolve) => {
+
+                    if (!animation.target) {
+
+                        const timeout = setTimeout(() => {
+                            resolve();
+                        }, LOG_TIME);
+
+                    } else {
+
+                        setCurrentMove(animation)
+                        setAnimationPlaying(true)
+
+                        resolveRef.current = resolve;
+                        const timeout = setTimeout(() => {
+                            resolve();
+                            //setCurrentAnimation('none');
+                            setAnimationPlaying(false);
                             setCurrentMove(undefined);
                         }, 3000); // slightly more than your CSS transition duration
 
@@ -427,30 +450,18 @@ export default function Battle() {
             }
 
             case 'volatileStart': {
-
-                return new Promise((resolve) => {
-
-                    if (animation.effect == 'Substitute') {
-
-                        if (animation.player === 'p2') {
-                            setSubstituteP2(true);
-
-                        }
-
-                        if (animation.player === 'p1') {
-                            setSubstituteP1(true);
-
-                        }
-
-
+                switch (animation.effect) {
+                    case 'Substitute': {
+                        if (animation.player === 'p2') setSubstituteP2(true);
+                        if (animation.player === 'p1') setSubstituteP1(true);
+                        return new Promise((resolve) => setTimeout(resolve, LOG_TIME));
                     }
-
-                    const timeout = setTimeout(() => {
-                        resolve();
-                    }, LOG_TIME);
-
-                });
-
+                    case 'confusion': {
+                        return handleAnimation({ target: animation.player, event: 'effect', name: 'confusion' });
+                    }
+                    default:
+                        return new Promise((resolve) => setTimeout(resolve, LOG_TIME));
+                }
             }
 
             case 'volatileEnd': {
@@ -583,20 +594,13 @@ export default function Battle() {
                 }}>
 
                 {/* Animacion de movimiento */}
-                {currentAnimation == 'attack-p2' && <MoveAnimation classes={`fixed top-12 right-12 w-48`} onComplete={() => {
-                    setCurrentAnimation('none');
-                    resolveRef.current?.();
-                }}
 
-                    moveDesc={currentMove}
-                    isFront={false}
-                />}
-                {currentAnimation == 'attack-p1' && <MoveAnimation classes={`fixed bottom-32 left-22 w-64`} onComplete={() => {
-                    setCurrentAnimation('none');
+                {animationPlaying && <MoveAnimation onComplete={() => {
+                    setAnimationPlaying(false);
                     resolveRef.current?.();
                 }}
                     moveDesc={currentMove}
-                    isFront={true}
+
                 />}
 
 
@@ -606,7 +610,7 @@ export default function Battle() {
                     <img
                         src={!substituteP2 ? battlerSrcs.src2 : '/sustituto-front.png'}
                         onError={(e) => e.target.src = '/battlers/000.png'}
-                        className={`${getSpriteAnimationClass(currentAnimation, 'p2')} absolute z-10 ${!substituteP2 ? 'top-12 right-12 w-48' : 'top-15 right-12 w-40'}`}
+                        className={`${getSpriteAnimationClass(currentAnimation, 'p2')} absolute z-10 ${!substituteP2 ? 'top-12 right-12 w-48' : 'top-25 right-20 w-30'}`}
                         ref={sprite2Ref}
                     />
                 }
@@ -658,6 +662,14 @@ export default function Battle() {
                         <p>Esperando a que el rival tome una accion...</p>
                     </div>
                 )}
+
+                {weather !== 'none' &&
+                    <img
+                        src={`${weather}_icon.png`}
+                        onError={(e) => { e.target.style.display = 'none' }}
+                        className={` fixed z-10 'bottom-[50%] left-[50%]`}
+                    />
+                }
 
             </div>
         </>

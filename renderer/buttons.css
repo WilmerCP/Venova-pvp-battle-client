@@ -1,0 +1,71 @@
+.button-blocky {
+    --btn-color: #008542;
+    --btn-shadow-dark: color-mix(in srgb, var(--btn-color) 10%, black);
+    --btn-shadow-light: color-mix(in srgb, var(--btn-color) 40%, white);
+
+    font-size: 16px;
+    background-color: var(--btn-color);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 0;
+    z-index: 1;
+    user-select: none;
+    cursor: pointer;
+    letter-spacing: 1px;
+    white-space: unset;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    font-weight: 900;
+    transition: all 0.7s cubic-bezier(0, 0.8, 0.26, 0.99);
+}
+
+.button-blocky:before {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    transition: 0.7s cubic-bezier(0, 0.8, 0.26, 0.99);
+    z-index: -1;
+    background-color: var(--btn-color) !important;
+    box-shadow: 0 -4px rgb(0 0 0 / 50%) inset, 0 4px rgb(255 255 255 / 20%) inset,
+        -4px 0 rgb(255 255 255 / 20%) inset, 4px 0 rgb(0 0 0 / 50%) inset;
+}
+
+.button-blocky:after {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    transition: 0.7s cubic-bezier(0, 0.8, 0.26, 0.99);
+}
+
+.button-blocky:hover:before {
+
+    box-shadow: 0 -4px color-mix(in srgb, var(--btn-shadow-dark) 50%, transparent) inset,
+        0 4px color-mix(in srgb, var(--btn-shadow-light) 50%, transparent) inset,
+        -4px 0 color-mix(in srgb, var(--btn-shadow-light) 50%, transparent) inset,
+        4px 0 color-mix(in srgb, var(--btn-shadow-dark) 50%, transparent) inset;
+}
+
+.button-blocky:hover:after {
+    box-shadow: 2px 2px 0 0 rgb(0 0 0 / 15%);
+}
+
+.button-blocky:active {
+    transform: translateY(4px);
+}
+
+.button-blocky:active:after {
+    box-shadow: 0 0px 0 0 rgb(0 0 0 / 15%);
+}

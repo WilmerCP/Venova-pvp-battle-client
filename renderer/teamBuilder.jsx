@@ -4,6 +4,7 @@ import { useLoaderData, useNavigate } from 'react-router-dom';
 import PokemonEditor from './components/PokemonEditor';
 import ComboBox from './components/ComboBox';
 import { getMiniSrc, getGenderFromRatio } from './helpers';
+import BlockyButton from './components/BlockyButton';
 
 
 const EMPTY_SLOT = {
@@ -147,24 +148,19 @@ export default function TeamBuilder() {
             </div>
             {/* Acciones: volver o iniciar combate con el equipo armado */}
             <div className="flex justify-center gap-3 mt-6 max-w-3xl mx-auto">
-                <button
+                <BlockyButton
                     onClick={() => { navigate('/'); }}
-                    className="px-4 py-2 rounded-lg text-sm font-medium
-                     bg-white text-black border border-white/20
-                     hover:bg-white transition-colors duration-150"
+                    color="#dd8c21"
                 >
                     Volver
-                </button>
+                </BlockyButton>
 
-                <button
+                <BlockyButton
                     onClick={() => { handleStartBattle() }}
-                    className="px-4 py-2 rounded-lg text-sm font-medium
-                     bg-emerald-500 text-white
-                     hover:bg-emerald-400 transition-colors duration-150
-                     shadow-md shadow-emerald-500/30"
+                    color="#e43926"
                 >
                     Iniciar combate
-                </button>
+                </BlockyButton>
             </div>
         </div >
     );

@@ -2,6 +2,7 @@ import './index.css'
 import bg from './assets/fondos/battlebgChampion.png'
 import p1 from './assets/iguana.png'
 import p2 from './assets/zamuro.png'
+import BlockyButton from './components/BlockyButton'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -37,20 +38,8 @@ export default function App() {
         style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.5)' }}>
           Desafia a tus oponentes en combates épicos</p>
       <div className="flex space-x-4 mt-4">
-        <button className="bg-blue-600 hover:bg-blue-500 active:translate-y-1 active:border-b-2
-             text-white font-bold text-lg tracking-wide py-3 px-6 rounded-lg
-             border-b-[6px] border-blue-900
-             transition-all duration-100 z-5"
-             onClick={() => navigate('/battle')}>
-          Combatir
-        </button>
-        <button className="bg-amber-500 hover:bg-amber-400 active:translate-y-1 active:border-b-2
-             text-white font-bold text-lg tracking-wide py-3 px-6 rounded-lg
-             border-b-[6px] border-amber-800
-             transition-all duration-100 z-5"
-             onClick={() => navigate('/teamBuilder')}>
-          Equipos
-        </button>
+        <BlockyButton color="#e43926" onClick={() => navigate('/battle')}>Combatir</BlockyButton>
+        <BlockyButton color="#dd8c21" onClick={() => navigate('/teamBuilder')}>Equipos</BlockyButton>
         <img src={p1} alt="Player 1" className="w-64 absolute left-5 bottom-10 transform" />
         <img src={p2} alt="Player 2" className="w-64 absolute right-5 top-10 transform" />
       </div>

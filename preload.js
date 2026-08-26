@@ -8,7 +8,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
   setSelectedTeam: (team) => ipcRenderer.invoke('set-selected-team', team),
   getSelectedTeam: () => ipcRenderer.invoke('get-selected-team'),
 
-  on: (channel, cb) => ipcRenderer.on(channel, (event, data) => cb(data)),
+  on: (channel, cb) => ipcRenderer.on(channel, (event, data) => {
+  console.log('[IPC]', channel, data);
+  try {
+    cb(data);
+  } catch (err) {
+    console.error('[IPC ERROR]', channel, 'data:', data, err);
+  }
+}),
   off: (channel) => ipcRenderer.removeAllListeners(channel),
 })
 

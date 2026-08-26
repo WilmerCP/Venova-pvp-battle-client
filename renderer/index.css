@@ -250,3 +250,67 @@ background-position: 0 0, 0 0, 30px 53px, 30px 53px, 0 0, 30px 53px;
 .slide-in-right {
   animation: slideInRight 0.5s ease-out;
 }
+
+/* Flying up and disappearing into the sky */
+@keyframes flyAway {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+
+
+  100% {
+    transform: translateY(-140px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+
+.fly-animation {
+  animation: flyAway 0.4s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+}
+
+/* Digging into the ground */
+@keyframes digDown {
+  0% {
+    transform: translateY(0) scaleY(1);
+    opacity: 1;
+  }
+
+  40% {
+    transform: translateY(40px) scaleY(0.9);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(70px) scaleY(0.5);
+    opacity: 0;
+  }
+}
+
+.dig-animation {
+  animation: digDown 0.6s ease-in forwards;
+}
+
+/* Diving into water */
+@keyframes diveIn {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(30px) scale(0.9) rotate(15deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(70px) scale(0.4) rotate(30deg);
+    opacity: 0;
+  }
+}
+
+.dive-animation {
+  animation: diveIn 0.7s ease-in forwards;
+}

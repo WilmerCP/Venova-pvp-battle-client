@@ -72,6 +72,24 @@ function getSpriteAnimationClass(animationDesc, playerId) {
         case 'switch-p2':
             return 'sendout-animation';
 
+        case 'Fly-p1':
+            return 'fly-animation';
+
+        case 'Fly-p2':
+            return 'fly-animation';
+
+        case 'Dig-p1':
+            return 'dig-animation';
+
+        case 'Dig-p2':
+            return 'dig-animation';
+
+        case 'Dive-p1':
+            return 'dive-animation';
+
+        case 'Dive-p2':
+            return 'dive-animation';
+
         default:
             return '';
     }
@@ -149,6 +167,9 @@ export default function Battle() {
     const [substituteP1, setSubstituteP1] = useState(false);
     const [substituteP2, setSubstituteP2] = useState(false);
 
+    const [hiddenP1, setHiddenP1] = useState(false);
+    const [hiddenP2, setHiddenP2] = useState(false);
+
     const [weather, setWeather] = useState('none');
 
     async function handleAnimation(animation) {
@@ -171,13 +192,20 @@ export default function Battle() {
                         setCurrentMove(animation)
                         setAnimationPlaying(true)
 
-                        resolveRef.current = resolve;
-                        const timeout = setTimeout(() => {
-                            resolve();
-                            //setCurrentAnimation('none');
+                        const cleanup = () => {
                             setAnimationPlaying(false);
                             setCurrentMove(undefined);
-                        }, 3000); // slightly more than your CSS transition duration
+                            setCurrentAnimation(null); 
+                            if (animation.player === 'p1') {
+                                setHiddenP1(false);
+                            } else {
+                                setHiddenP2(false);
+                            }
+                            resolve();
+                        };
+
+                        resolveRef.current = cleanup;
+                        const timeout = setTimeout(cleanup, 3000); // slightly more than your CSS transition duration
 
                     }
 
@@ -464,23 +492,14 @@ export default function Battle() {
                 }
             }
 
-            case 'volatileEnd': {
+
+
+            case 'weather': {
 
                 return new Promise((resolve) => {
 
-                    if (animation.effect == 'Substitute') {
-
-                        if (animation.player === 'p2') {
-                            setSubstituteP2(false);
-
-                        }
-
-                        if (animation.player === 'p1') {
-                            setSubstituteP1(false);
-
-                        }
-
-
+                    if (!animation.upkeep) {
+                        setWeather(animation.type);
                     }
 
                     const timeout = setTimeout(() => {
@@ -488,6 +507,57 @@ export default function Battle() {
                     }, LOG_TIME);
 
                 });
+
+            }
+
+            case 'prepare': {
+
+                return new Promise((resolve) => {
+
+                    const spriteRef = animation.player === 'p1' ? sprite1Ref : sprite2Ref;
+                    const elPkm = spriteRef.current;
+
+
+                    if (!elPkm) {
+                        console.log('Problem with sprite element');
+                        return resolve();
+                    }
+
+                    const hidePlayer = () => {
+                        setCurrentAnimation('none');
+                        if (animation.player === 'p1') {
+                            setHiddenP1(true);
+                        } else {
+                            setHiddenP2(true);
+                        }
+                    };
+
+                    if (animation.player == 'p1') {
+
+                        setCurrentAnimation(`${animation.move}-p1`)
+
+                    } else {
+
+                        setCurrentAnimation(`${animation.move}-p2`)
+
+                    }
+
+
+                    const timeout = setTimeout(() => {
+                        elPkm.removeEventListener('animationend', onEnd);
+                        hidePlayer();
+                        resolve();
+                    }, 1000); // safety fallback, same reasoning as before
+
+                    const onEnd = (e) => {
+                        clearTimeout(timeout);
+                        elPkm.removeEventListener('animationend', onEnd);
+                        hidePlayer();
+                        resolve();
+                    };
+                    elPkm.addEventListener('animationend', onEnd);
+                });
+                break;
 
             }
 
@@ -618,7 +688,7 @@ export default function Battle() {
                 {/* HP del enemigo - flotando junto a su sprite */}
 
                 {
-                    p2Visible.number &&
+                    p2Visible.number && !hiddenP2 &&
                     <PokeStatusBar pkm={p2Visible} barRef={bar2Ref} statusBarRef={statusBar2Ref} positionClasses={`absolute top-24 left-8 ${getBarAnimationClass(currentAnimation, 'p2')} ${(battlerSrcs.src2 == undefined || currentAnimation == 'faint-p2') && 'hidden'}`} />
                 }
 
@@ -631,7 +701,7 @@ export default function Battle() {
                 }
 
                 {/* Sprite jugador - abajo izquierda */}
-                {p1Visible.number &&
+                {p1Visible.number && !hiddenP1 &&
                     <img
                         src={!substituteP1 ? battlerSrcs.src1 : '/sustituto-back.png'}
                         onError={(e) => e.target.src = '/battlers/000.png'}
@@ -667,7 +737,7 @@ export default function Battle() {
                     <img
                         src={`${weather}_icon.png`}
                         onError={(e) => { e.target.style.display = 'none' }}
-                        className={` fixed z-10 'bottom-[50%] left-[50%]`}
+                        className={` absolute z-10 bottom-[17em] right-[3em] w-9`}
                     />
                 }
 

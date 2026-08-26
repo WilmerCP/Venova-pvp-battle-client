@@ -622,6 +622,27 @@ async function parseUpdate(content, win) {
 
                 console.log(line);
 
+                const tags = parts.slice(3)
+                const upkeep = tags.includes('[upkeep]')
+
+                const fromTag = tags.find(t => t.startsWith('[from] ability:'))
+                const ability = fromTag ? fromTag.split('ability: ')[1] : null
+                const abilityTranslation = ability ? ABILITIES[ability] !== undefined ? ABILITIES[ability].translation : ability : null;
+
+                const ofTag = tags.find(t => t.startsWith('[of]'))
+
+                let ofPokemon = ofTag ? ofTag.replace('[of] ', '') : null // "p2a: Sazonte"
+
+                ofPokemon = ofPokemon ? parsePokemonId(ofPokemon) : null
+
+                win.webContents.send('weather', {
+                    type: parts[2],
+                    upkeep,
+                    ability,
+                    abilityTranslation,
+                    ofPokemon
+                })
+
                 break
             }
 
@@ -668,7 +689,9 @@ async function parseUpdate(content, win) {
                     move: move,
                     player: player,   // 'p1'
                     name: name,  // 'Pikachu'
-                })
+                })  
+
+                break;
 
             }
 

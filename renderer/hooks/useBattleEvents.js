@@ -200,7 +200,8 @@ export default function useBattleEvents({ p1, p2 }) {
             category: data.category,
             heal: data.heal,
             name: data.move,
-            log: log
+            log: log,
+            player: data.source.player,
         });
     }
 
@@ -454,7 +455,7 @@ export default function useBattleEvents({ p1, p2 }) {
         if (data.player === 'p2') {
             setPlayer2((prev) => ({ ...prev, status: data.status }))
 
-            let log = `¡${data.pkmName} rival ${MENSAJES[data.status]}!`
+            let log = `¡${data.pkmName} rival ${MENSAJES[data.status]}`
 
             scheduleAnimation({
                 event: 'statusChange',
@@ -470,7 +471,7 @@ export default function useBattleEvents({ p1, p2 }) {
         if (data.player === 'p1') {
             setPlayer1((prev) => ({ ...prev, status: data.status }))
 
-            let log = `¡${data.pkmName} ${MENSAJES[data.status]}!`
+            let log = `¡${data.pkmName} ${MENSAJES[data.status]}`
 
             scheduleAnimation({
                 event: 'statusChange',
@@ -487,7 +488,7 @@ export default function useBattleEvents({ p1, p2 }) {
         if (data.player === 'p2') {
             setPlayer2((prev) => ({ ...prev, status: 'none' }))
 
-            let log = `¡${data.pkmName} ${MENSAJES[`${data.status}-recover`]}!`;
+            let log = `¡${data.pkmName} ${MENSAJES[`${data.status}-recover`]}`;
 
             scheduleAnimation({
                 event: 'statusChange',
@@ -520,18 +521,43 @@ export default function useBattleEvents({ p1, p2 }) {
     function handlePrepare(data) {
         // Handle the (charge moves) prepare event
 
+        console.log('Prepare event:', data)
+
         let log = MENSAJES[`prepare-[${data.move}]`];
 
         if (log !== undefined) {
 
             log = replacePokemonName(log, data.player, data.name);
 
-            addBattleLog(log);
+            switch (data.move) {
 
-            scheduleAnimation({
-                event: 'log',
-                log: log
-            })
+                case 'Dive':
+                case 'Dig':
+                case 'Fly': {
+
+                    scheduleAnimation({
+                        event: 'prepare',
+                        move: data.move,
+                        player: data.player,
+                        pkm: data.name,
+                        log: log
+                    })
+
+
+                    break;
+
+                }
+
+                default:
+
+                    scheduleAnimation({
+                        event: 'log',
+                        log: log
+                    })
+
+            }
+
+            addBattleLog(log);
 
         } else {
 
@@ -942,6 +968,33 @@ export default function useBattleEvents({ p1, p2 }) {
 
     }
 
+    function handleWeather(data) {
+
+        if (data.ability) {
+
+            scheduleAnimation({
+                event: 'ability',
+                pkmName: data.ofPokemon.name,
+                abilityName: data.ability,
+                player: data.ofPokemon.player,
+                translation: data.abilityTranslation
+            });
+
+        }
+
+        let log = data.upkeep ? MENSAJES[`upkeep-[${data.type}]`] : MENSAJES[`weather-[${data.type}]`];
+
+        scheduleAnimation({
+            event: 'weather',
+            type: data.type,
+            log,
+            upkeep: data.upkeep
+        });
+
+        addBattleLog(log);
+
+    }
+
     useEffect(() => {
         const handlers = {
             'player': handlePlayer,
@@ -974,7 +1027,8 @@ export default function useBattleEvents({ p1, p2 }) {
             'effect': handleEffect,
             'boost': handleBoost,
             'ability': handleAbility,
-            'prepare': handlePrepare
+            'prepare': handlePrepare,
+            'weather': handleWeather
         }
 
         Object.entries(handlers).forEach(([channel, handler]) => {

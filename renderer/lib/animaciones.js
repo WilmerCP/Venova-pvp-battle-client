@@ -46,9 +46,12 @@ const MOVE_ANIMATIONS = {
             rows: 3
         },
         'Dragon Claw': {
-            src: "Dragon_Claw.png",
-            cols: 4,
-            rows: 5
+            src: "D_Claw.png",
+            cols: 5,
+            rows: 3,
+            scaleFrom: 1.3,
+            scaleTo: 1.3,
+            totalFrames: 9
         },
         'Rock Tomb': {
             src: "Rock_Tomb.png",
@@ -119,13 +122,14 @@ const MOVE_ANIMATIONS = {
             totalFrames: 13
         },
         'Curse': {
-            src: "Curse.png",
-            cols: 5,
+            src: "Maldicion.png",
+            cols: 4,
             rows: 3,
-            totalFrames: 11,
-            scaleFrom: 1.3,
-            scaleTo: 2,
-            frameDuration: 150
+            totalFrames: 17,
+            scaleFrom: 1.6,
+            scaleTo: 1.6,
+            frameDuration: 150,
+            invertTarget: true
         },
         'Fire Blast': {
             src: "Fire_Blast.png",
@@ -151,10 +155,14 @@ const MOVE_ANIMATIONS = {
             scaleTo: 1.5,
         },
         'Mean Look': {
-            src: "Mean_Look.png",
+            src: "Mal_De_Ojo.png",
             cols: 4,
             rows: 2,
-            totalFrames: 6
+            totalFrames: 7,
+            frameDuration: 200,
+            invertTarget: true,
+            scaleFrom: 1,
+            scaleTo: 1,
         },
         'Protect': {
             src: "Protect.png",
@@ -190,6 +198,13 @@ const MOVE_ANIMATIONS = {
             fallFrom: 60, // below
             fallTo: 60,
             frameDuration: 140
+        },
+        'Crush Claw': {
+            src: "Slash.png",
+            cols: 4,
+            rows: 1,
+            totalFrames: 5,
+            frameDuration: 120
         },
     },
 

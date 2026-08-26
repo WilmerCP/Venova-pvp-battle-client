@@ -50,6 +50,7 @@ const MENSAJES = {
     'effect-[move: Substitute]': '¡El sustituto de {pkm} ha recibido daño en su lugar!',
     'effect-[move: Fire Spin]': '¡{pkm} ha recibido daño por un vórtice de fuego!',
     'effect-[ability: Mummy]': '¡{pkm} ha adquirido la habilidad: Momia!',
+    'effect-[trapped]': '¡{pkm} no puede escapar!',
     'boost-atk-[1]': '¡El ataque de {pkm} ha aumentado!',
     'boost-spa-[1]': '¡El ataque especial de {pkm} ha aumentado!',
     'boost-def-[1]': '¡La defensa de {pkm} ha aumentado!',
@@ -72,7 +73,21 @@ const MENSAJES = {
     'damage-[Stealth Rock]': '¡Las rocas afiladas han dañado a {pkm}!',
     'damage-[recoil]': '¡{pkm} ha recibido daño de retroceso!',
     'damage-[ability: Rough Skin]': '¡{pkm} ha recibido daño de contacto!',
-
+    'damage-[item: Rocky Helmet]': '¡{pkm} se ha golpeado con un casco muy duro!',
+    'damage-[Sandstorm]': '¡{pkm} es golpeado fuertemente por la tormenta de arena!',
+    'damage-[Hail]': '¡{pkm} es golpeado fuertemente por el granizo!',
+    'damage-[move: Sand Tomb]': '¡{pkm} es golpeado por un bucle de arena!',
+    'damage-[Curse]': '¡{pkm} sufre por la maldición!',
+    'damage-[psn]': '¡{pkm} sufre por el veneno!',
+    'weather-[RainDance]': '¡Ha empezado a llover!',
+    'weather-[none]': 'El clima ha vuelto a la normalidad.',
+    'upkeep-[RainDance]': '¡Está cayendo un palo de agua!',
+    'weather-[Sandstorm]': '¡Ha empezado un tormenta de arena!',
+    'upkeep-[Sandstorm]': '¡La arena es tanta que no permite ver!',
+    'upkeep-[Hail]': '¡Está cayendo granizo!',
+    'weather-[Hail]': '¡Ha empezado a granizar!',
+    'upkeep-[SunnyDay]': '¡El sol brilla intensamente!',
+    'weather-[SunnyDay]': '¡El sol ha salido!'
 
 }
 export default MENSAJES;

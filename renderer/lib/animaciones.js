@@ -129,7 +129,7 @@ const MOVE_ANIMATIONS = {
             scaleFrom: 1.6,
             scaleTo: 1.6,
             frameDuration: 150,
-            invertTarget: true
+            forceOnSelf: true
         },
         'Fire Blast': {
             src: "Fire_Blast.png",
@@ -150,7 +150,7 @@ const MOVE_ANIMATIONS = {
             rows: 2,
             totalFrames: 8,
             frameDuration: 150,
-            invertTarget: true,
+            forceOnSelf: true,
             scaleFrom: 1,
             scaleTo: 1.5,
         },
@@ -160,7 +160,7 @@ const MOVE_ANIMATIONS = {
             rows: 2,
             totalFrames: 7,
             frameDuration: 200,
-            invertTarget: true,
+            forceOnSelf: true,
             scaleFrom: 1,
             scaleTo: 1,
         },

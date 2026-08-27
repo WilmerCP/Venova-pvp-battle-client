@@ -12,7 +12,7 @@ import AbilityFrame from './components/AbilityFrame.jsx'
 
 import useBattleEvents from './hooks/useBattleEvents.js'
 
-import MENSAJES from './lib/mensajes.js'
+import { SunnyLayer, RainLayer, HailLayer, SandstormLayer } from './components/Weather.jsx'
 
 const LOG_TIME = 800 //ms
 
@@ -195,7 +195,7 @@ export default function Battle() {
                         const cleanup = () => {
                             setAnimationPlaying(false);
                             setCurrentMove(undefined);
-                            setCurrentAnimation(null); 
+                            setCurrentAnimation(null);
                             if (animation.player === 'p1') {
                                 setHiddenP1(false);
                             } else {
@@ -689,7 +689,7 @@ export default function Battle() {
 
                 {
                     p2Visible.number && !hiddenP2 &&
-                    <PokeStatusBar pkm={p2Visible} barRef={bar2Ref} statusBarRef={statusBar2Ref} positionClasses={`absolute top-24 left-8 ${getBarAnimationClass(currentAnimation, 'p2')} ${(battlerSrcs.src2 == undefined || currentAnimation == 'faint-p2') && 'hidden'}`} />
+                    <PokeStatusBar pkm={p2Visible} barRef={bar2Ref} statusBarRef={statusBar2Ref} positionClasses={`absolute top-24 left-8 z-15 ${getBarAnimationClass(currentAnimation, 'p2')} ${(battlerSrcs.src2 == undefined || currentAnimation == 'faint-p2') && 'hidden'}`} />
                 }
 
                 {/* Barra para mostrar las habilidades activadas P2 */}
@@ -713,7 +713,7 @@ export default function Battle() {
                 {/* HP del jugador - flotando junto a su sprite */}
                 {
                     p1Visible.number &&
-                    <PokeStatusBar pkm={p1Visible} barRef={bar1Ref} statusBarRef={statusBar1Ref} positionClasses={`absolute bottom-48 right-12 ${getBarAnimationClass(currentAnimation, 'p1')} ${(battlerSrcs.src1 == undefined || currentAnimation == 'faint-p1') && 'hidden'}`} />
+                    <PokeStatusBar pkm={p1Visible} barRef={bar1Ref} statusBarRef={statusBar1Ref} positionClasses={`absolute bottom-48 right-12 z-15 ${getBarAnimationClass(currentAnimation, 'p1')} ${(battlerSrcs.src1 == undefined || currentAnimation == 'faint-p1') && 'hidden'}`} />
 
                 }
 
@@ -742,6 +742,10 @@ export default function Battle() {
                 }
 
             </div>
+            {weather === "SunnyDay" && <SunnyLayer visible={true}/>}
+            {weather === "RainDance" && <RainLayer intensity={130} />}
+            {weather === "Hail" && <HailLayer intensity={45} />}
+            {weather === "Sandstorm" && <SandstormLayer />}
         </>
     )
 }

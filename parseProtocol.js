@@ -10,11 +10,18 @@ const { cleanPokemonName, parseEffect, parsePokemonId, parseSideId, parseReason,
 async function parseUpdate(content, win) {
     const lines = content.split('\n')
 
-    for (const line of lines) {
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
         if (!line.startsWith('|')) continue
 
         const parts = line.split('|')
         const type = parts[1]
+
+        //Filter out duplicate lines
+        if (type === 'split') {
+            i++;
+            continue;
+        }
 
         switch (type) {
             case 'player': {
@@ -29,6 +36,8 @@ async function parseUpdate(content, win) {
             //|move|p2a: Togekiss|Roost||[still]
             //|move|p2a: Togekiss|Roost|p2a: Togekiss
             //|move|p1a: Onzanterian|Thunder Wave|p2a: Sazonte|[from] ability: Magic Bounce
+            //|-anim|p1a: Truzuhe|Solar Beam|p2a: RaltsV
+            case '-anim':
             case 'move': {
                 const source = parsePokemonId(parts[2]) //{ player, slot, name }
                 const target = parsePokemonId(parts[4]) //{ player, slot, name }
@@ -50,10 +59,10 @@ async function parseUpdate(content, win) {
 
                 console.log(line)
 
-                console.log(`${source.player} ${source.name} used ${move}`)
+                //console.log(`${source.player} ${source.name} used ${move}`)
 
                 const moveInfo = ModdedDex.moves.get(move)
-                console.log(moveInfo)
+                //console.log(moveInfo)
                 const type = moveInfo.type
                 const category = moveInfo.category //Physical, Special, Status
                 const targetType = moveInfo.target //normal, self, allAdjacentFoes
@@ -620,7 +629,7 @@ async function parseUpdate(content, win) {
             case '-weather': {
                 //|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Kyogre
 
-                console.log(line);
+                //console.log(line);
 
                 const tags = parts.slice(3)
                 const upkeep = tags.includes('[upkeep]')

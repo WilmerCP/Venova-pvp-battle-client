@@ -37,7 +37,7 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
     const xOffset = slideFrom + (slideTo - slideFrom) * progress
 
     let isFront = moveDesc.target == 'p1';
-    isFront = spriteSheet.invertTarget ? !isFront : isFront;
+    isFront = spriteSheet.forceOnSelf ? moveDesc.player == 'p1': isFront;
 
     const background = spriteSheet.back ? isFront : false;
 

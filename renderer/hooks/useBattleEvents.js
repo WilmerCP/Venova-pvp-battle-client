@@ -206,10 +206,13 @@ export default function useBattleEvents({ p1, p2 }) {
     }
 
     function handleFaint(data) {
+
+        const log = replacePokemonName('¡{pkm} se debilitó',data.player,data.name);
+
         if (data.player === 'p1') {
 
             setPlayer1((prev) => ({ ...prev, pkmName: null, number: null, currentHP: 0, currentHPPercentage: 0 }))
-            addBattleLog(`¡${data.name} se debilitó!`)
+            addBattleLog(log)
             setAvailableMoves([])
             setSwitchRequired(true)
 
@@ -221,7 +224,8 @@ export default function useBattleEvents({ p1, p2 }) {
 
             scheduleAnimation({
                 event: 'faint',
-                player: 'p1'
+                player: 'p1',
+                log: log
             });
 
             setAvailablePokemon((prev) => {
@@ -251,17 +255,21 @@ export default function useBattleEvents({ p1, p2 }) {
 
             scheduleAnimation({
                 event: 'faint',
-                player: 'p2'
+                player: 'p2',
+                log: log
             });
 
-            addBattleLog(`¡El ${data.name} salvaje se debilitó!`)
+            addBattleLog(log)
         }
     }
 
     function handleDamage(data) {
-        const isPercentageHP = data.maxHp === 100;
 
-        if (isPercentageHP && data.from !== null) {
+        console.log('Damage event:', data)
+
+        //const isPercentageHP = data.maxHp === 100;
+
+        if (data.from !== null) {
             logDamageReason(data);
         }
 
@@ -335,10 +343,6 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleHeal(data) {
 
-        console.log("HOLAAAAA")
-
-        console.log(data)
-
         if (data.player === 'p1') {
 
 
@@ -356,6 +360,14 @@ export default function useBattleEvents({ p1, p2 }) {
                 if (data.reason?.includes('drain')) {
 
                     log = `¡${data.name} ha absorbido puntos de salud!`
+
+                }else if (data.reason?.includes('Ingrain')) {
+
+                    log = `¡${data.name} se ha nutrido con sus raíces!`
+
+                } else if (data.reason?.includes('move: Wish')) {
+
+                    log = `¡El Deseo de ${data.name} se ha realizado!`
 
                 } else if (data.reason !== undefined) {
 

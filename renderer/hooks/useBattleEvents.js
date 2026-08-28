@@ -207,7 +207,7 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleFaint(data) {
 
-        const log = replacePokemonName('¡{pkm} se debilitó',data.player,data.name);
+        const log = replacePokemonName('¡{pkm} se debilitó', data.player, data.name);
 
         if (data.player === 'p1') {
 
@@ -294,6 +294,15 @@ export default function useBattleEvents({ p1, p2 }) {
                 log: resolvedLog,
                 name: 'selfHit'
             });
+        } else if (EFFECTS[data.from]) {
+
+            scheduleAnimation({
+                event: 'effect',
+                target: data.player,
+                log: resolvedLog,
+                name: data.from
+            })
+
         } else if (data.ability) {
 
             scheduleAnimation({
@@ -361,7 +370,7 @@ export default function useBattleEvents({ p1, p2 }) {
 
                     log = `¡${data.name} ha absorbido puntos de salud!`
 
-                }else if (data.reason?.includes('Ingrain')) {
+                } else if (data.reason?.includes('Ingrain')) {
 
                     log = `¡${data.name} se ha nutrido con sus raíces!`
 
@@ -464,70 +473,59 @@ export default function useBattleEvents({ p1, p2 }) {
     }
 
     function handleStatus(data) {
-        if (data.player === 'p2') {
-            setPlayer2((prev) => ({ ...prev, status: data.status }))
 
-            let log = `¡${data.pkmName} rival ${MENSAJES[data.status]}`
+        if (data.ability) {
 
             scheduleAnimation({
-                event: 'statusChange',
-                player: 'p2',
-                newStatus: data.status,
-                log: log
+                event: 'ability',
+                pkmName: data.ofPokemon ? data.ofPokemon.name : data.pkmName,
+                abilityName: data.ability,
+                player: data.ofPokemon ? data.ofPokemon.player : data.player,
+                translation: data.abilityTranslation
             });
-
-            addBattleLog(log)
 
         }
 
-        if (data.player === 'p1') {
-            setPlayer1((prev) => ({ ...prev, status: data.status }))
+        updatePlayer(data.player, { status: data.status })
 
-            let log = `¡${data.pkmName} ${MENSAJES[data.status]}`
+        const log = replacePokemonName(MENSAJES[data.status], data.player, data.pkmName);
 
-            scheduleAnimation({
-                event: 'statusChange',
-                player: 'p1',
-                newStatus: data.status,
-                log: log
-            });
-            addBattleLog(log)
+        scheduleAnimation({
+            event: 'statusChange',
+            player: data.player,
+            newStatus: data.status,
+            log: log
+        });
 
-        }
+        addBattleLog(log)
+
     }
 
     function handleStatusRecover(data) {
-        if (data.player === 'p2') {
-            setPlayer2((prev) => ({ ...prev, status: 'none' }))
 
-            let log = `¡${data.pkmName} ${MENSAJES[`${data.status}-recover`]}`;
+        let msj = MENSAJES[`${data.status}-recover`];
 
-            scheduleAnimation({
-                event: 'statusChange',
-                player: 'p2',
-                newStatus: 'none',
-                log: log
-            });
+        if (!msj) {
 
-            addBattleLog(log)
+            addBattleLog(`Error: unhandled status recover -> ${data.status}`)
+            return;
 
         }
 
-        if (data.player === 'p1') {
-            setPlayer1((prev) => ({ ...prev, status: 'none' }))
+        let log = replacePokemonName(msj, data.player, data.pkmName);
 
-            let log = `¡${data.pkmName} ${MENSAJES[`${data.status}-recover`]}!`
+        updatePlayer(data.player, { status: 'none' })
 
-            scheduleAnimation({
-                event: 'statusChange',
-                player: 'p1',
-                newStatus: 'none',
-                log: log
-            });
+        scheduleAnimation({
+            event: 'statusChange',
+            player: data.player,
+            newStatus: 'none',
+            log: log
+        });
 
-            addBattleLog(log)
+        addBattleLog(log)
 
-        }
+
     }
 
     function handlePrepare(data) {
@@ -650,13 +648,26 @@ export default function useBattleEvents({ p1, p2 }) {
         if (msj !== undefined) {
 
             msj = replacePokemonName(msj, data.player, data.name);
-
             addBattleLog(msj);
 
-            scheduleAnimation({
-                event: 'log',
-                log: msj
-            })
+            if (EFFECTS[data.reason]) {
+
+                scheduleAnimation({
+                    event: 'effect',
+                    target: data.player,
+                    log: msj,
+                    name: data.reason
+                })
+
+            } else {
+
+                scheduleAnimation({
+                    event: 'log',
+                    log: msj
+                })
+
+            }
+
 
         } else {
 
@@ -777,7 +788,25 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleStartVolatile(data) {
 
+        if (data.ability) {
+
+            scheduleAnimation({
+                event: 'ability',
+                pkmName: data.ofPokemon ? data.ofPokemon.name : data.name,
+                abilityName: data.ability,
+                player: data.ofPokemon ? data.ofPokemon.player : data.player,
+                translation: data.abilityTranslation
+            });
+
+        }
+
         let msj = MENSAJES[`[${data.effect}]-start`];
+
+        if(data.effect == 'Disable' && data.extraInfo !== undefined){
+
+            msj = `¡El movimiento ${data.extraInfo} de {pkm} ha sido desactivado!`;
+
+        }
 
         if (msj !== undefined) {
 
@@ -866,18 +895,66 @@ export default function useBattleEvents({ p1, p2 }) {
     }
 
     function handleFail(data) {
+        //addBattleLog(data.line);
 
-        addBattleLog(data.line);
+        const { player, name, action, effectFrom, effectOf, isWeak } = data;
 
-        /*if (data.player == 'p1') {
-     
-            //addBattleLog(`¡${data.name} falló!`);
-     
-        } else {
-     
-            //addBattleLog(`¡${data.name} rival falló!`);
-     
-        }*/
+        let msj;
+
+        switch (action) {
+            case 'unboost':
+                if (effectFrom) {
+                    msj = `¡La reducción de estadísticas no tuvo efecto en {pkm}!`;
+                } else {
+                    msj = `¡Las estadísticas de {pkm} no pudieron bajar!`;
+                    addBattleLog(data.line);
+                }
+                break;
+
+            case 'heal':
+                msj = `¡{pkm} ya tiene la vida completa!`;
+                break;
+
+            case 'tox':
+            case 'psn':
+                msj = `¡{pkm} ya está envenenado!`;
+                break;
+
+            case 'slp':
+                msj = `¡{pkm} ya está dormido!`;
+                break;
+
+            case 'par':
+                msj = `¡{pkm} ya está paralizado!`;
+                break;
+
+            case 'brn':
+                msj = `¡{pkm} ya está quemado!`;
+                break;
+
+            case 'frz':
+                msj = `¡{pkm} ya está congelado!`;
+                break;
+
+            case 'move: Substitute':
+                msj = isWeak
+                    ? `¡{pkm} no tiene suficiente PS para hacer un sustituto!`
+                    : `¡{pkm} ya tiene un sustituto!`;
+                break;
+
+            default:
+                msj = `¡{pkm} falló!`;
+                break;
+        }
+
+        msj = replacePokemonName(msj, data.player, data.name);
+
+        addBattleLog(msj);
+        scheduleAnimation({
+            event: 'log',
+            log: msj
+        })
+
 
     }
 
@@ -955,7 +1032,16 @@ export default function useBattleEvents({ p1, p2 }) {
     function handleBoost(data) {
 
         let msj = MENSAJES[`boost-${data.stat}-[${data.amount}]`];
-        msj = data.negative ? msj.replace('aumentado', 'bajado') : msj;
+        
+        if(data.amount !== '0'){
+
+            msj = data.negative ? msj.replace('aumentado', 'bajado') : msj;
+
+        }else{
+
+            msj = data.negative ? msj.replace('subir', 'bajar') : msj;
+
+        }
 
         msj = replacePokemonName(msj, data.player, data.name);
 

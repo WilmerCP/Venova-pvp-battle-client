@@ -15,6 +15,7 @@
   "type": "commonjs",
   "dependencies": {
     "@tailwindcss/vite": "^4.3.1",
+    "marshal": "^0.5.4",
     "pokemon-showdown": "^0.11.7",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",

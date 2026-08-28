@@ -2,6 +2,7 @@ const { app, BrowserWindow, Menu, ipcMain } = require('electron')
 const { io } = require('socket.io-client')
 const path = require('path')
 const { parseUpdate } = require('./parseProtocol.js')
+const getTeamFromSaveData = require('./parseGameData.js')
 
 const { getDexData, teamIsValid } = require('./utility.js')
 
@@ -114,4 +115,8 @@ ipcMain.handle('set-selected-team', (event, team) => {
 
 ipcMain.handle('get-selected-team', () => {
   return selectedTeam;
+});
+
+ipcMain.handle('import-team', () => {
+  return getTeamFromSaveData();
 });

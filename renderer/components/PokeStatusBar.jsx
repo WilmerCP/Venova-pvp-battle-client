@@ -5,8 +5,8 @@ import { MdStar } from "react-icons/md";
 
 export default function PokeStatusBar({ pkm , barRef , statusBarRef, positionClasses }) {
 
-    const GenderSymbol = pkm.gender == 'male' ? CgGenderMale : pkm.gender == 'female' ? CgGenderFemale : 'div';
-
+    const GenderSymbol = pkm.gender == 'M' ? CgGenderMale : pkm.gender == 'F' ? CgGenderFemale : 'div';
+    const genderClass = pkm.gender == 'M' ? 'male' : pkm.gender == 'F' ? 'female' : '';
     //console.log('hp to display:', hpToDisplay);
 
     return (
@@ -19,10 +19,10 @@ export default function PokeStatusBar({ pkm , barRef , statusBarRef, positionCla
                         <MdStar className="text-red-500 text-sm" />
                     )}
                 </p>
-                <p className="flex flex-row">
-                    <GenderSymbol className={`${pkm.gender} text-lg`} />
-                    <span className="text-sm font-bold">Nv. {pkm.level}</span>
-                </p>
+                <span className="flex flex-row">
+                    <GenderSymbol className={`${genderClass} text-lg`} />
+                    <p className="text-sm font-bold">Nv. {pkm.level}</p>
+                </span>
 
             </div>
             <div className="flex flex-row items-center justify-between mt-2 w-full">

@@ -146,7 +146,7 @@ function parsePokemonDetails(details) {
     const items = parts.length;
 
     let speciesName = parts[0];
-    let gender = 'none';
+    let gender = 'N';
     let level = 100;
     let shiny = false;
 
@@ -162,11 +162,11 @@ function parsePokemonDetails(details) {
                 break
 
             case 'M':
-                gender = 'male';
+                gender = 'M';
                 break
 
             case 'F':
-                gender = 'female';
+                gender = 'F';
                 break
 
             case 's':
@@ -208,6 +208,7 @@ function parseHealth(healthStr) {
 
 }
 
+//Obtain venomon only filtered dex data
 async function getDexData() {
 
     let species = ModdedDex.species.all()
@@ -259,6 +260,7 @@ async function getDexData() {
     }
 }
 
+//Validates a team using the pokemon-showdown TeamValidator
 function teamIsValid(team) {
 
     const output = validator.validateTeam(team);
@@ -275,7 +277,130 @@ function teamIsValid(team) {
 
 }
 
+//Converts ordered list of 6 stats (evs,ivs) into an object with keys (Showdown format)
+function parseStats(list) {
+
+    if (!list || list.length != 6) return
+
+    return { hp: list[0], atk: list[1], def: list[2], spe: list[3], spa: list[4], spd: list[5] }
+
+}
+
+
+//Finds the move object matching by the venova adventures internal numerical id
+function findMoveById(targetId) {
+    return Object.values(MOVES).find((move) => move.gameId === targetId);
+}
+
+//Finds the venomon from the pokedex index number
+function getSpeciesByNum(num) {
+    return ModdedDex.species.all().find(sp => sp.num === num);
+}
+
+const natures_array = [
+    'Hardy', 'Lonely', 'Brave', 'Adamant', 'Naughty',
+    'Bold', 'Docile', 'Relaxed', 'Impish', 'Lax',
+    'Timid', 'Hasty', 'Serious', 'Jolly', 'Naive',
+    'Modest', 'Mild', 'Quiet', 'Bashful', 'Rash',
+    'Calm', 'Gentle', 'Sassy', 'Careful', 'Quirky'
+];
+
+//Same calculation as venova adventures internal scripts
+function getNature(personalID) {
+    const id = typeof personalID === 'string' ? parseInt(personalID, 10) : personalID;
+    return natures_array[id % 25];
+}
+
+//Same calculation as venova adventures internal scripts
+function getAbility(personalID, name) {
+    const id = typeof personalID === 'string' ? parseInt(personalID, 10) : personalID;
+    const abilityId = id % 2;
+
+    const ability1 = ModdedDex.species.get(name).abilities[String(abilityId)];
+
+    return ability1 !== undefined ? ability1 : ModdedDex.species.get(name).abilities['0'];
+}
+
+function getGenderFromPersonalID(personalID, genderRatio) {
+    if (!genderRatio) return 'N';
+
+    const { M, F } = genderRatio;
+
+    // Géneros fijos
+    if (F === 1 && M === 0) return 'F';
+    if (M === 1 && F === 0) return 'M';
+    if (M === 0 && F === 0) return 'N'; // genderless
+
+    // Reconstruye el byte de threshold original (genderRatio de la dex, 0-255)
+    // La fórmula inversa de: F = (255 - genderbyte + 1) / 256
+    const genderByte = Math.round(255 - F * 256 + 1);
+
+    const lowByte = personalID & 0xFF;
+
+    return lowByte < genderByte ? 'M' : 'F';
+}
+
+//|-status|p2a: Gigatric|brn|[from] ability: Flame Body|[of] p1a: Fautorn
+//|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Kyogre
+function parseTags(tags) {
+
+    const upkeep = tags.includes('[upkeep]');
+    const missed = tags.includes('[miss]');
+    const still = tags.includes('[still]');
+
+    const fromTag = tags.find(t => t.startsWith('[from]'))
+
+    const fromInfo = fromTag ? fromTag.replace('[from]', '').trim() : null;
+
+    const ability = fromInfo && fromInfo.includes('ability: ') ? fromInfo.replace('ability: ', '').trim() : null
+    const abilityTranslation = ability ? ABILITIES[ability] !== undefined ? ABILITIES[ability].translation : ability : null;
+
+    const ofTag = tags.find(t => t.startsWith('[of]'));
+
+    let ofPokemon = ofTag ? ofTag.replace('[of] ', '') : null; // "p2a: Sazonte"
+
+    ofPokemon = ofPokemon ? parsePokemonId(ofPokemon) : null;
+
+    const extraInfo = tags.find(t => !t.includes('['));
+
+    return { upkeep, missed, still, fromInfo, ability, abilityTranslation, ofPokemon, extraInfo }
+
+
+}
+
+function parseFailInfo(parts) {
+    // parts viene de line.split('|')
+    // Ej: ["", "-fail", "p2a: Regice", "unboost", "[from] ability: Clear Body", "[of] p2a: Regice"]
+
+    const { player, slot, name } = parsePokemonId(parts[2]);
+
+    // parts[3] puede ser: 'move: Substitute', 'unboost', 'heal', 'tox', 'slp', etc. o undefined
+    const action = parts[3] || null;
+
+    let effectFrom = null; // ej: 'ability: Clear Body'
+    let effectOf = null;   // ej: { player, slot, name } del pokemon origen del efecto
+    let isWeak = false;    // true cuando aparece [weak]
+
+    for (let i = 4; i < parts.length; i++) {
+        const part = parts[i];
+        if (!part) continue;
+
+        if (part.startsWith('[from]')) {
+            effectFrom = part.replace('[from]', '').trim();
+        } else if (part.startsWith('[of]')) {
+            const ofRaw = part.replace('[of]', '').trim();
+            effectOf = parsePokemonId(ofRaw);
+        } else if (part.startsWith('[weak]')) {
+            isWeak = true;
+        }
+    }
+
+    return { player, slot, name, action, effectFrom, effectOf, isWeak };
+}
+
 module.exports = {
     cleanPokemonName, parseEffect, parsePokemonId, parseSideId, parseReason,
-    parseCondition, parsePokemonDetails, parseHealth, getDexData, teamIsValid
+    parseCondition, parsePokemonDetails, parseHealth, getDexData, teamIsValid,
+    getAbility, getNature, getSpeciesByNum, findMoveById, parseStats, getGenderFromPersonalID,
+    parseFailInfo, parseTags
 }

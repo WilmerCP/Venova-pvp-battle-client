@@ -13,7 +13,7 @@ const EMPTY_SLOT = {
     gender: 'M',
     ability: '',
     item: '',
-    evs: {"hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0},
+    evs: { "hp": 0, "atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0 },
     nature: '',
     moves: ['', '', '', ''],
     shiny: false,
@@ -56,7 +56,7 @@ export default function TeamBuilder() {
     const handleSpeciesSelect = (slotIndex, num) => {
         // Al cambiar de especie, resetea el resto de la configuración de ese slot
 
-       let species = venomonWithIcons.find((v) => v.num === num);
+        let species = venomonWithIcons.find((v) => v.num === num);
 
         let gender = getGenderFromRatio(species.genderRatio);
 
@@ -67,14 +67,14 @@ export default function TeamBuilder() {
         });
     };
 
-    const handleStartBattle = async ()=>{
+    const handleStartBattle = async () => {
 
 
         let result = await window.electronAPI.setSelectedTeam(team);
 
         console.log(result)
 
-        if(result.success){
+        if (result.success) {
 
             navigate('/battle')
 
@@ -82,26 +82,46 @@ export default function TeamBuilder() {
 
     }
 
-    useEffect(()=>{
+    const handleImportTeam = async () => {
+
+
+        let importedTeam = await window.electronAPI.importTeam();
+
+        if (importedTeam) {
+
+            console.log(importedTeam)
+
+            let result = await window.electronAPI.setSelectedTeam(importedTeam);
+            if(result.success){
+
+                setTeam(importedTeam);
+
+            }
+
+        }
+
+    }
+
+    useEffect(() => {
 
         async function getTeam() {
 
             const prevTeam = await window.electronAPI.getSelectedTeam();
 
-            if(prevTeam !== null){
+            if (prevTeam !== null) {
 
                 setTeam(prevTeam);
 
                 console.log("Team cargado desde el main process:", prevTeam);
 
             }
-            
+
         }
 
         getTeam();
 
 
-    },[])
+    }, [])
 
     return (
         <div className="min-h-screen p-6 isometric-background pb-20">
@@ -160,6 +180,13 @@ export default function TeamBuilder() {
                     color="#e43926"
                 >
                     Iniciar combate
+                </BlockyButton>
+
+                <BlockyButton
+                    onClick={() => { handleImportTeam() }}
+                    color="#4d9722"
+                >
+                    Importar equipo
                 </BlockyButton>
             </div>
         </div >

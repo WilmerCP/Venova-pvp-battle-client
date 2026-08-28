@@ -17,7 +17,7 @@ export default function PokemonEditor({
     const { moves, items, abilities, natures } = useLoaderData();
 
     //console.log("PokemonEditor renderizado con build:", build);
-    console.log("PokemonEditor renderizado con pokemon:", pokemon);
+    //console.log("PokemonEditor renderizado con pokemon:", pokemon);
 
     const GenderSymbol = build.gender == 'M' ? CgGenderMale : build.gender == 'F' ? CgGenderFemale : 'div';
     const genderClass = build.gender == 'M' ? 'male' : build.gender == 'F' ? 'female' : '';

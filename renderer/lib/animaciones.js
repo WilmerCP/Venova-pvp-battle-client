@@ -81,11 +81,11 @@ const MOVE_ANIMATIONS = {
             scaleTo: 1.2,
         },
         'Thunder Wave': {
-                src: "electric.png",
-                cols: 5,
-                rows: 2,
-                totalFrames: 8
-            },
+            src: "electric.png",
+            cols: 5,
+            rows: 2,
+            totalFrames: 8
+        },
         'Ancient Power': {
             src: "Ancient_Power.png",
             cols: 5,
@@ -206,6 +206,27 @@ const MOVE_ANIMATIONS = {
             totalFrames: 5,
             frameDuration: 120
         },
+        'Frenzy Plant': {
+            src: "Frenzy_Plant.png",
+            cols: 4,
+            rows: 3,
+            totalFrames: 10
+        },
+        'Fire Spin': {
+            src: "Fire_Spin.png",
+            cols: 4,
+            rows: 1,
+        },
+        'Acid Spray': {
+            src: "Acid_Spray.png",
+            cols: 5,
+            rows: 3,
+        },
+        'Acid': {
+            src: "Acid_Spray.png",
+            cols: 5,
+            rows: 3,
+        },
     },
 
     elemental: {
@@ -231,20 +252,20 @@ const MOVE_ANIMATIONS = {
         },
         Water: {
             Special: {
-            src: "Water_Pulse.png",
-            cols: 5,
-            rows: 2,
-            totalFrames: 7,
-            scaleFrom: 1.3,
-            scaleTo: 1,
-        },
+                src: "Water_Pulse.png",
+                cols: 5,
+                rows: 2,
+                totalFrames: 7,
+                scaleFrom: 1.3,
+                scaleTo: 1,
+            },
         },
         Grass: {
             Physical: {
-                src: "Grass_Physical.png",
-                cols: 5,
+                src: "Frenzy_Plant.png",
+                cols: 4,
                 rows: 3,
-                totalFrames: 13
+                totalFrames: 10
             },
         },
         Electric: {

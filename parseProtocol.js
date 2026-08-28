@@ -5,7 +5,7 @@ const ModdedDex = Dex.mod('venova')
 const { MOVES, ABILITIES, ITEMS } = require('./loadDictionaries.js');
 
 const { cleanPokemonName, parseEffect, parsePokemonId, parseSideId, parseReason,
-    parseCondition, parsePokemonDetails, parseHealth } = require('./utility.js')
+    parseCondition, parsePokemonDetails, parseHealth, parseTags, parseFailInfo } = require('./utility.js')
 
 async function parseUpdate(content, win) {
     const lines = content.split('\n')
@@ -43,21 +43,9 @@ async function parseUpdate(content, win) {
                 const target = parsePokemonId(parts[4]) //{ player, slot, name }
                 const move = parts[3]
 
-                const tags = parts.slice(5)
-                const missed = tags.includes('[miss]')
-                const still = tags.includes('[still]')
+                const { missed, still, ability, abilityTranslation, ofPokemon } = parseTags(parts.slice(5));
 
-                const fromTag = tags.find(t => t.startsWith('[from] ability:'))
-                const ability = fromTag ? fromTag.split('ability: ')[1] : null
-                const abilityTranslation = ability ? ABILITIES[ability] !== undefined ? ABILITIES[ability].translation : ability : null;
-
-                const ofTag = tags.find(t => t.startsWith('[of]'))
-
-                let ofPokemon = ofTag ? ofTag.replace('[of] ', '') : null // "p2a: Sazonte"
-
-                ofPokemon = ofPokemon ? parsePokemonId(ofPokemon) : null
-
-                console.log(line)
+                //console.log(line)
 
                 //console.log(`${source.player} ${source.name} used ${move}`)
 
@@ -93,6 +81,7 @@ async function parseUpdate(content, win) {
                 console.log(parts)
 
                 const { speciesName, gender, level, shiny } = parsePokemonDetails(parts[3]);
+                console.log(gender)
 
                 const { player } = parsePokemonId(parts[2]); // 'p1'
 
@@ -137,18 +126,7 @@ async function parseUpdate(content, win) {
                 const { current, total, status } = parseHealth(parts[3]);
                 console.log(`Health: ${current}, Total: ${total}, Status: ${status}`)
 
-                const tags = parts.slice(4)
-                const fromTag = tags.find(t => t.startsWith('[from]'))
-                const ofTag = tags.find(t => t.startsWith('[of]'))
-
-                const fromInfo = fromTag ? fromTag.replace('[from]','').trim() : null;
-
-                let ofPokemon = ofTag ? ofTag.replace('[of] ', '').trim() : null // "p2a: Sazonte"
-
-                ofPokemon = ofPokemon ? parsePokemonId(ofPokemon) : null
-
-                const ability = fromInfo && fromInfo.includes('ability: ') ? fromInfo.replace('ability: ','').trim() : null
-                const abilityTranslation = ability ? ABILITIES[ability] !== undefined ? ABILITIES[ability].translation : ability : null;
+                const { fromInfo, ability, abilityTranslation, ofPokemon } = parseTags(parts.slice(4));
 
 
                 win.webContents.send('damage', {
@@ -215,14 +193,21 @@ async function parseUpdate(content, win) {
 
             case '-status': {
                 // |-status|p2a: Clefable|brn
-                console.log(`${parts[2]} status changed to ${parts[3]}`)
+                //|-status|p2a: Gigatric|brn|[from] ability: Flame Body|[of] p1a: Fautorn
+                //console.log(`${parts[2]} status changed to ${parts[3]}`)
+
+                const { ability, abilityTranslation, ofPokemon } = parseTags(parts.slice(3));
+
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
 
                 win.webContents.send('status', {
                     player: player,   // 'p1'
                     status: parts[3],  // 'brn'
-                    pkmName: name
+                    pkmName: name,
+                    ability,
+                    abilityTranslation,
+                    ofPokemon
                 })
 
                 break
@@ -406,14 +391,22 @@ async function parseUpdate(content, win) {
                 //|-start|p1a: Slaking|move: Leech Seed
                 //|-start|POKEMON|EFFECT
                 //|-start|p2a: Suicune|Substitute
+                //|-start|p2a: Venapivar|Disable|Absorb|[from] ability: Cursed Body|[of] p1a: Sayolda
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
                 const effect = parts[3];
 
+                const { fromInfo, ability, abilityTranslation, ofPokemon, extraInfo } =  parseTags(parts.slice(4));
+
                 win.webContents.send('startVolatile', {
                     player: player,   // 'p1'
                     name: name,  // 'Pikachu'
-                    effect: effect
+                    effect: effect,
+                    extraInfo,
+                    fromInfo,
+                    ability,
+                    abilityTranslation,
+                    ofPokemon
                 })
 
                 break
@@ -469,23 +462,20 @@ async function parseUpdate(content, win) {
                 break
             }
 
+            //The specified ACTION has failed against the POKEMON targeted. The ACTION in question should be a move that fails due to its own mechanics. 
             case '-fail': {
-                //|-fail|p1a: Qwilfish
-                //|-fail|p2a: Regice|unboost|[from] ability: Clear Body|[of] p2a: Regice
-                //|-fail|p2a: Cryogonal|heal
-                //|-fail|p1a: Pyroar|tox
-                //|-fail|p2a: Articuno|move: Substitute|[weak]
-                //|-fail|p1a: Knoc|slp
+                //|-fail|p1a: Qwilfish (mov. tipo sonambulo, sorpresa, ultima baza.)
+                //|-fail|p2a: Regice|unboost|[from] ability: Clear Body|[of] p2a: Regice (La bajada de estadisticas no tuvo efecto debido a la habilidad Cuerpo Puro)
+                //|-fail|p2a: Cryogonal|heal (no puede curarse, ya tiene la vida completa)
+                //|-fail|p1a: Pyroar|tox (ya esta envenenado)
+                //|-fail|p2a: Articuno|move: Substitute|[weak] (No puede hacer sustituto)
+                //|-fail|p1a: Knoc|slp (ya esta dormido)
 
-                const { player, slot, name } = parsePokemonId(parts[2]);
+                const failInfo = parseFailInfo(parts);
 
                 win.webContents.send('fail', {
-
-                    player: player,   // 'p1'
-                    name: name,  // 'Pikachu',
+                    ...failInfo,
                     line: line
-
-
                 })
 
                 break
@@ -630,19 +620,7 @@ async function parseUpdate(content, win) {
                 //|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Kyogre
 
                 //console.log(line);
-
-                const tags = parts.slice(3)
-                const upkeep = tags.includes('[upkeep]')
-
-                const fromTag = tags.find(t => t.startsWith('[from] ability:'))
-                const ability = fromTag ? fromTag.split('ability: ')[1] : null
-                const abilityTranslation = ability ? ABILITIES[ability] !== undefined ? ABILITIES[ability].translation : ability : null;
-
-                const ofTag = tags.find(t => t.startsWith('[of]'))
-
-                let ofPokemon = ofTag ? ofTag.replace('[of] ', '') : null // "p2a: Sazonte"
-
-                ofPokemon = ofPokemon ? parsePokemonId(ofPokemon) : null
+                const { upkeep, ability, abilityTranslation, ofPokemon } = parseTags(parts.slice(3));
 
                 win.webContents.send('weather', {
                     type: parts[2],
@@ -671,15 +649,20 @@ async function parseUpdate(content, win) {
                 //|-activate|p2a: Ditto|move: Struggle
                 //|-activate|p1a: Granbull|move: Heal Bell
                 //|-activate|p1a: Rotom|move: Trick|[of] p2a: Hitmonlee
+                //|-activate|p1a: Onzanterian|move: Attract|[of] p2a: Sazonte
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
 
                 const effect = parseEffect(parts[3]);
 
+                const { ofPokemon } = parseTags(parts.slice(4));
+
+
                 win.webContents.send('effect', {
                     effect: effect,
                     player: player,   // 'p1'
                     name: name,  // 'Pikachu'
+                    ofPokemon
                 })
 
                 break
@@ -698,7 +681,7 @@ async function parseUpdate(content, win) {
                     move: move,
                     player: player,   // 'p1'
                     name: name,  // 'Pikachu'
-                })  
+                })
 
                 break;
 

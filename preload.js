@@ -7,6 +7,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   getDexData: (name) => ipcRenderer.invoke('get-dex-data'),
   setSelectedTeam: (team) => ipcRenderer.invoke('set-selected-team', team),
   getSelectedTeam: () => ipcRenderer.invoke('get-selected-team'),
+  importTeam: () => ipcRenderer.invoke('import-team'),
 
   on: (channel, cb) => ipcRenderer.on(channel, (event, data) => {
   console.log('[IPC]', channel, data);

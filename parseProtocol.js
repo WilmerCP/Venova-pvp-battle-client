@@ -4,7 +4,7 @@ const ModdedDex = Dex.mod('venova')
 
 const { MOVES, ABILITIES, ITEMS } = require('./loadDictionaries.js');
 
-const { cleanPokemonName, parseEffect, parsePokemonId, parseSideId, parseReason,
+const { cleanPokemonName, parseEffect, parsePokemonId, parseSideId,
     parseCondition, parsePokemonDetails, parseHealth, parseTags, parseFailInfo } = require('./utility.js')
 
 async function parseUpdate(content, win) {
@@ -149,6 +149,7 @@ async function parseUpdate(content, win) {
                 //|-heal|p2a: Scizor|17/100|[from] item: Leftovers
                 //|-heal|p1a: Gurdurr|290/290 tox|[from] drain|[of] p2a: Hitmontop
                 //|-heal|p2a: Motiti|100/100 slp|[silent]
+                //|-heal|p1a: Orquicess|403/403|[from] move: Wish|[wisher] Orquicess
 
                 console.log(`${parts[2]} healed to ${parts[3]}`)
 
@@ -156,28 +157,9 @@ async function parseUpdate(content, win) {
 
                 const { current, total, status } = parseHealth(parts[3]);
 
-                let healReason, healType;
 
-                if (parts[4] !== undefined) {
-
-
-                    const { type, reason } = parseReason(parts[4]);
-
-                    healReason = reason;
-                    healType = type;
-
-                }
-
-                console.log(`Sending heal`)
-                console.log({
-                    player: player,   // 'p1'
-                    hp: current,  // 'hp amount or percentage'
-                    maxHp: total,     // 100 or total hp
-                    status: status,
-                    name: name,
-                    reason: healReason,
-                    type: healType
-                })
+                const { fromInfo, ability, abilityTranslation,
+                     ofPokemon, silent, wisher, reason, type} = parseTags(parts.slice(4));
 
                 win.webContents.send('heal', {
                     player: player,   // 'p1'
@@ -185,8 +167,13 @@ async function parseUpdate(content, win) {
                     maxHp: total,     // 100 or total hp
                     status: status,
                     name: name,
-                    reason: healReason,
-                    type: healType
+                    reason,
+                    type,
+                    wisher,
+                    ofPokemon,
+                    from: fromInfo,
+                    ability,
+                    abilityTranslation
                 })
                 break
             }

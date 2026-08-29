@@ -16,10 +16,12 @@ const MOVE_ANIMATIONS = {
             rows: 2
         },
         heal: {
-            src: "Heal_Default.png",
-            cols: 5,
-            rows: 3,
-            totalFrames: 13
+            src: "Heal.png",
+            cols: 4,
+            rows: 4,
+            totalFrames: 14,
+            scaleFrom: 1.2,
+            scaleTo: 1.2,
 
         },
         status_self: {
@@ -41,6 +43,11 @@ const MOVE_ANIMATIONS = {
             rows: 2
         },
         'Crunch': {
+            src: "Crunch.png",
+            cols: 4,
+            rows: 3
+        },
+        'Bite': {
             src: "Crunch.png",
             cols: 4,
             rows: 3
@@ -68,9 +75,12 @@ const MOVE_ANIMATIONS = {
             rows: 1
         },
         'Thunderbolt': {
-            src: "electric.png",
-            cols: 5,
-            rows: 3
+            src: "Thunderbolt.png",
+            cols: 4,
+            rows: 2,
+            totalFrames: 7,
+            scaleFrom: 1.2,
+            scaleTo: 1.4,
         },
         'Thunder': {
             src: "Thunder.png",
@@ -227,6 +237,43 @@ const MOVE_ANIMATIONS = {
             cols: 5,
             rows: 3,
         },
+        'Roost': {
+            src: "Roost.png",
+            cols: 5,
+            rows: 3,
+            totalFrames: 13,
+            scaleFrom: 1.2,
+            scaleTo: 1.2,
+
+        },
+        'Wish': {
+            doNotAnimate: true
+        },
+        'Hydro Pump': {
+            src: "HydroPump.png",
+            cols: 4,
+            rows: 3,
+            totalFrames: 10,
+            frameDuration: 90,
+
+        },
+        'Smog': {
+            src: "Smog.png",
+            cols: 4,
+            rows: 3,
+            totalFrames: 10,
+            frameDuration: 90,
+        },
+        'Smokescreen': {
+            src: "Smokescreen.png",
+            cols: 4,
+            rows: 3,
+            totalFrames: 10,
+            scaleFrom: 1.4,
+            scaleTo: 1.4,
+            frameDuration: 90,
+        },
+
     },
 
     elemental: {
@@ -258,6 +305,18 @@ const MOVE_ANIMATIONS = {
                 totalFrames: 7,
                 scaleFrom: 1.3,
                 scaleTo: 1,
+            },
+            Physical: {
+                src: "Water_Physical.png",
+                cols: 4,
+                rows: 3,
+                totalFrames: 10,
+                scaleFrom: 1.7,
+                scaleTo: 1.6,
+                frameDuration: 90,
+                fallFrom: -20,
+                fallTo: -20,
+
             },
         },
         Grass: {

@@ -65,22 +65,22 @@ function parseSideId(id) {
     return { player, name }
 }
 
-// |-heal|p1a: Pikachu|100/100 brn
-//|-heal|p2a: Scizor|17/100|[from] item: Leftovers
-//|-heal|p1a: Gurdurr|290/290 tox|[from] drain|[of] p2a: Hitmontop
-//|-heal|p2a: Ferrothorn|191/226|[silent]
-//|-heal|p1a: Minun|265/265|[from] ability: Volt Absorb|[of] p2a: Zeraora
-function parseReason(reasonStr) {
-    if (!reasonStr) return undefined
+//[from] item: Leftovers
+//[from] drain
+//[from] ability: Volt Absorb
 
-    if (reasonStr.includes('[silent]')) return {
+function parseFromTag(fromTag) {
 
-        type: undefined,
-        reason: undefined
+    if (!fromTag) return {
+
+        type: null,
+        reason: null,
+        translation: null,
+        fromInfo: null
 
     }
 
-    let trimmed = reasonStr.replace('[from]', '');
+    let trimmed = fromTag.replace('[from]', '').trim();
 
     if (trimmed.includes('item:')) {
 
@@ -89,7 +89,9 @@ function parseReason(reasonStr) {
         return {
 
             type: 'item',
-            reason: ITEMS[itemName] ? ITEMS[itemName].translation : itemName,
+            reason: itemName,
+            translation: ITEMS[itemName] ? ITEMS[itemName].translation : itemName,
+            fromInfo: trimmed
 
         }
 
@@ -102,17 +104,34 @@ function parseReason(reasonStr) {
         return {
 
             type: 'ability',
-            reason: ABILITIES[abilityName] ? ABILITIES[abilityName].translation : abilityName
+            reason: abilityName,
+            translation: ABILITIES[abilityName] ? ABILITIES[abilityName].translation : abilityName,
+            fromInfo: trimmed
 
         }
 
+
+    } else if (trimmed.includes('move:')) {
+
+        let moveName = trimmed.replace('move:', '').trim();
+
+        return {
+
+            type: 'move',
+            reason: moveName,
+            translation: MOVES[moveName] ? MOVES[moveName].translation : moveName,
+            fromInfo: trimmed
+
+        }
 
     } else {
 
         return {
 
-            type: 'move',
-            reason: trimmed.trim()
+            type: 'other',
+            reason: trimmed,
+            translation: null,
+            fromInfo: trimmed
 
         }
 
@@ -342,18 +361,26 @@ function getGenderFromPersonalID(personalID, genderRatio) {
 
 //|-status|p2a: Gigatric|brn|[from] ability: Flame Body|[of] p1a: Fautorn
 //|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Kyogre
+//|-heal|p1a: Orquicess|403/403|[from] move: Wish|[wisher] Orquicess
 function parseTags(tags) {
 
     const upkeep = tags.includes('[upkeep]');
     const missed = tags.includes('[miss]');
     const still = tags.includes('[still]');
+    const silent = tags.includes('[silent]');
 
     const fromTag = tags.find(t => t.startsWith('[from]'))
 
-    const fromInfo = fromTag ? fromTag.replace('[from]', '').trim() : null;
+    const { type, reason, fromInfo, translation } = parseFromTag(fromTag);
 
-    const ability = fromInfo && fromInfo.includes('ability: ') ? fromInfo.replace('ability: ', '').trim() : null
-    const abilityTranslation = ability ? ABILITIES[ability] !== undefined ? ABILITIES[ability].translation : ability : null;
+    const ability = type == 'ability' ? reason : null;
+    const abilityTranslation = ability ? translation : null;
+
+    const move = type == 'move' ? reason : null;
+    const moveTranslation = move ? translation : null;
+
+    const item = type == 'item' ? reason : null;
+    const itemTranslation = item ? translation : null;
 
     const ofTag = tags.find(t => t.startsWith('[of]'));
 
@@ -361,9 +388,16 @@ function parseTags(tags) {
 
     ofPokemon = ofPokemon ? parsePokemonId(ofPokemon) : null;
 
+    const wisherTag = tags.find(t => t.startsWith('[wisher]'));
+
+    let wisher = wisherTag ? wisherTag.replace('[wisher] ', '').trim() : null; // "Sazonte"
+
     const extraInfo = tags.find(t => !t.includes('['));
 
-    return { upkeep, missed, still, fromInfo, ability, abilityTranslation, ofPokemon, extraInfo }
+    return {
+        upkeep, missed, still, fromInfo, ability, abilityTranslation, ofPokemon, extraInfo,
+        silent, wisher, move, moveTranslation, item, itemTranslation, wisher, reason, type
+    }
 
 
 }
@@ -399,7 +433,7 @@ function parseFailInfo(parts) {
 }
 
 module.exports = {
-    cleanPokemonName, parseEffect, parsePokemonId, parseSideId, parseReason,
+    cleanPokemonName, parseEffect, parsePokemonId, parseSideId,
     parseCondition, parsePokemonDetails, parseHealth, getDexData, teamIsValid,
     getAbility, getNature, getSpeciesByNum, findMoveById, parseStats, getGenderFromPersonalID,
     parseFailInfo, parseTags

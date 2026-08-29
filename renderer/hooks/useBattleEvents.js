@@ -269,7 +269,7 @@ export default function useBattleEvents({ p1, p2 }) {
 
         //const isPercentageHP = data.maxHp === 100;
 
-        if (data.from !== null) {
+        if (data.from) {
             logDamageReason(data);
         }
 
@@ -352,95 +352,65 @@ export default function useBattleEvents({ p1, p2 }) {
 
     function handleHeal(data) {
 
-        if (data.player === 'p1') {
 
+        updatePlayer(data.player, {
+            //currentHP: data.maxHp !== 100 ? data.hp : prev.currentHP,
+            currentHPPercentage: data.maxHp == 100 ? data.hp : prev.currentHP,
+        })
 
-            setPlayer1((prev) => ({
-                ...prev,
-                currentHP: data.maxHp !== 100 ? data.hp : prev.currentHP,
-                currentHPPercentage: data.maxHp == 100 ? data.hp : prev.currentHP,
-            }))
+        //if (data.maxHp == 100) {
 
-            if (data.maxHp == 100) {
+        let log;
 
+        switch (data.reason) {
 
-                let log;
+            case 'drain':
 
-                if (data.reason?.includes('drain')) {
+                log = data.ofPokemon ? `¡{pkm} ha drenado la salud de ${data.ofPokemon.name}!` : `¡{pkm} ha absorbido puntos de salud!`;
 
-                    log = `¡${data.name} ha absorbido puntos de salud!`
+                break;
+            case 'Ingrain':
 
-                } else if (data.reason?.includes('Ingrain')) {
+                log = `¡{pkm} se ha nutrido con sus raíces!`
 
-                    log = `¡${data.name} se ha nutrido con sus raíces!`
+                break;
 
-                } else if (data.reason?.includes('move: Wish')) {
+            case 'Aqua Ring':
 
-                    log = `¡El Deseo de ${data.name} se ha realizado!`
+                log = `¡{pkm} ha recuperado salud con Acua Aro!`
 
-                } else if (data.reason !== undefined) {
+                break;
 
-                    log = `¡${data.name} ha recuperado salud gracias a ${data.reason}!`
+            case 'Wish':
 
-                } {
-
-                    log = `¡${data.name} ha recuperado salud!`
-
-                }
-
-                addBattleLog(log);
+                log = `¡El Deseo de {pkm} se ha realizado!`
 
                 scheduleAnimation({
-                    event: 'hpChange',
-                    player: 'p1',
-                    newHP: data.hp,
-                    log: log
-                });
+                    event: 'effect',
+                    target: data.player,
+                    name: data.from
+                })
 
-            }
+                break;
 
+            default:
+
+                log = data.reason !== undefined ? `¡{pkm} ha recuperado salud gracias a ${data.reason}!` : `¡{pkm} ha recuperado salud!`
 
         }
 
-        if (data.player === 'p2') {
+        log = replacePokemonName(log, data.player, data.name);
 
-            setPlayer2((prev) => ({
-                ...prev,
-                currentHP: data.maxHp !== 100 ? data.hp : prev.currentHP,
-                currentHPPercentage: data.maxHp == 100 ? data.hp : prev.currentHP,
-            }))
+        addBattleLog(log);
 
-            if (data.maxHp == 100) {
-
-                let log;
-
-                if (data.reason?.includes('drain')) {
-
-                    log = `¡${data.name} rival ha absorbido puntos de salud!`
-
-                } else if (data.reason !== undefined) {
-
-                    log = `¡${data.name} rival ha recuperado salud gracias a ${data.reason}!`
-
-                } else {
-
-                    log = `¡${data.name} rival ha recuperado salud!`
-
-                }
-
-                addBattleLog(log);
-
-                scheduleAnimation({
-                    event: 'hpChange',
-                    player: 'p2',
-                    newHP: data.hp,
-                    log: log
-                });
+        scheduleAnimation({
+            event: 'hpChange',
+            player: data.player,
+            newHP: data.hp,
+            log: log
+        });
 
 
-            }
-
-        }
     }
 
     function handleTeam(data) {
@@ -802,7 +772,7 @@ export default function useBattleEvents({ p1, p2 }) {
 
         let msj = MENSAJES[`[${data.effect}]-start`];
 
-        if(data.effect == 'Disable' && data.extraInfo !== undefined){
+        if (data.effect == 'Disable' && data.extraInfo !== undefined) {
 
             msj = `¡El movimiento ${data.extraInfo} de {pkm} ha sido desactivado!`;
 
@@ -840,7 +810,7 @@ export default function useBattleEvents({ p1, p2 }) {
             addBattleLog(msj);
 
             scheduleAnimation({
-                event: 'volatileEnd',
+                event: 'endVolatile',
                 effect: data.effect,
                 player: data.player,
                 pokemon: data.name,
@@ -1032,12 +1002,12 @@ export default function useBattleEvents({ p1, p2 }) {
     function handleBoost(data) {
 
         let msj = MENSAJES[`boost-${data.stat}-[${data.amount}]`];
-        
-        if(data.amount !== '0'){
+
+        if (data.amount !== '0') {
 
             msj = data.negative ? msj.replace('aumentado', 'bajado') : msj;
 
-        }else{
+        } else {
 
             msj = data.negative ? msj.replace('subir', 'bajar') : msj;
 

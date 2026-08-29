@@ -5,6 +5,7 @@ import PokemonEditor from './components/PokemonEditor';
 import ComboBox from './components/ComboBox';
 import { getMiniSrc, getGenderFromRatio } from './helpers';
 import BlockyButton from './components/BlockyButton';
+import Toast from './components/Toast';
 
 
 const EMPTY_SLOT = {
@@ -41,6 +42,8 @@ export default function TeamBuilder() {
     const [team, setTeam] = useState(
         Array.from({ length: 6 }, () => ({ ...EMPTY_SLOT }))
     );
+
+    const [show, setShow] = useState(false); //Toast Component
 
     // Actualiza un campo específico de un slot puntual
     const updateSlot = (slotIndex, changes) => {
@@ -81,6 +84,7 @@ export default function TeamBuilder() {
         }
 
     }
+    
 
     const handleImportTeam = async () => {
 
@@ -95,6 +99,7 @@ export default function TeamBuilder() {
             if(result.success){
 
                 setTeam(importedTeam);
+                setShow(true);
 
             }
 
@@ -189,6 +194,7 @@ export default function TeamBuilder() {
                     Importar equipo
                 </BlockyButton>
             </div>
+            <Toast show={show} onClose={() => setShow(false)} message="Importación exitosa" />
         </div >
     );
 }

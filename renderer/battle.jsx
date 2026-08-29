@@ -492,6 +492,21 @@ export default function Battle() {
                 }
             }
 
+            case 'endVolatile': {
+                switch (animation.effect) {
+                    case 'Substitute': {
+                        if (animation.player === 'p2') setSubstituteP2(false);
+                        if (animation.player === 'p1') setSubstituteP1(false);
+                        return handleAnimation({ target: animation.player, event: 'effect', name: 'Substitute' });
+                    }
+                    case 'confusion': {
+                        return handleAnimation({ target: animation.player, event: 'effect', name: 'confusion' });
+                    }
+                    default:
+                        return new Promise((resolve) => setTimeout(resolve, LOG_TIME));
+                }
+            }
+
 
 
             case 'weather': {
@@ -564,7 +579,7 @@ export default function Battle() {
 
             default:
                 console.log('Wrong or unhandled animation event');
-                Promise.resolve();
+                return Promise.resolve();
 
         }
 
@@ -577,21 +592,28 @@ export default function Battle() {
         console.log('Processing the queue')
         processingRef.current = true;
         setIsProcessing(true);
-        while (animationQueue.current.length > 0) {
-            const animation = animationQueue.current.shift();
 
-            if (animation.log) {
+        try {
+            while (animationQueue.current.length > 0) {
+                console.log('Loop')
+                const animation = animationQueue.current.shift();
 
-                setCurrentLog(animation.log);
+                if (animation.log) {
 
+                    setCurrentLog(animation.log);
+
+                }
+
+                await handleAnimation(animation);
             }
-
-            await handleAnimation(animation);
-        }
-        processingRef.current = false;
-        if (battleLog.length > 0) {
+        } catch (err) {
+            console.error('Error procesando animación:', err);
+        } finally {
+            processingRef.current = false;
             setIsProcessing(false);
         }
+
+
     }
 
     useEffect(() => {
@@ -742,7 +764,7 @@ export default function Battle() {
                 }
 
             </div>
-            {weather === "SunnyDay" && <SunnyLayer visible={true}/>}
+            {weather === "SunnyDay" && <SunnyLayer visible={true} />}
             {weather === "RainDance" && <RainLayer intensity={130} />}
             {weather === "Hail" && <HailLayer intensity={45} />}
             {weather === "Sandstorm" && <SandstormLayer />}

@@ -4,6 +4,7 @@ import EFFECTS from '../lib/efectos'
 const frameWidth = 192
 const frameHeight = 192
 const frameDuration = 100 // in milliseconds
+const LOG_TIME = 800 //ms
 
 import { useEffect, useRef, useState } from 'react'
 
@@ -37,11 +38,11 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
     const xOffset = slideFrom + (slideTo - slideFrom) * progress
 
     let isFront = moveDesc.target == 'p1';
-    isFront = spriteSheet.forceOnSelf ? moveDesc.player == 'p1': isFront;
+    isFront = spriteSheet.forceOnSelf ? moveDesc.player == 'p1' : isFront;
 
     const background = spriteSheet.back ? isFront : false;
 
-    let positionClasses = isFront ? 'fixed bottom-32 left-22 w-64': 'fixed top-12 right-12 w-48';
+    let positionClasses = isFront ? 'fixed bottom-32 left-22 w-64' : 'fixed top-12 right-12 w-48';
 
     useEffect(() => {
 
@@ -57,6 +58,18 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
         } else if (MOVE_ANIMATIONS.moves[moveDesc.name] !== undefined) {
 
             sheet = MOVE_ANIMATIONS.moves[moveDesc.name];
+
+            if (sheet.doNotAnimate) {
+
+                const skipTimeoutId = setTimeout(() => {
+                    onComplete?.();
+                }, LOG_TIME);
+
+                return () => {
+                    clearTimeout(skipTimeoutId);
+                };
+
+            }
 
         } else if (moveDesc.heal && moveDesc.category === 'Status') {
 

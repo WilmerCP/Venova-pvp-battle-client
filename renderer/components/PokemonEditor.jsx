@@ -173,7 +173,7 @@ export default function PokemonEditor({
                 >
                     <input
                         type="checkbox"
-                        checked={build.shiny}
+                        checked={!!build.shiny}
                         onChange={(e) => handleShinyChange(e.target.checked)}
                     />
                     <span className="text-[10px] font-semibold text-black/60">Shiny</span>

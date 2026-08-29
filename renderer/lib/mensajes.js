@@ -84,7 +84,7 @@ const MENSAJES = {
     'damage-[confusion]': '¡{pkm} se ha golpeado a si mismo!',
     'damage-[Leech Seed]': '¡La energía de {pkm} está siendo drenada!',
     'damage-[Stealth Rock]': '¡Las rocas afiladas han dañado a {pkm}!',
-    'damage-[recoil]': '¡{pkm} ha recibido daño de retroceso!',
+    'damage-[Recoil]': '¡{pkm} ha recibido daño de retroceso!',
     'damage-[ability: Rough Skin]': '¡{pkm} ha recibido daño de contacto!',
     'damage-[item: Rocky Helmet]': '¡{pkm} se ha golpeado con un casco muy duro!',
     'damage-[Sandstorm]': '¡{pkm} es golpeado fuertemente por la tormenta de arena!',

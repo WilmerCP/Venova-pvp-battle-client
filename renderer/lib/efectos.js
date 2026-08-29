@@ -54,7 +54,24 @@ const EFFECTS = {
         scaleFrom: 0.7,
         scaleTo: 0.7
     },
-
+    'Substitute': {
+        src: "smokebomb.png",
+        cols: 4,
+        rows: 2,
+        totalFrames: 8,
+        scaleFrom: 1,
+        scaleTo: 1.8,
+        slideFrom: 0,
+        slideTo: 0
+    },
+    'move: Wish': {
+        src: "Wish.png",
+        cols: 4,
+        rows: 4,
+        totalFrames: 14,
+        scaleFrom: 1.5,
+        scaleTo: 1.5,
+    },
 }
 
 export default EFFECTS;

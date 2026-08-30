@@ -101,10 +101,12 @@ export default function useBattleEvents({ p1, p2 }) {
                     log = `¡${data.name}, yo te elijo!`
                 }
 
+                const femaleSprite = data.num == 55 && data.gender == 'F' ? true : false
+
                 scheduleAnimation({
                     event: 'pkmSwitch',
                     player: 'p1',
-                    newSrc: getBattlerSrc(data.num, { back: true, shiny: data.shiny }),
+                    newSrc: getBattlerSrc(data.num, { back: true, shiny: data.shiny, femaleSprite: femaleSprite }),
                     pkmData: data,
                     log: log,
                     batonPass: data.batonPass

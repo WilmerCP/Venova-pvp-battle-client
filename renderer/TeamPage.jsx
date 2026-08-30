@@ -29,6 +29,7 @@ export default function TeamBuilder() {
     const venomonWithIcons = dexData.venomon.map((v) => ({
         ...v,
         icon: getMiniSrc(v.num),
+        femaleIcon: getMiniSrc(v.num, { femaleSprite: v.num == 55 ? true : false }),
     }));
 
 
@@ -86,7 +87,15 @@ export default function TeamBuilder() {
                 setTeam(importedTeam);
                 setMsg("Importación exitosa");
 
+            }else{
+
+                setMsg(result.message);
+
             }
+
+        }else{
+
+            setMsg("No se pudo importar el equipo. Asegúrate de tener un equipo guardado en Venova Reforged.");
 
         }
 

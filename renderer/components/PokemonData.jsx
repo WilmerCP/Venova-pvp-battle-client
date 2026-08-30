@@ -20,9 +20,20 @@ export default function PokemonDisplay({
     const [iconSrc, setIconSrc] = useState(pokemon.icon);
 
     useEffect(() => {
-        setIconSrc(pokemon.icon);
+
         const img = new Image();
-        img.src = pokemon.icon;
+
+        if (pokemon.num == 55 && build.gender == 'F') {
+
+            setIconSrc(pokemon.femaleIcon);
+            img.src = pokemon.femaleIcon;
+
+        } else {
+
+            setIconSrc(pokemon.icon);
+            img.src = pokemon.icon;
+        }
+
         img.onerror = () => setIconSrc(DEFAULT_ICON);
     }, [pokemon.icon]);
 
@@ -69,7 +80,7 @@ export default function PokemonDisplay({
 
                 {build.shiny && (
                     <span className="text-[10px] font-semibold text-black/60 shrink-0 flex flex-row items-center gap-1">
-                        <MdStar className='text-red-500'/> Shiny
+                        <MdStar className='text-red-500' /> Shiny
                     </span>
                 )}
             </div>

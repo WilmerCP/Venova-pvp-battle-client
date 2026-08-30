@@ -21,11 +21,11 @@ export default function PokeSelection({ onSelectPokemon, onBack, availablePokemo
                 )}
             </div>
             <div className="grid grid-cols-3 gap-2 flex-1 min-w-0 min-h-0 overflow-y-auto content-start">
-                {availablePokemon.map((pokemon) => (
+                {availablePokemon.map((pokemon,index) => (
                     <PokemonButton
-                        key={`icon-${pokemon.num}`}
+                        key={`icon-${pokemon.num}-${index}`}
                         pokemon={pokemon}
-                        onClick={() => onSelectPokemon(pokemon)}
+                        onClick={() => onSelectPokemon(pokemon,index+1)}
                     />
                 ))}
             </div>

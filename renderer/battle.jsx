@@ -25,7 +25,7 @@ let p1 = {
     currentHP: 250,
     currentHPPercentage: 100,
     level: 50,
-    gender: 'male',
+    gender: 'M',
     status: 'none',
     number: 80
 
@@ -40,7 +40,7 @@ let p2 = {
     maxHP: 100,
     currentHP: 100,
     level: 50,
-    gender: 'female',
+    gender: 'F',
     status: 'none',
     number: 150
 
@@ -653,7 +653,7 @@ export default function Battle() {
             }
         },
 
-        onSelectPokemon: (pokemonObj) => {
+        onSelectPokemon: (pokemonObj,slot) => {
 
             if (pokemonObj.condition == '0 fnt') {
 
@@ -665,7 +665,7 @@ export default function Battle() {
 
             } else if (processingRef.current == false) {
 
-                window.electronAPI.selectPokemon(pokemonObj.name)
+                window.electronAPI.selectPokemon(slot)
 
             }
 
@@ -698,7 +698,7 @@ export default function Battle() {
 
                 {/* Sprite enemigo - arriba derecha */}
                 {
-                    p2Visible.number &&
+                    p2Visible.number && !hiddenP2 &&
                     <img
                         src={!substituteP2 ? battlerSrcs.src2 : '/sustituto-front.png'}
                         onError={(e) => e.target.src = '/battlers/000.png'}
@@ -710,7 +710,7 @@ export default function Battle() {
                 {/* HP del enemigo - flotando junto a su sprite */}
 
                 {
-                    p2Visible.number && !hiddenP2 &&
+                    p2Visible.number &&
                     <PokeStatusBar pkm={p2Visible} barRef={bar2Ref} statusBarRef={statusBar2Ref} positionClasses={`absolute top-24 left-8 z-15 ${getBarAnimationClass(currentAnimation, 'p2')} ${(battlerSrcs.src2 == undefined || currentAnimation == 'faint-p2') && 'hidden'}`} />
                 }
 

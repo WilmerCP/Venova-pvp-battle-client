@@ -63,9 +63,9 @@ export default function BattleControlBox({ battleLog, handlers, availableMoves, 
 
             {effectiveMenuState === 'pokemon' && (
               <PokeSelection
-                onSelectPokemon={(name) => {
+                onSelectPokemon={(obj,index) => {
 
-                  handlers.onSelectPokemon(name);
+                  handlers.onSelectPokemon(obj,index);
                   setMenuState('main');
 
                 }}

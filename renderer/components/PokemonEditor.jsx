@@ -42,7 +42,7 @@ export default function PokemonEditor({
         value: moveData.id,
         label: moveData.translation ?? moveData.name,
     }));
-    
+
     const abilityOptions = Object.entries(pokemon.abilities).map(([slot, name]) => (
         {
             value: name,
@@ -52,9 +52,20 @@ export default function PokemonEditor({
     const [iconSrc, setIconSrc] = useState(pokemon.icon);
 
     useEffect(() => {
-        setIconSrc(pokemon.icon);
+
         const img = new Image();
-        img.src = pokemon.icon;
+
+        if (pokemon.num == 55 && build.gender == 'F') {
+
+            setIconSrc(pokemon.femaleIcon);
+            img.src = pokemon.femaleIcon;
+
+        } else {
+
+            setIconSrc(pokemon.icon);
+            img.src = pokemon.icon;
+        }
+
         img.onerror = () => setIconSrc(DEFAULT_ICON);
     }, [pokemon.icon]);
 
@@ -238,7 +249,7 @@ export default function PokemonEditor({
                             key={slot}
                             options={moveOptions}
                             value={build.moves[slot]}
-                            onChange={(value) => handleMoveChange(slot,value)}
+                            onChange={(value) => handleMoveChange(slot, value)}
                             placeholder="-- Movimiento --"
                         />
                     ))}

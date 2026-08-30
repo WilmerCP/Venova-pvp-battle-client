@@ -30,6 +30,7 @@ export default function TeamBuilder() {
     const venomonWithIcons = dexData.venomon.map((v) => ({
         ...v,
         icon: getMiniSrc(v.num),
+        femaleIcon: getMiniSrc(v.num, { femaleSprite: v.num == 55 ? true : false }),
     }));
 
     // Opciones para el ComboBox de selección de especie

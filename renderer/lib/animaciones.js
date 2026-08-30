@@ -53,12 +53,14 @@ const MOVE_ANIMATIONS = {
             rows: 3
         },
         'Dragon Claw': {
-            src: "D_Claw.png",
-            cols: 5,
+            src: "Dragon_Claw.png",
+            cols: 4,
             rows: 3,
-            scaleFrom: 1.3,
-            scaleTo: 1.3,
-            totalFrames: 9
+            totalFrames: 12,
+            fallFrom: 0, 
+            fallTo: 0,
+            slideFrom: 0,
+            slideTo: 0,
         },
         'Rock Tomb': {
             src: "Rock_Tomb.png",
@@ -273,6 +275,18 @@ const MOVE_ANIMATIONS = {
             scaleTo: 1.4,
             frameDuration: 90,
         },
+        'Dive': {
+                src: "Water_Physical.png",
+                cols: 4,
+                rows: 3,
+                totalFrames: 10,
+                scaleFrom: 1.7,
+                scaleTo: 1.6,
+                frameDuration: 90,
+                fallFrom: -20,
+                fallTo: -20,
+
+            },
 
     },
 

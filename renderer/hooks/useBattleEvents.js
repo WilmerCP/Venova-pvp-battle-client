@@ -381,6 +381,12 @@ export default function useBattleEvents({ p1, p2 }) {
 
                 break;
 
+            case 'Leftovers':
+
+                log = `¡{pkm} ha recuperado salud gracias a Restos!`
+
+                break;
+
             case 'Wish':
 
                 log = `¡El Deseo de {pkm} se ha realizado!`
@@ -774,7 +780,9 @@ export default function useBattleEvents({ p1, p2 }) {
 
         if (data.effect == 'Disable' && data.extraInfo !== undefined) {
 
-            msj = `¡El movimiento ${data.extraInfo} de {pkm} ha sido desactivado!`;
+            const moveName = MOVES[data.extraInfo].translation ? MOVES[data.extraInfo].translation : MOVES[data.extraInfo].name;
+
+            msj = `¡El movimiento ${moveName} de {pkm} ha sido desactivado!`;
 
         }
 

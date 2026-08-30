@@ -346,13 +346,13 @@ export default function Battle() {
                     // Apply state first — this is what mounts/updates the <img>
                     if (animation.player === 'p1') {
                         setBattlerSrcs(prev => ({ ...prev, src1: animation.newSrc }));
-                        setP1Visible(prev => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp, gender: data.gender }));
+                        setP1Visible(prev => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp, gender: data.gender, shiny: data.shiny }));
                         if (!animation.batonPass) {
                             setSubstituteP1(false); // Remove the substitute
                         }
                     } else {
                         setBattlerSrcs(prev => ({ ...prev, src2: animation.newSrc }));
-                        setP2Visible(prev => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp, gender: data.gender }));
+                        setP2Visible(prev => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp, gender: data.gender, shiny: data.shiny }));
                         if (!animation.batonPass) {
                             setSubstituteP2(false);
                         }

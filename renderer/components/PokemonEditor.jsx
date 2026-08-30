@@ -16,7 +16,7 @@ export default function PokemonEditor({
 }) {
     const { moves, items, abilities, natures } = useLoaderData();
 
-    //console.log("PokemonEditor renderizado con build:", build);
+    console.log("PokemonEditor renderizado con build:", build);
     //console.log("PokemonEditor renderizado con pokemon:", pokemon);
 
     const GenderSymbol = build.gender == 'M' ? CgGenderMale : build.gender == 'F' ? CgGenderFemale : 'div';
@@ -39,7 +39,7 @@ export default function PokemonEditor({
     }));
 
     const moveOptions = learnableMoves.map((moveData) => ({
-        value: moveData.name,
+        value: moveData.id,
         label: moveData.translation ?? moveData.name,
     }));
     
@@ -231,6 +231,7 @@ export default function PokemonEditor({
                 />
 
                 {/* 4 slots de movimientos, cada uno con las opciones del learnset */}
+                {console.log(build.moves)}
                 <div className="grid grid-cols-2 gap-1">
                     {[0, 1, 2, 3].map((slot) => (
                         <ComboBox
@@ -239,18 +240,7 @@ export default function PokemonEditor({
                             value={build.moves[slot]}
                             onChange={(value) => handleMoveChange(slot,value)}
                             placeholder="-- Movimiento --"
-                        />/*
-                        <select
-                            key={slot}
-                            className="text-xs rounded-md border border-black/10 px-1 py-0.5"
-                            value={build.moves[slot]}
-                            onChange={(e) => handleMoveChange(slot, e.target.value)}
-                        >
-                            <option value="">-- Movimiento --</option>
-                            {learnableMoves.map((m) => (
-                                <option key={m.id ?? m.name} value={m.name}>{m.translation}</option>
-                            ))}
-                        </select>*/
+                        />
                     ))}
                 </div>
             </div>

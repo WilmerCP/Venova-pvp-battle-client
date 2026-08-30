@@ -158,11 +158,10 @@ background-position: 0 0, 0 0, 30px 53px, 30px 53px, 0 0, 30px 53px;
 
 @keyframes walk {
   from {
-    background-position: 0 calc(-10px * var(--pkm-icon-scale));
+    background-position: 0 0;
   }
-
   to {
-    background-position: calc(-128px * var(--pkm-icon-scale)) calc(-10px * var(--pkm-icon-scale));
+    background-position: calc(-128px * var(--pkm-icon-scale)) 0;
   }
 }
 

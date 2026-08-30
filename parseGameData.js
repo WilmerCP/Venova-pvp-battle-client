@@ -4,7 +4,7 @@ const path = require('path');
 const os = require('os');
 
 const { getAbility, getNature, getSpeciesByNum,
-   findMoveById, parseStats, getGenderFromPersonalID } = require('./utility.js');
+   findMoveById, findItemById, parseStats, getGenderFromPersonalID } = require('./utility.js');
 
 function getDefaultSavePath() {
   const driveLetter = path.parse(__dirname).root;
@@ -27,11 +27,12 @@ function parseTeamFromSave(savePath) {
       evs: parseStats(pkm['@ev']),
       num: pkm['@species'],
       happiness: pkm['@happiness'],
-      moves: pkm['@moves'].map((move) => findMoveById(move['@id']).name),
+      moves: pkm['@moves'].map((move) => findMoveById(move['@id']).id),
       level: 100,
       nature: getNature(pkm['@personalID']),
       ability: getAbility(pkm['@personalID'], species),
-      gender: getGenderFromPersonalID(pkm['@personalID'],species.genderRatio)
+      gender: getGenderFromPersonalID(pkm['@personalID'],species.genderRatio),
+      item: findItemById(pkm['@item']),
     };
   });
 }
@@ -42,7 +43,7 @@ function getTeamFromSaveData() {
 
     const savePath = getDefaultSavePath();
     const team = parseTeamFromSave(savePath);
-    console.log(team);
+    //console.log(team);
 
     return team;
 

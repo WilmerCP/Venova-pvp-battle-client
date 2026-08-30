@@ -39,7 +39,8 @@ export default function App() {
           Desafia a tus oponentes en combates épicos</p>
       <div className="flex space-x-4 mt-4">
         <BlockyButton color="#e43926" onClick={() => navigate('/battle')}>Combatir</BlockyButton>
-        <BlockyButton color="#dd8c21" onClick={() => navigate('/teamBuilder')}>Equipos</BlockyButton>
+        <BlockyButton color="#dd8c21" onClick={() => navigate('/teamPage')}>Equipo</BlockyButton>
+        <BlockyButton color="#0c741d" onClick={() => navigate('/teamBuilder')}>Editor</BlockyButton>
         <img src={p1} alt="Player 1" className="w-64 absolute left-5 bottom-10 transform" />
         <img src={p2} alt="Player 2" className="w-64 absolute right-5 top-10 transform" />
       </div>

@@ -311,6 +311,20 @@ function findMoveById(targetId) {
     return Object.values(MOVES).find((move) => move.gameId === targetId);
 }
 
+//Finds the item object matching by the venova adventures internal numerical id
+function findItemById(targetId) {
+
+    const entry = Object.entries(ITEMS).find(([key, item]) => item.gameId === targetId);
+
+    if (!entry) {
+        console.warn(`Item with gameId ${targetId} not found in ITEMS dictionary.`);
+        return null;
+    }
+
+    const [key, obj] = entry;
+    return key;
+}
+
 //Finds the venomon from the pokedex index number
 function getSpeciesByNum(num) {
     return ModdedDex.species.all().find(sp => sp.num === num);
@@ -436,5 +450,5 @@ module.exports = {
     cleanPokemonName, parseEffect, parsePokemonId, parseSideId,
     parseCondition, parsePokemonDetails, parseHealth, getDexData, teamIsValid,
     getAbility, getNature, getSpeciesByNum, findMoveById, parseStats, getGenderFromPersonalID,
-    parseFailInfo, parseTags
+    parseFailInfo, parseTags, findItemById
 }

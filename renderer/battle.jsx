@@ -1,8 +1,8 @@
 import './index.css'
 import bg from './assets/fondos/battlebgChampion.png'
 
-import { useNavigate } from 'react-router-dom'
-import { useEffect, useState, useRef, use } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { useEffect, useState, useRef } from 'react'
 import { useLoaderData } from 'react-router-dom'
 import BattleControlBox from './components/BattleControlBox.jsx'
 import PokeStatusBar from './components/PokeStatusBar.jsx'
@@ -120,10 +120,13 @@ function getBarAnimationClass(animationDesc, playerId) {
 export default function Battle() {
 
     const battleData = useLoaderData();
+    const location = useLocation();
+    const mode = location.state?.mode;
+    const playerIdentity = location.state?.playerIdentity || 'p1'; // Default to 'p1' if not provided
 
     const { battleLog, addBattleLog, battlerSrcs, setBattlerSrcs, availableMoves,
         availablePokemon, waiting, switchRequired, animationQueue,
-        pendingAnimation, setPendingAnimation } = useBattleEvents({ p1, p2 });
+        pendingAnimation, setPendingAnimation, setWaiting } = useBattleEvents({ p1, p2, mode, playerIdentity });
 
     const processingRef = useRef(false);
     const [isProcessing, setIsProcessing] = useState(true);
@@ -196,7 +199,7 @@ export default function Battle() {
                             setAnimationPlaying(false);
                             setCurrentMove(undefined);
                             setCurrentAnimation(null);
-                            if (animation.player === 'p1') {
+                            if (animation.player === 'x1') {//Origin
                                 setHiddenP1(false);
                             } else {
                                 setHiddenP2(false);
@@ -245,8 +248,8 @@ export default function Battle() {
 
                 return new Promise((resolve) => {
 
-                    const barRef = animation.player === 'p1' ? bar1Ref : bar2Ref;
-                    const hpRef = animation.player === 'p1' ? p1HPRef : p2HPRef;
+                    const barRef = animation.position === 'x1' ? bar1Ref : bar2Ref;
+                    const hpRef = animation.position === 'x1' ? p1HPRef : p2HPRef;
 
                     if (hpRef.current === animation.newHP) {
                         return resolve();
@@ -254,7 +257,7 @@ export default function Battle() {
 
                     hpRef.current = animation.newHP;
 
-                    if (animation.player == 'p1') {
+                    if (animation.position === 'x1') {
 
                         setP1Visible(prev => ({ ...prev, currentHPPercentage: animation.newHP }))
 
@@ -290,10 +293,10 @@ export default function Battle() {
 
             case 'faint': {
                 return new Promise((resolve) => {
-                    const spriteRef = animation.player === 'p1' ? sprite1Ref : sprite2Ref;
+                    const spriteRef = animation.position === 'x1' ? sprite1Ref : sprite2Ref;
                     const elPkm = spriteRef.current;
 
-                    //const statusBarRef = animation.player === 'p1' ? statusBar1Ref : statusBar2Ref;
+                    //const statusBarRef = animation.position === 'x1' ? statusBar1Ref : statusBar2Ref;
                     //const elBar = statusBarRef.current;
 
                     if (!elPkm) {
@@ -303,14 +306,14 @@ export default function Battle() {
 
                     const hidePlayer = () => {
                         setCurrentAnimation('none');
-                        if (animation.player === 'p1') {
+                        if (animation.position === 'x1') {
                             setP1Visible(prev => ({ ...prev, number: undefined, pkmName: undefined }));
                         } else {
                             setP2Visible(prev => ({ ...prev, number: undefined, pkmName: undefined }));
                         }
                     };
 
-                    if (animation.player == 'p1') {
+                    if (animation.position === 'x1') {
 
                         setCurrentAnimation('faint-p1')
 
@@ -340,11 +343,11 @@ export default function Battle() {
 
             case 'pkmSwitch': {
                 return new Promise((resolve) => {
-                    const spriteRef = animation.player === 'p1' ? sprite1Ref : sprite2Ref;
+                    const spriteRef = animation.position === 'x1' ? sprite1Ref : sprite2Ref;
                     const data = animation.pkmData;
 
                     // Apply state first — this is what mounts/updates the <img>
-                    if (animation.player === 'p1') {
+                    if (animation.position === 'x1') {
                         setBattlerSrcs(prev => ({ ...prev, src1: animation.newSrc }));
                         setP1Visible(prev => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp, gender: data.gender, shiny: data.shiny }));
                         if (!animation.batonPass) {
@@ -368,7 +371,7 @@ export default function Battle() {
                                 return;
                             }
 
-                            setCurrentAnimation(animation.player === 'p1' ? 'switch-p1' : 'switch-p2');
+                            setCurrentAnimation(animation.position === 'x1' ? 'switch-p1' : 'switch-p2');
 
                             const timeout = setTimeout(() => {
                                 elPkm.removeEventListener('animationend', onEnd);
@@ -392,12 +395,12 @@ export default function Battle() {
 
                 return new Promise((resolve) => {
 
-                    if (animation.player === 'p2') {
+                    if (animation.position === 'x2') {
                         setP2Visible((prev) => ({ ...prev, status: animation.newStatus }))
 
                     }
 
-                    if (animation.player === 'p1') {
+                    if (animation.position === 'x1') {
                         setP1Visible((prev) => ({ ...prev, status: animation.newStatus }))
 
                     }
@@ -414,12 +417,12 @@ export default function Battle() {
 
                 return new Promise((resolve) => {
 
-                    if (animation.player === 'p2') {
+                    if (animation.position === 'x2') {
                         setBattlerSrcs(prev => ({ ...prev, src2: animation.newSrc }));
 
                     }
 
-                    if (animation.player === 'p1') {
+                    if (animation.position === 'x1') {
                         setBattlerSrcs(prev => ({ ...prev, src1: animation.newSrc }));
 
                     }
@@ -480,8 +483,8 @@ export default function Battle() {
             case 'volatileStart': {
                 switch (animation.effect) {
                     case 'Substitute': {
-                        if (animation.player === 'p2') setSubstituteP2(true);
-                        if (animation.player === 'p1') setSubstituteP1(true);
+                        if (animation.position === 'x2') setSubstituteP2(true);
+                        if (animation.position === 'x1') setSubstituteP1(true);
                         return new Promise((resolve) => setTimeout(resolve, LOG_TIME));
                     }
                     case 'confusion': {
@@ -495,8 +498,8 @@ export default function Battle() {
             case 'endVolatile': {
                 switch (animation.effect) {
                     case 'Substitute': {
-                        if (animation.player === 'p2') setSubstituteP2(false);
-                        if (animation.player === 'p1') setSubstituteP1(false);
+                        if (animation.position === 'x2') setSubstituteP2(false);
+                        if (animation.position === 'x1') setSubstituteP1(false);
                         return handleAnimation({ target: animation.player, event: 'effect', name: 'Substitute' });
                     }
                     case 'confusion': {
@@ -529,7 +532,7 @@ export default function Battle() {
 
                 return new Promise((resolve) => {
 
-                    const spriteRef = animation.player === 'p1' ? sprite1Ref : sprite2Ref;
+                    const spriteRef = animation.position === 'x1' ? sprite1Ref : sprite2Ref;
                     const elPkm = spriteRef.current;
 
 
@@ -540,14 +543,14 @@ export default function Battle() {
 
                     const hidePlayer = () => {
                         setCurrentAnimation('none');
-                        if (animation.player === 'p1') {
+                        if (animation.position === 'x1') {
                             setHiddenP1(true);
                         } else {
                             setHiddenP2(true);
                         }
                     };
 
-                    if (animation.player == 'p1') {
+                    if (animation.position == 'x1') {
 
                         setCurrentAnimation(`${animation.move}-p1`)
 
@@ -620,7 +623,6 @@ export default function Battle() {
         processQueue();
     }, [pendingAnimation]);
 
-
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.key === 'Escape') {
@@ -650,10 +652,11 @@ export default function Battle() {
                 return
             } else if (processingRef.current == false) {
                 window.electronAPI.makeMove(move)
+                setWaiting(true);
             }
         },
 
-        onSelectPokemon: (pokemonObj,slot) => {
+        onSelectPokemon: (pokemonObj, slot) => {
 
             if (pokemonObj.condition == '0 fnt') {
 
@@ -672,6 +675,13 @@ export default function Battle() {
         }
 
     }
+
+    useEffect(() => {
+        return () => {
+            // esto corre cuando el componente se desmonta (navegás a otra ruta)
+            window.electronAPI?.leaveBattle();
+        };
+    }, []);
 
     return (
         <>
@@ -751,7 +761,7 @@ export default function Battle() {
 
                 {waiting && (
                     <div className="bg-white p-6 rounded-lg shadow-lg text-center absolute bottom-1/2 left-1/2 transform -translate-x-1/2 z-25">
-                        <p>Esperando a que el rival tome una accion...</p>
+                        <p>Esperando por el rival...</p>
                     </div>
                 )}
 

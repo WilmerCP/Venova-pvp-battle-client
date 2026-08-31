@@ -4,6 +4,10 @@ import Home from './inicio.jsx'
 import Battle from './battle.jsx'
 import TeamBuilder from './teamBuilder.jsx'
 import TeamPage from './TeamPage.jsx'
+import HostBattle from './HostBattle.jsx'
+
+import { getRandomPin } from './helpers.js'
+import JoinBattle from './JoinBattle.jsx'
 
 const router = createHashRouter([
   {
@@ -12,16 +16,7 @@ const router = createHashRouter([
   },
   {
     path: '/battle',
-    element: <Battle />,
-    loader: async () => {
-      if (!window.electronAPI) {
-        throw new Error('electronAPI not available')
-      }
-
-      //const initialData = await waitForBattleReady();
-
-      return window.electronAPI.startRandomBattle();
-    },
+    element: <Battle />
     
   },
   {
@@ -45,6 +40,28 @@ const router = createHashRouter([
 
       return window.electronAPI.getDexData()
     },
+  },
+  {
+    path: '/hostBattle',
+    element: <HostBattle />,
+    loader: async () => {
+
+      console.log('Generating random pin for hosting battle...');
+
+     if (!window.electronAPI) {
+        throw new Error('electronAPI not available')
+      }
+
+
+      const pin = getRandomPin();
+
+      return window.electronAPI.hostBattle(pin);
+    },
+  },
+
+  {
+    path: '/joinBattle',
+    element: <JoinBattle />
   },
 ])
 

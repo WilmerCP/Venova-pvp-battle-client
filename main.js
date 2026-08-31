@@ -33,21 +33,122 @@ const createWindow = () => {
   return win
 }
 
+function connectSocket() {
+    if (socket) {
+        socket.disconnect();
+    }
+    return io('http://localhost:3000');
+}
 
 app.whenReady().then(() => {
   Menu.setApplicationMenu(null)
 
   const win = createWindow()
 
-  ipcMain.handle('start-random-battle', async () => {
+  ipcMain.handle('start-private', async (event, pin) => {
 
-    socket = io('http://localhost:3000')
+    socket = connectSocket();
 
     socket.on('connect', () => {
       console.log('Connected to server:', socket.id)
 
       if (selectedTeam != null) {
-        const filtered = selectedTeam.filter((pkm)=>pkm.species !== '');
+        const filtered = selectedTeam.filter((pkm) => pkm.species !== '');
+        socket.emit('start-private', { pin: pin, team: filtered });
+      } else {
+        return { success: false, message: 'A team is required' }
+      }
+
+    })
+
+    socket.on('battle-update', (data) => {
+      // public messages for all players
+
+      parseUpdate(data, win)
+
+    })
+
+    socket.on('sideupdate', (data) => {
+      // private messages for player 1 only (choice requests, hidden HP, etc.)
+      parseUpdate(data, win)
+    })
+
+    socket.on('battle-end', (data) => {
+      console.log('Battle end:')
+      //console.log('Battle end:', data)
+    })
+
+    socket.on('match-started', () => {
+      win.webContents.send('matchStarted');
+    })
+
+    socket.on('matched', () => {
+      win.webContents.send('matched');
+    })
+
+    return { success: true, message: 'Done', pin: pin }
+  })
+
+  ipcMain.handle('join-private', async (event, pin) => {
+
+    socket = connectSocket();
+
+    socket.on('connect', () => {
+      console.log('Connected to server:', socket.id)
+
+      if (selectedTeam != null) {
+        const filtered = selectedTeam.filter((pkm) => pkm.species !== '');
+        socket.emit('join-private', { pin: pin, team: filtered });
+      } else {
+        return { success: false, message: 'A team is required' }
+      }
+
+    })
+
+    socket.on('match-started', () => {
+      win.webContents.send('matchStarted');
+    })
+
+    socket.on('matched', () => {
+      win.webContents.send('matched');
+    })
+
+    socket.on('battle-update', (data) => {
+      // public messages for all players
+
+      parseUpdate(data, win)
+
+    })
+
+    socket.on('sideupdate', (data) => {
+      // private messages for player 1 only (choice requests, hidden HP, etc.)
+      console.log('sideupdate received');
+      parseUpdate(data, win)
+    })
+
+    socket.on('battle-end', (data) => {
+      console.log('Battle end:')
+      //console.log('Battle end:', data)
+    })
+
+    socket.on('error', (obj) => {
+      console.log('Socket disconnected:', obj.message);
+      win.webContents.send('error',obj.message);
+
+    });
+
+    return { success: true, message: 'Done' }
+  })
+
+  ipcMain.handle('start-random-battle', async () => {
+
+    socket = connectSocket();
+
+    socket.on('connect', () => {
+      console.log('Connected to server:', socket.id)
+
+      if (selectedTeam != null) {
+        const filtered = selectedTeam.filter((pkm) => pkm.species !== '');
         socket.emit('start-random-battle', filtered);
       } else {
         socket.emit('start-random-battle');
@@ -72,8 +173,27 @@ app.whenReady().then(() => {
       //console.log('Battle end:', data)
     })
 
+    socket.on('disconnect', (reason) => {
+      console.log('Socket disconnected:', reason);
+    });
+
+    socket.on('error', (obj) => {
+      console.log('Socket disconnected:', obj.message);
+      win.webContents.send('error',obj.message);
+
+    });
+
     return { success: true, message: 'Done' }
   })
+
+  ipcMain.handle('leave-battle', async (event) => {
+    console.log('Disconnecting socket');
+    if (socket) {
+        socket.disconnect();
+        socket = null; 
+    }
+    return { success: true };
+});
 
   ipcMain.handle('make-move', async (event, move) => {
     console.log('Making move:', move)
@@ -97,7 +217,7 @@ ipcMain.handle('get-dex-data', getDexData)
 
 ipcMain.handle('set-selected-team', (event, team) => {
 
-  const filtered = team.filter((pkm)=>pkm.species !== '');
+  const filtered = team.filter((pkm) => pkm.species !== '');
 
   if (teamIsValid(filtered)) {
 
@@ -105,8 +225,8 @@ ipcMain.handle('set-selected-team', (event, team) => {
 
     return { success: true, message: 'Team Validated' }
 
-  }else{
-    
+  } else {
+
     return { success: false, message: 'Invalid team' }
 
   }
@@ -119,4 +239,9 @@ ipcMain.handle('get-selected-team', () => {
 
 ipcMain.handle('import-team', () => {
   return getTeamFromSaveData();
+});
+
+ipcMain.handle('battle-ui-ready', () => {
+    socket?.emit('client-ready');
+    return { success: true };
 });

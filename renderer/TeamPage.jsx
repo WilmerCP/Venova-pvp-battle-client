@@ -60,7 +60,7 @@ export default function TeamBuilder() {
 
             if (result.success) {
 
-                navigate('/battle');
+                navigate('/battle', { state: { mode: 'random', playerIdentity: 'p1' } });
 
             } else {
 

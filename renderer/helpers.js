@@ -18,3 +18,13 @@ export function getGenderFromRatio(ratio) {
   const n = Math.random();
   return n < ratio.F ? 'F' : 'M'; 
 }
+
+export function getRandomPin() {
+    if (crypto.randomInt) {
+        return crypto.randomInt(100000, 1000000).toString();
+    }
+
+    const array = new Uint32Array(1);
+    crypto.getRandomValues(array);
+    return (100000 + (array[0] % 900000)).toString();
+}

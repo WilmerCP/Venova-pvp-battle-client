@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { FiCheckCircle, FiX } from "react-icons/fi";
+import { FiCheckCircle, FiX, FiClipboard } from "react-icons/fi";
+import { IoWarning } from "react-icons/io5";
  
 /**
  * Toast de notificación tipo "snackbar": aparece abajo, centrado,
@@ -16,6 +17,7 @@ export default function Toast({
   onClose,
   message = "Importación exitosa",
   duration = 3000,
+  type = 'success'
 }) {
   const [visible, setVisible] = useState(false);
  
@@ -31,6 +33,25 @@ export default function Toast({
   }, [show, duration, onClose]);
  
   if (!show) return null;
+
+  let icon;
+
+  switch(type){
+
+    case 'success':
+      icon = <FiCheckCircle className="w-5 h-5 text-emerald-400 shrink-0" />;
+      break;
+
+    case 'warning':
+      icon = <IoWarning className="w-5 h-5 text-orange-400 shrink-0" />;
+      break;
+
+    case 'copy':
+      icon = <FiClipboard className="w-5 h-5 text-yellow-400 shrink-0" />;
+
+    default:
+
+  }
  
   return (
     <div
@@ -42,7 +63,7 @@ export default function Toast({
         className={`pointer-events-auto flex items-center gap-2 rounded-lg bg-neutral-900 text-white px-4 py-3 shadow-lg transition-all duration-200 ease-out
           ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
       >
-        <FiCheckCircle className="w-5 h-5 text-emerald-400 shrink-0" />
+        {icon}
         <span className="text-sm font-medium">{message}</span>
         <button
           onClick={() => {

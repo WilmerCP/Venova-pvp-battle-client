@@ -531,7 +531,7 @@ async function parseUpdate(content, win) {
                     break
                 }
 
-                if (request.side.id === 'p1') {
+                
 
                     //console.log('player 1 choice: ', request)
 
@@ -571,7 +571,7 @@ async function parseUpdate(content, win) {
                     }
 
                     win.webContents.send('team', request)
-                }
+                
 
                 break
             }

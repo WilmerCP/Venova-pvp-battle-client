@@ -1,5 +1,5 @@
 import './index.css'
-import bg from './assets/fondos/battlebgChampion.png'
+import bg from './assets/fondos/battlebgSnow.png'
 import p1 from './assets/iguana.png'
 import p2 from './assets/zamuro.png'
 import BlockyButton from './components/BlockyButton'
@@ -87,12 +87,12 @@ export default function HostBattle() {
 
             {/* Personajes flotantes en esquinas opuestas */}
             <img
-                src={p1}
+                src={"battlers/112.png"}
                 alt="Player 1"
                 className="absolute left-4 bottom-4 z-20 w-44 md:w-64 lg:w-80 transition-transform duration-300 hover:scale-105 pointer-events-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.7)]"
             />
             <img
-                src={p2}
+                src={"battlers/162.png"}
                 alt="Player 2"
                 className="absolute right-4 top-4 z-20 w-44 md:w-64 lg:w-80 transition-transform duration-300 hover:scale-105 pointer-events-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.7)]"
             />

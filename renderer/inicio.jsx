@@ -91,7 +91,7 @@ export default function App() {
       {/* Contenedor ÚNICAMENTE para los botones */}
       <div className="flex space-x-3 mt-4 scale-90 z-10">
         <div className="transition-transform duration-200 ease-out hover:scale-110 active:scale-95">
-          <BlockyButton color="#dc2626" onClick={() => navigate('/battle', { state: { mode: 'random', playerIdentity: 'p1' } })}>
+          <BlockyButton color="#059669" onClick={() => navigate('/battle', { state: { mode: 'random', playerIdentity: 'p1' } })}>
             Combatir
           </BlockyButton>
         </div>
@@ -103,19 +103,19 @@ export default function App() {
         </div>
 
         <div className="transition-transform duration-200 ease-out hover:scale-110 active:scale-95">
-          <BlockyButton color="#059669" onClick={() => navigate('/teamBuilder')}>
+          <BlockyButton color="#78350F" onClick={() => navigate('/teamBuilder')}>
             Editor
           </BlockyButton>
         </div>
 
         <div className="transition-transform duration-200 ease-out hover:scale-110 active:scale-95">
-          <BlockyButton color="#2563eb" onClick={()=>{handlePvpBattle('./hostBattle')}}>
+          <BlockyButton color="#B45309" onClick={()=>{handlePvpBattle('./hostBattle')}}>
             Hostear
           </BlockyButton>
         </div>
 
         <div className="transition-transform duration-200 ease-out hover:scale-110 active:scale-95">
-          <BlockyButton color="#7c3aed" onClick={()=>{handlePvpBattle('./joinBattle')}}>
+          <BlockyButton color="#F59E0B" onClick={()=>{handlePvpBattle('./joinBattle')}}>
             Unirse
           </BlockyButton>
         </div>

@@ -11,7 +11,7 @@ export default function PokeSelection({ onSelectPokemon, onBack, availablePokemo
                 {!forced && (
                     <button
                         onClick={onBack}
-                        className="flex items-center justify-center w-10 h-10 rounded-xl
+                        className="flex items-center justify-center w-10 h-10 rounded-sm
                               bg-red-500 hover:bg-red-400 active:translate-y-0.5
                               border-b-4 border-red-700 active:border-b-2
                               shadow-sm transition-all duration-100"
@@ -20,7 +20,7 @@ export default function PokeSelection({ onSelectPokemon, onBack, availablePokemo
                     </button>
                 )}
             </div>
-            <div className="grid grid-cols-3 gap-2 flex-1 min-w-0 min-h-0 overflow-y-auto content-start">
+            <div className="grid grid-cols-3 gap-2 flex-1 min-w-0 min-h-0 overflow-visible content-start">
                 {availablePokemon.map((pokemon,index) => (
                     <PokemonButton
                         key={`icon-${pokemon.num}-${index}`}

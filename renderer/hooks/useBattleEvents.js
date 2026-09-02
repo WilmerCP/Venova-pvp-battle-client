@@ -96,6 +96,8 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
 
         //console.log(data.name + ' switched in!')
 
+        setWaiting(false);
+
         if (data.player === playerIdentity) {
 
             setSwitchRequired(false);
@@ -147,8 +149,6 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
 
 
             if (data.maxHp == 100) {
-
-                setWaiting(false)
 
                 setPlayer2((prev) => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp }))
 
@@ -304,7 +304,7 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
         if (data.from === 'confusion') {
             scheduleAnimation({
                 event: 'effect',
-                target: data.player,
+                target: getPosition(data.player),
                 log: resolvedLog,
                 name: 'selfHit'
             });
@@ -312,7 +312,7 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
 
             scheduleAnimation({
                 event: 'effect',
-                target: data.player,
+                target: getPosition(data.player),
                 log: resolvedLog,
                 name: data.from
             })
@@ -323,7 +323,7 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
                 event: 'ability',
                 pkmName: data.ofPokemon ? data.ofPokemon.name : data.name,
                 abilityName: data.ability,
-                player: data.ofPokemon ? data.ofPokemon.player : data.source.player,
+                player: data.ofPokemon ? getPosition(data.ofPokemon.player) : getPosition(data.source.player),
                 translation: data.abilityTranslation
             });
 

@@ -120,19 +120,15 @@
 
 .special-background {
   background-color: #ecd078;
-opacity: 0.8;
+opacity: 1;
 background: repeating-linear-gradient(45deg, #d95b43 0, #d95b43 39px, #c02942 39px, #c02942 78px, #542437 78px, #542437 117px, #c02942 117px, #c02942 156px);
 }
 .special-background2 {
-background-color: #655643;
-opacity: 0.8;
-background: repeating-linear-gradient(45deg, transparent 0, transparent 45.5px, #80bca3 45.5px, #80bca3 52px), repeating-linear-gradient(-45deg, transparent 0, transparent 45.5px, #f6f7bd 45.5px, #f6f7bd 52px), repeating-linear-gradient(90deg, transparent 0, transparent 45.5px, #e6ac27 45.5px, #e6ac27 52px), #655643;
-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 75%);
--webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 75%);
-mask-size: 100% 100%;
--webkit-mask-size: 100% 100%;
-mask-repeat: no-repeat;
--webkit-mask-repeat: no-repeat;
+background-color: #4e4d4a;
+opacity: 1;
+background-image:  radial-gradient(#353432 17%, #4e4d4a 18% 35%, transparent 36.5%), radial-gradient(#353432 17%, #4e4d4a 18% 35%, transparent 36.5%), radial-gradient(#4e4d4a 34%, #353432 36% 68%, transparent 70%), repeating-linear-gradient(45deg, #353432 -12.5% 12.5%, #4e4d4a 0 37.5%);
+background-position: -20px -20px, 20px 20px, 0 0, 0 0;
+background-size: 80px 80px, 80px 80px, 40px 40px, 80px 80px;
 }
 
 .isometric-background {
@@ -141,6 +137,13 @@ opacity: 1;
 background-image:  linear-gradient(30deg, #424254 12%, transparent 12.5%, transparent 87%, #424254 87.5%, #424254), linear-gradient(150deg, #424254 12%, transparent 12.5%, transparent 87%, #424254 87.5%, #424254), linear-gradient(30deg, #424254 12%, transparent 12.5%, transparent 87%, #424254 87.5%, #424254), linear-gradient(150deg, #424254 12%, transparent 12.5%, transparent 87%, #424254 87.5%, #424254), linear-gradient(60deg, #42425477 25%, transparent 25.5%, transparent 75%, #42425477 75%, #42425477), linear-gradient(60deg, #42425477 25%, transparent 25.5%, transparent 75%, #42425477 75%, #42425477);
 background-size: 60px 105px;
 background-position: 0 0, 0 0, 30px 53px, 30px 53px, 0 0, 30px 53px;
+}
+
+.spiral-background {
+  background-color: #4e4d4a;
+opacity: 1;
+background-image: radial-gradient(circle at center center, #353432, #4e4d4a), repeating-radial-gradient(circle at center center, #353432, #353432, 10px, transparent 20px, transparent 10px);
+background-blend-mode: multiply;
 }
 
 .mini-icon {
@@ -312,4 +315,21 @@ background-position: 0 0, 0 0, 30px 53px, 30px 53px, 0 0, 30px 53px;
 
 .dive-animation {
   animation: diveIn 0.7s ease-in forwards;
+}
+
+/* Scrollbar del log de batalla — estilo rectangular a juego con la caja blanca/negra */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(27.8% 0.033 256.848);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333333;
 }

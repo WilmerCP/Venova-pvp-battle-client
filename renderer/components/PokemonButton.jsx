@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { CgGenderMale, CgGenderFemale } from "react-icons/cg";
+
 
 const DEFAULT_ICON = 'minis/icon000.png';
 
@@ -16,11 +18,14 @@ export default function PokemonButton({ pokemon, onClick }) {
   const hpPercent = pokemon.maxHp !== 0 ? Math.max(0, Math.min(100, (pokemon.currentHp / pokemon.maxHp) * 100)) : 0;
   const hpColor = hpPercent > 50 ? '#4ade80' : hpPercent > 20 ? '#facc15' : '#f87171';
 
+  const GenderSymbol = pokemon.gender == 'M' ? CgGenderMale : pokemon.gender == 'F' ? CgGenderFemale : 'div';
+  const genderClass = pokemon.gender == 'M' ? 'male' : pokemon.gender == 'F' ? 'female' : '';
+
   return (
     <button
       onClick={onClick}
       className="hover:brightness-110 active:translate-y-1 active:border-b-2
-                py-1.5 px-3 rounded-xl
+                py-1.5 px-3 rounded-sm
                 transition-all duration-100
                 flex flex-row items-center justify-start gap-2
                 bg-white/90 border border-black/10"
@@ -39,14 +44,17 @@ export default function PokemonButton({ pokemon, onClick }) {
 
       <div className="flex flex-col items-start flex-1 min-w-0 gap-0.5">
         <div className="flex flex-col items-start flex-1 min-w-0">
-          <span className="text-xs font-medium truncate text-left">
-            {pokemon.name}
-          </span>
+          <div className="flex flex-row gap-0.5">
+            <span className="text-xs font-medium truncate text-left">
+              {pokemon.name}
+            </span>
+            <GenderSymbol className={`${genderClass} text-xs`} />
+          </div>
           <div className="flex flex-row gap-0.5">
             <span className="text-[10px] font-semibold text-black/60 shrink-0">
-            Nv. {pokemon.level}
-          </span>
-          <div className={`status-selection status-${pokemon.status}-selection`}></div>
+              Nv. {pokemon.level}
+            </span>
+            <div className={`status-selection status-${pokemon.status}-selection`} />
           </div>
         </div>
 

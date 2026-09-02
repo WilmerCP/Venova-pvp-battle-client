@@ -1,5 +1,7 @@
 import './index.css'
 import bg from './assets/fondos/battlebgChampion.png'
+import playerBase from './assets/playerbase/playerbaseFieldSandEve.png'
+import enemyBase from './assets/enemybase/enemybaseFieldSandEve.png'
 
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
@@ -9,6 +11,8 @@ import PokeStatusBar from './components/PokeStatusBar.jsx'
 import PopupEnd from './components/PopupEnd.jsx'
 import MoveAnimation from './components/MoveAnimation.jsx'
 import AbilityFrame from './components/AbilityFrame.jsx'
+import ConfirmDialog from './components/Popup.jsx'
+import WaitingIndicator from './components/WaitingIndicator.jsx'
 
 import useBattleEvents from './hooks/useBattleEvents.js'
 
@@ -121,7 +125,7 @@ export default function Battle() {
 
     const battleData = useLoaderData();
     const location = useLocation();
-    const mode = location.state?.mode;
+    const mode = location.state?.mode; //solo | pvp
     const playerIdentity = location.state?.playerIdentity || 'p1'; // Default to 'p1' if not provided
 
     const { battleLog, addBattleLog, battlerSrcs, setBattlerSrcs, availableMoves,
@@ -174,6 +178,12 @@ export default function Battle() {
     const [hiddenP2, setHiddenP2] = useState(false);
 
     const [weather, setWeather] = useState('none');
+
+    const [popupData, setPopupData] = useState({
+        title: null,
+        description: null,
+        action: null
+    });
 
     async function handleAnimation(animation) {
 
@@ -640,7 +650,13 @@ export default function Battle() {
     const handlers = {
 
         onRun: () => {
-            navigate('/')
+
+            setPopupData({
+                title: "Rendirse",
+                description: "¿Quieres abandonar el combate?",
+                action: () => { navigate('/') }
+            })
+
         },
 
         onMakeMove: (move, disabled) => {
@@ -668,7 +684,8 @@ export default function Battle() {
 
             } else if (processingRef.current == false) {
 
-                window.electronAPI.selectPokemon(slot)
+                window.electronAPI.selectPokemon(slot);
+                setWaiting(true);
 
             }
 
@@ -686,6 +703,16 @@ export default function Battle() {
     return (
         <>
             {winner && <PopupEnd winner={winner} onClose={() => { navigate('/') }} />}
+
+            <ConfirmDialog
+                open={popupData.action !== null}
+                title={popupData.title}
+                description={popupData.description}
+                onConfirm={popupData.action}
+                onCancel={() => setPopupData({ title: null, description: null, action: null })}
+                variant='danger'
+            />
+
             <div className="flex flex-col items-center justify-center h-screen relative overflow-hidden"
                 style={{
                     backgroundImage: `url(${bg})`,
@@ -712,10 +739,17 @@ export default function Battle() {
                     <img
                         src={!substituteP2 ? battlerSrcs.src2 : '/sustituto-front.png'}
                         onError={(e) => e.target.src = '/battlers/000.png'}
-                        className={`${getSpriteAnimationClass(currentAnimation, 'p2')} absolute z-10 ${!substituteP2 ? 'top-12 right-12 w-48' : 'top-25 right-20 w-30'}`}
+                        className={`${getSpriteAnimationClass(currentAnimation, 'p2')} absolute z-10 ${!substituteP2 ? 'top-12 right-12 w-48' : 'top-28 right-20 w-30'}`}
                         ref={sprite2Ref}
                     />
                 }
+                
+                   
+                <img
+                    src={enemyBase}
+                    className={`absolute z-9 top-35 right-1 w-73 h-auto`}
+                    alt="Enemy Base"
+                />
 
                 {/* HP del enemigo - flotando junto a su sprite */}
 
@@ -737,10 +771,18 @@ export default function Battle() {
                     <img
                         src={!substituteP1 ? battlerSrcs.src1 : '/sustituto-back.png'}
                         onError={(e) => e.target.src = '/battlers/000.png'}
-                        className={`${getSpriteAnimationClass(currentAnimation, 'p1')} absolute z-10 ${!substituteP1 ? 'bottom-32 left-12 w-64' : 'bottom-25 left-12 w-50'}`}
+                        className={`${getSpriteAnimationClass(currentAnimation, 'p1')} absolute z-10 ${!substituteP1 ? 'bottom-40 left-12 w-64' : 'bottom-25 left-12 w-50'}`}
                         ref={sprite1Ref}
                     />
                 }
+
+
+                <img
+                    src={playerBase}
+                    className={`absolute z-9 bottom-40 -left-3 w-90 h-auto`}
+                    alt="Player Base"
+                />
+
 
                 {/* HP del jugador - flotando junto a su sprite */}
                 {
@@ -757,12 +799,10 @@ export default function Battle() {
 
                 }
 
-                <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} availablePokemon={availablePokemon} handlers={handlers} switchRequired={switchRequired} animationPlaying={isProcessing} currentLog={currentLog} battleEnded={winner !== null} />
+                <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} availablePokemon={availablePokemon} handlers={handlers} switchRequired={switchRequired} animationPlaying={isProcessing} currentLog={currentLog} battleEnded={winner !== null} waiting={waiting} />
 
                 {waiting && (
-                    <div className="bg-white p-6 rounded-lg shadow-lg text-center absolute bottom-1/2 left-1/2 transform -translate-x-1/2 z-25">
-                        <p>Esperando por el rival...</p>
-                    </div>
+                    <WaitingIndicator />
                 )}
 
                 {weather !== 'none' &&

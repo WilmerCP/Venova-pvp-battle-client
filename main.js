@@ -19,6 +19,7 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'), // required
       contextIsolation: true,                      // default true, be explicit
+      backgroundThrottling: false,
     }
   })
 
@@ -86,6 +87,11 @@ app.whenReady().then(() => {
       win.webContents.send('matched');
     })
 
+    socket.on('opponent-disconnected', () => {
+      console.log("OPPONENT DISCONECTED")
+      win.webContents.send('opponent-disconnected');
+    });
+
     return { success: true, message: 'Done', pin: pin }
   })
 
@@ -135,6 +141,10 @@ app.whenReady().then(() => {
       console.log('Socket disconnected:', obj.message);
       win.webContents.send('error',obj.message);
 
+    });
+
+    socket.on('opponent-disconnected', () => {
+      win.webContents.send('opponent-disconnected');
     });
 
     return { success: true, message: 'Done' }

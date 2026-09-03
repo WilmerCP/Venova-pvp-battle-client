@@ -50,7 +50,7 @@ export default function PokemonDisplay({
     return (
         <div
             className="
-                py-3 px-3 rounded-xl
+                py-3 px-3 rounded-sm
                 flex flex-col gap-2
                 bg-white border border-black/10"
             style={{

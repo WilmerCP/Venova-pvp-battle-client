@@ -449,6 +449,32 @@ async function parseUpdate(content, win) {
                 break
             }
 
+            //An effect targeted at POKEMON was blocked by EFFECT
+            case '-block': {
+                //|-block|POKEMON|EFFECT|MOVE|ATTACKER
+                //|-block|p2a: SnoruntV|ability: Flower Veil|[of] p2a: SnoruntV
+
+                const { player, slot, name } = parsePokemonId(parts[2]);
+                const { effect, effectName, type, translation } = parseEffect(parts[3]);
+
+                const { ofPokemon } = parseTags(parts.slice(4))
+
+                win.webContents.send('block', {
+                    player: player,
+                    slot: slot,
+                    name: name,
+                    effect,
+                    effectName,
+                    type,
+                    translation,
+                    ofPokemon
+
+                })
+
+                break
+
+            }
+
             //The specified ACTION has failed against the POKEMON targeted. The ACTION in question should be a move that fails due to its own mechanics. 
             case '-fail': {
                 //|-fail|p1a: Qwilfish (mov. tipo sonambulo, sorpresa, ultima baza.)
@@ -640,7 +666,7 @@ async function parseUpdate(content, win) {
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
 
-                const effect = parseEffect(parts[3]);
+                const { effect } = parseEffect(parts[3]);
 
                 const { ofPokemon } = parseTags(parts.slice(4));
 

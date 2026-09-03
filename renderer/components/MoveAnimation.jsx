@@ -12,10 +12,13 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
 
     const [frame, setFrame] = useState(0);
     const [spriteSheet, setSpriteSheet] = useState(MOVE_ANIMATIONS.default);
+    const [skipTransition, setSkipTransition] = useState(false);
 
     const startTimeRef = useRef(null);
     const nextTickIdRef = useRef(null);
     const callbackFiredRef = useRef(null);
+    const loopsCompletedRef = useRef(0);
+    const currentLoopRef = useRef(0);
 
     // Estos son solo para el RENDER (posición del background, escala, etc.)
     // Se actualizan solos cuando spriteSheet cambia de estado.
@@ -45,6 +48,7 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
     let positionClasses = isFront ? 'fixed bottom-32 left-22 w-64' : 'fixed top-12 right-12 w-48';
 
     useEffect(() => {
+        console.log('[MoveAnim] efecto disparado, moveDesc:', moveDesc, 'ref:', moveDesc);
 
         if (!moveDesc.name) return;
 
@@ -54,6 +58,10 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
         if (moveDesc.event == 'effect') {
 
             sheet = EFFECTS[moveDesc.name];
+
+            if (!sheet) {
+                console.error('[MoveAnimation] Efecto no encontrado en EFFECTS:', moveDesc.name, moveDesc);
+            }
 
         } else if (MOVE_ANIMATIONS.moves[moveDesc.name] !== undefined) {
 
@@ -103,6 +111,9 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
         setFrame(0);
         startTimeRef.current = null;
         callbackFiredRef.current = false;
+        loopsCompletedRef.current = 0;
+        currentLoopRef.current = 0; 
+        setSkipTransition(false); 
 
         // 2. Calcular totalFrames/totalDuration ACA, del sheet recien resuelto,
         //    no de las variables del render (que todavia tienen el sheet viejo).
@@ -114,19 +125,48 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
             ? totalFrames * sheet.frameDuration
             : totalFrames * frameDuration;
 
+        const totalRepeats = sheet.repeat ?? 1;
+
+        let frameCount = 0;
+
         function tick(now) {
-            if (startTimeRef.current === null) startTimeRef.current = now;
+            try {
+                frameCount++;
 
-            const elapsed_time = now - startTimeRef.current;
-            const progress = totalDuration > 0 ? Math.min(elapsed_time / totalDuration, 1) : 1;
-            const currentFrame = Math.min(Math.floor(totalFrames * progress), totalFrames - 1);
-            setFrame(currentFrame);
+                if (startTimeRef.current === null) startTimeRef.current = now;
 
-            if (progress < 1) {
-                nextTickIdRef.current = requestAnimationFrame(tick);
-            } else if (!callbackFiredRef.current) {
-                callbackFiredRef.current = true;
-                onComplete?.();
+                const elapsed_time = now - startTimeRef.current;
+
+                const currentLoop = Math.min(Math.floor(elapsed_time / totalDuration), totalRepeats - 1);
+                const loopElapsed = elapsed_time - currentLoop * totalDuration;
+                const loopProgress = totalDuration > 0 ? Math.min(loopElapsed / totalDuration, 1) : 1;
+
+                const currentFrame = Math.min(Math.floor(totalFrames * loopProgress), totalFrames - 1);
+
+                // Si cambiamos de loop, saltar el transition en este frame
+                if (currentLoop !== currentLoopRef.current) {
+                    currentLoopRef.current = currentLoop;
+                    setSkipTransition(true);
+                    setFrame(currentFrame);
+                    // Reactivar el transition en el siguiente frame de pintado
+                    requestAnimationFrame(() => setSkipTransition(false));
+                } else {
+                    setFrame(currentFrame);
+                }
+
+                const isLastLoop = currentLoop >= totalRepeats - 1;
+                const finished = isLastLoop && loopProgress >= 1;
+
+                if (!finished) {
+                    nextTickIdRef.current = requestAnimationFrame(tick);
+                } else if (!callbackFiredRef.current) {
+                    callbackFiredRef.current = true;
+                    //console.log('[MoveAnim] onComplete disparado', sheet.src, 'frames totales corridos:', frameCount);
+                    onComplete?.();
+                }
+            } catch (err) {
+                console.error('[MoveAnim] EXCEPCION EN TICK', err, { frameCount });
+                onComplete?.(); // liberar la promesa igual, no dejar colgada la app
             }
         }
 
@@ -134,6 +174,7 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
 
         return () => {
             if (nextTickIdRef.current !== null) {
+                console.log('[MoveAnim] cleanup — cancelando rAF', sheet?.src);
                 cancelAnimationFrame(nextTickIdRef.current);
             }
         };
@@ -151,7 +192,7 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
                 backgroundRepeat: "no-repeat",
                 transform: `scale(${scale}) translateY(${yOffset}px) translateX(${xOffset}px)`,
                 transformOrigin: 'center center',
-                transition: 'transform 100ms ease-out',
+                transition: skipTransition ? 'none' : 'transform 100ms ease-out',
                 zIndex: background ? 5 : 15
             }}
         />

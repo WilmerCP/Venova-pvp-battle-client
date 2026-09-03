@@ -39,9 +39,71 @@ function cleanPokemonName(name) {
 }
 
 function parseEffect(text) {
-    if (!text) return null
 
-    return text
+    if (!text) return {
+
+        type: null,
+        effect: null,
+        effectName: null,
+        translation: null,
+
+    }
+
+    if (text.includes('item:')) {
+
+        let itemName = text.replace('item:', '').trim();
+
+        return {
+
+            type: 'item',
+            effectName: itemName,
+            translation: ITEMS[itemName] ? ITEMS[itemName].translation : itemName,
+            effect: text,
+
+        }
+
+
+
+
+    } else if (text.includes('ability:')) {
+
+        let abilityName = text.replace('ability:', '').trim();
+
+        return {
+
+            type: 'ability',
+            effectName: abilityName,
+            translation: ABILITIES[abilityName] ? ABILITIES[abilityName].translation : abilityName,
+            effect: text
+
+        }
+
+
+    } else if (text.includes('move:')) {
+
+        let moveName = text.replace('move:', '').trim();
+
+        return {
+
+            type: 'move',
+            effectName: moveName,
+            translation: MOVES[moveName] ? MOVES[moveName].translation : moveName,
+            effect: text
+
+        }
+
+    } else {
+
+        return {
+
+            type: 'other',
+            effectName: null,
+            translation: null,
+            effect: text
+
+        }
+
+    }
 
 }
 

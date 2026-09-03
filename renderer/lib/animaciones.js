@@ -8,7 +8,8 @@ const MOVE_ANIMATIONS = {
         physical: {
             src: "attack-1.png",
             cols: 5,
-            rows: 2
+            rows: 2,
+            totalFrames: 10,
         },
         special: {
             src: "attack-2.png",
@@ -27,12 +28,14 @@ const MOVE_ANIMATIONS = {
         status_self: {
             src: "attack-1.png",
             cols: 5,
-            rows: 2
+            rows: 2,
+            totalFrames: 5,
         },
         status_other: {
             src: "attack-1.png",
             cols: 5,
-            rows: 2
+            rows: 2,
+            totalFrames: 5,
         },
     },
 
@@ -285,6 +288,15 @@ const MOVE_ANIMATIONS = {
                 frameDuration: 90,
                 fallFrom: -20,
                 fallTo: -20,
+
+            },
+            'Scratch': {
+                src: "Scratch.png",
+                cols: 4,
+                rows: 2,
+                totalFrames: 5,
+                scaleFrom: 1.5,
+                scaleTo: 1.5,
 
             },
 

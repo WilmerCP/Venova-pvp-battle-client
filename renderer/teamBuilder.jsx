@@ -190,7 +190,7 @@ export default function TeamBuilder() {
 
                 <BlockyButton
                     onClick={() => { handleImportTeam() }}
-                    color="#4d9722"
+                    color="#059669"
                 >
                     Importar equipo
                 </BlockyButton>

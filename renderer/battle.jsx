@@ -205,7 +205,11 @@ export default function Battle() {
                         setCurrentMove(animation)
                         setAnimationPlaying(true)
 
+                        let timeoutId;
+
                         const cleanup = () => {
+                            clearTimeout(timeoutId);
+                            console.trace('[Battle] setAnimationPlaying(false) desde case move/cleanup');
                             setAnimationPlaying(false);
                             setCurrentMove(undefined);
                             setCurrentAnimation(null);
@@ -218,7 +222,7 @@ export default function Battle() {
                         };
 
                         resolveRef.current = cleanup;
-                        const timeout = setTimeout(cleanup, 3000); // slightly more than your CSS transition duration
+                        timeoutId = setTimeout(cleanup, 3000);
 
                     }
 
@@ -239,14 +243,17 @@ export default function Battle() {
 
                         setCurrentMove(animation)
                         setAnimationPlaying(true)
+                        let timeoutId;
 
-                        resolveRef.current = resolve;
-                        const timeout = setTimeout(() => {
+                        const cleanup = () => {
+                            clearTimeout(timeoutId);
                             resolve();
-                            //setCurrentAnimation('none');
                             setAnimationPlaying(false);
                             setCurrentMove(undefined);
-                        }, 3000); // slightly more than your CSS transition duration
+                        };
+
+                        resolveRef.current = cleanup;
+                        timeoutId = setTimeout(cleanup, 60000);
 
                     }
 
@@ -725,6 +732,7 @@ export default function Battle() {
                 {/* Animacion de movimiento */}
 
                 {animationPlaying && <MoveAnimation onComplete={() => {
+                    console.trace('[Battle] setAnimationPlaying(false) desde onComplete de MoveAnimation');
                     setAnimationPlaying(false);
                     resolveRef.current?.();
                 }}
@@ -743,11 +751,11 @@ export default function Battle() {
                         ref={sprite2Ref}
                     />
                 }
-                
-                   
+
+
                 <img
                     src={enemyBase}
-                    className={`absolute z-9 top-35 right-1 w-73 h-auto`}
+                    className={`absolute top-35 right-1 w-73 h-auto`}
                     alt="Enemy Base"
                 />
 
@@ -760,7 +768,7 @@ export default function Battle() {
 
                 {/* Barra para mostrar las habilidades activadas P2 */}
 
-                {displayAbility !== undefined && displayAbility.player == 'p2' &&
+                {displayAbility !== undefined && displayAbility.position == 'x2' &&
 
                     <AbilityFrame pkmName={displayAbility.pkmName} abilityName={displayAbility.translation} positionClasses="absolute top-48 right-0 slide-in-right" side={'right'} />
 
@@ -779,7 +787,7 @@ export default function Battle() {
 
                 <img
                     src={playerBase}
-                    className={`absolute z-9 bottom-40 -left-3 w-90 h-auto`}
+                    className={`absolute bottom-40 -left-3 w-90 h-auto`}
                     alt="Player Base"
                 />
 
@@ -793,7 +801,7 @@ export default function Battle() {
 
                 {/* Barra para mostrar las habilidades activadas P1*/}
 
-                {displayAbility !== undefined && displayAbility.player == 'p1' &&
+                {displayAbility !== undefined && displayAbility.position == 'x1' &&
 
                     <AbilityFrame pkmName={displayAbility.pkmName} abilityName={displayAbility.translation} positionClasses="absolute bottom-48 left-0 slide-in-left" side={'left'} />
 

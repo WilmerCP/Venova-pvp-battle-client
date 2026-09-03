@@ -13,19 +13,19 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
 
     function replacePokemonName(msj, player, name) {
 
-    if (player == playerIdentity) {
+        if (player == playerIdentity) {
 
-        return msj.replace('{pkm}', `${name}`);
+            return msj.replace('{pkm}', `${name}`);
 
-    } else {
+        } else {
 
 
-        return msj.replace('{pkm}', `${name} rival`);
+            return msj.replace('{pkm}', `${name} rival`);
+
+        }
+
 
     }
-
-
-}
 
     const animationQueue = useRef([]); //Animate 1 by 1
     const [pendingAnimation, setPendingAnimation] = useState(0);
@@ -52,9 +52,9 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
     const [switchRequired, setSwitchRequired] = useState(false); //Need to choose a pokemon
 
 
-    function getPosition(player){
+    function getPosition(player) {
 
-        if(!player) return null;
+        if (!player) return null;
 
         return player == playerIdentity ? "x1" : "x2";
 
@@ -577,7 +577,7 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
     function handleCrit(data) {
 
         let msg = `¡{pkm} ha recibido un golpe crítico!`
-        msg = replacePokemonName(msg,data.player,data.name);
+        msg = replacePokemonName(msg, data.player, data.name);
 
         addBattleLog(msg);
 
@@ -586,7 +586,7 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
     function handleSuperEffective(data) {
 
         let msg = `¡El ataque a {pkm} fue super efectivo!`
-        msg = replacePokemonName(msg,data.player,data.name);
+        msg = replacePokemonName(msg, data.player, data.name);
 
         addBattleLog(msg);
 
@@ -595,7 +595,7 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
     function handleResisted(data) {
 
         let msg = `El ataque a {pkm} no es muy efectivo...`
-        msg = replacePokemonName(msg,data.player,data.name);
+        msg = replacePokemonName(msg, data.player, data.name);
 
         addBattleLog(msg);
 
@@ -1068,9 +1068,53 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
 
     }
 
+    function handleBlock(data) {
+
+        if (data.type == 'ability') {
+
+            scheduleAnimation({
+                event: 'ability',
+                pkmName: data.ofPokemon ? data.ofPokemon.name : data.name,
+                abilityName: data.effectName,
+                position: getPosition(data.ofPokemon ? data.ofPokemon.player : data.player),
+                translation: data.translation
+            });
+
+            let msg = `¡{pkm} ha sido protegido por su habilidad ${data.translation ? data.translation : data.effectName}!`
+
+            msg = replacePokemonName(msg,data.player,data.name);
+
+            scheduleAnimation({
+                event: 'log',
+                log: msg
+            });
+
+            addBattleLog(msg);
+
+        } else {
+
+            addBattleLog(`Unhandled block event: ${data.effect}`);
+
+        }
+
+
+    }
+
     function handleError(msg) {
 
         addBattleLog(msg);
+
+    }
+
+    function handleOpponentDisconnected() {
+
+        addBattleLog('¡Tu rival ha abandonado el combate!')
+
+        scheduleAnimation({
+            event: 'battleEnd',
+            winner: 'x1',
+            log: `¡Tu rival ha abandonado el combate!`
+        });
 
     }
 
@@ -1108,7 +1152,9 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
             'ability': handleAbility,
             'prepare': handlePrepare,
             'weather': handleWeather,
-            'error': handleError
+            'block': handleBlock,
+            'error': handleError,
+            'opponent-disconnected': handleOpponentDisconnected
         }
 
         Object.entries(handlers).forEach(([channel, handler]) => {

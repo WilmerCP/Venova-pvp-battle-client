@@ -45,6 +45,20 @@ const EFFECTS = {
         scaleFrom: 0.5,
         scaleTo: 0.5
     },
+    'slp': {
+        src: "sleep.png",
+        cols: 4,
+        rows: 1,
+        totalFrames: 4,
+        frameDuration: 180,
+        fallFrom: -20,
+        fallTo: -50,
+        slideFrom: 20,
+        slideTo: 50,
+        scaleFrom: 1,
+        scaleTo: 1.2,
+        repeat: 2,
+    },
     'brn': {
         src: "burns.png",
         cols: 4,

@@ -333,3 +333,28 @@ background-blend-mode: multiply;
 ::-webkit-scrollbar-thumb:hover {
   background: #333333;
 }
+
+.tint-loop {
+  position: absolute;
+  pointer-events: none;
+  mix-blend-mode: color;
+  animation: tint-pulse var(--tint-duration, 1.2s) ease-in-out infinite;
+}
+
+@keyframes tint-pulse {
+  0%, 35% { opacity: 0; }
+  55%, 85% { opacity: 0.55; }
+  100% { opacity: 0; }
+}
+
+.tint {
+  position: absolute;
+  pointer-events: none;
+  mix-blend-mode: color;
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+
+.tint-visible {
+  opacity: 1;
+}

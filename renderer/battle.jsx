@@ -13,6 +13,7 @@ import MoveAnimation from './components/MoveAnimation.jsx'
 import AbilityFrame from './components/AbilityFrame.jsx'
 import ConfirmDialog from './components/Popup.jsx'
 import WaitingIndicator from './components/WaitingIndicator.jsx'
+import Sprite from './components/Sprite.jsx'
 
 import useBattleEvents from './hooks/useBattleEvents.js'
 
@@ -129,7 +130,7 @@ export default function Battle() {
     const playerIdentity = location.state?.playerIdentity || 'p1'; // Default to 'p1' if not provided
 
     const { battleLog, addBattleLog, battlerSrcs, setBattlerSrcs, availableMoves,
-        availablePokemon, waiting, switchRequired, animationQueue,
+        availablePokemon, waiting, switchRequired, animationQueue, player1, player2,
         pendingAnimation, setPendingAnimation, setWaiting } = useBattleEvents({ p1, p2, mode, playerIdentity });
 
     const processingRef = useRef(false);
@@ -149,14 +150,17 @@ export default function Battle() {
     const statusBar2Ref = useRef();
 
     //Used for css animations
-    const [currentAnimation, setCurrentAnimation] = useState(null);
+    const [currentAnimation, setCurrentAnimation] = useState('none');
     const [animationPlaying, setAnimationPlaying] = useState(false);
 
     //Animation resolve ref
     const resolveRef = useRef(null);
 
-    //Current move data for animation
-    const [currentMove, setCurrentMove] = useState(undefined);
+    //Current move or effect data for animation
+    const [currentMove, setCurrentMove] = useState(null);
+
+    //Current effect data for sprite css animation
+    const [currentSpriteAnimation, setCurrentSpriteAnimation] = useState(null);
 
     const [currentLog, setCurrentLog] = useState('');
 
@@ -209,10 +213,10 @@ export default function Battle() {
 
                         const cleanup = () => {
                             clearTimeout(timeoutId);
-                            console.trace('[Battle] setAnimationPlaying(false) desde case move/cleanup');
+                            //console.trace('[Battle] setAnimationPlaying(false) desde case move/cleanup');
                             setAnimationPlaying(false);
-                            setCurrentMove(undefined);
-                            setCurrentAnimation(null);
+                            setCurrentMove(null);
+                            setCurrentAnimation('none');
                             if (animation.player === 'x1') {//Origin
                                 setHiddenP1(false);
                             } else {
@@ -239,6 +243,23 @@ export default function Battle() {
                             resolve();
                         }, LOG_TIME);
 
+                    } else if (animation.name == 'status') {
+
+                        setCurrentSpriteAnimation(animation)
+                        setAnimationPlaying(true)
+                        let timeoutId;
+
+                        const cleanup = () => {
+                            clearTimeout(timeoutId);
+                            resolve();
+                            setAnimationPlaying(false);
+                            setCurrentSpriteAnimation(null);
+                        };
+
+                        resolveRef.current = cleanup;
+                        timeoutId = setTimeout(cleanup, 2500);
+
+
                     } else {
 
                         setCurrentMove(animation)
@@ -249,11 +270,11 @@ export default function Battle() {
                             clearTimeout(timeoutId);
                             resolve();
                             setAnimationPlaying(false);
-                            setCurrentMove(undefined);
+                            setCurrentMove(null);
                         };
 
                         resolveRef.current = cleanup;
-                        timeoutId = setTimeout(cleanup, 60000);
+                        timeoutId = setTimeout(cleanup, 10000);
 
                     }
 
@@ -370,12 +391,16 @@ export default function Battle() {
                         if (!animation.batonPass) {
                             setSubstituteP1(false); // Remove the substitute
                         }
+                        
+                        setHiddenP1(false);
+                        
                     } else {
                         setBattlerSrcs(prev => ({ ...prev, src2: animation.newSrc }));
                         setP2Visible(prev => ({ ...prev, pkmName: data.name, number: data.num, level: data.level, status: data.status, currentHPPercentage: data.hp, gender: data.gender, shiny: data.shiny }));
                         if (!animation.batonPass) {
                             setSubstituteP2(false);
                         }
+                        setHiddenP2(false);
                     }
 
                     // Wait for the DOM to actually reflect the mount before touching refs
@@ -615,7 +640,7 @@ export default function Battle() {
 
         try {
             while (animationQueue.current.length > 0) {
-                console.log('Loop')
+                //console.log('Loop')
                 const animation = animationQueue.current.shift();
 
                 if (animation.log) {
@@ -707,6 +732,9 @@ export default function Battle() {
         };
     }, []);
 
+    const sprite1AnimationClass = getSpriteAnimationClass(currentAnimation, 'p1')
+    const sprite2AnimationClass = getSpriteAnimationClass(currentAnimation, 'p2')
+
     return (
         <>
             {winner && <PopupEnd winner={winner} onClose={() => { navigate('/') }} />}
@@ -731,8 +759,8 @@ export default function Battle() {
 
                 {/* Animacion de movimiento */}
 
-                {animationPlaying && <MoveAnimation onComplete={() => {
-                    console.trace('[Battle] setAnimationPlaying(false) desde onComplete de MoveAnimation');
+                {animationPlaying && currentMove && <MoveAnimation onComplete={() => {
+                    //console.trace('[Battle] setAnimationPlaying(false) desde onComplete de MoveAnimation');
                     setAnimationPlaying(false);
                     resolveRef.current?.();
                 }}
@@ -742,7 +770,7 @@ export default function Battle() {
 
 
                 {/* Sprite enemigo - arriba derecha */}
-                {
+                {/*
                     p2Visible.number && !hiddenP2 &&
                     <img
                         src={!substituteP2 ? battlerSrcs.src2 : '/sustituto-front.png'}
@@ -750,7 +778,32 @@ export default function Battle() {
                         className={`${getSpriteAnimationClass(currentAnimation, 'p2')} absolute z-10 ${!substituteP2 ? 'top-12 right-12 w-48' : 'top-28 right-20 w-30'}`}
                         ref={sprite2Ref}
                     />
+                */}
+                {p2Visible.number && !hiddenP2 && <Sprite
+                    src={!substituteP2 ? battlerSrcs.src2 : '/sustituto-front.png'}
+                    onError={(e) => e.target.src = '/battlers/000.png'}
+                    animationClass={sprite2AnimationClass}
+                    className={`absolute z-10 ${!substituteP2 ? 'top-12 right-12 w-48' : 'top-28 right-20 w-30'}`}
+                    status={!substituteP2 ? p2Visible.status : 'none'}
+                    isIdle={sprite2AnimationClass == ''}
+                    animationInfo={currentSpriteAnimation?.target == 'x2' ? currentSpriteAnimation : null}
+                    onComplete={() => {
+                        setAnimationPlaying(false);
+                        resolveRef.current?.();
+                    }}
+                    ref={sprite2Ref}
+                />
                 }
+
+
+                <img
+                    src={enemyBase}
+                    className={`absolute top-35 right-1 w-73 h-auto`}
+                    alt="Enemy Base"
+                    isIdle={sprite1AnimationClass == ''}
+                    ref={sprite1Ref}
+                />
+
 
 
                 <img
@@ -775,13 +828,29 @@ export default function Battle() {
                 }
 
                 {/* Sprite jugador - abajo izquierda */}
-                {p1Visible.number && !hiddenP1 &&
+                {/*{p1Visible.number && !hiddenP1 &&
                     <img
                         src={!substituteP1 ? battlerSrcs.src1 : '/sustituto-back.png'}
                         onError={(e) => e.target.src = '/battlers/000.png'}
                         className={`${getSpriteAnimationClass(currentAnimation, 'p1')} absolute z-10 ${!substituteP1 ? 'bottom-40 left-12 w-64' : 'bottom-25 left-12 w-50'}`}
                         ref={sprite1Ref}
                     />
+                }*/}
+
+                {p1Visible.number && !hiddenP1 && <Sprite
+                    src={!substituteP1 ? battlerSrcs.src1 : '/sustituto-back.png'}
+                    onError={(e) => e.target.src = '/battlers/000.png'}
+                    animationClass={sprite1AnimationClass}
+                    className={`absolute z-10 ${!substituteP1 ? 'bottom-40 left-12 w-64' : 'bottom-25 left-12 w-50'}`}
+                    status={!substituteP1 ? p1Visible.status : 'none'}
+                    isIdle={sprite1AnimationClass == ''}
+                    animationInfo={currentSpriteAnimation?.target == 'x1' ? currentSpriteAnimation : null}
+                    onComplete={() => {
+                        setAnimationPlaying(false);
+                        resolveRef.current?.();
+                    }}
+                    ref={sprite1Ref}
+                />
                 }
 
 
@@ -809,7 +878,7 @@ export default function Battle() {
 
                 <BattleControlBox battleLog={battleLog} availableMoves={availableMoves} availablePokemon={availablePokemon} handlers={handlers} switchRequired={switchRequired} animationPlaying={isProcessing} currentLog={currentLog} battleEnded={winner !== null} waiting={waiting} />
 
-                {waiting && (
+                {waiting && !isProcessing && !winner &&(
                     <WaitingIndicator />
                 )}
 

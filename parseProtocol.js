@@ -183,7 +183,7 @@ async function parseUpdate(content, win) {
                 //|-status|p2a: Gigatric|brn|[from] ability: Flame Body|[of] p1a: Fautorn
                 //console.log(`${parts[2]} status changed to ${parts[3]}`)
 
-                const { ability, abilityTranslation, ofPokemon } = parseTags(parts.slice(3));
+                const { ability, abilityTranslation, ofPokemon, item, itemTranslation, type } = parseTags(parts.slice(3));
 
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
@@ -194,7 +194,10 @@ async function parseUpdate(content, win) {
                     pkmName: name,
                     ability,
                     abilityTranslation,
-                    ofPokemon
+                    ofPokemon,
+                    item,
+                    itemTranslation,
+                    type
                 })
 
                 break

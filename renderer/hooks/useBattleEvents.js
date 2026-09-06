@@ -308,6 +308,16 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
                 log: resolvedLog,
                 name: 'selfHit'
             });
+        } else if (data.from == 'psn' || data.from == 'tox' || data.from == 'brn') {
+
+            scheduleAnimation({
+                event: 'effect',
+                target: getPosition(data.player),
+                log: resolvedLog,
+                name: 'status',
+                status: data.from
+            })
+
         } else if (EFFECTS[data.from]) {
 
             scheduleAnimation({
@@ -465,6 +475,8 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
 
     function handleStatus(data) {
 
+        console.log('Status event:', data)
+
         if (data.ability) {
 
             scheduleAnimation({
@@ -479,7 +491,17 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
 
         updatePlayer(data.player, { status: data.status })
 
-        const log = replacePokemonName(MENSAJES[data.status], data.player, data.pkmName);
+        let log;
+
+        if (data.item) {
+
+            log = replacePokemonName(MENSAJES[`${data.status}-item`], data.player, data.pkmName);
+
+        } else {
+
+            log = replacePokemonName(MENSAJES[data.status], data.player, data.pkmName);
+
+        }
 
         scheduleAnimation({
             event: 'statusChange',
@@ -630,6 +652,16 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
                     target: getPosition(data.player),
                     log: msj,
                     name: data.reason
+                })
+
+            } else if (data.reason == 'frz') {
+
+                scheduleAnimation({
+                    event: 'effect',
+                    target: getPosition(data.player),
+                    log: msj,
+                    name: 'status',
+                    status: data.reason
                 })
 
             } else {
@@ -1082,7 +1114,7 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
 
             let msg = `¡{pkm} ha sido protegido por su habilidad ${data.translation ? data.translation : data.effectName}!`
 
-            msg = replacePokemonName(msg,data.player,data.name);
+            msg = replacePokemonName(msg, data.player, data.name);
 
             scheduleAnimation({
                 event: 'log',

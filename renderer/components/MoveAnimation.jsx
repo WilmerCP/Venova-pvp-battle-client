@@ -10,6 +10,8 @@ import { useEffect, useRef, useState } from 'react'
 
 export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
 
+    console.log(moveDesc);
+
     const [frame, setFrame] = useState(0);
     const [spriteSheet, setSpriteSheet] = useState(MOVE_ANIMATIONS.default);
     const [skipTransition, setSkipTransition] = useState(false);
@@ -174,7 +176,7 @@ export default function MoveAnimation({ classes = '', onComplete, moveDesc }) {
 
         return () => {
             if (nextTickIdRef.current !== null) {
-                console.log('[MoveAnim] cleanup — cancelando rAF', sheet?.src);
+                //console.log('[MoveAnim] cleanup — cancelando rAF', sheet?.src);
                 cancelAnimationFrame(nextTickIdRef.current);
             }
         };

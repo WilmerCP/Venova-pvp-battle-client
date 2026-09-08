@@ -1,10 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
-const itemsPath = path.join(__dirname, 'data', 'items.json');
-const abilitiesPath = path.join(__dirname, 'data', 'abilities.json');
-const movesPath = path.join(__dirname, 'data', 'moves.json');
-const naturesPath = path.join(__dirname, 'data', 'natures.json');
+const projectRoot = path.join(__dirname, '..', '..');
+const itemsPath = path.join(projectRoot, 'data', 'items.json');
+const abilitiesPath = path.join(projectRoot, 'data', 'abilities.json');
+const movesPath = path.join(projectRoot, 'data', 'moves.json');
+const naturesPath = path.join(projectRoot, 'data', 'natures.json');
 
 let movesStr = fs.readFileSync(movesPath);
 const MOVES = JSON.parse(movesStr);

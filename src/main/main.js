@@ -29,7 +29,7 @@ const createWindow = () => {
       : `file://${path.join(__dirname, '../dist/index.html')}`
   )
 
-  win.webContents.openDevTools()
+  isDev && win.webContents.openDevTools();
 
   return win
 }

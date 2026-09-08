@@ -1,4 +1,4 @@
-import '../buttons.css'
+import '../styles/buttons.css'
 
 export default function BlockyButton({ children, color = '#333', onClick }) {
   return (

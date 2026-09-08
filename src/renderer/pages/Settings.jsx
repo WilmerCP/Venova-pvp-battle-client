@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import './index.css'
-import BlockyButton from './components/BlockyButton'
+import '../styles/index.css'
+import BlockyButton from '../components/BlockyButton'
 
-import { useTheme } from './ThemeContext.jsx';
-import { useSettings } from './SettingsContext.jsx';
+import { useTheme } from '../context/ThemeContext.jsx';
+import { useSettings } from '../context/SettingsContext.jsx';
 
 export default function JoinBattle() {
     const navigate = useNavigate()

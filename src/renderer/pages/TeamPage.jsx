@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 
-import PokemonData from './components/PokemonData.jsx';
-import { getMiniSrc, getGenderFromRatio } from './helpers';
-import BlockyButton from './components/BlockyButton';
-import Toast from './components/Toast';
+import PokemonData from '../components/PokemonData.jsx';
+import { getMiniSrc, getGenderFromRatio } from '../helpers';
+import BlockyButton from '../components/BlockyButton';
+import Toast from '../components/Toast';
 
-import { useTheme } from './ThemeContext.jsx';
+import { useTheme } from '../context/ThemeContext.jsx';
 
 const EMPTY_SLOT = {
     num: null,

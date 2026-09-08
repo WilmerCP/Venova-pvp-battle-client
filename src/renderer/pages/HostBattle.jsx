@@ -1,6 +1,6 @@
-import './index.css'
-import BlockyButton from './components/BlockyButton'
-import Toast from './components/Toast'
+import '../styles/index.css'
+import BlockyButton from '../components/BlockyButton'
+import Toast from '../components/Toast'
 
 const bg = '/battlebg/battlebgSnow.png';
 

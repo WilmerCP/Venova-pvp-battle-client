@@ -1,7 +1,7 @@
 import { TiArrowBack } from "react-icons/ti";
 import PokemonButton from './PokemonButton.jsx';
 
-import { useTheme } from '../ThemeContext.jsx';
+import { useTheme } from '../context/ThemeContext.jsx';
 
 export default function PokeSelection({ onSelectPokemon, onBack, availablePokemon, forced }) {
 

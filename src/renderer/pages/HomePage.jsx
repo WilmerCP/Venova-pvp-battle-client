@@ -1,14 +1,15 @@
-import './index.css'
-const bg = '/battlebg/battlebgChampion.png';
-import p1 from './assets/iguana.png'
-import p2 from './assets/zamuro.png'
-import BlockyButton from './components/BlockyButton'
-import Toast from './components/Toast';
+import '../styles/index.css'
+import p1 from '../assets/iguana.png'
+import p2 from '../assets/zamuro.png'
+import BlockyButton from '../components/BlockyButton'
+import Toast from '../components/Toast';
 
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-export default function App() {
+const bg = '/battlebg/battlebgChampion.png';
+
+export default function HomePage() {
   const navigate = useNavigate()
 
   const [msg, setMsg] = useState(null); //Toast Component

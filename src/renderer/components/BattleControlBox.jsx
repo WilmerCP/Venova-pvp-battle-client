@@ -2,11 +2,10 @@ import ActionMenu from './ActionMenu.jsx'
 import MoveMenu from './MovesMenu.jsx'
 import PokeSelection from './PokeSelection.jsx'
 
-import { useNavigate } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 
 
-import { useTheme } from '../ThemeContext.jsx';
+import { useTheme } from '../context/ThemeContext.jsx';
 
 
 export default function BattleControlBox({ battleLog, handlers, availableMoves, availablePokemon,

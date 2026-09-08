@@ -1,27 +1,24 @@
-import './index.css'
-//import bg from './assets/fondos/battlebgChampion.png'
-//import playerBase from './assets/playerbase/playerbaseFieldSandEve.png'
-//import enemyBase from './assets/enemybase/enemybaseFieldSandEve.png'
+import '../styles/index.css'
 
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 import { useLoaderData } from 'react-router-dom'
-import BattleControlBox from './components/BattleControlBox.jsx'
-import PokeStatusBar from './components/PokeStatusBar.jsx'
-import PopupEnd from './components/PopupEnd.jsx'
-import MoveAnimation from './components/MoveAnimation.jsx'
-import AbilityFrame from './components/AbilityFrame.jsx'
-import ConfirmDialog from './components/Popup.jsx'
-import WaitingIndicator from './components/WaitingIndicator.jsx'
-import Sprite from './components/Sprite.jsx'
+import BattleControlBox from '../components/BattleControlBox.jsx'
+import PokeStatusBar from '../components/PokeStatusBar.jsx'
+import PopupEnd from '../components/PopupEnd.jsx'
+import MoveAnimation from '../components/MoveAnimation.jsx'
+import AbilityFrame from '../components/AbilityFrame.jsx'
+import ConfirmDialog from '../components/Popup.jsx'
+import WaitingIndicator from '../components/WaitingIndicator.jsx'
+import Sprite from '../components/Sprite.jsx'
 
-import useBattleEvents from './hooks/useBattleEvents.js'
+import useBattleEvents from '../hooks/useBattleEvents.js'
 
-import { useSettings } from './SettingsContext.jsx';
+import { useSettings } from '../context/SettingsContext.jsx';
 
-import { SunnyLayer, RainLayer, HailLayer, SandstormLayer } from './components/Weather.jsx'
+import { SunnyLayer, RainLayer, HailLayer, SandstormLayer } from '../components/Weather.jsx'
 
-import { getRandomBackground } from './helpers.js'
+import { getRandomBackground } from '../helpers.js'
 
 const LOG_TIME = 800 //ms
 
@@ -132,7 +129,7 @@ function getBarAnimationClass(animationDesc, playerId) {
 }
 
 
-export default function Battle() {
+export default function BattlePage() {
 
     const battleData = useLoaderData();
     const location = useLocation();

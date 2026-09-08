@@ -4,7 +4,7 @@ import { PiShootingStarFill } from "react-icons/pi";
 import { TiArrowBack } from "react-icons/ti";
 import MoveButton from './MoveButton.jsx';
 
-import { useTheme } from '../ThemeContext.jsx';
+import { useTheme } from '../context/ThemeContext.jsx';
 
 export default function MoveMenu({ onSelectMove, onBack, availableMoves, availableMega = false, availableGolden = false }) {
 

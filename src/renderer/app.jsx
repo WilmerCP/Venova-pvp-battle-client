@@ -1,26 +1,26 @@
-// app.jsx
+// src/renderer/app.jsx
 import { createHashRouter, RouterProvider } from 'react-router-dom'
-import Home from './inicio.jsx'
-import Battle from './battle.jsx'
-import TeamBuilder from './teamBuilder.jsx'
-import TeamPage from './TeamPage.jsx'
-import HostBattle from './HostBattle.jsx'
+import HomePage from './pages/HomePage.jsx'
+import BattlePage from './pages/BattlePage.jsx'
+import TeamBuilder from './pages/TeamBuilder.jsx'
+import TeamPage from './pages/TeamPage.jsx'
+import HostBattle from './pages/HostBattle.jsx'
 
 import { getRandomPin } from './helpers.js'
-import JoinBattle from './JoinBattle.jsx'
-import Settings from './Settings.jsx'
+import JoinBattle from './pages/JoinBattle.jsx'
+import Settings from './pages/Settings.jsx'
 
-import { ThemeProvider } from './ThemeContext.jsx';
-import { SettingsProvider } from './SettingsContext.jsx';
+import { ThemeProvider } from './context/ThemeContext.jsx';
+import { SettingsProvider } from './context/SettingsContext.jsx';
 
 const router = createHashRouter([
   {
     path: '/',
-    element: <Home />
+    element: <HomePage />
   },
   {
     path: '/battle',
-    element: <Battle />
+    element: <BattlePage />
     
   },
   {

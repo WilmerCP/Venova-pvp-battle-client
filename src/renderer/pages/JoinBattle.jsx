@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import './index.css'
-import BlockyButton from './components/BlockyButton'
+import '../styles/index.css'
+import BlockyButton from '../components/BlockyButton'
 
 const bg = '/battlebg/battlebgCave.png';
 

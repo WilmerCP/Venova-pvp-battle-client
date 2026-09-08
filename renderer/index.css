@@ -112,249 +112,272 @@
   color: rgb(0, 162, 255);
 }
 
-.nice-background {
+.squares-background {
   background-color: #1b325f;
-  opacity: 0.8;
+  opacity: 1;
   background: repeating-linear-gradient(45deg, #9cc4e4 0px, #9cc4e4 2px, transparent 2px, transparent 78px), repeating-linear-gradient(135deg, #9cc4e4 0px, #9cc4e4 2px, transparent 2px, transparent 78px), #1b325f;
 }
 
-.special-background {
+.pink-background {
   background-color: #ecd078;
-opacity: 1;
-background: repeating-linear-gradient(45deg, #d95b43 0, #d95b43 39px, #c02942 39px, #c02942 78px, #542437 78px, #542437 117px, #c02942 117px, #c02942 156px);
+  opacity: 1;
+  background: repeating-linear-gradient(45deg, #d95b43 0, #d95b43 39px, #c02942 39px, #c02942 78px, #542437 78px, #542437 117px, #c02942 117px, #c02942 156px);
 }
-.special-background2 {
-background-color: #4e4d4a;
-opacity: 1;
-background-image:  radial-gradient(#353432 17%, #4e4d4a 18% 35%, transparent 36.5%), radial-gradient(#353432 17%, #4e4d4a 18% 35%, transparent 36.5%), radial-gradient(#4e4d4a 34%, #353432 36% 68%, transparent 70%), repeating-linear-gradient(45deg, #353432 -12.5% 12.5%, #4e4d4a 0 37.5%);
-background-position: -20px -20px, 20px 20px, 0 0, 0 0;
-background-size: 80px 80px, 80px 80px, 40px 40px, 80px 80px;
+
+.dark-background {
+  background-color: #4e4d4a;
+  opacity: 1;
+  background-image: radial-gradient(#353432 17%, #4e4d4a 18% 35%, transparent 36.5%), radial-gradient(#353432 17%, #4e4d4a 18% 35%, transparent 36.5%), radial-gradient(#4e4d4a 34%, #353432 36% 68%, transparent 70%), repeating-linear-gradient(45deg, #353432 -12.5% 12.5%, #4e4d4a 0 37.5%);
+  background-position: -20px -20px, 20px 20px, 0 0, 0 0;
+  background-size: 80px 80px, 80px 80px, 40px 40px, 80px 80px;
 }
 
 .isometric-background {
-background-color: #351330;
-opacity: 1;
-background-image:  linear-gradient(30deg, #424254 12%, transparent 12.5%, transparent 87%, #424254 87.5%, #424254), linear-gradient(150deg, #424254 12%, transparent 12.5%, transparent 87%, #424254 87.5%, #424254), linear-gradient(30deg, #424254 12%, transparent 12.5%, transparent 87%, #424254 87.5%, #424254), linear-gradient(150deg, #424254 12%, transparent 12.5%, transparent 87%, #424254 87.5%, #424254), linear-gradient(60deg, #42425477 25%, transparent 25.5%, transparent 75%, #42425477 75%, #42425477), linear-gradient(60deg, #42425477 25%, transparent 25.5%, transparent 75%, #42425477 75%, #42425477);
-background-size: 60px 105px;
-background-position: 0 0, 0 0, 30px 53px, 30px 53px, 0 0, 30px 53px;
+  background-color: #3a111c;
+  opacity: 1;
+  background-image: linear-gradient(30deg, #574951 12%, transparent 12.5%, transparent 87%, #574951 87.5%, #574951), linear-gradient(150deg, #574951 12%, transparent 12.5%, transparent 87%, #574951 87.5%, #574951), linear-gradient(30deg, #574951 12%, transparent 12.5%, transparent 87%, #574951 87.5%, #574951), linear-gradient(150deg, #574951 12%, transparent 12.5%, transparent 87%, #574951 87.5%, #574951), linear-gradient(60deg, #57495177 25%, transparent 25.5%, transparent 75%, #57495177 75%, #57495177), linear-gradient(60deg, #57495177 25%, transparent 25.5%, transparent 75%, #57495177 75%, #57495177);
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
 }
 
 .spiral-background {
-  background-color: #4e4d4a;
-opacity: 1;
-background-image: radial-gradient(circle at center center, #353432, #4e4d4a), repeating-radial-gradient(circle at center center, #353432, #353432, 10px, transparent 20px, transparent 10px);
-background-blend-mode: multiply;
-}
-
-.mini-icon {
-
-  width: calc(64px * var(--pkm-icon-scale));
-  height: calc(54px * var(--pkm-icon-scale));
-
-  background-repeat: no-repeat;
-  background-size: calc(128px * var(--pkm-icon-scale)) calc(54px * var(--pkm-icon-scale));
-
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  animation: walk 1s steps(2) infinite;
-}
-
-@keyframes walk {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: calc(-128px * var(--pkm-icon-scale)) 0;
-  }
-}
-
-
-@keyframes faint {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-
-  60% {
-    transform: translateY(20px) scale(0.9);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(40px) scale(0.3);
-    opacity: 0;
-  }
-}
-
-.faint-animation {
-  animation: faint 0.5s ease-in forwards;
-}
-
-@keyframes sendOut {
-  0% {
-    transform: translateY(-30px) scale(0.2);
-    opacity: 0;
-  }
-
-  70% {
-    transform: translateY(4px) scale(1.05);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-}
-
-.sendout-animation {
-  animation: sendOut 1s ease-out;
-}
-
-@keyframes slideInLeft {
-  0% {
-    transform: translateX(-120%);
-    opacity: 0;
-  }
-
-  70% {
-    transform: translateX(6%);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideInRight {
-  0% {
-    transform: translateX(120%);
-    opacity: 0;
-  }
-
-  70% {
-    transform: translateX(-6%);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.slide-in-left {
-  animation: slideInLeft 0.5s ease-out;
-}
-
-.slide-in-right {
-  animation: slideInRight 0.5s ease-out;
-}
-
-/* Flying up and disappearing into the sky */
-@keyframes flyAway {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-
-
-
-  100% {
-    transform: translateY(-140px) scale(0.3);
-    opacity: 0;
-  }
-}
-
-
-.fly-animation {
-  animation: flyAway 0.4s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
-}
-
-/* Digging into the ground */
-@keyframes digDown {
-  0% {
-    transform: translateY(0) scaleY(1);
-    opacity: 1;
-  }
-
-  40% {
-    transform: translateY(40px) scaleY(0.9);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(70px) scaleY(0.5);
-    opacity: 0;
-  }
-}
-
-.dig-animation {
-  animation: digDown 0.6s ease-in forwards;
-}
-
-/* Diving into water */
-@keyframes diveIn {
-  0% {
-    transform: translateY(0) scale(1) rotate(0deg);
-    opacity: 1;
-  }
-
-  50% {
-    transform: translateY(30px) scale(0.9) rotate(15deg);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(70px) scale(0.4) rotate(30deg);
-    opacity: 0;
-  }
-}
-
-.dive-animation {
-  animation: diveIn 0.7s ease-in forwards;
-}
-
-/* Scrollbar del log de batalla — estilo rectangular a juego con la caja blanca/negra */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #ffffff;
-}
-
-::-webkit-scrollbar-thumb {
-  background: oklch(27.8% 0.033 256.848);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #333333;
-}
-
-.tint-loop {
-  position: absolute;
-  pointer-events: none;
-  mix-blend-mode: color;
-  animation: tint-pulse var(--tint-duration, 1.2s) ease-in-out infinite;
-}
-
-@keyframes tint-pulse {
-  0%, 35% { opacity: 0; }
-  55%, 85% { opacity: 0.55; }
-  100% { opacity: 0; }
-}
-
-.tint {
-  position: absolute;
-  pointer-events: none;
-  mix-blend-mode: color;
-  opacity: 0;
-  transition: opacity 300ms ease-in-out;
-}
-
-.tint-visible {
+  background-color: #eee6ab;
   opacity: 1;
+  background-image: radial-gradient(circle at center center, #c5bc8e, #eee6ab), repeating-radial-gradient(circle at center center, #c5bc8e, #c5bc8e, 16px, transparent 32px, transparent 16px);
+  background-blend-mode: multiply;
 }
+
+.honeycomb-background {
+  background-color: #607848;
+  opacity: 1;
+  background-image: radial-gradient(circle farthest-side at 0% 50%, #607848 23.5%, transparent 0), radial-gradient(circle farthest-side at 0% 50%, #789048 24%, transparent 0), linear-gradient(#607848 14%, transparent 0, transparent 85%, #607848 0), linear-gradient(150deg, #607848 24%, #789048 0 26%, transparent 0 74%, #789048 0 76%, #607848 0), linear-gradient(30deg, #607848 24%, #789048 0 26%, transparent 0 74%, #789048 0 76%, #607848 0), linear-gradient(90deg, #789048 1.6%, #607848 0 98.4%, #789048 0);
+  background-position: 17px 25px, 16px 25px, 0 0, 0 0, 0 0, 0 0;
+  background-size: 33px 50px;
+}
+
+  .mini-icon {
+
+    width: calc(64px * var(--pkm-icon-scale));
+    height: calc(54px * var(--pkm-icon-scale));
+
+    background-repeat: no-repeat;
+    background-size: calc(128px * var(--pkm-icon-scale)) calc(54px * var(--pkm-icon-scale));
+
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    animation: walk 1s steps(2) infinite;
+  }
+
+  @keyframes walk {
+    from {
+      background-position: 0 0;
+    }
+
+    to {
+      background-position: calc(-128px * var(--pkm-icon-scale)) 0;
+    }
+  }
+
+
+  @keyframes faint {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    60% {
+      transform: translateY(20px) scale(0.9);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(40px) scale(0.3);
+      opacity: 0;
+    }
+  }
+
+  .faint-animation {
+    animation: faint 0.5s ease-in forwards;
+  }
+
+  @keyframes sendOut {
+    0% {
+      transform: translateY(-30px) scale(0.2);
+      opacity: 0;
+    }
+
+    70% {
+      transform: translateY(4px) scale(1.05);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+  }
+
+  .sendout-animation {
+    animation: sendOut 1s ease-out;
+  }
+
+  @keyframes slideInLeft {
+    0% {
+      transform: translateX(-120%);
+      opacity: 0;
+    }
+
+    70% {
+      transform: translateX(6%);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInRight {
+    0% {
+      transform: translateX(120%);
+      opacity: 0;
+    }
+
+    70% {
+      transform: translateX(-6%);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .slide-in-left {
+    animation: slideInLeft 0.5s ease-out;
+  }
+
+  .slide-in-right {
+    animation: slideInRight 0.5s ease-out;
+  }
+
+  /* Flying up and disappearing into the sky */
+  @keyframes flyAway {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+
+
+    100% {
+      transform: translateY(-140px) scale(0.3);
+      opacity: 0;
+    }
+  }
+
+
+  .fly-animation {
+    animation: flyAway 0.4s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+  }
+
+  /* Digging into the ground */
+  @keyframes digDown {
+    0% {
+      transform: translateY(0) scaleY(1);
+      opacity: 1;
+    }
+
+    40% {
+      transform: translateY(40px) scaleY(0.9);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(70px) scaleY(0.5);
+      opacity: 0;
+    }
+  }
+
+  .dig-animation {
+    animation: digDown 0.6s ease-in forwards;
+  }
+
+  /* Diving into water */
+  @keyframes diveIn {
+    0% {
+      transform: translateY(0) scale(1) rotate(0deg);
+      opacity: 1;
+    }
+
+    50% {
+      transform: translateY(30px) scale(0.9) rotate(15deg);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(70px) scale(0.4) rotate(30deg);
+      opacity: 0;
+    }
+  }
+
+  .dive-animation {
+    animation: diveIn 0.7s ease-in forwards;
+  }
+
+  /* Scrollbar del log de batalla — estilo rectangular a juego con la caja blanca/negra */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: oklch(27.8% 0.033 256.848);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #333333;
+  }
+
+  .tint-loop {
+    position: absolute;
+    pointer-events: none;
+    mix-blend-mode: color;
+    animation: tint-pulse var(--tint-duration, 1.2s) ease-in-out infinite;
+  }
+
+  @keyframes tint-pulse {
+
+    0%,
+    35% {
+      opacity: 0;
+    }
+
+    55%,
+    85% {
+      opacity: 0.55;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /*For animating changing the color of sprite */
+
+  .tint {
+    position: absolute;
+    pointer-events: none;
+    mix-blend-mode: color;
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+  }
+
+  .tint-visible {
+    opacity: 1;
+  }

@@ -8,6 +8,10 @@ import HostBattle from './HostBattle.jsx'
 
 import { getRandomPin } from './helpers.js'
 import JoinBattle from './JoinBattle.jsx'
+import Settings from './Settings.jsx'
+
+import { ThemeProvider } from './ThemeContext.jsx';
+import { SettingsProvider } from './SettingsContext.jsx';
 
 const router = createHashRouter([
   {
@@ -17,6 +21,11 @@ const router = createHashRouter([
   {
     path: '/battle',
     element: <Battle />
+    
+  },
+  {
+    path: '/settings',
+    element: <Settings />
     
   },
   {
@@ -66,5 +75,9 @@ const router = createHashRouter([
 ])
 
 export default function App() {
-  return <RouterProvider router={router} />
+  return <ThemeProvider>
+    <SettingsProvider>
+    <RouterProvider router={router} />
+    </SettingsProvider>
+  </ThemeProvider>
 }

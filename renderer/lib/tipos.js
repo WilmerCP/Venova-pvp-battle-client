@@ -18,96 +18,114 @@ import tierra from '../assets/icons/ground.svg';
 import veneno from '../assets/icons/poison.svg';
 import volador from '../assets/icons/flying.svg';
 
-// 2. Diccionario de tipos con su name, color hexadecimal (estilo GBA/DS) e image asociada
+// 2. Diccionario de tipos con su name, lightColor hexadecimal (estilo GBA/DS) e image asociada
 const POKEMON_TYPES = {
   Normal: {
     name: "Normal",
-    color: "#919AA2",
+    color: "#686665",
+    lightColor: "#919AA2",
     image: normal
   },
   Fire: {
     name: "Fire",
-    color: "#FF9741",
+    color: "#e93b10",
+    lightColor: "#FF9741",
     image: fuego
   },
   Water: {
     name: "Water",
-    color: "#4C92DF",
+    color: "#1566c9",
+    lightColor: "#4C92DF",
     image: agua
   },
   Grass: {
     name: "Grass",
-    color: "#63BC5A",
+    color: "#199b17",
+    lightColor: "#63BC5A",
     image: planta
   },
   Electric: {
     name: "Electric",
-    color: "#F6D030",
+    color: "#e9ba00",
+    lightColor: "#F6D030",
     image: electrico
   },
   Ice: {
     name: "Ice",
-    color: "#65CCBD",
+    color: "#1c9c8d",
+    lightColor: "#65CCBD",
     image: hielo
   },
   Fighting: {
     name: "Fighting",
-    color: "#CE4069",
+    color: "#a51e29",
+    lightColor: "#CE4069",
     image: lucha
   },
   Poison: {
     name: "Poison",
-    color: "#AA66CC",
+    color: "#61168d",
+    lightColor: "#AA66CC",
     image: veneno
   },
   Ground: {
     name: "Ground",
-    color: "#D97746",
+    color: "#91551e",
+    lightColor: "#D97746",
     image: tierra
   },
   Flying: {
     name: "Flying",
-    color: "#89AAE3",
+    color: "#416fbe",
+    lightColor: "#89AAE3",
     image: volador
   },
   Psychic: {
     name: "Psychic",
-    color: "#FA6C76",
+    color: "#e9263c",
+    lightColor: "#FA6C76",
     image: psiquico
   },
   Bug: {
     name: "Bug",
-    color: "#91C12F",
+    color: "#649B1F",
+    lightColor: "#91C12F",
     image: bicho
   },
   Rock: {
     name: "Rock",
-    color: "#C5B679",
+    color: "#7c6924",
+    lightColor: "#C5B679",
     image: roca
   },
   Ghost: {
     name: "Ghost",
-    color: "#5269AC",
+    color: "#222d50",
+    lightColor: "#5269AC",
     image: fantasma
   },
   Dragon: {
     name: "Dragon",
-    color: "#4C63B6",
+    color: "#04124d",
+    lightColor: "#4C63B6",
     image: dragon
   },
   Dark: {
     name: "Dark",
-    color: "#5A5366",
+    color: "#211e25",
+    lightColor: "#5A5366",
     image: siniestro
   },
   Steel: {
     name: "Steel",
-    color: "#5A8EA1",
+    color: "#1a5368",
+    lightColor: "#5A8EA1",
     image: acero
   },
   Fairy: {
     name: "Fairy",
-    color: "#EC8FE6",
+    color: "#C45DBE",
+    lightColor: "#EC8FE6",
     image: hada
   }
 };

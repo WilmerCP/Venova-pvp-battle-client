@@ -28,7 +28,7 @@ export default function PokemonButton({ pokemon, onClick }) {
                 py-1.5 px-3 rounded-sm
                 transition-all duration-100
                 flex flex-row items-center justify-start gap-2
-                bg-white/90 border border-black/10"
+                bg-white border border-black/10"
       style={{
         borderBottom: `3px solid rgba(0, 0, 0, 0.4)`,
         boxShadow: 'inset 1px 1px 0px rgba(255,255,255,0.2)',

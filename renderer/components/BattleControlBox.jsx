@@ -5,6 +5,10 @@ import PokeSelection from './PokeSelection.jsx'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 
+
+import { useTheme } from '../ThemeContext.jsx';
+
+
 export default function BattleControlBox({ battleLog, handlers, availableMoves, availablePokemon,
   switchRequired, animationPlaying, currentLog, battleEnded, waiting }) {
 
@@ -26,10 +30,15 @@ export default function BattleControlBox({ battleLog, handlers, availableMoves, 
 
   }, [battleLog, effectiveMenuState])
 
+  const { theme } = useTheme();
+
+  const { specialBackground, logBackground, contrastText } = theme;
+
+
   return (
     <>
       {effectiveMenuState !== 'animating' && (
-        <div className={`absolute bottom-0 left-0 right-0 h-40 bg-white border-t-4 border-gray-800 z-20
+        <div className={`absolute bottom-0 left-0 right-0 h-40 ${logBackground} border-t-4 border-gray-800 z-20
                      ${effectiveMenuState !== 'pokemon' ? 'grid grid-cols-5' : ''}`}>
 
           {/* Columna izquierda: log de combate */}
@@ -44,7 +53,7 @@ export default function BattleControlBox({ battleLog, handlers, availableMoves, 
           )}
 
           {/* Columna derecha: menú de acciones */}
-          <div className="flex items-center justify-center col-span-3 special-background h-full">
+          <div className={`flex items-center justify-center col-span-3 ${specialBackground} h-full`}>
             {effectiveMenuState === 'main' && (
               <ActionMenu
                 onFight={() => setMenuState('moves')}
@@ -81,13 +90,13 @@ export default function BattleControlBox({ battleLog, handlers, availableMoves, 
       )
       }
       {effectiveMenuState === 'animating' && (
-        <div className={`absolute bottom-0 left-0 right-0 h-40 bg-white border-t-4 border-gray-800 flex items-center justify-center z-20`}>
+        <div className={`absolute bottom-0 left-0 right-0 h-40 ${logBackground} border-t-4 border-gray-800 flex items-center justify-center z-20`}>
           <p className="text-lg font-mono">{currentLog}</p>
         </div>
       )
       }
       {effectiveMenuState === 'waiting' && (
-        <div className={`absolute bottom-0 left-0 right-0 h-40 bg-white border-t-4 border-gray-800 flex items-center justify-center z-20`}>
+        <div className={`absolute bottom-0 left-0 right-0 h-40 ${logBackground} border-t-4 border-gray-800 flex items-center justify-center z-20`}>
           <p className="text-lg font-mono">Esperando que el rival tome una accion...</p>
           <button
             onClick={handlers.onRun}

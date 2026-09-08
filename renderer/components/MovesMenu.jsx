@@ -4,18 +4,25 @@ import { PiShootingStarFill } from "react-icons/pi";
 import { TiArrowBack } from "react-icons/ti";
 import MoveButton from './MoveButton.jsx';
 
+import { useTheme } from '../ThemeContext.jsx';
+
 export default function MoveMenu({ onSelectMove, onBack, availableMoves, availableMega = false, availableGolden = false }) {
 
     console.log(availableMoves)
+
+    const { theme } = useTheme();
+    
+      const { btnPrimary, btnSecondary, btnNeutral } = theme;
+
     return (
 
         <div className="flex flex-row justify-between gap-2 p-2">
             <div className="grid grid-cols-1 gap-1 pt-1">
-                <button className="bg-red-500 hover:bg-red-400 active:translate-y-1 active:border-1
-                     text-white font-bold rounded-sm w-10 h-10
+                <button className={`active:translate-y-1 active:border-1
+                    rounded-sm w-10 h-10
                      border-l-[3px] border-b-[3px] border-t-[1px] border-r-[1px] border-red-900
                      transition-all duration-100
-                     flex flex-col items-center justify-center"
+                     flex flex-col items-center justify-center ${btnPrimary}`}
                     onClick={onBack}>
                     <TiArrowBack className="w-6 h-6" />
                 </button>

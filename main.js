@@ -247,6 +247,11 @@ ipcMain.handle('get-selected-team', () => {
   return selectedTeam;
 });
 
+ipcMain.handle('erase-selected-team', () => {
+  selectedTeam = null;
+  return { success: true, message: 'Team erased' };
+});
+
 ipcMain.handle('import-team', () => {
   return getTeamFromSaveData();
 });

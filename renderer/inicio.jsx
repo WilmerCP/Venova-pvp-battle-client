@@ -45,6 +45,7 @@ export default function App() {
         type="button"
         className="absolute top-5 right-5 text-amber-100 hover:text-amber-300 transition-transform duration-200 hover:scale-110 active:scale-95 z-10"
         title="Configuración"
+        onClick={() => navigate('/settings')}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

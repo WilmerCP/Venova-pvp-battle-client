@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 
 import PokemonData from './components/PokemonData.jsx';
-import ComboBox from './components/ComboBox';
 import { getMiniSrc, getGenderFromRatio } from './helpers';
 import BlockyButton from './components/BlockyButton';
 import Toast from './components/Toast';
+
+import { useTheme } from './ThemeContext.jsx';
 
 const EMPTY_SLOT = {
     num: null,
@@ -24,6 +25,10 @@ export default function TeamBuilder() {
     const dexData = useLoaderData();
 
     const navigate = useNavigate();
+
+    const { theme } = useTheme();
+
+    const { specialBackground, logBackground, contrastText } = theme;
 
     // Array con los pokemon disponibles + su icono, sin mutar dexData
     const venomonWithIcons = dexData.venomon.map((v) => ({
@@ -87,16 +92,39 @@ export default function TeamBuilder() {
                 setTeam(importedTeam);
                 setMsg("Importación exitosa");
 
-            }else{
+            } else {
 
                 setMsg(result.message);
 
             }
 
-        }else{
+        } else {
 
             setMsg("No se pudo importar el equipo. Asegúrate de tener un equipo guardado en Venova Reforged.");
 
+        }
+
+    }
+
+    const handleDeleteTeam = async () => {
+
+        const team_empty = team.every((value) => value.num === null);
+
+        if (team_empty) {
+
+            setMsg("¡Tu equipo está vacío!");
+
+        } else {
+
+            let result = await window.electronAPI.eraseSelectedTeam();
+
+            if (result.success) {
+                setTeam(Array.from({ length: 6 }, () => ({ ...EMPTY_SLOT })));
+                setMsg("Equipo eliminado exitosamente");
+            }else {
+                setMsg("Hubo un error al intentar borrar el equipo");
+
+            }
         }
 
     }
@@ -123,90 +151,94 @@ export default function TeamBuilder() {
     }, [])
 
     return (
-        <div className="min-h-screen p-6 isometric-background pb-20">
-            <h1 className="text-center text-4xl font-bold text-white/90 mb-6 tracking-wide font-['Russo_One']"
-                style={{
-                    textShadow: `
+        <>
+            <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px]" />
+            <div className={`relative min-h-screen p-6 ${specialBackground} pb-20`}>
+                <h1 className="text-center text-4xl font-bold text-white/90 mb-6 tracking-wide font-['Russo_One']"
+                    style={{
+                        textShadow: `
       3px 3px 0 #5a1010,
       -1px -1px 0 #5a1010,
       1px -1px 0 #5a1010,
       -1px 1px 0 #5a1010,
       0 6px 10px rgba(0,0,0,0.4)
     `
-                }}
-            >
-                Mi equipo
-            </h1>
+                    }}
+                >
+                    Mi equipo
+                </h1>
 
-            {team_empty &&
+                {team_empty &&
 
-                <div
-                    className="py-10 px-3 rounded-xl font-bold text-white
+                    <div
+                        className="py-10 px-3 rounded-xl font-bold text-white
                                 flex flex-col gap-2 items-center justify-center
                                 bg-black/[0.40] border-2 border-dashed border-white/60
                                 max-w-[600px] m-auto"
-                >
-                    ¡Importa tu equipo de Venova Reforged para jugar!
-                </div>
+                    >
+                        ¡Importa tu equipo de Venova Adventures para jugar!
+                    </div>
 
-            }
+                }
 
-            {!team_empty &&
+                {!team_empty &&
 
-                <div className="grid grid-cols-2 gap-4 p-4 max-w-3xl mx-auto">
-                    {team.map((slot, slotIndex) => {
-                        const pokemon = venomonWithIcons.find((v) => v.num === slot.num);
+                    <div className="grid grid-cols-2 gap-4 p-4 max-w-3xl mx-auto">
+                        {team.map((slot, slotIndex) => {
+                            const pokemon = venomonWithIcons.find((v) => v.num === slot.num);
 
-                        if (pokemon) {
-                            return (
-                                <PokemonData
-                                    pokemon={pokemon}
-                                    build={team[slotIndex]}
-                                    key={slotIndex}
-                                />
+                            if (pokemon) {
+                                return (
+                                    <PokemonData
+                                        pokemon={pokemon}
+                                        build={team[slotIndex]}
+                                        key={slotIndex}
+                                    />
 
-                            );
-                        } else {
+                                );
+                            } else {
 
-                            return (<div
-                                className="
+                                return (<div
+                                    className="
         py-3 px-3 rounded-xl font-bold text-gray-400
         flex flex-col gap-2 items-center justify-center
         bg-black/[0.02] border-2 border-dashed border-black/15"
-                                key={slotIndex}
-                            >
-                                -- Slot {slotIndex} --
-                            </div>)
+                                    key={slotIndex}
+                                >
+                                    -- Slot {slotIndex} --
+                                </div>)
 
-                        }
-                    })}
+                            }
+                        })}
+                    </div>
+                }
+
+                {/* Acciones: volver o iniciar combate con el equipo armado */}
+                <div className="flex justify-center gap-3 mt-6 max-w-3xl mx-auto">
+                    <BlockyButton
+                        onClick={() => { navigate('/'); }}
+                        color="#dd8c21"
+                    >
+                        Volver
+                    </BlockyButton>
+
+                    <BlockyButton
+                        onClick={() => { handleImportTeam() }}
+                        color="#059669"
+                    >
+                        Importar equipo
+                    </BlockyButton>
+
+                    <BlockyButton
+                        onClick={() => { handleDeleteTeam() }}
+                        color="#e43926"
+                    >
+                        Borrar equipo
+                    </BlockyButton>
+
                 </div>
-            }
-
-            {/* Acciones: volver o iniciar combate con el equipo armado */}
-            <div className="flex justify-center gap-3 mt-6 max-w-3xl mx-auto">
-                <BlockyButton
-                    onClick={() => { navigate('/'); }}
-                    color="#dd8c21"
-                >
-                    Volver
-                </BlockyButton>
-
-                <BlockyButton
-                    onClick={() => { handleStartBattle() }}
-                    color="#e43926"
-                >
-                    Iniciar combate
-                </BlockyButton>
-
-                <BlockyButton
-                    onClick={() => { handleImportTeam() }}
-                    color="#059669"
-                >
-                    Importar equipo
-                </BlockyButton>
-            </div>
-            <Toast show={msg !== null} onClose={() => setMsg(null)} message={msg} />
-        </div >
+                <Toast show={msg !== null} onClose={() => setMsg(null)} message={msg} />
+            </div >
+        </>
     );
 }

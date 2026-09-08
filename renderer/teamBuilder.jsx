@@ -7,6 +7,8 @@ import { getMiniSrc, getGenderFromRatio } from './helpers';
 import BlockyButton from './components/BlockyButton';
 import Toast from './components/Toast';
 
+import { useTheme } from './ThemeContext.jsx';
+
 
 const EMPTY_SLOT = {
     num: null,
@@ -26,6 +28,10 @@ export default function TeamBuilder() {
 
     const navigate = useNavigate();
 
+    const { theme } = useTheme();
+
+    const { specialBackground, logBackground, contrastText } = theme;
+
     // Array con los pokemon disponibles + su icono, sin mutar dexData
     const venomonWithIcons = dexData.venomon.map((v) => ({
         ...v,
@@ -44,7 +50,7 @@ export default function TeamBuilder() {
         Array.from({ length: 6 }, () => ({ ...EMPTY_SLOT }))
     );
 
-    const [show, setShow] = useState(false); //Toast Component
+    const [msg, setMsg] = useState(null); //Toast Component
 
     // Actualiza un campo específico de un slot puntual
     const updateSlot = (slotIndex, changes) => {
@@ -71,6 +77,26 @@ export default function TeamBuilder() {
         });
     };
 
+    const handleSaveChanges = async () => {
+
+        const team_empty = team.every((value) => value.num === null);
+
+        if (team_empty) {
+
+            setMsg("¡Tu equipo está vacío!");
+
+        } else {
+
+            let result = await window.electronAPI.setSelectedTeam(team);
+
+            if (result.success) {
+                setMsg("Cambios guardados exitosamente");
+            } else {
+                setMsg("Hubo un error al intentar guardar los cambios");
+            }
+        }
+    };
+
     const handleStartBattle = async () => {
 
 
@@ -85,7 +111,7 @@ export default function TeamBuilder() {
         }
 
     }
-    
+
 
     const handleImportTeam = async () => {
 
@@ -97,13 +123,36 @@ export default function TeamBuilder() {
             console.log(importedTeam)
 
             let result = await window.electronAPI.setSelectedTeam(importedTeam);
-            if(result.success){
+            if (result.success) {
 
                 setTeam(importedTeam);
-                setShow(true);
+                setMsg("Importación exitosa");
 
             }
 
+        }
+
+    }
+
+    const handleDeleteTeam = async () => {
+
+        const team_empty = team.every((value) => value.num === null);
+
+        if (team_empty) {
+
+            setMsg("¡Tu equipo está vacío!");
+
+        } else {
+
+            let result = await window.electronAPI.eraseSelectedTeam();
+
+            if (result.success) {
+                setTeam(Array.from({ length: 6 }, () => ({ ...EMPTY_SLOT })));
+                setMsg("Equipo eliminado exitosamente");
+            } else {
+                setMsg("Hubo un error al intentar borrar el equipo");
+
+            }
         }
 
     }
@@ -130,72 +179,83 @@ export default function TeamBuilder() {
     }, [])
 
     return (
-        <div className="min-h-screen p-6 isometric-background pb-20">
-            <h1 className="text-center text-4xl font-bold text-white/90 mb-6 tracking-wide font-['Russo_One']"
-                style={{
-                    textShadow: `
+        <>
+            <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px]" />
+            <div className={`relative min-h-screen p-6 ${specialBackground} pb-20`}>
+                <h1 className="text-center text-4xl font-bold text-white/90 mb-6 tracking-wide font-['Russo_One']"
+                    style={{
+                        textShadow: `
       3px 3px 0 #5a1010,
       -1px -1px 0 #5a1010,
       1px -1px 0 #5a1010,
       -1px 1px 0 #5a1010,
       0 6px 10px rgba(0,0,0,0.4)
     `
-                }}
-            >
-                Team Builder
-            </h1>
-            <div className="grid grid-cols-2 gap-4 p-4 max-w-3xl mx-auto">
-                {team.map((slot, slotIndex) => {
-                    const pokemon = venomonWithIcons.find((v) => v.num === slot.num);
+                    }}
+                >
+                    Team Builder
+                </h1>
+                <div className="grid grid-cols-2 gap-4 p-4 max-w-3xl mx-auto">
+                    {team.map((slot, slotIndex) => {
+                        const pokemon = venomonWithIcons.find((v) => v.num === slot.num);
 
-                    return (
-                        <div key={slotIndex} className="flex flex-col gap-2 rounded-xl p-2
+                        return (
+                            <div key={slotIndex} className="flex flex-col gap-2 rounded-xl p-2
                          bg-white border border-black/10
                          shadow-lg shadow-black/20">
-                            {/* Selector de especie para este slot */}
-                            <ComboBox
-                                options={speciesOptions}
-                                value={slot.num}
-                                onChange={(num) => handleSpeciesSelect(slotIndex, num)}
-                                placeholder={`-- Slot ${slotIndex + 1}: elegir venomon --`}
-                            />
-
-                            {/* Solo mostramos el editor si ya se eligió un pokemon en este slot */}
-                            {pokemon && (
-                                <PokemonEditor
-                                    pokemon={pokemon}
-                                    build={team[slotIndex]}
-                                    onChange={(changes) => updateSlot(slotIndex, { ...changes })}
+                                {/* Selector de especie para este slot */}
+                                <ComboBox
+                                    options={speciesOptions}
+                                    value={slot.num}
+                                    onChange={(num) => handleSpeciesSelect(slotIndex, num)}
+                                    placeholder={`-- Slot ${slotIndex + 1}: elegir venomon --`}
                                 />
-                            )}
-                        </div>
-                    );
-                })}
-            </div>
-            {/* Acciones: volver o iniciar combate con el equipo armado */}
-            <div className="flex justify-center gap-3 mt-6 max-w-3xl mx-auto">
-                <BlockyButton
-                    onClick={() => { navigate('/'); }}
-                    color="#dd8c21"
-                >
-                    Volver
-                </BlockyButton>
 
-                <BlockyButton
-                    onClick={() => { handleStartBattle() }}
-                    color="#e43926"
-                >
-                    Iniciar combate
-                </BlockyButton>
+                                {/* Solo mostramos el editor si ya se eligió un pokemon en este slot */}
+                                {pokemon && (
+                                    <PokemonEditor
+                                        pokemon={pokemon}
+                                        build={team[slotIndex]}
+                                        onChange={(changes) => updateSlot(slotIndex, { ...changes })}
+                                    />
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+                {/* Acciones: volver o iniciar combate con el equipo armado */}
+                <div className="flex justify-center gap-3 mt-6 max-w-3xl mx-auto">
+                    <BlockyButton
+                        onClick={() => { navigate('/'); }}
+                        color="#dd8c21"
+                    >
+                        Volver
+                    </BlockyButton>
 
-                <BlockyButton
-                    onClick={() => { handleImportTeam() }}
-                    color="#059669"
-                >
-                    Importar equipo
-                </BlockyButton>
-            </div>
-            <Toast show={show} onClose={() => setShow(false)} message="Importación exitosa" />
-        </div >
+                    <BlockyButton
+                        onClick={() => { handleImportTeam() }}
+                        color="#059669"
+                    >
+                        Importar equipo
+                    </BlockyButton>
+
+                    <BlockyButton
+                        onClick={() => { handleSaveChanges() }}
+                        color="#059669"
+                    >
+                        Guardar Cambios
+                    </BlockyButton>
+
+                    <BlockyButton
+                        onClick={() => { handleDeleteTeam() }}
+                        color="#e43926"
+                    >
+                        Borrar equipo
+                    </BlockyButton>
+
+                </div>
+                <Toast show={msg !== null} onClose={() => setMsg(null)} message={msg} />
+            </div >
+        </>
     );
 }

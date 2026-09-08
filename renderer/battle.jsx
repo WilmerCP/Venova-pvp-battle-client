@@ -17,6 +17,8 @@ import Sprite from './components/Sprite.jsx'
 
 import useBattleEvents from './hooks/useBattleEvents.js'
 
+import { useSettings } from './SettingsContext.jsx';
+
 import { SunnyLayer, RainLayer, HailLayer, SandstormLayer } from './components/Weather.jsx'
 
 const LOG_TIME = 800 //ms
@@ -132,6 +134,9 @@ export default function Battle() {
     const { battleLog, addBattleLog, battlerSrcs, setBattlerSrcs, availableMoves,
         availablePokemon, waiting, switchRequired, animationQueue, player1, player2,
         pendingAnimation, setPendingAnimation, setWaiting } = useBattleEvents({ p1, p2, mode, playerIdentity });
+
+    //Settings context
+    const { battleAnimations, weatherAnimations } = useSettings();
 
     const processingRef = useRef(false);
     const [isProcessing, setIsProcessing] = useState(true);
@@ -649,7 +654,15 @@ export default function Battle() {
 
                 }
 
-                await handleAnimation(animation);
+                if(battleAnimations) {
+
+                    await handleAnimation(animation);
+
+                }else{
+
+                    await handleAnimation({...animation, still: true});
+
+                }
             }
         } catch (err) {
             console.error('Error procesando animación:', err);
@@ -800,7 +813,6 @@ export default function Battle() {
                     src={enemyBase}
                     className={`absolute top-35 right-1 w-73 h-auto`}
                     alt="Enemy Base"
-                    isIdle={sprite1AnimationClass == ''}
                     ref={sprite1Ref}
                 />
 
@@ -891,10 +903,10 @@ export default function Battle() {
                 }
 
             </div>
-            {weather === "SunnyDay" && <SunnyLayer visible={true} />}
-            {weather === "RainDance" && <RainLayer intensity={130} />}
-            {weather === "Hail" && <HailLayer intensity={45} />}
-            {weather === "Sandstorm" && <SandstormLayer />}
+            {weatherAnimations && weather === "SunnyDay" && <SunnyLayer visible={true} />}
+            {weatherAnimations && weather === "RainDance" && <RainLayer intensity={130} />}
+            {weatherAnimations && weather === "Hail" && <HailLayer intensity={45} />}
+            {weatherAnimations && weather === "Sandstorm" && <SandstormLayer />}
         </>
     )
 }

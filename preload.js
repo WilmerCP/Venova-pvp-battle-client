@@ -12,6 +12,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   joinBattle: (pin) => ipcRenderer.invoke('join-private',pin),
   leaveBattle: () => ipcRenderer.invoke('leave-battle'),
   battleUIReady: () => ipcRenderer.invoke('battle-ui-ready'),
+  eraseSelectedTeam: () => ipcRenderer.invoke('erase-selected-team'),
 
   on: (channel, cb) => ipcRenderer.on(channel, (event, data) => {
   console.log('[IPC]', channel, data);

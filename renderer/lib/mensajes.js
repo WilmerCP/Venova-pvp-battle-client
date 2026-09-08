@@ -84,6 +84,7 @@ const MENSAJES = {
     'boost-accuracy-[1]': '¡La precisión de {pkm} ha aumentado!',
     'boost-accuracy-[0]': '¡La precisión de {pkm} no puede subir más!',
     'prepare-[Fly]': '¡{pkm} se ha elevado en el aire!',
+    'prepare-[Bounce]': '¡{pkm} ha saltado muy alto!',
     'prepare-[Dive]': '¡{pkm} se ha sumergido en el agua!',
     'prepare-[Dig]': '¡{pkm} se ha enterrado en el suelo!',
     'prepare-[Sky Attack]': '¡{pkm} está brillando!',
@@ -114,7 +115,12 @@ const MENSAJES = {
     'upkeep-[Hail]': '¡Está cayendo granizo!',
     'weather-[Hail]': '¡Ha empezado a granizar!',
     'upkeep-[SunnyDay]': '¡El sol brilla intensamente!',
-    'weather-[SunnyDay]': '¡El sol ha salido!'
-
+    'weather-[SunnyDay]': '¡El sol ha salido!',
+    'heal-[Wish]': '¡El Deseo de {pkm} se ha realizado!',
+    'heal-[Water Absorb]': '¡{pkm} ha recuperado salud gracias a su habilidad Absorbe Agua!',
+    'heal-[drain]': `¡{pkm} ha absorbido puntos de salud!`,
+    'heal-[Ingrain]': `¡{pkm} se ha nutrido con sus raíces!`,
+    'heal-[Aqua Ring]': `¡{pkm} ha recuperado salud con Acua Aro!`,
+    'heal-[Leftovers]': `¡{pkm} ha recuperado salud gracias a Restos!`,
 }
 export default MENSAJES;

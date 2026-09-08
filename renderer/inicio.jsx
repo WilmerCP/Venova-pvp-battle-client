@@ -1,5 +1,5 @@
 import './index.css'
-import bg from './assets/fondos/battlebgChampion.png'
+const bg = '/battlebg/battlebgChampion.png';
 import p1 from './assets/iguana.png'
 import p2 from './assets/zamuro.png'
 import BlockyButton from './components/BlockyButton'

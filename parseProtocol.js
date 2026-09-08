@@ -150,6 +150,7 @@ async function parseUpdate(content, win) {
                 //|-heal|p1a: Gurdurr|290/290 tox|[from] drain|[of] p2a: Hitmontop
                 //|-heal|p2a: Motiti|100/100 slp|[silent]
                 //|-heal|p1a: Orquicess|403/403|[from] move: Wish|[wisher] Orquicess
+                //|-heal|p1a: Tugekang|381/381|[from] ability: Water Absorb|[of] p2a: Vairam
 
                 console.log(`${parts[2]} healed to ${parts[3]}`)
 
@@ -277,12 +278,19 @@ async function parseUpdate(content, win) {
 
             case '-immune': {
                 //|-immune|POKEMON
+                //|-immune|p2a: Tugekang|[from] ability: Dry Skin
 
                 const { player, slot, name } = parsePokemonId(parts[2]);
+
+                const { fromInfo, ability, abilityTranslation, ofPokemon } = parseTags(parts.slice(3));
 
                 win.webContents.send('immune', {
                     player: player,   // 'p1'
                     name: name,  // 'Pikachu'
+                    fromInfo,
+                    ability,
+                    abilityTranslation,
+                    ofPokemon
                 })
 
 
@@ -579,7 +587,7 @@ async function parseUpdate(content, win) {
                         const translation = MOVES[move.move] !== undefined ? MOVES[move.move].translation : move.move;
                         const description = MOVES[move.move] !== undefined ? MOVES[move.move].description : 'Movimiento desconocido';
 
-                        move.translation = translation;
+                        move.translation = move.move.includes('Hidden Power') ? 'Poder Oculto' : translation;
                         move.description = description;
                     }
 

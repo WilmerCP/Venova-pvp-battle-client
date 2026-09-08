@@ -1,7 +1,7 @@
 import './index.css'
-import bg from './assets/fondos/battlebgChampion.png'
-import playerBase from './assets/playerbase/playerbaseFieldSandEve.png'
-import enemyBase from './assets/enemybase/enemybaseFieldSandEve.png'
+//import bg from './assets/fondos/battlebgChampion.png'
+//import playerBase from './assets/playerbase/playerbaseFieldSandEve.png'
+//import enemyBase from './assets/enemybase/enemybaseFieldSandEve.png'
 
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
@@ -20,6 +20,8 @@ import useBattleEvents from './hooks/useBattleEvents.js'
 import { useSettings } from './SettingsContext.jsx';
 
 import { SunnyLayer, RainLayer, HailLayer, SandstormLayer } from './components/Weather.jsx'
+
+import { getRandomBackground } from './helpers.js'
 
 const LOG_TIME = 800 //ms
 
@@ -85,6 +87,12 @@ function getSpriteAnimationClass(animationDesc, playerId) {
         case 'Fly-p2':
             return 'fly-animation';
 
+        case 'Bounce-p1':
+            return 'fly-animation';
+
+        case 'Bounce-p2':
+            return 'fly-animation';
+
         case 'Dig-p1':
             return 'dig-animation';
 
@@ -138,11 +146,18 @@ export default function Battle() {
     //Settings context
     const { battleAnimations, weatherAnimations } = useSettings();
 
+    const [{ battlebg, playerbase, enemybase }] = useState(() => getRandomBackground())
+
+    //For animation queue processing
     const processingRef = useRef(false);
     const [isProcessing, setIsProcessing] = useState(true);
 
+
+    //Update visible state when events are animated
     const [p1Visible, setP1Visible] = useState(p1);
     const [p2Visible, setP2Visible] = useState(p2);
+
+    //Source of truth to check and update in between renders
     const p1HPRef = useRef(100);
     const p2HPRef = useRef(100);
 
@@ -505,7 +520,7 @@ export default function Battle() {
 
                     const timeout = setTimeout(() => {
 
-                        setDisplayAbility(undefined);
+                        setDisplayAbility({ pkmName: undefined, abilityName: undefined, player: undefined });
                         resolve();
                     }, 1500);
 
@@ -763,7 +778,7 @@ export default function Battle() {
 
             <div className="flex flex-col items-center justify-center h-screen relative overflow-hidden"
                 style={{
-                    backgroundImage: `url(${bg})`,
+                    backgroundImage: `url(${battlebg})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     width: '100vw',
@@ -808,18 +823,8 @@ export default function Battle() {
                 />
                 }
 
-
                 <img
-                    src={enemyBase}
-                    className={`absolute top-35 right-1 w-73 h-auto`}
-                    alt="Enemy Base"
-                    ref={sprite1Ref}
-                />
-
-
-
-                <img
-                    src={enemyBase}
+                    src={enemybase}
                     className={`absolute top-35 right-1 w-73 h-auto`}
                     alt="Enemy Base"
                 />
@@ -833,7 +838,7 @@ export default function Battle() {
 
                 {/* Barra para mostrar las habilidades activadas P2 */}
 
-                {displayAbility !== undefined && displayAbility.position == 'x2' &&
+                {displayAbility.abilityName !== undefined && displayAbility.position == 'x2' &&
 
                     <AbilityFrame pkmName={displayAbility.pkmName} abilityName={displayAbility.translation} positionClasses="absolute top-48 right-0 slide-in-right" side={'right'} />
 
@@ -867,7 +872,7 @@ export default function Battle() {
 
 
                 <img
-                    src={playerBase}
+                    src={playerbase}
                     className={`absolute bottom-40 -left-3 w-90 h-auto`}
                     alt="Player Base"
                 />
@@ -882,7 +887,7 @@ export default function Battle() {
 
                 {/* Barra para mostrar las habilidades activadas P1*/}
 
-                {displayAbility !== undefined && displayAbility.position == 'x1' &&
+                {displayAbility.abilityName !== undefined && displayAbility.position == 'x1' &&
 
                     <AbilityFrame pkmName={displayAbility.pkmName} abilityName={displayAbility.translation} positionClasses="absolute bottom-48 left-0 slide-in-left" side={'left'} />
 

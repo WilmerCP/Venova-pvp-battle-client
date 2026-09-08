@@ -333,7 +333,7 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
                 event: 'ability',
                 pkmName: data.ofPokemon ? data.ofPokemon.name : data.name,
                 abilityName: data.ability,
-                player: data.ofPokemon ? getPosition(data.ofPokemon.player) : getPosition(data.source.player),
+                position: data.ofPokemon ? getPosition(data.ofPokemon.player) : getPosition(data.source.player),
                 translation: data.abilityTranslation
             });
 
@@ -383,48 +383,42 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
 
         //if (data.maxHp == 100) {
 
-        let log;
+        if (data.ability) {
 
-        switch (data.reason) {
+            scheduleAnimation({
+                event: 'ability',
+                pkmName: data.name,
+                abilityName: data.ability,
+                position: getPosition(data.player),
+                translation: data.abilityTranslation
+            });
+        }
 
-            case 'drain':
+        let log = MENSAJES[`heal-[${data.reason}]`];
 
-                log = data.ofPokemon ? `¡{pkm} ha drenado la salud de ${data.ofPokemon.name}!` : `¡{pkm} ha absorbido puntos de salud!`;
+        if(data.reason == 'drain' && data.ofPokemon){
+            log = `¡{pkm} ha drenado la salud de ${data.ofPokemon.name}!`
+        }
 
-                break;
-            case 'Ingrain':
+        if (log === undefined) {
 
-                log = `¡{pkm} se ha nutrido con sus raíces!`
+            log = `¡{pkm} ha recuperado salud gracias a ${data.reason}!`;
 
-                break;
+        }
 
-            case 'Aqua Ring':
+        if(data.reason == null){
 
-                log = `¡{pkm} ha recuperado salud con Acua Aro!`
+            log = `¡{pkm} ha recuperado salud!`;
 
-                break;
+        }
 
-            case 'Leftovers':
-
-                log = `¡{pkm} ha recuperado salud gracias a Restos!`
-
-                break;
-
-            case 'Wish':
-
-                log = `¡El Deseo de {pkm} se ha realizado!`
-
+        if(data.reason == 'Wish'){
+        
                 scheduleAnimation({
                     event: 'effect',
                     target: getPosition(data.player),
                     name: data.from
                 })
-
-                break;
-
-            default:
-
-                log = data.reason ? `¡{pkm} ha recuperado salud gracias a ${data.reason}!` : `¡{pkm} ha recuperado salud!`
 
         }
 
@@ -483,7 +477,7 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
                 event: 'ability',
                 pkmName: data.ofPokemon ? data.ofPokemon.name : data.pkmName,
                 abilityName: data.ability,
-                player: data.ofPokemon ? getPosition(data.ofPokemon.player) : getPosition(data.player),
+                position: data.ofPokemon ? getPosition(data.ofPokemon.player) : getPosition(data.player),
                 translation: data.abilityTranslation
             });
 
@@ -556,6 +550,8 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
 
                 case 'Dive':
                 case 'Dig':
+                case 'Fly':
+                case 'Bounce':
                 case 'Fly': {
 
                     scheduleAnimation({
@@ -685,6 +681,19 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
     function handleImmune(data) {
 
         let msj = `¡{pkm} es inmune al ataque!`
+
+        if (data.ability) {
+
+            scheduleAnimation({
+                event: 'ability',
+                pkmName: data.ofPokemon ? data.ofPokemon.name : data.name,
+                abilityName: data.ability,
+                position: data.ofPokemon ? getPosition(data.ofPokemon.player) : getPosition(data.player),
+                translation: data.abilityTranslation
+            });
+
+        }
+
         msj = replacePokemonName(msj, data.player, data.name);
         addBattleLog(msj);
 
@@ -799,7 +808,7 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
                 event: 'ability',
                 pkmName: data.ofPokemon ? data.ofPokemon.name : data.name,
                 abilityName: data.ability,
-                player: data.ofPokemon ? getPosition(data.ofPokemon.player) : getPosition(data.player),
+                position: data.ofPokemon ? getPosition(data.ofPokemon.player) : getPosition(data.player),
                 translation: data.abilityTranslation
             });
 

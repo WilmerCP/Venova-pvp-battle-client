@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './index.css'
-import bg from './assets/fondos/battlebgCave.png'
 import BlockyButton from './components/BlockyButton'
+
+const bg = '/battlebg/battlebgCave.png';
 
 export default function JoinBattle() {
     const navigate = useNavigate()

@@ -1,9 +1,8 @@
 import './index.css'
-import bg from './assets/fondos/battlebgSnow.png'
-import p1 from './assets/iguana.png'
-import p2 from './assets/zamuro.png'
 import BlockyButton from './components/BlockyButton'
 import Toast from './components/Toast'
+
+const bg = '/battlebg/battlebgSnow.png';
 
 import { useNavigate, useLoaderData } from 'react-router-dom'
 import { useState, useEffect, use } from 'react'

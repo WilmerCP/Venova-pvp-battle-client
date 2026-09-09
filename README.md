@@ -87,7 +87,65 @@ Esto levanta el servidor de Vite para el renderer y abre la ventana de Electron 
 npm run build
 ```
 
-Genera el build del renderer con Vite y empaqueta la app con electron-builder. El ejecutable final queda en [carpeta de salida, ej. `dist/` o `release/`].
+Genera el renderer con Vite y empaqueta la app en `release/`.
+
+### Windows y Linux con Docker
+
+Requiere Docker Engine con Compose o Docker Desktop en modo contenedores Linux.
+Desde la raíz del repositorio:
+
+```bash
+docker compose build
+docker compose run --rm build
+```
+
+Los archivos quedan en `release/`:
+
+- Windows x86 (32 bits) y x64: instaladores `*-setup.exe` y ejecutables `*-portable.exe`.
+- Linux x64: `.AppImage` y `.deb`.
+
+Para compilar solamente una plataforma:
+
+```bash
+docker compose run --rm build windows
+docker compose run --rm build linux
+```
+
+Ejecuta `docker compose build` después de cambiar el código. Las dependencias se
+instalan con `npm ci` dentro de la imagen; no necesitas Node.js en el host.
+El empaquetado desactiva la recompilación nativa y excluye los módulos SQLite
+opcionales del servidor Showdown: este cliente usa su API JavaScript de simulación
+y validación. Si se agregan dependencias nativas de escritorio, hay que revisar
+esta configuración y proporcionar binarios para cada plataforma.
+Compose conserva las descargas de Electron y electron-builder en volúmenes.
+La imagen usa `linux/amd64`; en hosts ARM requiere emulación y puede ser lenta.
+En Linux los archivos de salida pueden pertenecer a root; puedes recuperar su
+propiedad con `sudo chown -R "$(id -u):$(id -g)" release`.
+
+### macOS y builds de todas las plataformas
+
+El flujo usa un host macOS para producir DMG/ZIP de Intel x64 y Apple Silicon arm64.
+Los contenedores Linux de Docker no proporcionan las herramientas de empaquetado
+y firma de macOS. En un Mac con Node.js 24.21.0:
+
+```bash
+npm ci
+CSC_IDENTITY_AUTO_DISCOVERY=false npm run build:mac
+```
+
+Para generar todas las plataformas, ejecuta **Actions → Build & Release → Run
+workflow** en GitHub. El workflow usa Docker para Windows/Linux y un runner macOS
+para DMG/ZIP. Descarga los resultados desde los artefactos de la ejecución.
+Los tags `v*` también ejecutan el flujo y publican los archivos en GitHub Releases.
+Los builds indicados no están firmados ni notarizados; para distribución firmada
+se deben configurar los certificados correspondientes.
+
+### Servidor
+
+Todos los paquetes usan por defecto `https://venova-legends.adventurex.games`,
+configurado en `src/main/main.js`. No hace falta configurar el servidor al compilar.
+`VENOVA_SERVER_URL` permite cambiarlo **al ejecutar la aplicación** para pruebas;
+una variable definida solamente durante el build no cambia el valor empaquetado.
 
 ## Licencia
 

@@ -17,34 +17,35 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: windows-latest
-            label: windows
-            args: --win --x64 --ia32
+          - os: ubuntu-latest
+            label: windows-linux
           - os: macos-latest
             label: macos
-            args: --mac --x64 --arm64
-          - os: ubuntu-latest
-            label: linux
-            args: --linux --x64
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Build Windows and Linux with Docker
+        if: runner.os == 'Linux'
+        run: |
+          docker compose build
+          docker compose run --rm build
+
       - name: Setup Node
+        if: runner.os == 'macOS'
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24.21.0
           cache: npm
 
       - name: Install dependencies
-        run: npm install
+        if: runner.os == 'macOS'
+        run: npm ci
 
-      - name: Build renderer
-        run: npm run build:renderer
-
-      - name: Build Electron app
-        run: npx electron-builder ${{ matrix.args }} --publish never
+      - name: Build macOS app
+        if: runner.os == 'macOS'
+        run: npm run build:mac
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # No Apple Developer certificate available in CI: skip code signing.

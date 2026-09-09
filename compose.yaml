@@ -1,0 +1,14 @@
+services:
+  build:
+    build:
+      context: .
+    platform: linux/amd64
+    volumes:
+      - ./release:/project/release
+      - electron-cache:/root/.cache/electron
+      - builder-cache:/root/.cache/electron-builder
+    command: [all]
+
+volumes:
+  electron-cache:
+  builder-cache:

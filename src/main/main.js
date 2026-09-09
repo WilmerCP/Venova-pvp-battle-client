@@ -8,6 +8,9 @@ const { getDexData, teamIsValid } = require('./utility.js')
 
 const isDev = !app.isPackaged
 
+// Battle server. Override with VENOVA_SERVER_URL to test against a local server.
+const SERVER_URL = process.env.VENOVA_SERVER_URL || 'https://venova-legends.adventurex.games'
+
 let selectedTeam = null;
 
 let socket
@@ -38,7 +41,7 @@ function connectSocket() {
     if (socket) {
         socket.disconnect();
     }
-    return io('http://localhost:3000');
+    return io(SERVER_URL);
 }
 
 app.whenReady().then(() => {

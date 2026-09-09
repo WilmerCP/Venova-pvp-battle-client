@@ -1,7 +1,6 @@
 const { app, BrowserWindow, Menu, ipcMain } = require('electron')
 const { io } = require('socket.io-client')
 const path = require('path')
-const url = require('url')
 const { parseUpdate } = require('./parseProtocol.js')
 const getTeamFromSaveData = require('./parseGameData.js')
 
@@ -19,6 +18,8 @@ const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    title: 'Venova PVP',
+     icon: path.join(__dirname, '../../build-resources/venobola.ico'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'), // required
       contextIsolation: true,                      // default true, be explicit

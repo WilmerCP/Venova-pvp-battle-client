@@ -39,6 +39,9 @@
   "build": {
     "appId": "com.venova.battles",
     "productName": "Venova PVP",
+    "win": {
+      "icon": "build-resources/icon.ico"
+    },
     "files": [
       "dist/**/*",
       "src/main/**/*",

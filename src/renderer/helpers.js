@@ -1,17 +1,22 @@
 import BACKGROUND_NAMES from './lib/backgrounds.js';
 
+//Obtain valid asset path for paths in public folder in both dev and production builds
+export function asset(path) {
+  return `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+}
+
 //Function to get the path of the icon for a given pokemon number
 export function getMiniSrc(number,{ femaleSprite = false } = {} ) {
     const suffix = `${femaleSprite ? 'f' : ''}`;
     const key = `icon${String(number).padStart(3, '0')}${suffix}.png`;
-    return `/minis/${key}`;
+    return asset(`/minis/${key}`);
 }
 
 //Function to get the path of the battle sprite for a given pokemon number
 export function getBattlerSrc(number, { back = false, shiny = false, femaleSprite = false } = {}) {
     const suffix = `${femaleSprite ? 'f' : ''}${shiny ? 's' : ''}${back ? 'b' : ''}`;
     const key = `${String(number).padStart(3, '0')}${suffix}.png`;
-    return `/battlers/${key}`;
+    return asset(`/battlers/${key}`);
 }
 
 export function getGenderFromRatio(ratio) {
@@ -37,9 +42,9 @@ export function getRandomBackground() {
 
     let assets = {
 
-        'battlebg': `/battlebg/battlebg${pick}.png`,
-        'playerbase': `/playerbase/playerbase${pick}.png`,
-        'enemybase': `/enemybase/enemybase${pick}.png`,
+        'battlebg': asset(`/battlebg/battlebg${pick}.png`),
+        'playerbase': asset(`/playerbase/playerbase${pick}.png`),
+        'enemybase': asset(`/enemybase/enemybase${pick}.png`),
 
 
     }

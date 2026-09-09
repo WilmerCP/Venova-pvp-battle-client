@@ -21,6 +21,8 @@ const EMPTY_SLOT = {
     level: 100,
 };
 
+const dualSprites = [53, 54, 55]; //Tonifin Tonitrich Toniptera
+
 export default function TeamBuilder() {
     const dexData = useLoaderData();
 
@@ -34,7 +36,7 @@ export default function TeamBuilder() {
     const venomonWithIcons = dexData.venomon.map((v) => ({
         ...v,
         icon: getMiniSrc(v.num),
-        femaleIcon: getMiniSrc(v.num, { femaleSprite: v.num == 55 ? true : false }),
+        femaleIcon: getMiniSrc(v.num, { femaleSprite: dualSprites.includes(v.num) ? true : false }),
     }));
 
 

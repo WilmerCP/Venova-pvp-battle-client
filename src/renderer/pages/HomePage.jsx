@@ -6,8 +6,9 @@ import Toast from '../components/Toast';
 
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { asset } from '../helpers.js'
 
-const bg = '/battlebg/battlebgChampion.png';
+const bg = asset('/battlebg/battlebgChampion.png');
 
 export default function HomePage() {
   const navigate = useNavigate()

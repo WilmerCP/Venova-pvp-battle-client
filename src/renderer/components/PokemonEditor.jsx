@@ -9,6 +9,8 @@ const DEFAULT_LEVEL = 100;
 
 const statList = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'];
 
+const dualSprites = [53, 54, 55]; //Tonifin Tonitrich Toniptera
+
 export default function PokemonEditor({
     pokemon,
     build,
@@ -55,7 +57,7 @@ export default function PokemonEditor({
 
         const img = new Image();
 
-        if (pokemon.num == 55 && build.gender == 'F') {
+        if (dualSprites.includes(pokemon.num) && build.gender == 'F') {
 
             setIconSrc(pokemon.femaleIcon);
             img.src = pokemon.femaleIcon;
@@ -67,7 +69,7 @@ export default function PokemonEditor({
         }
 
         img.onerror = () => setIconSrc(DEFAULT_ICON);
-    }, [pokemon.icon]);
+    }, [build.gender, pokemon.num]);
 
     const handleAbilityChange = (value) => {
         onChange({ ability: value });

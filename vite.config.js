@@ -10,7 +10,7 @@ export default defineConfig({
   ],
   base: './',          // important for Electron file:// loading
   build: {
-    outDir: '../dist/',
+    outDir: '../../dist/',
     emptyOutDir: true,
   },
 })

@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import '../styles/index.css'
 import BlockyButton from '../components/BlockyButton'
 
-const bg = '/battlebg/battlebgCave.png';
+import { asset } from '../helpers.js'
+
+const bg = asset('/battlebg/battlebgCave.png');
 
 export default function JoinBattle() {
     const navigate = useNavigate()
@@ -104,12 +106,12 @@ export default function JoinBattle() {
 
             {/* Personajes flotantes en esquinas opuestas */}
             <img
-                src={"battlers/070.png"}
+                src={asset("battlers/070.png")}
                 alt="Player 1"
                 className="absolute left-4 bottom-4 z-20 w-44 md:w-64 lg:w-80 transition-transform duration-300 hover:scale-105 pointer-events-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.7)]"
             />
             <img
-                src={"battlers/126.png"}
+                src={asset("battlers/126.png")}
                 alt="Player 2"
                 className="absolute right-4 top-4 z-20 w-44 md:w-64 lg:w-80 transition-transform duration-300 hover:scale-105 pointer-events-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.7)]"
             />

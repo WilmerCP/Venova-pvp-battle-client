@@ -4,12 +4,10 @@ Aplicación de escritorio (Electron) para batallas PVP, compatible con **Venova 
 
 Pensado para ser compatible con **Venova Adventure Reforged** que se encuentra en etapa de desarrollo.
 
-![HomeScreen](./screenshots/homescreen.png)
-
-![Battle interface](./screenshots/battle2.png)
-
 <p align="center">
-  <img src="./screenshots/attack.gif" width="500" alt="move animation">
+    <img src="./screenshots/homescreen.png" width="500" alt="Start Menu">
+    <img src="./screenshots/attack.gif" width="500" alt="Move Animation">
+    <img src="./screenshots/battle2.png" width="500" alt="Battle Interface">
 </p>
 
 ## Tabla de contenidos
@@ -32,9 +30,11 @@ Pensado para ser compatible con **Venova Adventure Reforged** que se encuentra e
 - Permite desactivar animaciones de batalla si el usuario lo desea.
 - Permite personalizar la interfaz mediante una selección de Temas.
 
-![Host a Match Page](./screenshots/host.png)
-
-![Import Team Page](./screenshots/team.png)
+<p align="center">
+    <img src="./screenshots/host.png" width="500" alt="Host a match">
+    <img src="./screenshots/team.png" width="500" alt="Team Import Page">
+    <img src="./screenshots/battle3.png" width="500" alt="Battle Interface">
+</p>
 
 ## Tecnologías
 

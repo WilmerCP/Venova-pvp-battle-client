@@ -6,6 +6,8 @@ import { getMiniSrc, getBattlerSrc } from '../helpers.js'
 import MENSAJES from '../lib/mensajes.js'
 import EFFECTS from '../lib/efectos.js'
 
+const dualSprites = [53, 54, 55];
+
 
 export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
 
@@ -114,7 +116,7 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
                     log = `¡${data.name}, yo te elijo!`
                 }
 
-                const femaleSprite = data.num == 55 && data.gender == 'F' ? true : false
+                const femaleSprite = dualSprites.includes(data.num) && data.gender == 'F' ? true : false
 
                 scheduleAnimation({
                     event: 'pkmSwitch',
@@ -160,13 +162,15 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
                     log = `¡${data.name} rival ha entrado en combate!`
                 }
 
+                const femaleSprite = dualSprites.includes(data.num) && data.gender == 'F' ? true : false
+
                 scheduleAnimation({
                     event: 'pkmSwitch',
                     position: 'x2',
-                    newSrc: getBattlerSrc(data.num, { back: false, shiny: data.shiny }),
+                    newSrc: getBattlerSrc(data.num, { back: false, shiny: data.shiny, femaleSprite: femaleSprite }),
                     pkmData: data,
-                    batonPass: data.batonPass,
-                    log: log
+                    log: log,
+                    batonPass: data.batonPass
                 });
 
                 scheduleAnimation({
@@ -396,7 +400,7 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
 
         let log = MENSAJES[`heal-[${data.reason}]`];
 
-        if(data.reason == 'drain' && data.ofPokemon){
+        if (data.reason == 'drain' && data.ofPokemon) {
             log = `¡{pkm} ha drenado la salud de ${data.ofPokemon.name}!`
         }
 
@@ -406,19 +410,19 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
 
         }
 
-        if(data.reason == null){
+        if (data.reason == null) {
 
             log = `¡{pkm} ha recuperado salud!`;
 
         }
 
-        if(data.reason == 'Wish'){
-        
-                scheduleAnimation({
-                    event: 'effect',
-                    target: getPosition(data.player),
-                    name: data.from
-                })
+        if (data.reason == 'Wish') {
+
+            scheduleAnimation({
+                event: 'effect',
+                target: getPosition(data.player),
+                name: data.from
+            })
 
         }
 
@@ -443,9 +447,14 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
         //console.log('Available moves updated:', data.active[0].moves)
         //console.log(data.side.pokemon)
 
+        const dualSprites = [53, 54, 55];
+
+
         data.side.pokemon.forEach((poke) => {
 
-            poke.icon = getMiniSrc(poke.num)
+            const femaleSprite = dualSprites.includes(poke.num) && poke.gender == 'F' ? true : false
+
+            poke.icon = getMiniSrc(poke.num, { femaleSprite: femaleSprite });
 
         })
 
@@ -552,7 +561,7 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
                 case 'Dig':
                 case 'Fly':
                 case 'Bounce':
-                case 'Fly': {
+                case 'Shadow Force': {
 
                     scheduleAnimation({
                         event: 'prepare',

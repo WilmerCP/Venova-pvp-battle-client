@@ -1,8 +1,16 @@
 # Venova PVP Battle Client
 
+<p align="center">
+    <img src="./screenshots/attack.gif" width="500" alt="Move Animation">
+</p>
+
 Aplicación de escritorio (Electron) para batallas PVP, compatible con **Venova Adventures**. 
 
 Pensado para ser compatible con **Venova Adventure Reforged** que se encuentra en etapa de desarrollo.
+
+<p align="center">
+    <img src="./screenshots/battle2.png" width="500" alt="Battle Interface">
+</p>
 
 ## Tabla de contenidos
 
@@ -18,11 +26,30 @@ Pensado para ser compatible con **Venova Adventure Reforged** que se encuentra e
 ## Características
 
 - Ofrece una interfaz de combates diseñada para trabajar con el motor de Pokemon Showdown y un Mod que incluye los Venomon del juego.
+
+<p align="center">
+    <img src="./screenshots/battle3.png" width="500" alt="Battle Interface">
+</p>
+
 - Lee los archivos del juego Venova Adventures para importar el equipo usado en el modo historia de partida principal.
+
+<p align="center">
+    <img src="./screenshots/team.png" width="500" alt="Team Import Page">
+</p>
+
 - Genera un código que puede ser compartido con amigos para combatir con ellos en tiempo real.
+
+<p align="center">
+    <img src="./screenshots/host.png" width="500" alt="Host a match">
+</p>
+
 - Incluye un modo de batalla de prueba contra el CPU.
 - Permite desactivar animaciones de batalla si el usuario lo desea.
 - Permite personalizar la interfaz mediante una selección de Temas.
+
+<p align="center">
+    <img src="./screenshots/join.png" width="500" alt="Join a match">
+</p>
 
 ## Tecnologías
 
@@ -146,8 +173,23 @@ configurado en `src/main/main.js`. No hace falta configurar el servidor al compi
 `VENOVA_SERVER_URL` permite cambiarlo **al ejecutar la aplicación** para pruebas;
 una variable definida solamente durante el build no cambia el valor empaquetado.
 
+## Créditos y links
+
+- Basado en los juegos de la franquicia de Pokemon.
+- Spritesheets de [Pokemon Essentials](https://eeveeexpo.com/essentials/news/).
+- Spritesheets de [Craftpix](https://craftpix.net/).
+- Motor de combates [Pokemon Showdown](https://github.com/smogon/pokemon-showdown).
+- Sprites del juego original [Venova Adventures](https://www.instagram.com/venovaregion/).
+- Comunidad de [Venova Adventures](https://www.facebook.com/groups/PokemonVenova/).
+- [Iconos de tipos pokemon](https://github.com/duiker101/pokemon-type-svg-icons).
+
 ## Licencia
 
 Este repositorio está licenciado bajo MIT (ver [LICENSE](./LICENSE)).
 
 > Los assets de terceros (sprites, imágenes, audio, fuentes, etc.) **no** están cubiertos por la licencia MIT y siguen siendo propiedad de sus respectivos titulares de derechos.
+
+
+<p align="center">
+    <img src="./screenshots/homescreen.png" width="500" alt="Start Menu">
+</p>

@@ -55,6 +55,11 @@ const MOVE_ANIMATIONS = {
             cols: 4,
             rows: 3
         },
+        'Come Cables':{
+            src: "Crunch.png",
+            cols: 4,
+            rows: 3
+        },
         'Dragon Claw': {
             src: "Dragon_Claw.png",
             cols: 4,

@@ -5,3 +5,4 @@ reformat.js
 GameData.json
 release
 src/dist
+dist/

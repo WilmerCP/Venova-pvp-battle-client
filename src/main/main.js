@@ -8,7 +8,7 @@ const { getDexData, teamIsValid } = require('./utility.js')
 
 const isDev = !app.isPackaged
 
-const SERVER_URL = isDev ? 'http://localhost:3000' : 'https://venova-legends.adventurex.games/';
+const SERVER_URL = isDev ? 'http://localhost:3000' : 'wss://venova-legends.adventurex.games/';
 
 let selectedTeam = null;
 

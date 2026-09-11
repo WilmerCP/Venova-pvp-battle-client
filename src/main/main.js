@@ -19,7 +19,7 @@ const createWindow = () => {
     width: 800,
     height: 600,
     title: 'Venova PVP',
-     icon: path.join(__dirname, '../../build-resources/venobola.ico'),
+     icon: path.join(__dirname, '../../build-resources/icono.ico'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'), // required
       contextIsolation: true,                      // default true, be explicit

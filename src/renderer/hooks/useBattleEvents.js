@@ -6,6 +6,8 @@ import { getMiniSrc, getBattlerSrc } from '../helpers.js'
 import MENSAJES from '../lib/mensajes.js'
 import EFFECTS from '../lib/efectos.js'
 
+const dualSprites = [53, 54, 55];
+
 
 export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
 
@@ -114,8 +116,6 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
                     log = `¡${data.name}, yo te elijo!`
                 }
 
-                const dualSprites = [53, 54, 55];
-
                 const femaleSprite = dualSprites.includes(data.num) && data.gender == 'F' ? true : false
 
                 scheduleAnimation({
@@ -162,13 +162,15 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
                     log = `¡${data.name} rival ha entrado en combate!`
                 }
 
+                const femaleSprite = dualSprites.includes(data.num) && data.gender == 'F' ? true : false
+
                 scheduleAnimation({
                     event: 'pkmSwitch',
                     position: 'x2',
-                    newSrc: getBattlerSrc(data.num, { back: false, shiny: data.shiny }),
+                    newSrc: getBattlerSrc(data.num, { back: false, shiny: data.shiny, femaleSprite: femaleSprite }),
                     pkmData: data,
-                    batonPass: data.batonPass,
-                    log: log
+                    log: log,
+                    batonPass: data.batonPass
                 });
 
                 scheduleAnimation({
@@ -559,7 +561,7 @@ export default function useBattleEvents({ p1, p2, mode, playerIdentity }) {
                 case 'Dig':
                 case 'Fly':
                 case 'Bounce':
-                case 'Fly': {
+                case 'Shadow Force': {
 
                     scheduleAnimation({
                         event: 'prepare',

@@ -87,6 +87,7 @@ const MENSAJES = {
     'prepare-[Bounce]': '¡{pkm} ha saltado muy alto!',
     'prepare-[Dive]': '¡{pkm} se ha sumergido en el agua!',
     'prepare-[Dig]': '¡{pkm} se ha enterrado en el suelo!',
+    'prepare-[Shadow Force]': '¡{pkm} ha desaparecido!',
     'prepare-[Sky Attack]': '¡{pkm} está brillando!',
     'prepare-[Solar Beam]': '¡{pkm} está cargando energía!',
     'prepare-[Skull Bash]': '¡{pkm} ha bajado su cabeza!',

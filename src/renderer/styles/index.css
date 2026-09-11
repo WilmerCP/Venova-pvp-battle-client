@@ -263,6 +263,25 @@
     animation: slideInRight 0.5s ease-out;
   }
 
+  /* Desaparecer como un fantasma */
+@keyframes ghostFade {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    filter: blur(0px);
+  }
+
+  100% {
+    transform: translateY(-40px) scale(1.05);
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+
+.ghost-animation {
+  animation: ghostFade 0.8s ease-out forwards;
+}
+
   /* Flying up and disappearing into the sky */
   @keyframes flyAway {
     0% {

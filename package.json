@@ -40,13 +40,14 @@
     "appId": "com.venova.battles",
     "productName": "Venova PVP",
     "win": {
-      "icon": "build-resources/icon.ico"
+      "icon": "build-resources/icono.ico"
     },
     "files": [
       "dist/**/*",
       "src/main/**/*",
       "data/**/*",
       "node_modules/**/*",
+      "build-resources/**/*",
       "package.json"
     ]
   }

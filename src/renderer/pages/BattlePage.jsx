@@ -101,6 +101,12 @@ function getSpriteAnimationClass(animationDesc, playerId) {
 
         case 'Dive-p2':
             return 'dive-animation';
+        
+        case 'Shadow Force-p1':
+            return 'ghost-animation';
+
+        case 'Shadow Force-p2':
+            return 'ghost-animation';
 
         default:
             return '';

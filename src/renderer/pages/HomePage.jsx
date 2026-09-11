@@ -82,7 +82,7 @@ export default function HomePage() {
           `
         }}
       >
-        Venova Legends
+        Venova Champions
       </h1>
       <p
         className="text-lg text-amber-100 font-medium tracking-wide z-5"
@@ -128,6 +128,9 @@ export default function HomePage() {
       <img src={p1} alt="Player 1" className="w-64 absolute left-5 bottom-10 transform" />
       <img src={p2} alt="Player 2" className="w-64 absolute right-5 top-10 transform" />
       <Toast show={msg !== null} onClose={() => setMsg(null)} message={msg} type={'warning'}/>
+      <span className="absolute bottom-2 text-xs text-amber-100 z-10 text-center" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.5)' }}>
+        Desarrollado por Wilmer Cuevas - Venova Adventures es un Fangame inspirado en Pokémon, hecho por fans para fans.
+      </span>
     </div>
   )
 }

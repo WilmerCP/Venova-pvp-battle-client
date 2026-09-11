@@ -8,6 +8,10 @@ Pensado para ser compatible con **Venova Adventure Reforged** que se encuentra e
 
 ![Battle interface](./screenshots/battle2.png)
 
+<p align="center">
+  <img src="./images/demo.gif" width="500" alt="Demo">
+</p>
+
 ## Tabla de contenidos
 
 - [Características](#características)
@@ -29,6 +33,8 @@ Pensado para ser compatible con **Venova Adventure Reforged** que se encuentra e
 - Permite personalizar la interfaz mediante una selección de Temas.
 
 ![Host a Match Page](./screenshots/host.png)
+
+![Import Team Page](./screenshots/team.png)
 
 ## Tecnologías
 

@@ -33,6 +33,7 @@ const MENSAJES = {
     'cant-[nopp]': '¡{pkm} no tiene suficientes pp!',
     'cant-[recharge]': '¡{pkm} necesita recuperar energía!',
     'cant-[Attract]': '¡{pkm} se duerme en los laureles por el enamoramiento!',
+    'cant-[Disable]': '¡{pkm} no puede usar ese movimiento!',
     'side-condition-[Toxic Spikes]': '¡{pkm} ha sido rodeado por púas tóxicas!',
     'side-condition-[Stealth Rock]': '¡{pkm} ha sido rodeado por rocas afiladas!',
     'side-condition-[Spikes]': '¡{pkm} ha sido rodeado por púas!',

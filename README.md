@@ -119,7 +119,7 @@ Genera el build del renderer con Vite y empaqueta la app con electron-builder. E
 ## Créditos y links
 
 - Basado en los juegos de la franquicia de Pokemon.
-- Spritesheets de [Pokemon Essentials](https://eriantattoo.com).
+- Spritesheets de [Pokemon Essentials](https://eeveeexpo.com/essentials/news/).
 - Spritesheets de [Craftpix](https://craftpix.net/).
 - Motor de combates [Pokemon Showdown](https://github.com/smogon/pokemon-showdown).
 - Sprites del juego original [Venova Adventures](https://www.instagram.com/venovaregion/).

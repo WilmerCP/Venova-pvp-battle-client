@@ -1,12 +1,14 @@
 # Venova PVP Battle Client
 
+<p align="center">
+    <img src="./screenshots/attack.gif" width="500" alt="Move Animation">
+</p>
+
 Aplicación de escritorio (Electron) para batallas PVP, compatible con **Venova Adventures**. 
 
 Pensado para ser compatible con **Venova Adventure Reforged** que se encuentra en etapa de desarrollo.
 
 <p align="center">
-    <img src="./screenshots/homescreen.png" width="500" alt="Start Menu">
-    <img src="./screenshots/attack.gif" width="500" alt="Move Animation">
     <img src="./screenshots/battle2.png" width="500" alt="Battle Interface">
 </p>
 
@@ -119,3 +121,8 @@ Genera el build del renderer con Vite y empaqueta la app con electron-builder. E
 Este repositorio está licenciado bajo MIT (ver [LICENSE](./LICENSE)).
 
 > Los assets de terceros (sprites, imágenes, audio, fuentes, etc.) **no** están cubiertos por la licencia MIT y siguen siendo propiedad de sus respectivos titulares de derechos.
+
+
+<p align="center">
+    <img src="./screenshots/homescreen.png" width="500" alt="Start Menu">
+</p>

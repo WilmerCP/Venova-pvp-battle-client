@@ -9,7 +9,7 @@ Pensado para ser compatible con **Venova Adventure Reforged** que se encuentra e
 ![Battle interface](./screenshots/battle2.png)
 
 <p align="center">
-  <img src="./images/demo.gif" width="500" alt="Demo">
+  <img src="./screenshots/attack.gif" width="500" alt="move animation">
 </p>
 
 ## Tabla de contenidos

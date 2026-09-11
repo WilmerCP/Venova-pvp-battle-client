@@ -24,16 +24,29 @@ Pensado para ser compatible con **Venova Adventure Reforged** que se encuentra e
 ## Características
 
 - Ofrece una interfaz de combates diseñada para trabajar con el motor de Pokemon Showdown y un Mod que incluye los Venomon del juego.
+
+<p align="center">
+    <img src="./screenshots/battle3.png" width="500" alt="Battle Interface">
+</p>
+
 - Lee los archivos del juego Venova Adventures para importar el equipo usado en el modo historia de partida principal.
+
+<p align="center">
+    <img src="./screenshots/team.png" width="500" alt="Team Import Page">
+</p>
+
 - Genera un código que puede ser compartido con amigos para combatir con ellos en tiempo real.
+
+<p align="center">
+    <img src="./screenshots/host.png" width="500" alt="Host a match">
+</p>
+
 - Incluye un modo de batalla de prueba contra el CPU.
 - Permite desactivar animaciones de batalla si el usuario lo desea.
 - Permite personalizar la interfaz mediante una selección de Temas.
 
 <p align="center">
-    <img src="./screenshots/host.png" width="500" alt="Host a match">
-    <img src="./screenshots/team.png" width="500" alt="Team Import Page">
-    <img src="./screenshots/battle3.png" width="500" alt="Battle Interface">
+    <img src="./screenshots/join.png" width="500" alt="Join a match">
 </p>
 
 ## Tecnologías

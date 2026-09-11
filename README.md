@@ -95,8 +95,7 @@ Requiere Docker Engine con Compose o Docker Desktop en modo contenedores Linux.
 Desde la raíz del repositorio:
 
 ```bash
-docker compose build
-docker compose run --rm build
+bash docker/build.sh
 ```
 
 Los archivos quedan en `release/`:
@@ -107,11 +106,11 @@ Los archivos quedan en `release/`:
 Para compilar solamente una plataforma:
 
 ```bash
-docker compose run --rm build windows
-docker compose run --rm build linux
+bash docker/build.sh windows
+bash docker/build.sh linux
 ```
 
-Ejecuta `docker compose build` después de cambiar el código. Las dependencias se
+El script actualiza la imagen antes de empaquetar. Las dependencias se
 instalan con `npm ci` dentro de la imagen; no necesitas Node.js en el host.
 El empaquetado desactiva la recompilación nativa y excluye los módulos SQLite
 opcionales del servidor Showdown: este cliente usa su API JavaScript de simulación

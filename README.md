@@ -116,6 +116,16 @@ npm run build
 
 Genera el build del renderer con Vite y empaqueta la app con electron-builder. El ejecutable final queda en [carpeta de salida, ej. `dist/` o `release/`].
 
+## Créditos y links
+
+- Basado en los juegos de la franquicia de Pokemon.
+- Spritesheets de [Pokemon Essentials](https://eriantattoo.com).
+- Spritesheets de [Craftpix](https://craftpix.net/).
+- Motor de combates [Pokemon Showdown](https://github.com/smogon/pokemon-showdown).
+- Sprites del juego original [Venova Adventures](https://www.instagram.com/venovaregion/).
+- Comunidad de [Venova Adventures](https://www.facebook.com/groups/PokemonVenova/).
+- [Iconos de tipos pokemon](https://github.com/duiker101/pokemon-type-svg-icons).
+
 ## Licencia
 
 Este repositorio está licenciado bajo MIT (ver [LICENSE](./LICENSE)).

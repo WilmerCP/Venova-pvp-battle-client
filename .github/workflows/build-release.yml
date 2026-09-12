@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Build Windows and Linux with Docker
         if: runner.os == 'Linux'
@@ -34,7 +34,7 @@ jobs:
 
       - name: Setup Node
         if: runner.os == 'macOS'
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 24.21.0
           cache: npm

@@ -26,8 +26,9 @@
     },
     "files": [
       "src/main/**/*",
-      "src/dist/**/*",
+      "dist/**/*",
       "data/**/*",
+      "build-resources/**/*",
       "package.json",
       "!node_modules/better-sqlite3/**/*",
       "!node_modules/sqlite3/**/*"
@@ -51,7 +52,8 @@
             "ia32"
           ]
         }
-      ]
+      ],
+      "icon": "build-resources/icono.ico"
     },
     "nsis": {
       "oneClick": false,
@@ -114,11 +116,7 @@
     "@vitejs/plugin-react": "^6.0.2",
     "concurrently": "^10.0.3",
     "electron": "^42.4.1",
-<<<<<<< HEAD
-    "electron-builder": "^26.0.12",
-=======
     "electron-builder": "^26.15.3",
->>>>>>> origin
     "nodemon": "^3.1.14",
     "vite": "^8.0.16",
     "wait-on": "^9.0.10",
@@ -128,24 +126,5 @@
   "overrides": {
     "yauzl": "^3.3.1"
   },
-<<<<<<< HEAD
   "homepage": "https://github.com/WilmerCP/Venova-pvp-battle-client"
 }
-=======
-  "build": {
-    "appId": "com.venova.battles",
-    "productName": "Venova PVP",
-    "win": {
-      "icon": "build-resources/icono.ico"
-    },
-    "files": [
-      "dist/**/*",
-      "src/main/**/*",
-      "data/**/*",
-      "node_modules/**/*",
-      "build-resources/**/*",
-      "package.json"
-    ]
-  }
-}
->>>>>>> origin

@@ -37,15 +37,6 @@ const createWindow = () => {
   return win
 }
 
-/*function connectSocket() {
-    if (socket) {
-        socket.disconnect();
-    }
-    return io(SERVER_URL);
-<<<<<<< HEAD
-=======
-}*/
-
 function connectSocket() {
   if (socket) {
     socket.disconnect();
@@ -66,7 +57,6 @@ function connectSocket() {
   });
 
   return newSocket;
->>>>>>> origin
 }
 
 app.whenReady().then(() => {
